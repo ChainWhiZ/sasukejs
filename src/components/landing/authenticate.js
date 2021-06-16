@@ -20,7 +20,10 @@ export default function Authenticate() {
             axios
                 .post(`http://localhost:4000/authenticate/user`, { code: token })
                 .then((response) => {
-                    setUsername(response.data.githubId);
+                    
+                    setUsername(response.data.doc.githubId);
+                  
+                    window.history.pushState({}, {}, "/" );
 
                 });
         }
