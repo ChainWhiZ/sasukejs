@@ -42,19 +42,18 @@ export default function QuestionPost() {
     const [undertakings, setUndertakings] = useState({
         undertaking1: false,
         undertaking2: false
-      });
-      const handleUndertakings = (e) => {
+    });
+    const handleUndertakings = (e) => {
         setUndertakings({ ...undertakings, [e.target.name]: e.target.checked });
-      };
-    const handleCategoryChange=(value) =>{
+    };
+    const handleCategoryChange = (value) => {
         categories.includes(value) ?
             setCategories(categories.filter(category => category !== value)) :
             setCategories((oldArray) => [...oldArray, `${value}`]);
 
     }
 
-    
-    console.log(undertakings)
+
     return (
 
         <>
@@ -179,7 +178,7 @@ export default function QuestionPost() {
                                 icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
                                 checkedIcon={<CheckBoxIcon fontSize="small" />}
                                 name="undertaking1"
-                                checked={undertakings.undertaking1} 
+                                checked={undertakings.undertaking1}
                                 onChange={handleUndertakings}
                                 color="primary"
                             />
@@ -194,7 +193,7 @@ export default function QuestionPost() {
                                 icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
                                 checkedIcon={<CheckBoxIcon fontSize="small" />}
                                 name="undertaking2"
-                                checked={undertakings.undertaking2} 
+                                checked={undertakings.undertaking2}
                                 onChange={handleUndertakings}
                                 color="primary"
                             />
