@@ -13,7 +13,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -26,12 +26,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 const timelines = ["weeks", "days", "months"];
 const categoriesFields = ["frontend", "backend", "smart contract"];
-const approvalTypes = ["I will approve the solution", "The community will approve the solution"]
+const approvalTypes = ["I will approve the solution", "The community will approve the solution"];
 export default function QuestionPost() {
     const classes = useStyles();
     const [questionTitle, setQuestionTitle] = useState('');
     const [githubLink, setGithubLink] = useState('');
     const [days, setDays] = useState(0);
+    const [bountyReward, setBountyReward] = useState(0);
+    const [communityReward, setCommunityReward] = useState(0);
     const [walletAddress, setWalletAddress] = useState('');
     const [categories, setCategories] = useState([]);
     const [approvalType, setApprovalType] = useState('');
@@ -52,34 +54,71 @@ export default function QuestionPost() {
     }
 
     const handleValidation = () => {
+        //check whether github api has data
+        const reg=/https?:\/\/github\.com\/(?:[^\/\s]+\/)+(?:issues\/\d+)/;
         if (questionTitle === '') {
             setOpen(true);
             setErrorMessage("Please enter question title");
         }
-        if (githubLink === '') {
+        else if (!githubLink.match(reg)) {
             setOpen(true);
             setErrorMessage("Please enter github issue link");
         }
-        if (days === 0) {
+        else if (days <= 0) {
             setOpen(true);
-            setErrorMessage("Please enter number of days");
+            setErrorMessage("Please valid number of days");
         }
-        if (walletAddress === '') {
+        else if (walletAddress === '') {
             setOpen(true);
             setErrorMessage("Please enter your wallet address");
         }
-        if (categories === []) {
+        else if (categories === []) {
             setOpen(true);
             setErrorMessage("Please select categories");
         }
-        if (approvalType === '') {
+        else if (approvalType === '') {
             setOpen(true);
             setErrorMessage("Please select approval types");
         }
-        if (undertakings.undertaking1 === false || undertakings.undertaking2 === false) {
+        else if (bountyReward <= 0) {
+            setOpen(true);
+            setErrorMessage("Please valid bounty reward");
+        }
+        else if (approvalType === approvalTypes[1] && communityReward <= 0) {
+            setOpen(true);
+            setErrorMessage("Please valid community reward");
+        }
+        else if (undertakings.undertaking1 === false || undertakings.undertaking2 === false) {
             setOpen(true);
             setErrorMessage("Please comfirm the undertakings");
         }
+        else {
+            handleSubmit();
+        }
+    }
+
+    const handleSubmit = () => {
+        var today = new Date();
+        var timeBegin = today.getTime() / 1000;
+        var timeEnd = timeBegin + (days * 24 * 60 * 60);
+        const data = {
+            githubId:"mishramonalisha76",
+            publicAddress:"abc",
+            questionTitle:questionTitle,
+            githubIssueUrl:githubLink,
+            timeEnd:timeEnd,
+            solvingTimeBegin:timeBegin,
+            votingTimeBegin:approvalType===approvalTypes[1]?timeBegin+Math.floor(0.7 * (timeEnd-timeBegin)) + 1:0 ,
+            bountyReward:bountyReward ,
+            communityReward:communityReward ,
+            isCommunityApprovedSolution:approvalType===approvalTypes[1]?true:false,
+            categories:categories
+        }
+        axios
+        .post(`http://localhost:4000/question/save`, )
+        .then((response) => {
+          console.log(response);
+        });
     }
 
     const handleClose = () => {
@@ -96,13 +135,13 @@ export default function QuestionPost() {
                     <p>Publish your issue and let developers do the rest for you.</p>
                 </Grid>
                 <Grid item xs={12}>
-                    <label>QUESTION TITTLE</label>
-                    <br />
+                    <p>QUESTION TITTLE</p>
+
                     <TextField fullWidth size="small" type={"text"} variant="outlined" value={questionTitle} onChange={(e) => setQuestionTitle(e.target.value)} />
                 </Grid>
                 <Grid item xs={12} >
 
-                    <label>CATEGORY</label>
+                    <p>CATEGORY</p>
                     {categoriesFields.map((category) =>
                         <FormControlLabel
                             value={category}
@@ -125,16 +164,15 @@ export default function QuestionPost() {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
+                    <p>GITHUB LINK</p>
 
                     <TextField size="small" variant="outlined" type={"text"} value={githubLink} onChange={(e) => setGithubLink(e.target.value)} />
 
 
                 </Grid>
-                <Grid item xs={12} md={12}>
 
-                    <label>EXPECTED ITEM OF DELIVERY</label>
-                </Grid>
                 <Grid item xs={12} >
+                    <p>EXPECTED ITEM OF DELIVERY</p>
 
                     <TextField size="small" variant="outlined" type={"number"} value={days} onChange={(e) => setDays(e.target.value)} />
                     <span>DAYS</span>
@@ -151,7 +189,7 @@ export default function QuestionPost() {
 
                 <Grid item xs={12} >
                     <FormControl component="fieldset">
-                        <label>APPROVAL TYPE</label>
+                        <p>APPROVAL TYPE</p>
 
                         <RadioGroup row aria-label="position" name="position" defaultValue="top" value={approvalType} onChange={(e) => setApprovalType(e.target.value)}>
                             {approvalTypes.map(approvalType =>
@@ -169,19 +207,24 @@ export default function QuestionPost() {
 
                 </Grid>
                 <Grid item xs={12}>
-                    <p>COMMUNITY REWARD</p>
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField size="small" variant="outlined" type={"number"} />
+                    <p>BOUNTY REWARD</p>
+                    <TextField size="small" variant="outlined" type={"number"} value={bountyReward} onChange={(e) => { setBountyReward(e.target.value) }} />
 
                     <span>MATIC</span>
 
                 </Grid>
+                {approvalType === approvalTypes[1] ?
+                    <Grid item xs={12}>
+                        <p>COMMUNITY REWARD</p>
+                        <TextField size="small" variant="outlined" type={"number"} value={communityReward} onChange={(e) => { setCommunityReward(e.target.value) }} />
 
+                        <span>MATIC</span>
+
+                    </Grid>
+                    : ""
+                }
                 <Grid item xs={12}>
                     <p>WALLET ADDRESS</p>
-                </Grid>
-                <Grid item xs={12}>
                     <TextField size="small" type={"text"} fullWidth variant="outlined" value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)} />
                 </Grid>
                 <Grid item xs={12}>
@@ -215,7 +258,7 @@ export default function QuestionPost() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" href="#contained-buttons" onClick={() => handleValidation}>
+                    <Button variant="contained" onClick={() => handleValidation()}>
                         Publish
                     </Button>
                 </Grid>
