@@ -5,17 +5,15 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-
-import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import { SettingsSystemDaydreamSharp } from "@material-ui/icons";
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -33,9 +31,7 @@ export default function QuestionPost() {
     const classes = useStyles();
     const [questionTitle, setQuestionTitle] = useState('');
     const [githubLink, setGithubLink] = useState('');
-    const [documentationIpfs, setDocumentationIpfs] = useState('');
     const [days, setDays] = useState(0);
-    const [descriptionType, setDescriptionType] = useState('github');
     const [walletAddress, setWalletAddress] = useState('');
     const [categories, setCategories] = useState([]);
     const [approvalType, setApprovalType] = useState('');
@@ -43,6 +39,8 @@ export default function QuestionPost() {
         undertaking1: false,
         undertaking2: false
     });
+    const [open, setOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const handleUndertakings = (e) => {
         setUndertakings({ ...undertakings, [e.target.name]: e.target.checked });
     };
@@ -51,6 +49,41 @@ export default function QuestionPost() {
             setCategories(categories.filter(category => category !== value)) :
             setCategories((oldArray) => [...oldArray, `${value}`]);
 
+    }
+
+    const handleValidation = () => {
+        if (questionTitle === '') {
+            setOpen(true);
+            setErrorMessage("Please enter question title");
+        }
+        if (githubLink === '') {
+            setOpen(true);
+            setErrorMessage("Please enter github issue link");
+        }
+        if (days === 0) {
+            setOpen(true);
+            setErrorMessage("Please enter number of days");
+        }
+        if (walletAddress === '') {
+            setOpen(true);
+            setErrorMessage("Please enter your wallet address");
+        }
+        if (categories === []) {
+            setOpen(true);
+            setErrorMessage("Please select categories");
+        }
+        if (approvalType === '') {
+            setOpen(true);
+            setErrorMessage("Please select approval types");
+        }
+        if (undertakings.undertaking1 === false || undertakings.undertaking2 === false) {
+            setOpen(true);
+            setErrorMessage("Please comfirm the undertakings");
+        }
+    }
+
+    const handleClose = () => {
+        setOpen(false);
     }
 
 
@@ -90,32 +123,12 @@ export default function QuestionPost() {
                     <p>Provide details about your question</p>
                     <p>This helps the developer better understand your requirements.</p>
                 </Grid>
-                <Grid container item xs={12} md={12} >
-                    <FormControl component="fieldset">
-                        <RadioGroup row aria-label="position" name="position" defaultValue="top" value={descriptionType} onChange={(e) => setDescriptionType(e.target.value)}>
-                            <Grid item xs={12} md={6}>
-                                <label>GITHUB URL</label>
-                                <br />
-                                <FormControlLabel
-                                    value="github"
-                                    control={<Radio color="primary" />}
 
-                                />
-                                <TextField size="small" variant="outlined" type={"text"} value={githubLink} disabled={descriptionType === "github" ? false : true} onChange={(e) => setGithubLink(e.target.value)} />
+                <Grid item xs={12} md={6}>
 
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <label>DOCUMENTATION</label>
-                                <br />
-                                <FormControlLabel
-                                    value="documentation"
-                                    control={<Radio color="primary" />}
+                    <TextField size="small" variant="outlined" type={"text"} value={githubLink} onChange={(e) => setGithubLink(e.target.value)} />
 
-                                />
-                                <TextField size="small" variant="outlined" type={"text"} value={documentationIpfs} disabled={descriptionType === "documentation" ? false : true} onChange={(e) => setDocumentationIpfs(e.target.value)} />
-                            </Grid>
-                        </RadioGroup>
-                    </FormControl>
+
                 </Grid>
                 <Grid item xs={12} md={12}>
 
@@ -202,13 +215,17 @@ export default function QuestionPost() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" href="#contained-buttons">
+                    <Button variant="contained" href="#contained-buttons" onClick={() => handleValidation}>
                         Publish
                     </Button>
                 </Grid>
             </Grid>
 
-
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="warning">
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
 
 
         </>
