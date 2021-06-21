@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
+
 import QuestionHeading from "./questionLeftSection/questionHeading";
 import QuestionStage from "./questionRightSection/questionStage";
 import QuestionDescription from "./questionLeftSection/questionDescription";
@@ -17,17 +19,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QuestionPage(props) {
   const classes = useStyles();
-  console.log(props.match.params.id);
+  useEffect(() => {
+    axios
+      .post(`http://localhost:4000/question/fetch`, {
+        _id: props.match.params.id,
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  });
 
   return (
     <div className={classes.root}>
       <Grid container>
         <Grid item md={8} xs={12}>
-          <QuestionHeading />
-          <QuestionDescription />
+          <QuestionHeading {...props} />
+          <QuestionDescription {...props}/>
         </Grid>
         <Grid item md={4} xs={12}>
-          <QuestionStage />
+          <QuestionStage {...props} />
         </Grid>
       </Grid>
     </div>
