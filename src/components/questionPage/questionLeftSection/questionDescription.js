@@ -29,7 +29,7 @@ export default function QuestionDescription(props) {
         <p>Categories</p>
       </Grid>
 
-      {props.questionCategories.map((category) => (
+      {props.questionCategories && props.questionCategories.length && props.questionCategories.map((category) => (
         <Grid md>
           <p>{category}</p>
         </Grid>

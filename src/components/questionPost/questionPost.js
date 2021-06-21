@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Radio from '@material-ui/core/Radio';
@@ -29,6 +30,7 @@ const categoriesFields = ["frontend", "backend", "smart contract"];
 const approvalTypes = ["I will approve the solution", "The community will approve the solution"];
 export default function QuestionPost() {
     const classes = useStyles();
+    let history = useHistory();
     const [questionTitle, setQuestionTitle] = useState('');
     const [githubLink, setGithubLink] = useState('');
     const [days, setDays] = useState(0);
@@ -101,9 +103,12 @@ export default function QuestionPost() {
         var today = new Date();
         var timeBegin = today.getTime() / 1000;
         var timeEnd = timeBegin + (days * 24 * 60 * 60);
-        const data = {
+        console.log("hi")
+      
+        axios
+        .post(`http://localhost:4000/question/save`, {
             githubId:"mishramonalisha76",
-            publicAddress:"abc",
+            publicAddress:walletAddress,
             questionTitle:questionTitle,
             githubIssueUrl:githubLink,
             timeEnd:timeEnd,
@@ -112,12 +117,13 @@ export default function QuestionPost() {
             bountyReward:bountyReward ,
             communityReward:communityReward ,
             isCommunityApprovedSolution:approvalType===approvalTypes[1]?true:false,
-            categories:categories
-        }
-        axios
-        .post(`http://localhost:4000/question/save`, )
+            questionCategories:categories  
+        })
         .then((response) => {
-          console.log(response);
+            history.push({
+                pathname: `/bounty/${response.data}`,
+                state: { id: response.data }
+              })
         });
     }
 

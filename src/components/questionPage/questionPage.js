@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QuestionPage(props) {
   const classes = useStyles();
+  console.log(props)
   useEffect(() => {
     axios
       .post(`http://localhost:4000/question/fetch`, {
