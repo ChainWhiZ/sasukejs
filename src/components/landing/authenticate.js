@@ -28,6 +28,7 @@ export default function Authenticate() {
           </a>
         ) : (
           <p>{username}</p>
+          
         )}
       </header>
     </div>
