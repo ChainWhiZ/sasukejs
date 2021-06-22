@@ -47,12 +47,12 @@ export default function QuestionHeading(props) {
         </>
       ) : (
         <>
-          <Grid item md={2}>
+          <Grid item md={3}>
             <p>BOUNTY(MATIC)</p>
             <p>{props.bountyReward}</p>
           </Grid>
           {props.timeEnd > seconds ? (
-            <Grid item md={2}>
+            <Grid item md={3}>
               <p>TIME LEFT(DAYS)</p>
               <p>{timeLeft}</p>
             </Grid>
