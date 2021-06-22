@@ -99,8 +99,7 @@ export default function QuestionPost() {
     var today = new Date();
     const timeBegin = Math.floor(new Date().getTime() / 1000);
     var timeEnd = timeBegin + days * 24 * 60 * 60;
-    console.log(timeEnd);
-
+    
     axios
       .post(`http://localhost:4000/question/save`, {
         githubId: "mishramonalisha76",

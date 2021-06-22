@@ -17,7 +17,6 @@ export default function QuestionHeading(props) {
   const classes = useStyles();
   const seconds = Math.floor(new Date().getTime() / 1000);
   const timeLeft = Math.floor((props.timeEnd - seconds) / (3600 * 24));
-  console.log(props);
   return (
     <Grid container spacing={1}>
       <Grid item md={6}>
