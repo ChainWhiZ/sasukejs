@@ -15,6 +15,7 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
+import {categoriesFields} from "../../constants"
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const timelines = ["weeks", "days", "months"];
-const categoriesFields = ["frontend", "backend", "smart contract"];
+
 const approvalTypes = [
   "I will approve the solution",
   "The community will approve the solution",

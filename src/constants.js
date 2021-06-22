@@ -16,3 +16,5 @@ export const completed = {
   heading: "Completed",
   description: "It is completed",
 };
+
+export const categoriesFields = ["frontend", "backend", "smart contract"];
