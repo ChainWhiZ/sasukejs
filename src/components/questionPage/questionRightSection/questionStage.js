@@ -44,8 +44,7 @@ export default function QuestionStage(props) {
                   <p>{solvingPhaseDetails.heading}</p>
                   <p>{solvingPhaseDetails.description}</p>
                 </>
-              ) : props.timeEnd > props.votingTimeBegin &&
-                props.votingTimeBegin > seconds ? (
+              ) : props.timeEnd > seconds ? (
                 <>
                   <p>{votingPhaseDetails.heading}</p>
                   <p>{votingPhaseDetails.description}</p>
