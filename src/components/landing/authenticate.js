@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 export default function Authenticate() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(localStorage.getItem('username'));
 
   useEffect(() => {
     const url = window.location.href;
@@ -13,12 +14,14 @@ export default function Authenticate() {
       axios
         .post(`http://localhost:4000/authenticate/user`, { code: token })
         .then((response) => {
+          localStorage.setItem('username', response.data.doc.githubId);
           setUsername(response.data.doc.githubId);
-
+       
           window.history.pushState({}, {}, "/");
         });
     }
   });
+
   return (
     <div className="App">
       <header className="App-header">
@@ -27,9 +30,16 @@ export default function Authenticate() {
             <button>Login</button>
           </a>
         ) : (
-          <p>{username}</p>
-          
-        )}
+            <>
+              <p>{username}</p>
+
+
+              <Link to="/post" > 
+              <button>Post a Question</button> 
+              </Link>
+
+            </>
+          )}
       </header>
     </div>
   );

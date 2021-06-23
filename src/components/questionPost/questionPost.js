@@ -26,15 +26,11 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-const timelines = ["weeks", "days", "months"];
 
-const approvalTypes = [
-  "I will approve the solution",
-  "The community will approve the solution",
-];
 export default function QuestionPost() {
   const classes = useStyles();
   let history = useHistory();
+  const [username,setUsername]=useState(localStorage.getItem('username'));
   const [questionTitle, setQuestionTitle] = useState("");
   const [githubLink, setGithubLink] = useState("");
   const [days, setDays] = useState(0);
@@ -103,7 +99,7 @@ export default function QuestionPost() {
     
     axios
       .post(`http://localhost:4000/question/save`, {
-        githubId: "mishramonalisha76",
+        githubId: username,
         publicAddress: walletAddress,
         questionTitle: questionTitle,
         githubIssueUrl: githubLink,
