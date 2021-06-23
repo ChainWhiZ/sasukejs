@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export default function QuestionPost() {
     const classes = useStyles();
     let history = useHistory();
-    const [username, setUsername] = useState(localStorage.getItem('username'));
+    const [username] = useState(localStorage.getItem('username'));
     const [questionTitle, setQuestionTitle] = useState("");
     const [githubLink, setGithubLink] = useState("");
     const [days, setDays] = useState(0);
@@ -54,66 +54,65 @@ export default function QuestionPost() {
             ? setCategories(categories.filter((category) => category !== value))
             : setCategories((oldArray) => [...oldArray, `${value}`]);
     };
-    const handleGithubIssueValidation = () => {
+    const handleGithubIssueValidation = async () => {
         console.log('hi')
-        axios
+        return axios
             .post('http://localhost:4000/question/validate',
                 { githubIssueUrl: githubLink })
             .then(response => {
 
-                if (response.status !== 200) {
-                    setOpen(true);
-                    setErrorMessage("Please enter valid github issue link");
+                if (response.status == 200) {
+
+                    return true
                 }
-            });
+            })
+            .catch(err => { return false })
 
 
     }
 
-    const handleValidation = () => {
-
+    const handleValidation = async () => {
+        console.log(await handleGithubIssueValidation());
         const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)+(?:issues\/\d+)/;
         if (questionTitle === "") {
             setOpen(true);
             setErrorMessage("Please enter question title");
-        } else {
-            if (!githubLink.match(reg)) {
-                setOpen(true);
-                setErrorMessage("Please enter github issue link");
-            }
-            else {
-                handleGithubIssueValidation();
-
-
-                if (days <= 0) {
-                    setOpen(true);
-                    setErrorMessage("Please valid number of days");
-                } else if (walletAddress === "") {
-                    setOpen(true);
-                    setErrorMessage("Please enter your wallet address");
-                } else if (categories === []) {
-                    setOpen(true);
-                    setErrorMessage("Please select categories");
-                } else if (approvalType === "") {
-                    setOpen(true);
-                    setErrorMessage("Please select approval types");
-                } else if (bountyReward <= 0) {
-                    setOpen(true);
-                    setErrorMessage("Please valid bounty reward");
-                } else if (approvalType === approvalTypes[1] && communityReward <= 0) {
-                    setOpen(true);
-                    setErrorMessage("Please valid community reward");
-                } else if (
-                    undertakings.undertaking1 === false ||
-                    undertakings.undertaking2 === false
-                ) {
-                    setOpen(true);
-                    setErrorMessage("Please comfirm the undertakings");
-                } else {
-                    handleSubmit();
-                }
-            }
+        } else if (!githubLink.match(reg)) {
+            setOpen(true);
+            setErrorMessage("Please enter github issue link");
         }
+        else if (!await handleGithubIssueValidation()) {
+            setOpen(true);
+            setErrorMessage("Please enter valid github issue link");
+        }
+        if (days <= 0) {
+            setOpen(true);
+            setErrorMessage("Please valid number of days");
+        } else if (walletAddress === "") {
+            setOpen(true);
+            setErrorMessage("Please enter your wallet address");
+        } else if (categories === []) {
+            setOpen(true);
+            setErrorMessage("Please select categories");
+        } else if (approvalType === "") {
+            setOpen(true);
+            setErrorMessage("Please select approval types");
+        } else if (bountyReward <= 0) {
+            setOpen(true);
+            setErrorMessage("Please valid bounty reward");
+        } else if (approvalType === approvalTypes[1] && communityReward <= 0) {
+            setOpen(true);
+            setErrorMessage("Please valid community reward");
+        } else if (
+            undertakings.undertaking1 === false ||
+            undertakings.undertaking2 === false
+        ) {
+            setOpen(true);
+            setErrorMessage("Please comfirm the undertakings");
+        } else {
+            handleSubmit();
+        }
+
     };
 
     const handleSubmit = () => {
