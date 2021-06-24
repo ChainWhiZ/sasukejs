@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Landing from "./landing/landing";
 import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
+import Explore from "./explore/explore";
 export default function RouterComponent() {
   return (
     <Router>
@@ -15,6 +16,7 @@ export default function RouterComponent() {
           return <QuestionPage {...props} />;
         }}
       />
+      <Route path="/explore" component={Explore} />
     </Router>
   );
 }

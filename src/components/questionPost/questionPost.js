@@ -16,7 +16,7 @@ import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
 import { categoriesFields, approvalTypes } from "../../constants"
-import { ContactsOutlined } from "@material-ui/icons";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -151,7 +151,7 @@ export default function QuestionPost() {
     };
 
     return (
-        <>
+        <div className={classes.root}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <p>Post your issue</p>
@@ -213,7 +213,11 @@ export default function QuestionPost() {
                         value={days}
                         onChange={(e) => setDays(e.target.value)}
                     />
-                    <span>DAYS</span>
+                    <Box component="span"
+                        p={1}
+                        border={1}
+                    >Days</Box>
+                    
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <p>Decide how the solution will be approved</p>
@@ -259,7 +263,10 @@ export default function QuestionPost() {
                         }}
                     />
 
-                    <span>MATIC</span>
+                    <Box component="span"
+                        p={1}
+                        border={1}
+                    >MATIC</Box>
                 </Grid>
                 {approvalType === approvalTypes[1] ? (
                     <Grid item xs={12}>
@@ -332,6 +339,6 @@ export default function QuestionPost() {
                     {errorMessage}
                 </Alert>
             </Snackbar>
-        </>
+        </div>
     );
 }
