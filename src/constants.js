@@ -18,8 +18,7 @@ export const completed = {
 };
 
 export const categoriesFields = ["frontend", "backend", "smart contract"];
- 
-export const timelines = ["weeks", "days", "months"];
+
 
 export const approvalTypes = [
   "I will approve the solution",
