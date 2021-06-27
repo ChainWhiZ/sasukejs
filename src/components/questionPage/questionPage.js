@@ -6,6 +6,8 @@ import axios from "axios";
 import QuestionHeading from "./questionLeftSection/questionHeading";
 import QuestionStage from "./questionRightSection/questionStage";
 import QuestionDescription from "./questionLeftSection/questionDescription";
+import QuestionApplicants from "./questionLeftSection/questionApplicants";
+import QuestionActivities from "./questionRightSection/questionActivities";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.primary,
-    backgroundColor:"black"
+    backgroundColor: "black",
   },
 }));
 
@@ -39,9 +41,11 @@ export default function QuestionPage(props) {
         <Grid item md={8} xs={12}>
           <QuestionHeading {...data} />
           <QuestionDescription {...data} />
+          <QuestionApplicants />
         </Grid>
         <Grid item md={4} xs={12}>
           <QuestionStage {...data} />
+          <QuestionActivities />
         </Grid>
       </Grid>
     </div>
