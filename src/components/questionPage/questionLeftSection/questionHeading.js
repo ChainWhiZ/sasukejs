@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import WorkplanSubmit from "../dialogs/workplanSubmit";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -17,6 +18,9 @@ export default function QuestionHeading(props) {
   const classes = useStyles();
   const seconds = Math.floor(new Date().getTime() / 1000);
   const timeLeft = Math.floor((props.timeEnd - seconds) / (3600 * 24));
+  const [openWorkplanDialog, setOpenWorkplanDialog] = useState(false);
+  const questionId= "dgner";
+   
   return (
     <>
       <Grid container spacing={1}>
@@ -40,32 +44,32 @@ export default function QuestionHeading(props) {
                 <p>{timeLeft}</p>
               </Grid>
             ) : (
-              <Grid item md={2}>
-                <p>COMPLETED</p>
-              </Grid>
-            )}
+                <Grid item md={2}>
+                  <p>COMPLETED</p>
+                </Grid>
+              )}
           </>
         ) : (
-          <>
-            <Grid item md={3}>
-              <p>BOUNTY(MATIC)</p>
-              <p>{props.bountyReward}</p>
-            </Grid>
-            {props.timeEnd > seconds ? (
+            <>
               <Grid item md={3}>
-                <p>TIME LEFT(DAYS)</p>
-                <p>{timeLeft}</p>
+                <p>BOUNTY(MATIC)</p>
+                <p>{props.bountyReward}</p>
               </Grid>
-            ) : (
-              <Grid item md={2}>
-                <p>COMPLETED</p>
-              </Grid>
-            )}
-          </>
-        )}
+              {props.timeEnd > seconds ? (
+                <Grid item md={3}>
+                  <p>TIME LEFT(DAYS)</p>
+                  <p>{timeLeft}</p>
+                </Grid>
+              ) : (
+                  <Grid item md={2}>
+                    <p>COMPLETED</p>
+                  </Grid>
+                )}
+            </>
+          )}
 
         <Grid item md={3}>
-          <Button>Submit Work Plan</Button>
+          <Button onClick={() =>  setOpenWorkplanDialog(true)}>Submit Work Plan</Button>
         </Grid>
         <Grid item md={3}>
           <Button>View Github Repo</Button>
@@ -78,6 +82,16 @@ export default function QuestionHeading(props) {
         </Grid>
       </Grid>
       <hr />
+
+      {openWorkplanDialog ?
+        <WorkplanSubmit 
+        open={openWorkplanDialog}
+        handleDialogClose={()=>setOpenWorkplanDialog(false)}
+        questionId={questionId} />
+        :
+        ""
+
+      }
     </>
   );
 }
