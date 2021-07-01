@@ -19,7 +19,7 @@ export default function QuestionActivities(props) {
   return (
     <Grid container spacing={1}>
       <Grid item md={12}>
-        <p>WORKPLANS</p>
+        <p>ALL ACTIVITIES</p>
       </Grid>
     </Grid>
   );

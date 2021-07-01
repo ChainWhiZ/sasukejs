@@ -19,7 +19,7 @@ export default function QuestionApplicants(props) {
   return (
     <Grid container spacing={1}>
       <Grid item md={12}>
-        <p>APPLICANTS</p>
+        <p>WORKPLANS AND SOLUTIONS</p>
       </Grid>
     </Grid>
   );
