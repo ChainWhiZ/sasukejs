@@ -70,7 +70,6 @@ export default function QuestionStage(props) {
                     <>
                       <p>{completed.heading}</p>
                       <p>{completed.description}</p>
-                      <Button onClick={() => setOpenSolveDialog(true)} size="small">{solvingPhaseDetails.buttonLabel}</Button>
                     </>
                   )}
             </CardContent>
