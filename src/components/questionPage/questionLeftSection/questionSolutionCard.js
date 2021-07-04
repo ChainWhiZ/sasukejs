@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QuestionSolutionCard(props) {
     const classes = useStyles();
-
+    const [workplanAuthor, setWorkplanAuthor] = useState("akp");
+    const [solutionAuthors, setSolutionAuthors] = useState(["akp", "akp", "akp"]);
+    const [votes, setVotes] = useState([23, 45, 12]);
 
     return (
         <>
@@ -26,15 +28,15 @@ export default function QuestionSolutionCard(props) {
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12}>
-                            <a >{"akp submitted " + props.workplan}</a>
+                            <a >{workplanAuthor + " submitted " + props.workplan}</a>
                         </Grid>
                         <Grid item xs={12}>
                             <ul className={classes.list}>
                                 {
-                                    props.solutions.map((solution) => (
+                                    props.solutions.map((solution, index) => (
 
                                         <li>
-                                            {"akp submitted " + solution}
+                                            {solutionAuthors[index] + " submitted " + solution + " - " + votes[index]}
                                         </li>
                                     ))
                                 }
