@@ -23,6 +23,7 @@ export default function WorkplanSubmit(props) {
         }
     };
     const handleSubmit = async () => {
+        console.log(localStorage.getItem('username'))
         const timestamp = new Date().getTime();
         const uploadedFile = await fleekStorage.upload({
             apiKey: 'U3QGDwCkWltjBLGG1hATUg==',
@@ -32,7 +33,7 @@ export default function WorkplanSubmit(props) {
         });
         axios
             .post(`http://localhost:4000/workplan/save`, {
-                githubId: username,
+                githubId: localStorage.getItem('username'),
                 workplan: uploadedFile.hash,
                 questionId: props.questionId
             })

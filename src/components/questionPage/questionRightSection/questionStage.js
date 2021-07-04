@@ -26,8 +26,8 @@ export default function QuestionStage(props) {
   const classes = useStyles();
   const seconds = Math.floor(new Date().getTime() / 1000);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
-  const workplanIds = ["jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr"];
-
+  //const workplanIds = ["jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr"];
+console.log(openSolveDialog)
  
   return (
     <>
@@ -77,7 +77,7 @@ export default function QuestionStage(props) {
               <CardActions>
                 {props.isCommunityApprovedSolution ? (
                   props.votingTimeBegin > seconds ? (
-                    <Button size="small">
+                    <Button size="small" onClick={() => setOpenSolveDialog(true)}>
                       {solvingPhaseDetails.buttonLabel}
                     </Button>
                   ) : (
@@ -94,7 +94,7 @@ export default function QuestionStage(props) {
       {openSolveDialog ?
         <SolutionSubmit
           open={openSolveDialog}
-          workplanIds={workplanIds}
+          workplanIds={props.workplanIds}
           handleDialogClose={()=>setOpenSolveDialog(false)} />
         :
         ""

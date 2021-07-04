@@ -41,7 +41,7 @@ export default function QuestionPage(props) {
         <Grid item md={8} xs={12}>
           <QuestionHeading {...data} />
           <QuestionDescription {...data} />
-          <QuestionApplicants />
+          <QuestionApplicants {...data} />
         </Grid>
         <Grid item md={4} xs={12}>
           <QuestionStage {...data} />
