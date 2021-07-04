@@ -47,7 +47,12 @@ export default function QuestionSolutionCard(props) {
                   {applicants.solutionIds &&
                     applicants.solutionIds.length &&
                     applicants.solutionIds.map((solution, index) => (
-                      <li>{solution.userId + " submitted " + solution._id}</li>
+                      <a href="">
+                        {" "}
+                        <li>
+                          {solution.userId + " submitted " + solution._id}
+                        </li>
+                      </a>
                     ))}
                 </ul>
               ) : (
