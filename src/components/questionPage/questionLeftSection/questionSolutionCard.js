@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import CardActions from '@material-ui/core/CardActions';
@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from "@material-ui/core/Grid";
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,9 +19,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function QuestionSolutionCard(props) {
     const classes = useStyles();
-    const [workplanAuthor, setWorkplanAuthor] = useState("akp");
-    const [solutionAuthors, setSolutionAuthors] = useState(["akp", "akp", "akp"]);
-    const [votes, setVotes] = useState([23, 45, 12]);
+    const [applicants, setApplicants] = useState([]);
+    useEffect(() => {
+        axios
+            .post(`http://localhost:4000/workplan/fetch`, {
+                _id: props.workplanId,
+            })
+            .then((response) => {
+                setApplicants(response.data)
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
 
     return (
         <>
@@ -28,15 +38,17 @@ export default function QuestionSolutionCard(props) {
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12}>
-                            <a >{workplanAuthor + " submitted " + props.workplan}</a>
+                            <a hred="#">{applicants.userId + " submitted " + applicants._id}</a>
                         </Grid>
                         <Grid item xs={12}>
                             <ul className={classes.list}>
                                 {
-                                    props.solutions.map((solution, index) => (
+                                    applicants.solutionsIds &&
+                                    applicants.solutionsIds.length &&
+                                    applicants.solutionsIds.map((solution, index) => (
 
                                         <li>
-                                            {solutionAuthors[index] + " submitted " + solution + " - " + votes[index]}
+                                            {solution.userId + " submitted " + solution._id}
                                         </li>
                                     ))
                                 }

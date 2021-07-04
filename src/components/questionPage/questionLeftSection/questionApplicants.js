@@ -16,27 +16,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function QuestionApplicants(props) {
-  const workplans = [{
-    workplan: "ndoeaffedfqergre",
-    solutions: [
-      "hbfqioewf",
-      "weferfqefq"
-    ]
-  },
-  {
-    workplan: "ndoeaffedfqergre",
-    solutions: [
-      "hbfqioewf",
-      "weferfqefq"
-    ]
-  },
-  {
-    workplan: "ndoeaffedfqergre",
-    solutions: [
-      "hbfqioewf",
-      "weferfqefq"
-    ]
-  }];
 
 
   const classes = useStyles();
@@ -46,12 +25,14 @@ export default function QuestionApplicants(props) {
         <p>WORKPLANS AND SOLUTIONS</p>
       </Grid>
       <Grid item md={12}>
-        {workplans.map((workplan) => (
-          <Grid item md={12}>
-            <QuestionSolutionCard {...workplan} />
-            <br/>
-          </Grid>
-        ))
+        {props.workplanIds &&
+          props.workplanIds.length &&
+          props.workplanIds.map((workplanId) => (
+            <Grid item md={12}>
+              <QuestionSolutionCard {...workplanId} />
+              <br />
+            </Grid>
+          ))
 
         }
       </Grid>

@@ -19,7 +19,6 @@ export default function QuestionHeading(props) {
   const seconds = Math.floor(new Date().getTime() / 1000);
   const timeLeft = Math.floor((props.timeEnd - seconds) / (3600 * 24));
   const [openWorkplanDialog, setOpenWorkplanDialog] = useState(false);
-  const questionId= "dgner";
    
   return (
     <>
@@ -87,7 +86,7 @@ export default function QuestionHeading(props) {
         <WorkplanSubmit 
         open={openWorkplanDialog}
         handleDialogClose={()=>setOpenWorkplanDialog(false)}
-        questionId={questionId} />
+        questionId={props._id} />
         :
         ""
 

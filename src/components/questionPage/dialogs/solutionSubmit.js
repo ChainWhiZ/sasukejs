@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,10 +38,21 @@ export default function SolutionSubmit(props) {
         setSoltuion(sols);
     };
 
-    const handleSubmit = (workplanId) => {
-
-        setOpen(false);
-        props.handleDialogClose(false);
+    const handleSubmit = (workplanId,solution) => {
+        axios
+            .post(`http://localhost:4000/solution/save`, {
+                githubId: username,
+                address:"jkdfj",
+                githubLink:solution,
+                _id:workplanId,
+            })
+            .then((response) => {
+                console.log(response);
+                setOpen(false);
+                props.handleDialogClose(false);
+            });
+        
+        
     };
     console.log(props)
 
