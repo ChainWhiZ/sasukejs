@@ -13,7 +13,8 @@ const useStyles = makeStyles({
     float: "left",
     backgroundColor: "ghostwhite",
     padding: "3%",
-    borderRadius: "4% 0 0 4%"
+    borderRadius: "4% 0 0 4%",
+    height: "69%"
   },
   stakeDiv: {
     marginRight: "2%",
@@ -55,7 +56,7 @@ export default function StakingCard(props) {
        
       </div>
       <div className={classes.stakeDiv}>
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" size="small" />
+        <TextField id="outlined-basic" variant="outlined" size="small" />
         <br />
         <br />
         <Button variant="contained">Stake Now</Button>
