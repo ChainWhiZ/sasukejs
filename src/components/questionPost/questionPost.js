@@ -199,7 +199,7 @@ export default function QuestionPost() {
         </Grid>
 
         <Grid item xs={12}>
-          <p>EXPECTED ITEM OF DELIVERY</p>
+          <p>EXPECTED TIME OF DELIVERY</p>
 
           <TextField
             size="small"

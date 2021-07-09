@@ -4,6 +4,8 @@ import Landing from "./landing/landing";
 import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
 import Explore from "./explore/explore";
+import VotingPage  from "./votingPage/votingPage";
+
 export default function RouterComponent() {
   return (
     <Router>
@@ -17,6 +19,7 @@ export default function RouterComponent() {
         }}
       />
       <Route path="/explore" component={Explore} />
+      <Route path="/vote" component={VotingPage} />
     </Router>
   );
 }
