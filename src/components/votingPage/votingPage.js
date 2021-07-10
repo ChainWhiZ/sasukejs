@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import StakingCard from './stakingCard'
+import {useStyles} from './votingPageCss'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
  
-}));
+
 
 export default function VotingPage(props) {
   const classes = useStyles();
@@ -46,7 +42,7 @@ export default function VotingPage(props) {
     <div className={classes.root}>
       <Grid container>
         <Grid item md={12} xs={12}>
-        Cast your vote by staking on solutions
+       <h1>Cast your vote by staking on solutions</h1> 
         </Grid>
       
         {solutions.map(solution =>(

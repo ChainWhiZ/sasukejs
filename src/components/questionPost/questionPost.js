@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -16,17 +15,8 @@ import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
 import { categoriesFields, approvalTypes } from "../../constants";
+import { useStyles } from './questionPostCss';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
 
 export default function QuestionPost() {
   const classes = useStyles();
@@ -147,12 +137,15 @@ export default function QuestionPost() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <p>Post your issue</p>
+      <Grid container spacing={3} container
+        direction="column"
+        justifyContent="center"
+      >
+        <Grid item xs={12} className={classes.heading}>
+          <h1>Post your issue</h1>
           <p>Publish your issue and let developers do the rest for you.</p>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <p>QUESTION TITTLE</p>
 
           <TextField
@@ -164,7 +157,7 @@ export default function QuestionPost() {
             onChange={(e) => setQuestionTitle(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <p>CATEGORY</p>
           {categoriesFields.map((category) => (
             <FormControlLabel
@@ -181,12 +174,12 @@ export default function QuestionPost() {
             />
           ))}{" "}
         </Grid>
-        <Grid item xs={12}>
-          <p>Provide details about your question</p>
+        <Grid item xs={12} className={classes.heading}>
+          <h3>Provide details about your question</h3>
           <p>This helps the developer better understand your requirements.</p>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
           <p>GITHUB LINK</p>
 
           <TextField
@@ -198,7 +191,7 @@ export default function QuestionPost() {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
           <p>EXPECTED TIME OF DELIVERY</p>
 
           <TextField
@@ -212,15 +205,15 @@ export default function QuestionPost() {
             Days
           </Box>
         </Grid>
-        <Grid item xs={12} md={12}>
-          <p>Decide how the solution will be approved</p>
+        <Grid item xs={12} md={12} className={classes.heading}>
+          <h3>Decide how the solution will be approved</h3>
           <p>
             You can either self approve the solution or let the community vote
             and decide.
           </p>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <FormControl component="fieldset">
             <p>APPROVAL TYPE</p>
 
@@ -244,7 +237,7 @@ export default function QuestionPost() {
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <p>BOUNTY REWARD</p>
           <TextField
             size="small"
@@ -261,7 +254,7 @@ export default function QuestionPost() {
           </Box>
         </Grid>
         {approvalType === approvalTypes[1] ? (
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.marginLeftRight10}>
             <p>COMMUNITY REWARD</p>
             <TextField
               size="small"
@@ -272,13 +265,14 @@ export default function QuestionPost() {
                 setCommunityReward(e.target.value);
               }}
             />
-
-            <span>MATIC</span>
+            <Box component="span" p={1} border={1}>
+              MATIC
+            </Box>
           </Grid>
         ) : (
           ""
         )}
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <p>WALLET ADDRESS</p>
           <TextField
             size="small"
@@ -289,7 +283,7 @@ export default function QuestionPost() {
             onChange={(e) => setWalletAddress(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <FormControlLabel
             control={
               <Checkbox
@@ -304,7 +298,7 @@ export default function QuestionPost() {
             label="I have read, understand, and agree to, the Terms of Service."
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <FormControlLabel
             control={
               <Checkbox
@@ -319,7 +313,7 @@ export default function QuestionPost() {
             label="I agree to pay the proposed amount to the fulfiller(s) if the submitted fulfillment meets the standards I have set forth."
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.marginLeftRight10}>
           <Button variant="contained" onClick={() => handleValidation()}>
             Publish
           </Button>

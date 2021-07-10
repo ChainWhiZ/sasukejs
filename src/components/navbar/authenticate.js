@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import eventBus from "../EventBus";
+import Button from '@material-ui/core/Button';
 
 export default function Authenticate() {
   const [username, setUsername] = useState(localStorage.getItem('username'));
@@ -15,6 +16,7 @@ export default function Authenticate() {
         .post(`http://localhost:4000/authenticate/user`, { code: token })
         .then((response) => {
           localStorage.setItem('username', response.data.doc.githubId);
+          eventBus.dispatch("loginSuccessful", { message: "login is successful" });
           setUsername(response.data.doc.githubId);
        
           window.history.pushState({}, {}, "/");
@@ -34,10 +36,7 @@ export default function Authenticate() {
               <p>{username}</p>
 
 
-              <Link to="/post" > 
-              <button>Post a Question</button> 
-              </Link>
-
+           
             </>
           )}
       </header>
