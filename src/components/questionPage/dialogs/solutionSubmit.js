@@ -132,7 +132,7 @@ export default function SolutionSubmit(props) {
                 </CardContent>
                 <CardActions>
                   <Button
-                    onClick={() => handleSubmit(workplanId, solutions[index])}
+                    onClick={async() =>  await handleSubmit(workplanId, solutions[index])}
                   >
                     Submit
                   </Button>
