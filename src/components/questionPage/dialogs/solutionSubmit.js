@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
@@ -11,46 +11,82 @@ import { makeStyles } from "@material-ui/core/styles";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import axios from "axios";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "50%",
-    overflow: "scroll",
-  },
-}));
+import {
+  initiliaseWeb3,
+  fetchAccount,
+  initiliaseContract,
+} from "../../../web3js/web3";
 
 export default function SolutionSubmit(props) {
-  const classes = useStyles();
   const [open, setOpen] = useState(props.open);
-  const [scroll, setScroll] = useState("paper");
-  const [solution, setSolution] = useState("");
-  const [username] = localStorage.getItem("username");
-  const [solutions, setSoltuion] = useState([]);
+  const [scroll] = useState("paper");
+  const [walletAddress, setWalletAddress] = useState("");
+  const [solutions, setSolution] = useState([]);
+  const [contract, setContract] = useState("");
+  const [isSuccess, setSuccess] = useState(false);
+
+  useEffect(async () => {
+    await initiliaseWeb3();
+    await fetchAccount(function (result) {
+      setWalletAddress(result[0]);
+    });
+    setContract(await initiliaseContract());
+  }, []);
+
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
   };
+
   const handleChange = (value, index) => {
     const sols = solutions;
     sols[index] = value;
-    setSoltuion(sols);
+    setSolution(sols);
   };
 
-  const handleSubmit = (workplanId, solution) => {
-    axios
-      .post(`http://localhost:4000/solution/save`, {
-        githubId: localStorage.getItem("username"),
-        address: "jkdfj",
-        githubLink: solution,
-        _id: workplanId,
+  const solutionPosting = async (solution) => {
+    try {
+      await contract.methods
+        .solutionPosting(
+          props.quesDetails.publicAddress,
+          props.quesDetails.githubIssueUrl,
+          solution
+        )
+        .send({ from: walletAddress }, async function (error, transactionHash) {
+          if (transactionHash) {
+            setSuccess(true);
+            console.log(isSuccess);
+          }
+        })
+        .on("error", function (error) {});
+    } catch (err) {
+      alert(err);
+    }
+  };
+  
+  const handleSubmit = async (workplanId, solution) => {
+    await solutionPosting(solution)
+      .then(async () => {
+        if (isSuccess) {
+          console.log(isSuccess);
+          await axios
+            .post(`http://localhost:4000/solution/save`, {
+              githubId: localStorage.getItem("username"),
+              address: walletAddress,
+              githubLink: solution,
+              _id: workplanId,
+            })
+            .then(async (response) => {
+              console.log(response);
+              setOpen(false);
+              props.handleDialogClose(false);
+            });
+        }
       })
-      .then((response) => {
-        console.log(response);
-        setOpen(false);
-        props.handleDialogClose(false);
+      .catch((error) => {
+        alert(error);
       });
   };
-  console.log(props);
 
   return (
     <Dialog
@@ -62,13 +98,13 @@ export default function SolutionSubmit(props) {
       <DialogTitle id="simple-dialog-title">Submit Solution</DialogTitle>
       <DialogContent dividers={scroll === "paper"}>
         <DialogContentText id="scroll-dialog-description">
-          {props.workplanIds.map((workplanId, index) => (
+          {props.quesDetails.workplanIds.map((workplanId, index) => (
             <>
               <Card>
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                    <a href="#">{workplanId}</a>
+                      <a href="#">{workplanId}</a>
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
@@ -79,6 +115,17 @@ export default function SolutionSubmit(props) {
                         label="Solution github link"
                         value={solutions[index]}
                         onChange={(e) => handleChange(e.target.value, index)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <p>Wallet Address</p>
+                      <TextField
+                        size="small"
+                        type={"text"}
+                        fullWidth
+                        variant="outlined"
+                        value={walletAddress}
+                        disabled
                       />
                     </Grid>
                   </Grid>

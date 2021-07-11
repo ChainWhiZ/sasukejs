@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -23,13 +20,11 @@ export default function QuestionSolutionCard(props) {
         _id: props.workplanId,
       })
       .then((response) => {
-        console.log(response);
         setApplicants(response.data);
       })
-      .catch((err) => console.log(err));
-  }, [applicants._id]);
+      .catch((err) => alert(err));
+  }, [applicants._id, props.workplanId]);
 
-  console.log(applicants);
   return (
     <>
       <Card>
@@ -54,9 +49,7 @@ export default function QuestionSolutionCard(props) {
                       </a>
                     ))}
                 </ul>
-              ) : (
-                ""
-              )}
+              ) : null}
             </Grid>
           </Grid>
         </CardContent>
