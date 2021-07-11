@@ -131,7 +131,7 @@ export default function QuestionPost() {
       setOpen(true);
       setErrorMessage("Please confirm the undertakings");
     } else {
-      handleSubmit();
+      await handleSubmit();
     }
   };
 
