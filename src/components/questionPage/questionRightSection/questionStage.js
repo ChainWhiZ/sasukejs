@@ -26,9 +26,7 @@ export default function QuestionStage(props) {
   const classes = useStyles();
   const seconds = Math.floor(new Date().getTime() / 1000);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
-  //const workplanIds = ["jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr"];
-console.log(openSolveDialog)
- 
+
   return (
     <>
       <Grid container>
@@ -37,10 +35,10 @@ console.log(openSolveDialog)
             IN PROGRESS
           </Grid>
         ) : (
-            <Grid item md={12}>
-              COMPLETED
-            </Grid>
-          )}
+          <Grid item md={12}>
+            COMPLETED
+          </Grid>
+        )}
         <Grid item md={12}>
           <Card>
             <CardContent>
@@ -56,50 +54,57 @@ console.log(openSolveDialog)
                     <p>{votingPhaseDetails.description}</p>
                   </>
                 ) : (
-                      <>
-                        <p>{completed.heading}</p>
-                        <p>{completed.description}</p>
-                      </>
-                    )
+                  <>
+                    <p>{completed.heading}</p>
+                    <p>{completed.description}</p>
+                  </>
+                )
               ) : props.timeEnd > seconds ? (
                 <>
                   <p>{solvingPhaseDetails.heading}</p>
                   <p>{solvingPhaseDetails.description}</p>
                 </>
               ) : (
-                    <>
-                      <p>{completed.heading}</p>
-                      <p>{completed.description}</p>
-                    </>
-                  )}
+                <>
+                  <p>{completed.heading}</p>
+                  <p>{completed.description}</p>
+                </>
+              )}
             </CardContent>
             {seconds <= props.timeEnd && (
               <CardActions>
                 {props.isCommunityApprovedSolution ? (
                   props.votingTimeBegin > seconds ? (
-                    <Button size="small" onClick={() => setOpenSolveDialog(true)}>
+                    <Button
+                      size="small"
+                      onClick={() => setOpenSolveDialog(true)}
+                    >
                       {solvingPhaseDetails.buttonLabel}
                     </Button>
                   ) : (
-                      <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
-                    )
+                    <Button size="small">
+                      {votingPhaseDetails.buttonLabel}
+                    </Button>
+                  )
                 ) : (
-                    <Button onClick={() => setOpenSolveDialog(true)} size="small">{solvingPhaseDetails.buttonLabel}</Button>
-                  )}
+                  <Button onClick={() => setOpenSolveDialog(true)} size="small">
+                    {solvingPhaseDetails.buttonLabel}
+                  </Button>
+                )}
               </CardActions>
             )}
           </Card>
         </Grid>
       </Grid>
-      {openSolveDialog ?
+      {openSolveDialog ? (
         <SolutionSubmit
           open={openSolveDialog}
-          workplanIds={props.workplanIds}
-          handleDialogClose={()=>setOpenSolveDialog(false)} />
-        :
+          quesDetails={props}
+          handleDialogClose={() => setOpenSolveDialog(false)}
+        />
+      ) : (
         ""
-
-      }
+      )}
     </>
   );
 }

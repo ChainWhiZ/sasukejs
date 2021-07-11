@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function QuestionApplicants(props) {
-  console.log(props);
   const classes = useStyles();
   return (
     <Grid container spacing={1}>
@@ -24,14 +23,18 @@ export default function QuestionApplicants(props) {
         <p>WORKPLANS AND SOLUTIONS</p>
       </Grid>
       <Grid item md={12}>
-        {props.workplanIds &&
-          props.workplanIds.length &&
-          props.workplanIds.map((workplanId) => (
-            <Grid item md={12}>
-              <QuestionSolutionCard workplanId={workplanId} />
-              <br />
-            </Grid>
-          ))}
+        {props.workplanIds && props.workplanIds.length !== 0 ? (
+          <>
+            {props.workplanIds &&
+              props.workplanIds.length &&
+              props.workplanIds.map((workplanId, index) => (
+                <Grid item md={12}>
+                  <QuestionSolutionCard workplanId={workplanId} />
+                  <br />
+                </Grid>
+              ))}
+          </>
+        ) : null}
       </Grid>
     </Grid>
   );

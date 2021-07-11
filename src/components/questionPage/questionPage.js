@@ -32,7 +32,7 @@ export default function QuestionPage(props) {
       .then((response) => {
         setData(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err));
   }, [data._id]);
 
   return (

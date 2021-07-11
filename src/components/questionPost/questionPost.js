@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +16,11 @@ import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
 import { categoriesFields, approvalTypes } from "../../constants";
-
+import {
+  initiliaseWeb3,
+  fetchAccount,
+  initiliaseContract,
+} from "../../web3js/web3";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -46,6 +50,37 @@ export default function QuestionPost() {
   });
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [contract, setContract] = useState("");
+  const [isSuccess, setSuccess] = useState(false);
+  useEffect(async () => {
+    await initiliaseWeb3();
+    await fetchAccount(function (result) {
+      setWalletAddress(result[0]);
+    });
+    setContract(await initiliaseContract());
+  }, []);
+
+  const questionPosting = async () => {
+    try {
+      await contract.methods
+        .questionPosting(
+          githubLink,
+          days.toString(),
+          (communityReward * Math.pow(10, 18)).toString(),
+          (bountyReward * Math.pow(10, 18)).toString()
+        )
+        .send({ from: walletAddress }, async function (error, transactionHash) {
+          if (transactionHash) {
+            setSuccess(true);
+            console.log(isSuccess);
+          }
+        })
+        .on("error", function (error) {});
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   const handleUndertakings = (e) => {
     setUndertakings({ ...undertakings, [e.target.name]: e.target.checked });
   };
@@ -55,7 +90,6 @@ export default function QuestionPost() {
       : setCategories((oldArray) => [...oldArray, `${value}`]);
   };
   const handleGithubIssueValidation = async () => {
-    console.log("hi");
     return axios
       .post("http://localhost:4000/question/validate", {
         githubIssueUrl: githubLink,
@@ -104,40 +138,47 @@ export default function QuestionPost() {
       undertakings.undertaking2 === false
     ) {
       setOpen(true);
-      setErrorMessage("Please comfirm the undertakings");
+      setErrorMessage("Please confirm the undertakings");
     } else {
       handleSubmit();
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const timeBegin = Math.floor(new Date().getTime() / 1000);
-    var timeEnd = timeBegin + days * 24 * 60 * 60;
-
-    axios
-      .post(`http://localhost:4000/question/save`, {
-        githubId: username,
-        publicAddress: walletAddress,
-        questionTitle: questionTitle,
-        githubIssueUrl: githubLink,
-        timeEnd: timeEnd,
-        solvingTimeBegin: timeBegin,
-        votingTimeBegin:
-          approvalType === approvalTypes[1]
-            ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-            : 0,
-        bountyReward: bountyReward,
-        communityReward: communityReward,
-        isCommunityApprovedSolution:
-          approvalType === approvalTypes[1] ? true : false,
-        questionCategories: categories,
+    let timeEnd = timeBegin + days * 24 * 60 * 60;
+    await questionPosting()
+      .then(() => {
+        if (isSuccess) {
+          console.log(isSuccess);
+          axios
+            .post(`http://localhost:4000/question/save`, {
+              githubId: username,
+              publicAddress: walletAddress,
+              questionTitle: questionTitle,
+              githubIssueUrl: githubLink,
+              timeEnd: timeEnd,
+              solvingTimeBegin: timeBegin,
+              votingTimeBegin:
+                approvalType === approvalTypes[1]
+                  ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+                  : 0,
+              bountyReward: bountyReward,
+              communityReward: communityReward,
+              isCommunityApprovedSolution:
+                approvalType === approvalTypes[1] ? true : false,
+              questionCategories: categories,
+            })
+            .then((response) => {
+              history.push({
+                pathname: `/bounty/${response.data}`,
+                state: { id: response.data },
+              });
+            });
+        }
       })
-      .then((response) => {
-        console.log(response);
-        history.push({
-          pathname: `/bounty/${response.data}`,
-          state: { id: response.data },
-        });
+      .catch((error) => {
+        alert(error);
       });
   };
 
@@ -286,7 +327,7 @@ export default function QuestionPost() {
             fullWidth
             variant="outlined"
             value={walletAddress}
-            onChange={(e) => setWalletAddress(e.target.value)}
+            disabled
           />
         </Grid>
         <Grid item xs={12}>
