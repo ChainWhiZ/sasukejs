@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
+import Navbar from "../navbar/navbar";
 
 import QuestionCard from "./questionCard";
 import Search from "./search";
@@ -31,7 +32,11 @@ export default function Explore(props) {
 
   return (
     <div className={classes.root}>
+
       <Grid container spacing={6}>
+        <Grid item md={12} xs={12}>
+          <Navbar />
+        </Grid>
         <Grid item md={3} xs={12}>
           <Search />
         </Grid>

@@ -1,34 +1,46 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { useStyles } from './navbarCss'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Authenticate from './authenticate'
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
+import Authenticate from './authenticate';
+import Grid from "@material-ui/core/Grid";
+import { Link } from 'react-router-dom';
+import logo from '../../assets/cwz.png';
 export default function Navbar() {
   const classes = useStyles();
-
+  const [username, setUsername] = useState(localStorage.getItem('username'));
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar style={{ backgroundColor: 'white',boxShadow:"none",color:"black"}} >
         <Toolbar>
-
-          <Typography variant="h6" className={classes.title}>
+          <img src={logo} />
+          {/* <Typography variant="h6" className={classes.title}>
             Navbar
-          </Typography>
-          <Authenticate/>
+          </Typography> */}
+          {username ? (
+            <Grid container spacing={3} className={classes.marginLeft}>
+              <Grid item md={4} xs={14}>
+                <Link to="/post" className={classes.link} >
+                  <Button color="inherit">Post a Bounty</Button>
+
+                </Link>
+              </Grid>
+              <Grid item md={4} xs={14}>
+                <Link to="/explore" className={classes.link}>
+                  <Button color="inherit">Solve a Bounty</Button>
+                </Link>
+              </Grid>
+              <Grid item md={4} xs={14}>
+                <Link to="/explore" className={classes.link}>
+                  <Button color="inherit">Vote a Bounty</Button>
+                </Link>
+              </Grid>
+
+            </Grid>
+          ) : null}
+          <Authenticate />
         </Toolbar>
       </AppBar>
     </div>

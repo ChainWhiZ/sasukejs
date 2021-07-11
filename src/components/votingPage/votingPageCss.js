@@ -10,9 +10,9 @@ export const useStyles = makeStyles((theme) => ({
         marginBottom: "2%",
         float: "left",
         backgroundColor: "ghostwhite",
-        padding: "3%",
+        padding: "2%",
         borderRadius: "4% 0 0 4%",
-        height: "69%",
+        height: "72%",
         textAlign: "center",
       },
       stakeDiv: {
@@ -21,7 +21,7 @@ export const useStyles = makeStyles((theme) => ({
         marginBottom: "2%",
         float: "left",
         backgroundColor: "gainsboro",
-        padding: "3%",
+        padding: "2%",
         textAlign: "center",
         borderRadius: "0 4% 4% 0"
       },

@@ -16,7 +16,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
 import { categoriesFields, approvalTypes } from "../../constants";
 import { useStyles } from './questionPostCss';
-
+import Navbar from "../navbar/navbar";
 
 export default function QuestionPost() {
   const classes = useStyles();
@@ -137,10 +137,14 @@ export default function QuestionPost() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3} container
+      
+      <Grid container spacing={3}
         direction="column"
         justifyContent="center"
       >
+        <Grid item md={12} xs={12}>
+          <Navbar />
+        </Grid>
         <Grid item xs={12} className={classes.heading}>
           <h1>Post your issue</h1>
           <p>Publish your issue and let developers do the rest for you.</p>
@@ -178,32 +182,35 @@ export default function QuestionPost() {
           <h3>Provide details about your question</h3>
           <p>This helps the developer better understand your requirements.</p>
         </Grid>
+        <Grid container >
 
-        <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
-          <p>GITHUB LINK</p>
+          <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
+            <p>GITHUB LINK</p>
 
-          <TextField
-            size="small"
-            variant="outlined"
-            type={"text"}
-            value={githubLink}
-            onChange={(e) => setGithubLink(e.target.value)}
-          />
-        </Grid>
+            <TextField
+              size="small"
+              variant="outlined"
+              type={"text"}
+              value={githubLink}
+              onChange={(e) => setGithubLink(e.target.value)}
+            />
+          </Grid>
 
-        <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
-          <p>EXPECTED TIME OF DELIVERY</p>
 
-          <TextField
-            size="small"
-            variant="outlined"
-            type={"number"}
-            value={days}
-            onChange={(e) => setDays(e.target.value)}
-          />
-          <Box component="span" p={1} border={1}>
-            Days
-          </Box>
+          <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
+            <p>EXPECTED TIME OF DELIVERY</p>
+
+            <TextField
+              size="small"
+              variant="outlined"
+              type={"number"}
+              value={days}
+              onChange={(e) => setDays(e.target.value)}
+            />
+            <Box component="span" p={1} border={1}>
+              Days
+            </Box>
+          </Grid>
         </Grid>
         <Grid item xs={12} md={12} className={classes.heading}>
           <h3>Decide how the solution will be approved</h3>
