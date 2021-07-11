@@ -23,7 +23,7 @@ export default function SolutionSubmit(props) {
   const [walletAddress, setWalletAddress] = useState("");
   const [solutions, setSolution] = useState([]);
   const [contract, setContract] = useState("");
-  const [isSuccess, setSuccess] = useState(false);
+ 
 
   useEffect(async () => {
     await initiliaseWeb3();
@@ -45,8 +45,7 @@ export default function SolutionSubmit(props) {
   };
 
   const solutionPosting = async (solution) => {
-    try {
-      await contract.methods
+     return await contract.methods
         .solutionPosting(
           props.quesDetails.publicAddress,
           props.quesDetails.githubIssueUrl,
@@ -54,21 +53,17 @@ export default function SolutionSubmit(props) {
         )
         .send({ from: walletAddress }, async function (error, transactionHash) {
           if (transactionHash) {
-            setSuccess(true);
-            console.log(isSuccess);
+            return true;
           }
         })
-        .on("error", function (error) {});
-    } catch (err) {
-      alert(err);
-    }
+       
+   
   };
   
   const handleSubmit = async (workplanId, solution) => {
-    await solutionPosting(solution)
-      .then(async () => {
+  const isSuccess= await solutionPosting(solution)
+      console.log(isSuccess);
         if (isSuccess) {
-          console.log(isSuccess);
           await axios
             .post(`http://localhost:4000/solution/save`, {
               githubId: localStorage.getItem("username"),
@@ -82,10 +77,10 @@ export default function SolutionSubmit(props) {
               props.handleDialogClose(false);
             });
         }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+        else{
+          alert("error in transaction");
+        }
+     
   };
 
   return (

@@ -63,7 +63,7 @@ export default function StakingCard(props) {
         <br />
         <br />
         <Button variant="contained" onClick={()=>handleStake()}>Stake Now</Button>
-        <p>Avbl. Balance- {balance} MATIC</p>
+        <p>Avbl. Balance- {balance} CW</p>
       </div>
 
     </>

@@ -51,7 +51,7 @@ export default function QuestionPost() {
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [contract, setContract] = useState("");
-  const [isSuccess, setSuccess] = useState(false);
+ 
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
@@ -61,24 +61,19 @@ export default function QuestionPost() {
   }, []);
 
   const questionPosting = async () => {
-    try {
-      await contract.methods
-        .questionPosting(
-          githubLink,
-          days.toString(),
-          (communityReward * Math.pow(10, 18)).toString(),
-          (bountyReward * Math.pow(10, 18)).toString()
-        )
-        .send({ from: walletAddress }, async function (error, transactionHash) {
-          if (transactionHash) {
-            setSuccess(true);
-            console.log(isSuccess);
-          }
-        })
-        .on("error", function (error) {});
-    } catch (err) {
-      alert(err);
-    }
+
+    return await contract.methods
+      .questionPosting(
+        githubLink,
+        days.toString(),
+        (communityReward * Math.pow(10, 18)).toString(),
+        (bountyReward * Math.pow(10, 18)).toString()
+      )
+      .send({ from: walletAddress }, async function (error, transactionHash) {
+        if (transactionHash) {
+          return true;
+        }
+      })
   };
 
   const handleUndertakings = (e) => {
@@ -147,39 +142,39 @@ export default function QuestionPost() {
   const handleSubmit = async () => {
     const timeBegin = Math.floor(new Date().getTime() / 1000);
     let timeEnd = timeBegin + days * 24 * 60 * 60;
-    await questionPosting()
-      .then(() => {
-        if (isSuccess) {
-          console.log(isSuccess);
-          axios
-            .post(`http://localhost:4000/question/save`, {
-              githubId: username,
-              publicAddress: walletAddress,
-              questionTitle: questionTitle,
-              githubIssueUrl: githubLink,
-              timeEnd: timeEnd,
-              solvingTimeBegin: timeBegin,
-              votingTimeBegin:
-                approvalType === approvalTypes[1]
-                  ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-                  : 0,
-              bountyReward: bountyReward,
-              communityReward: communityReward,
-              isCommunityApprovedSolution:
-                approvalType === approvalTypes[1] ? true : false,
-              questionCategories: categories,
-            })
-            .then((response) => {
-              history.push({
-                pathname: `/bounty/${response.data}`,
-                state: { id: response.data },
-              });
-            });
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    const isSuccess = await questionPosting();
+console.log(isSuccess)
+    if (isSuccess) {
+
+      axios
+        .post(`http://localhost:4000/question/save`, {
+          githubId: username,
+          publicAddress: walletAddress,
+          questionTitle: questionTitle,
+          githubIssueUrl: githubLink,
+          timeEnd: timeEnd,
+          solvingTimeBegin: timeBegin,
+          votingTimeBegin:
+            approvalType === approvalTypes[1]
+              ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+              : 0,
+          bountyReward: bountyReward,
+          communityReward: communityReward,
+          isCommunityApprovedSolution:
+            approvalType === approvalTypes[1] ? true : false,
+          questionCategories: categories,
+        })
+        .then((response) => {
+          history.push({
+            pathname: `/bounty/${response.data}`,
+            state: { id: response.data },
+          });
+        });
+    }
+    else {
+      alert("error in transaction");
+    }
+
   };
 
   const handleClose = () => {
@@ -298,7 +293,7 @@ export default function QuestionPost() {
           />
 
           <Box component="span" p={1} border={1}>
-            MATIC
+            CW
           </Box>
         </Grid>
         {approvalType === approvalTypes[1] ? (
@@ -314,7 +309,7 @@ export default function QuestionPost() {
               }}
             />
 
-            <span>MATIC</span>
+            <span>CW</span>
           </Grid>
         ) : (
           ""

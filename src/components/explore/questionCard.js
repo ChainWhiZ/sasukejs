@@ -26,7 +26,7 @@ export default function QuestionCard(props) {
                 color="white"
                 borderRadius={3}
               >
-                {props.bountyReward + " MATIC"}
+                {props.bountyReward + " CW"}
               </Box>
               <Box
                 component="span"
@@ -36,12 +36,12 @@ export default function QuestionCard(props) {
                 color="white"
                 borderRadius={3}
               >
-                {props.communityReward + " MATIC"}
+                {props.communityReward + " CW"}
               </Box>
             </>
           ) : (
             <Box p={1} bgcolor="black" color="white" borderRadius={3}>
-              {props.bountyReward + " MATIC"}
+              {props.bountyReward + " CW"}
             </Box>
           )}
         </Grid>
