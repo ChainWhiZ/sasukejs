@@ -30,11 +30,11 @@ export default function QuestionHeading(props) {
         {props.isCommunityApprovedSolution ? (
           <>
             <Grid item md={2}>
-              <p>BOUNTY(MATIC)</p>
+              <p>BOUNTY(CW)</p>
               <p>{props.bountyReward}</p>
             </Grid>
             <Grid item md={2}>
-              <p>COMMUNITY REWARD(MATIC)</p>
+              <p>COMMUNITY REWARD(CW)</p>
               <p>{props.communityReward}</p>
             </Grid>
             {props.timeEnd > seconds ? (
@@ -51,7 +51,7 @@ export default function QuestionHeading(props) {
         ) : (
           <>
             <Grid item md={3}>
-              <p>BOUNTY(MATIC)</p>
+              <p>BOUNTY(CW)</p>
               <p>{props.bountyReward}</p>
             </Grid>
             {props.timeEnd > seconds ? (

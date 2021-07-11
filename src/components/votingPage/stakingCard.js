@@ -41,8 +41,8 @@ export default function StakingCard(props) {
         <TextField id="outlined-basic" type={"number"} className={classes.stakeInput} variant="outlined" size="small" value={stakedAmount} onChange={e => setStakedAmount(e.target.value)} />
         <br />
         <br />
-        <Button variant="contained" size="small" onClick={() => handleStake()}>Stake Now</Button>
-        <p>Avbl. Balance- {balance} MATIC</p>
+        <Button variant="contained" onClick={()=>handleStake()}>Stake Now</Button>
+        <p>Avbl. Balance- {balance} CW</p>
       </div>
 
     </>
