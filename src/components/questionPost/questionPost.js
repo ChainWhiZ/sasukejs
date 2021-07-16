@@ -42,29 +42,89 @@ export default function QuestionPost() {
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [contract, setContract] = useState("");
- 
+  const [isSuccess, setSuccess] = useState(false);
+  const timeBegin = Math.floor(new Date().getTime() / 1000);
+  let timeEnd = timeBegin + days * 24 * 60 * 60;
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
+ 
+    if(isSuccess)
+    {
+    axios
+    .post(`http://localhost:4000/question/save`, {
+      githubId: username,
+      publicAddress: walletAddress,
+      questionTitle: questionTitle,
+      githubIssueUrl: githubLink,
+      timeEnd: timeEnd,
+      solvingTimeBegin: timeBegin,
+      votingTimeBegin:
+        approvalType === approvalTypes[1]
+          ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+          : 0,
+      bountyReward: bountyReward,
+      communityReward: communityReward,
+      isCommunityApprovedSolution:
+        approvalType === approvalTypes[1] ? true : false,
+      questionCategories: categories,
+    })
+    .then((response) => {
+      history.push({
+        pathname: `/bounty/${response.data}`,
+        state: { id: response.data },
+      });
+    });
+}
+else {
+  alert("error in transaction");
+}
+  
   }, []);
 
-  const questionPosting = async () => {
+  const contractCall= async () =>{
 
-    return await contract.methods
-      .questionPosting(
-        githubLink,
-        days.toString(),
-        (communityReward * Math.pow(10, 18)).toString(),
-        (bountyReward * Math.pow(10, 18)).toString()
-      )
-      .send({ from: walletAddress }, async function (error, transactionHash) {
-        if (transactionHash) {
-          return true;
-        }
-      })
+  }
+
+  const questionPosting = async () => {
+     return new Promise(async (resolve, reject) => {
+      console.log("in");
+
+      await contract.methods
+        .questionPosting(
+          githubLink,
+          days.toString(),
+          (communityReward * Math.pow(10, 18)).toString(),
+          (bountyReward * Math.pow(10, 18)).toString()
+        )
+        .send({ from: walletAddress })
+        .on('transaction', function (transactionHash) {
+          console.log(transactionHash) // contains the new contract address
+        })
+        .on('receipt', function (receipt) {
+          console.log(receipt) // contains the new contract address
+        })
+        .on('confirmation', function (confirmationNumber, receipt) {
+          if (confirmationNumber) {
+            console.log("result");
+            setSuccess(true);
+            resolve(true);
+
+          }
+          else {
+            console.log("error");
+            reject(true);
+
+          }
+          
+        })
+         .on('error', function (error) { console.log("err")})
+
+
+    })
   };
 
   const handleUndertakings = (e) => {
@@ -133,8 +193,8 @@ export default function QuestionPost() {
   const handleSubmit = async () => {
     const timeBegin = Math.floor(new Date().getTime() / 1000);
     let timeEnd = timeBegin + days * 24 * 60 * 60;
-    const isSuccess = await questionPosting();
-console.log(isSuccess)
+    await questionPosting();
+  
     if (isSuccess) {
 
       axios
