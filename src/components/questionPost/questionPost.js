@@ -42,9 +42,6 @@ export default function QuestionPost() {
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [contract, setContract] = useState("");
-  const [isSuccess, setSuccess] = useState(false);
-  const timeBegin = Math.floor(new Date().getTime() / 1000);
-  let timeEnd = timeBegin + days * 24 * 60 * 60;
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
@@ -193,38 +190,73 @@ else {
   const handleSubmit = async () => {
     const timeBegin = Math.floor(new Date().getTime() / 1000);
     let timeEnd = timeBegin + days * 24 * 60 * 60;
-    await questionPosting();
-  
-    if (isSuccess) {
-
-      axios
-        .post(`http://localhost:4000/question/save`, {
-          githubId: username,
-          publicAddress: walletAddress,
-          questionTitle: questionTitle,
-          githubIssueUrl: githubLink,
-          timeEnd: timeEnd,
-          solvingTimeBegin: timeBegin,
-          votingTimeBegin:
-            approvalType === approvalTypes[1]
-              ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-              : 0,
-          bountyReward: bountyReward,
-          communityReward: communityReward,
-          isCommunityApprovedSolution:
-            approvalType === approvalTypes[1] ? true : false,
-          questionCategories: categories,
-        })
-        .then((response) => {
-          history.push({
-            pathname: `/bounty/${response.data}`,
-            state: { id: response.data },
+    return Promise.resolve()
+      .then(async function () {
+        console.log("Inside 1st ")
+        return await questionPosting();
+      })
+      .then(async function () {
+        console.log("Inside 2nd ")
+        return axios
+          .post(`http://localhost:4000/question/save`, {
+            githubId: username,
+            publicAddress: walletAddress,
+            questionTitle: questionTitle,
+            githubIssueUrl: githubLink,
+            timeEnd: timeEnd,
+            solvingTimeBegin: timeBegin,
+            votingTimeBegin:
+              approvalType === approvalTypes[1]
+                ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+                : 0,
+            bountyReward: bountyReward,
+            communityReward: communityReward,
+            isCommunityApprovedSolution:
+              approvalType === approvalTypes[1] ? true : false,
+            questionCategories: categories,
+          })
+          .then((response) => {
+            history.push({
+              pathname: `/bounty/${response.data}`,
+              state: { id: response.data },
+            });
           });
-        });
-    }
-    else {
-      alert("error in transaction");
-    }
+      })
+      .then(function () {
+        console.log(" ---- done ----");
+      });
+    //     const isSuccess = await questionPosting();
+    // console.log(isSuccess)
+    //     if (isSuccess) {
+
+    // axios
+    //   .post(`http://localhost:4000/question/save`, {
+    //     githubId: username,
+    //     publicAddress: walletAddress,
+    //     questionTitle: questionTitle,
+    //     githubIssueUrl: githubLink,
+    //     timeEnd: timeEnd,
+    //     solvingTimeBegin: timeBegin,
+    //     votingTimeBegin:
+    //       approvalType === approvalTypes[1]
+    //         ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+    //         : 0,
+    //     bountyReward: bountyReward,
+    //     communityReward: communityReward,
+    //     isCommunityApprovedSolution:
+    //       approvalType === approvalTypes[1] ? true : false,
+    //     questionCategories: categories,
+    //   })
+    //   .then((response) => {
+    //     history.push({
+    //       pathname: `/bounty/${response.data}`,
+    //       state: { id: response.data },
+    //     });
+    //   });
+    // }
+    // else {
+    //   alert("error in transaction");
+    // }
 
   };
 
