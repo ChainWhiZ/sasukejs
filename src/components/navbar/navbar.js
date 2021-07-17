@@ -21,26 +21,28 @@ export default function Navbar() {
           </Typography> */}
           {username ? (
             <Grid container spacing={3} className={classes.marginLeft}>
-              <Grid item md={4} xs={14}>
+              <Grid item md={3} xs={12}>
                 <Link to="/post" className={classes.link} >
                   <Button color="inherit">Post a Bounty</Button>
 
                 </Link>
               </Grid>
-              <Grid item md={4} xs={14}>
+              <Grid item md={3} xs={12}>
                 <Link to="/explore" className={classes.link}>
                   <Button color="inherit">Solve a Bounty</Button>
                 </Link>
               </Grid>
-              <Grid item md={4} xs={14}>
+              <Grid item md={3} xs={12}>
                 <Link to="/explore" className={classes.link}>
                   <Button color="inherit">Vote a Bounty</Button>
                 </Link>
               </Grid>
-
+              <Grid item md={3} xs={12}>
+              <p>{username}</p>
+              </Grid>
             </Grid>
-          ) : null}
-          <Authenticate handleLogin={(data) => setUsername(data)}/>
+          ) : 
+          <Authenticate handleLogin={(data) => setUsername(data)}/>}
         </Toolbar>
       </AppBar>
     </div>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Button from '@material-ui/core/Button';
 
 export default function Authenticate(props) {
-  const [username, setUsername] = useState(localStorage.getItem('username'));
+
 
   useEffect(() => {
     const url = window.location.href;
@@ -16,7 +16,7 @@ export default function Authenticate(props) {
         .then((response) => {
           localStorage.setItem('username', response.data.doc.githubId);
           props.handleLogin(response.data.doc.githubId);
-          setUsername(response.data.doc.githubId);
+         
        
           window.history.pushState({}, {}, "/");
         });
@@ -26,18 +26,14 @@ export default function Authenticate(props) {
   return (
     <div className="App">
       <header className="App-header">
-        {!username ? (
+       
           <a href="https://github.com/login/oauth/authorize?client_id=2bcca90edadf4d1f3535">
             <button>Login</button>
           </a>
-        ) : (
-            <>
-              <p>{username}</p>
-
+       
+            
 
            
-            </>
-          )}
       </header>
     </div>
   );

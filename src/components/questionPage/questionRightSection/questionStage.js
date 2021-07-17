@@ -69,14 +69,6 @@ export default function QuestionStage(props) {
                 <>
                   <p>{completed.heading}</p>
                   <p>{completed.description}</p>
-                  <Link to={{
-                    pathname: "/vote",
-                    state: {
-                      workplanIds:props.workplanIds
-                    },
-                  }}>
-                    <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
-                  </Link>
                 </>
               )}
             </CardContent>
@@ -92,11 +84,24 @@ export default function QuestionStage(props) {
                     </Button>
                   ) : (
                     <Link to="/vote" >
-                      <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
+                      <Button size="small">{votingPhaseDetails.buttonLabel}</Button> 
                     </Link>
+                   
                   )
                 ) : (
+                  //remove
+                  <>
+                   
+                  <Link to={{
+                    pathname: "/vote",
+                    state: {
+                      questionId:props._id
+                    },
+                  }}>
+                    <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
+                  </Link>
                   <Button onClick={() => setOpenSolveDialog(true)} size="small">{solvingPhaseDetails.buttonLabel}</Button>
+               </>
                 )}
               </CardActions>
             )}

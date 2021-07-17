@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import githubIcon from '../../assets/Vector1.png';
 import workplanIcon from '../../assets/Vector.png';
 import { useStyles } from './votingPageCss'
-
+import axios from "axios";
 
 export default function StakingCard(props) {
   const classes = useStyles();
   const [stakedAmount, setStakedAmount] = useState('');
   const [balance, setBalance] = useState(270);
+  const [userId, setUserId]= useState("");
+  useEffect(() => {
+    axios
+      .post(`http://localhost:4000/solution/fetch`, {
+        solutionId:props.solutionId
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUserId(response.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const handleStake = () => {
 
   }
@@ -33,7 +45,7 @@ export default function StakingCard(props) {
        
         <div className={classes.author}>
           <br/>
-          <p>Solution posted by akp111</p>
+          <p>Solution posted by {userId}</p>
         </div>
 
       </div>

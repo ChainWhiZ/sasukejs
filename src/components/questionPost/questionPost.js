@@ -49,8 +49,8 @@ export default function QuestionPost() {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
- 
-    
+
+
   }, []);
 
   const questionPosting = async () => {
@@ -62,7 +62,7 @@ export default function QuestionPost() {
         (communityReward * Math.pow(10, 18)).toString(),
         (bountyReward * Math.pow(10, 18)).toString()
       )
-      .send({ from: walletAddress }, async function (error, transactionHash) {
+      .send({ from: walletAddress }, function (error, transactionHash) {
         if (transactionHash) {
           return true;
         }
@@ -169,40 +169,7 @@ export default function QuestionPost() {
       .then(function () {
         console.log(" ---- done ----");
       });
-    //     const isSuccess = await questionPosting();
-    // console.log(isSuccess)
-    //     if (isSuccess) {
-
-    // axios
-    //   .post(`http://localhost:4000/question/save`, {
-    //     githubId: username,
-    //     publicAddress: walletAddress,
-    //     questionTitle: questionTitle,
-    //     githubIssueUrl: githubLink,
-    //     timeEnd: timeEnd,
-    //     solvingTimeBegin: timeBegin,
-    //     votingTimeBegin:
-    //       approvalType === approvalTypes[1]
-    //         ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-    //         : 0,
-    //     bountyReward: bountyReward,
-    //     communityReward: communityReward,
-    //     isCommunityApprovedSolution:
-    //       approvalType === approvalTypes[1] ? true : false,
-    //     questionCategories: categories,
-    //   })
-    //   .then((response) => {
-    //     history.push({
-    //       pathname: `/bounty/${response.data}`,
-    //       state: { id: response.data },
-    //     });
-    //   });
-    // }
-    // else {
-    //   alert("error in transaction");
-    // }
-
-  };
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -210,7 +177,7 @@ export default function QuestionPost() {
 
   return (
     <div className={classes.root}>
-      
+
       <Grid container spacing={3}
         direction="column"
         justifyContent="center"
