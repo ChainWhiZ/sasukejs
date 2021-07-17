@@ -38,7 +38,7 @@ export default function VotingPage(props) {
   //       })
   //       .catch((err) => console.log(err));
   //   }, [data._id]);
-
+  console.log(props.location.state);
   return (
     <div className={classes.root}>
 

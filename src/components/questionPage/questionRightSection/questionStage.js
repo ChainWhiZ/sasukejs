@@ -11,6 +11,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import SolutionSubmit from "../dialogs/solutionSubmit";
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -27,8 +28,8 @@ export default function QuestionStage(props) {
   const seconds = Math.floor(new Date().getTime() / 1000);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   //const workplanIds = ["jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr", "jweofjejwefoeoj", "wdfwerfewrewfr"];
-console.log(openSolveDialog)
- 
+  console.log(openSolveDialog)
+
   return (
     <>
       <Grid container>
@@ -37,10 +38,10 @@ console.log(openSolveDialog)
             IN PROGRESS
           </Grid>
         ) : (
-            <Grid item md={12}>
-              COMPLETED
-            </Grid>
-          )}
+          <Grid item md={12}>
+            COMPLETED
+          </Grid>
+        )}
         <Grid item md={12}>
           <Card>
             <CardContent>
@@ -56,22 +57,30 @@ console.log(openSolveDialog)
                     <p>{votingPhaseDetails.description}</p>
                   </>
                 ) : (
-                      <>
-                        <p>{completed.heading}</p>
-                        <p>{completed.description}</p>
-                      </>
-                    )
+                  <>
+                    <p>{completed.heading}</p>
+                    <p>{completed.description}</p>
+                  </>
+                )
               ) : props.timeEnd > seconds ? (
                 <>
                   <p>{solvingPhaseDetails.heading}</p>
                   <p>{solvingPhaseDetails.description}</p>
                 </>
               ) : (
-                    <>
-                      <p>{completed.heading}</p>
-                      <p>{completed.description}</p>
-                    </>
-                  )}
+                <>
+                  <p>{completed.heading}</p>
+                  <p>{completed.description}</p>
+                  <Link to={{
+                    pathname: "/vote",
+                    state: {
+                      workplanIds:props.workplanIds
+                    },
+                  }}>
+                    <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
+                  </Link>
+                </>
+              )}
             </CardContent>
             {seconds <= props.timeEnd && (
               <CardActions>
@@ -81,11 +90,13 @@ console.log(openSolveDialog)
                       {solvingPhaseDetails.buttonLabel}
                     </Button>
                   ) : (
+                    <Link to="/vote" params={props.workplanIds}>
                       <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
-                    )
+                    </Link>
+                  )
                 ) : (
-                    <Button onClick={() => setOpenSolveDialog(true)} size="small">{solvingPhaseDetails.buttonLabel}</Button>
-                  )}
+                  <Button onClick={() => setOpenSolveDialog(true)} size="small">{solvingPhaseDetails.buttonLabel}</Button>
+                )}
               </CardActions>
             )}
           </Card>
@@ -95,7 +106,7 @@ console.log(openSolveDialog)
         <SolutionSubmit
           open={openSolveDialog}
           workplanIds={props.workplanIds}
-          handleDialogClose={()=>setOpenSolveDialog(false)} />
+          handleDialogClose={() => setOpenSolveDialog(false)} />
         :
         ""
 
