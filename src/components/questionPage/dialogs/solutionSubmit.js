@@ -61,10 +61,12 @@ export default function SolutionSubmit(props) {
   };
   
   const handleSubmit = async (workplanId, solution) => {
-  const isSuccess= await solutionPosting(solution)
-      console.log(isSuccess);
-        if (isSuccess) {
-          await axios
+    return Promise.resolve()
+        .then(async function() {
+            return await solutionPosting(solution)
+        })
+        .then(async function() {
+            return  await axios
             .post(`http://localhost:4000/solution/save`, {
               githubId: localStorage.getItem("username"),
               address: walletAddress,
@@ -76,10 +78,29 @@ export default function SolutionSubmit(props) {
               setOpen(false);
               props.handleDialogClose(false);
             });
-        }
-        else{
-          alert("error in transaction");
-        }
+        })
+        .then(function() {
+            console.log(" ---- done ----");
+        });
+  // const isSuccess= await solutionPosting(solution)
+  //     console.log(isSuccess);
+  //       if (isSuccess) {
+  //         await axios
+  //           .post(`http://localhost:4000/solution/save`, {
+  //             githubId: localStorage.getItem("username"),
+  //             address: walletAddress,
+  //             githubLink: solution,
+  //             _id: workplanId,
+  //           })
+  //           .then(async (response) => {
+  //             console.log(response);
+  //             setOpen(false);
+  //             props.handleDialogClose(false);
+  //           });
+  //       }
+  //       else{
+  //         alert("error in transaction");
+  //       }
      
   };
 
