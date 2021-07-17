@@ -14,6 +14,7 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
+import Navbar from "../navbar/navbar";
 import { categoriesFields, approvalTypes } from "../../constants";
 import {
   initiliaseWeb3,
@@ -49,81 +50,24 @@ export default function QuestionPost() {
     });
     setContract(await initiliaseContract());
  
-    if(isSuccess)
-    {
-    axios
-    .post(`http://localhost:4000/question/save`, {
-      githubId: username,
-      publicAddress: walletAddress,
-      questionTitle: questionTitle,
-      githubIssueUrl: githubLink,
-      timeEnd: timeEnd,
-      solvingTimeBegin: timeBegin,
-      votingTimeBegin:
-        approvalType === approvalTypes[1]
-          ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-          : 0,
-      bountyReward: bountyReward,
-      communityReward: communityReward,
-      isCommunityApprovedSolution:
-        approvalType === approvalTypes[1] ? true : false,
-      questionCategories: categories,
-    })
-    .then((response) => {
-      history.push({
-        pathname: `/bounty/${response.data}`,
-        state: { id: response.data },
-      });
-    });
-}
-else {
-  alert("error in transaction");
-}
-  
+    
   }, []);
 
-  const contractCall= async () =>{
-
-  }
-
   const questionPosting = async () => {
-     return new Promise(async (resolve, reject) => {
-      console.log("in");
 
-      await contract.methods
-        .questionPosting(
-          githubLink,
-          days.toString(),
-          (communityReward * Math.pow(10, 18)).toString(),
-          (bountyReward * Math.pow(10, 18)).toString()
-        )
-        .send({ from: walletAddress })
-        .on('transaction', function (transactionHash) {
-          console.log(transactionHash) // contains the new contract address
-        })
-        .on('receipt', function (receipt) {
-          console.log(receipt) // contains the new contract address
-        })
-        .on('confirmation', function (confirmationNumber, receipt) {
-          if (confirmationNumber) {
-            console.log("result");
-            setSuccess(true);
-            resolve(true);
-
-          }
-          else {
-            console.log("error");
-            reject(true);
-
-          }
-          
-        })
-         .on('error', function (error) { console.log("err")})
-
-
-    })
+    return await contract.methods
+      .questionPosting(
+        githubLink,
+        days.toString(),
+        (communityReward * Math.pow(10, 18)).toString(),
+        (bountyReward * Math.pow(10, 18)).toString()
+      )
+      .send({ from: walletAddress }, async function (error, transactionHash) {
+        if (transactionHash) {
+          return true;
+        }
+      })
   };
-
   const handleUndertakings = (e) => {
     setUndertakings({ ...undertakings, [e.target.name]: e.target.checked });
   };

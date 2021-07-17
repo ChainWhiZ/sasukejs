@@ -40,7 +40,7 @@ export default function Navbar() {
 
             </Grid>
           ) : null}
-          <Authenticate />
+          <Authenticate handleLogin={(data) => setUsername(data)}/>
         </Toolbar>
       </AppBar>
     </div>
