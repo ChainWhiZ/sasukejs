@@ -95,7 +95,7 @@ export default function QuestionStage(props) {
                   <Link to={{
                     pathname: "/vote",
                     state: {
-                      questionId:props._id
+                      questionDetails:props
                     },
                   }}>
                     <Button size="small">{votingPhaseDetails.buttonLabel}</Button>

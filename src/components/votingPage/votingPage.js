@@ -15,7 +15,7 @@ export default function VotingPage(props) {
   useEffect(() => {
     axios
       .post(`http://localhost:4000/workplan/fetchall`, {
-        _id: props.location.state.questionId
+        _id: props.location.state.questionDetails._id
       })
       .then((response) => {
         console.log(response.data)
@@ -40,7 +40,7 @@ export default function VotingPage(props) {
           workplan.solutionIds.map(id => (
 
             <Grid item md={6} xs={12} >
-              <StakingCard solutionId={id} workplan={workplan} />
+              <StakingCard solutionId={id} workplan={workplan} questionDetails={props.location.state.questionDetails} />
             </Grid>
           ))))}
       </Grid>
