@@ -24,3 +24,9 @@ export const approvalTypes = [
   "I will approve the solution",
   "The community will approve the solution",
 ];
+
+export const drawerList = [
+  'Edit your profile',
+  'Bounties Posted',
+  'Bounties Solved',
+  'Voting'];

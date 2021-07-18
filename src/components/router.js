@@ -5,6 +5,7 @@ import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
 import Explore from "./explore/explore";
 import VotingPage  from "./votingPage/votingPage";
+import ProfilePage from "./profilePage/profilePage";
 
 export default function RouterComponent() {
   return (
@@ -20,6 +21,7 @@ export default function RouterComponent() {
       />
       <Route path="/explore" component={Explore} />
       <Route path="/vote" component={VotingPage} />
+      <Route path="/profile" component={ProfilePage} />
     </Router>
   );
 }

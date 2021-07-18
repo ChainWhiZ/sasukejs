@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-
+import Navbar from "../navbar/navbar";
 import QuestionHeading from "./questionLeftSection/questionHeading";
 import QuestionStage from "./questionRightSection/questionStage";
 import QuestionDescription from "./questionLeftSection/questionDescription";
@@ -37,7 +37,11 @@ export default function QuestionPage(props) {
 
   return (
     <div className={classes.root}>
+
       <Grid container>
+        <Grid item md={12} xs={12}>
+          <Navbar />
+        </Grid>
         <Grid item md={8} xs={12}>
           <QuestionHeading {...data} />
           <QuestionDescription {...data} />

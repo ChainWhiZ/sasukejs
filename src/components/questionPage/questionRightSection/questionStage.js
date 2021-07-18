@@ -11,6 +11,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import SolutionSubmit from "../dialogs/solutionSubmit";
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -82,14 +83,25 @@ export default function QuestionStage(props) {
                       {solvingPhaseDetails.buttonLabel}
                     </Button>
                   ) : (
-                    <Button size="small">
-                      {votingPhaseDetails.buttonLabel}
-                    </Button>
+                    <Link to="/vote" >
+                      <Button size="small">{votingPhaseDetails.buttonLabel}</Button> 
+                    </Link>
+                   
                   )
                 ) : (
-                  <Button onClick={() => setOpenSolveDialog(true)} size="small">
-                    {solvingPhaseDetails.buttonLabel}
-                  </Button>
+                  //remove
+                  <>
+                   
+                  <Link to={{
+                    pathname: "/vote",
+                    state: {
+                      questionDetails:props
+                    },
+                  }}>
+                    <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
+                  </Link>
+                  <Button onClick={() => setOpenSolveDialog(true)} size="small">{solvingPhaseDetails.buttonLabel}</Button>
+               </>
                 )}
               </CardActions>
             )}

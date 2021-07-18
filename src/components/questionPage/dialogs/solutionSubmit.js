@@ -72,6 +72,7 @@ export default function SolutionSubmit(props) {
               address: walletAddress,
               githubLink: solution,
               _id: workplanId,
+              questionId:props.quesDetails._id
             })
             .then(async (response) => {
               console.log(response);

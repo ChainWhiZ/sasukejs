@@ -36,7 +36,8 @@ export const fetchAccount = async (callback) => {
 export const initiliaseContract = async () => {
   let contract = new web3.eth.Contract(
     chainwhiz,
-    "0xbdc46E2543bACf67D0F14553348e354E7ed05052"
+    // "0xbdc46E2543bACf67D0F14553348e354E7ed05052"
+    "0x7fA47322B674FeCc80E5F925CdeCe08688cE8d83"
   );
   return contract;
 };
