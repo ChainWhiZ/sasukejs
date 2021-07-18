@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 export default function QuestionSolutionCard(props) {
   const classes = useStyles();
   const [applicants, setApplicants] = useState([]);
+  const [voteScore, setVoteScore] = useState(0);
   useEffect(() => {
     axios
       .post(`http://localhost:4000/workplan/fetch`, {
@@ -46,6 +47,13 @@ export default function QuestionSolutionCard(props) {
                         <li>
                           {solution.userId + " submitted " + solution._id}
                         </li>
+                        {props.isCommunityApprovedSolution &&
+                        props.quesStage === "complete" ? (
+                          <>
+                            <p>{voteScore}</p>
+                            <p>Voting Score</p>
+                          </>
+                        ) : null}
                       </a>
                     ))}
                 </ul>
