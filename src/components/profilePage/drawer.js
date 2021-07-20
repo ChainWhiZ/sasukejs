@@ -14,7 +14,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { drawerList } from '../../constants';
 
-export default function SideDrawer() {
+export default function SideDrawer(props) {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,7 @@ export default function SideDrawer() {
           {drawerList.map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText onClick={()=>props.itemClicked(text)} primary={text} />
               <br/>
               <br/>
               <br/>
