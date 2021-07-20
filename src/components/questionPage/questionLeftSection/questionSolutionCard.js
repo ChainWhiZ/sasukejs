@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 export default function QuestionSolutionCard(props) {
   const classes = useStyles();
   const [applicants, setApplicants] = useState([]);
-  const [voteScore, setVoteScore] = useState(0);
+  const [voteScore, setVoteScore] = useState(100);
   useEffect(() => {
     axios
       .post(`http://localhost:4000/workplan/fetch`, {

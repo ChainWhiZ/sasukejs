@@ -77,28 +77,9 @@ export default function QuestionStage(props) {
                     </Link>
                   )
                 ) : (
-                  //remove
-                  <>
-                    <Link
-                      to={{
-                        pathname: "/vote",
-                        state: {
-                          questionDetails: props,
-                        },
-                      }}
-                    >
-                      <Button size="small">
-                        {votingPhaseDetails.buttonLabel}
-                      </Button>
-                    </Link> 
-                    
-                    <Button
-                      onClick={() => setOpenSolveDialog(true)}
-                      size="small"
-                    >
-                      {solvingPhaseDetails.buttonLabel}
-                    </Button>
-                  </>
+                  <Button onClick={() => setOpenSolveDialog(true)} size="small">
+                    {solvingPhaseDetails.buttonLabel}
+                  </Button>
                 )}
               </CardActions>
             )}
