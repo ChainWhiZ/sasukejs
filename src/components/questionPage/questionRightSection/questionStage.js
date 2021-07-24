@@ -63,14 +63,31 @@ export default function QuestionStage(props) {
               <CardActions>
                 {props.isCommunityApprovedSolution ? (
                   props.questionStage === "solve" ? (
-                    <Button
-                      size="small"
-                      onClick={() => setOpenSolveDialog(true)}
-                    >
-                      {solvingPhaseDetails.buttonLabel}
-                    </Button>
+                    <>
+                      <Button
+                        size="small"
+                        onClick={() => setOpenSolveDialog(true)}
+                      >
+                        {solvingPhaseDetails.buttonLabel}
+                      </Button>
+                      <Link to={{
+                        pathname: "/vote",
+                        state: {
+                          questionDetails: props
+                        },
+                      }}>
+                        <Button size="small">
+                          {votingPhaseDetails.buttonLabel}
+                        </Button>
+                      </Link>
+                    </>
                   ) : (
-                    <Link to="/vote">
+                    <Link to={{
+                      pathname: "/vote",
+                      state: {
+                        questionDetails: props
+                      },
+                    }}>
                       <Button size="small">
                         {votingPhaseDetails.buttonLabel}
                       </Button>

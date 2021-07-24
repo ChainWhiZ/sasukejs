@@ -30,7 +30,7 @@ export default function StakingCard(props) {
     setContract(await initiliaseContract());
     console.log(contract)
     console.log(walletAddress)
-    // if(contract && walletAddress)
+    if(contract && walletAddress)
     setBalance((parseInt(await contract.methods.balanceOf(walletAddress).call({ from: walletAddress }))) * (10 ^ (-18)))
 
     axios
@@ -91,7 +91,7 @@ export default function StakingCard(props) {
       })
       .then(async function () {
         console.log("3rd")
-        return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({from:walletAddress})
+        return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({from:walletAddress.toString()})
 
       })
       .then(async function () {
