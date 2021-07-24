@@ -74,7 +74,7 @@ export default function StakingCard(props) {
         if (!isVoter) {
           console.log("2st if")
           return await axios
-            .post(`https://chainwhiz.herokuapp.com/vote/voterDetails`, {
+            .post(`https://chainwhiz.herokuapp.com/vote/voter-details`, {
               githubId: username
 
             })
