@@ -27,30 +27,30 @@ export default function BountySolutionCard(props) {
   const [walletAddress, setWalletAddress] = useState("");
   const [solutionId, setSolutionId] = useState('');
   useEffect(async () => {
-   
-      await initiliaseWeb3();
-      await fetchAccount(function (result) {
-        setWalletAddress(result[0]);
-      });
-      axios
-        .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
-          _id: props.workplanId,
-        })
-        .then((response) => {
-          console.log(response.data)
-          setApplicants(response.data);
-        })
-        .catch((err) => alert(err));
 
-      applicants.solutionIds &&
-        applicants.solutionIds.length !== 0 &&
-        applicants.solutionIds.map((solution) => {
-          if (solution.escrowId) {
-            console.log(solution.escrowId)
-            setEscrowId(solution.escrowId);
-          }
-        })
-  
+    await initiliaseWeb3();
+    await fetchAccount(function (result) {
+      setWalletAddress(result[0]);
+    });
+    axios
+      .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
+        _id: props.workplanId,
+      })
+      .then((response) => {
+        console.log(response.data)
+        setApplicants(response.data);
+      })
+      .catch((err) => alert(err));
+
+    applicants.solutionIds &&
+      applicants.solutionIds.length !== 0 &&
+      applicants.solutionIds.map((solution) => {
+        if (solution.escrowId) {
+          console.log(solution.escrowId)
+          setEscrowId(solution.escrowId);
+        }
+      })
+
 
   }, [applicants._id, props.workplanId]);
 
@@ -75,10 +75,17 @@ export default function BountySolutionCard(props) {
                         {" "}
                         <li>
                           {solution.userId + " submitted " + solution._id}
+                          {props.questionDetails.isCommunityApprovedSolution &&
+                            props.questionDetails.questionStage === "complete" ? (
+                            <>
+                              <p>{solution.weightage}</p>
+                              <p>Voting Score</p>
+                            </>
+                          ) : null}
                           {props.questionDetails.questionStage === "complete" && !escrowId ?
-                            (<Button onClick={(event) =>{setIsEscrowDialogOpen(true);setSolutionId(solution._id);event.preventDefault()}}>View Escrow</Button>)
+                            (<Button onClick={(event) => { setIsEscrowDialogOpen(true); setSolutionId(solution._id); event.preventDefault() }}>View Escrow</Button>)
                             : escrowId ?
-                              (<Button onClick={(event) =>{setIsEscrowDialogOpen(true);event.preventDefault()}}>View Escrow</Button>)
+                              (<Button onClick={(event) => { setIsEscrowDialogOpen(true); event.preventDefault() }}>View Escrow</Button>)
                               :
                               null}
                         </li>
