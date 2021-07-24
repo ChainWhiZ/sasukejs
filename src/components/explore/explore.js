@@ -23,7 +23,7 @@ export default function Explore(props) {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/question/fetchall`)
+      .get(`https://chainwhiz.herokuapp.com/question/fetchall`)
       .then((response) => {
         setData(response.data);
       })

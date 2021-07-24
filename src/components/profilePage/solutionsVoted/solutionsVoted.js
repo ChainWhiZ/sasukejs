@@ -23,7 +23,7 @@ export default function SolutionsVoted() {
   const [username] = useState(localStorage.getItem("username"));
   useEffect(() => {
     axios
-      .post(`http://localhost:4000/user/votedetails`, {
+      .post(`https://chainwhiz.herokuapp.com/user/votedetails`, {
         githubId:username
       })
       .then((response) => {

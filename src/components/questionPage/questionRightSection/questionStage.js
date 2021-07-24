@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import {
@@ -11,27 +10,15 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import SolutionSubmit from "../dialogs/solutionSubmit";
-import { Link } from 'react-router-dom';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+import { Link } from "react-router-dom";
 
 export default function QuestionStage(props) {
-  const classes = useStyles();
-  const seconds = Math.floor(new Date().getTime() / 1000);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
 
   return (
     <>
       <Grid container>
-        {props.timeEnd > seconds ? (
+        {props.questionStage !== "complete" ? (
           <Grid item md={12}>
             IN PROGRESS
           </Grid>
@@ -44,12 +31,12 @@ export default function QuestionStage(props) {
           <Card>
             <CardContent>
               {props.isCommunityApprovedSolution ? (
-                props.votingTimeBegin > seconds ? (
+                props.questionStage === "solve" ? (
                   <>
                     <p>{solvingPhaseDetails.heading}</p>
                     <p>{solvingPhaseDetails.description}</p>
                   </>
-                ) : props.timeEnd > seconds ? (
+                ) : props.questionStage === "vote" ? (
                   <>
                     <p>{votingPhaseDetails.heading}</p>
                     <p>{votingPhaseDetails.description}</p>
@@ -60,7 +47,7 @@ export default function QuestionStage(props) {
                     <p>{completed.description}</p>
                   </>
                 )
-              ) : props.timeEnd > seconds ? (
+              ) : props.questionStage === "solve" ? (
                 <>
                   <p>{solvingPhaseDetails.heading}</p>
                   <p>{solvingPhaseDetails.description}</p>
@@ -72,10 +59,10 @@ export default function QuestionStage(props) {
                 </>
               )}
             </CardContent>
-            {seconds <= props.timeEnd && (
+            {props.questionStage !== "complete" && (
               <CardActions>
                 {props.isCommunityApprovedSolution ? (
-                  props.votingTimeBegin > seconds ? (
+                  props.questionStage === "solve" ? (
                     <Button
                       size="small"
                       onClick={() => setOpenSolveDialog(true)}
@@ -83,30 +70,16 @@ export default function QuestionStage(props) {
                       {solvingPhaseDetails.buttonLabel}
                     </Button>
                   ) : (
-                    <Link to={{
-                      pathname: "/vote",
-                      state: {
-                        questionDetails:props
-                      },
-                    }}>
-                      <Button size="small">{votingPhaseDetails.buttonLabel}</Button> 
+                    <Link to="/vote">
+                      <Button size="small">
+                        {votingPhaseDetails.buttonLabel}
+                      </Button>
                     </Link>
-                   
                   )
                 ) : (
-                  //remove
-                  <>
-                   
-                  <Link to={{
-                    pathname: "/vote",
-                    state: {
-                      questionDetails:props
-                    },
-                  }}>
-                    <Button size="small">{votingPhaseDetails.buttonLabel}</Button>
-                  </Link>
-                  <Button onClick={() => setOpenSolveDialog(true)} size="small">{solvingPhaseDetails.buttonLabel}</Button>
-               </>
+                  <Button onClick={() => setOpenSolveDialog(true)} size="small">
+                    {solvingPhaseDetails.buttonLabel}
+                  </Button>
                 )}
               </CardActions>
             )}

@@ -12,7 +12,7 @@ export default function Authenticate(props) {
       const query = window.location.search.substring(1);
       const token = query.split("code=")[1];
       axios
-        .post(`http://localhost:4000/authenticate/user`, { code: token })
+        .post(`https://chainwhiz.herokuapp.com/authenticate/user`, { code: token })
         .then((response) => {
           localStorage.setItem('username', response.data.doc.githubId);
           props.handleLogin(response.data.doc.githubId);
