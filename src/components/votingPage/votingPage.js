@@ -14,7 +14,7 @@ export default function VotingPage(props) {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .post(`http://localhost:4000/workplan/fetchall`, {
+      .post(`https://chainwhiz.herokuapp.com/workplan/fetchall`, {
         _id: props.location.state.questionDetails._id
       })
       .then((response) => {

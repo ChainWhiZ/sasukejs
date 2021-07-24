@@ -33,7 +33,7 @@ export default function BountyCard(props) {
           {props.questionDetails.workplanIds &&
             props.questionDetails.workplanIds.length &&
             props.questionDetails.workplanIds.map(workplanId =>
-              <BountySolutionCard workplanId={workplanId} />
+              <BountySolutionCard workplanId={workplanId} questionDetails={props.questionDetails} />
             )}
         </AccordionDetails>
       </Accordion>

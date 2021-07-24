@@ -67,7 +67,7 @@ export default function SolutionSubmit(props) {
         })
         .then(async function() {
             return  await axios
-            .post(`http://localhost:4000/solution/save`, {
+            .post(`https://chainwhiz.herokuapp.com/solution/save`, {
               githubId: localStorage.getItem("username"),
               address: walletAddress,
               githubLink: solution,
@@ -87,7 +87,7 @@ export default function SolutionSubmit(props) {
   //     console.log(isSuccess);
   //       if (isSuccess) {
   //         await axios
-  //           .post(`http://localhost:4000/solution/save`, {
+  //           .post(`https://chainwhiz.herokuapp.com/solution/save`, {
   //             githubId: localStorage.getItem("username"),
   //             address: walletAddress,
   //             githubLink: solution,

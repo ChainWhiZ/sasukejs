@@ -16,7 +16,7 @@ export default function SolutionVotedCard(props) {
   
   // useEffect(() => {
   //   axios
-  //     .post(`http://localhost:4000/workplan/fetch`, {
+  //     .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
   //       _id: props.workplanId,
   //     })
   //     .then((response) => {

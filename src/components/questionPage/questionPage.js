@@ -26,7 +26,7 @@ export default function QuestionPage(props) {
   const [data, setData] = useState({});
   useEffect(() => {
     axios
-      .post(`http://localhost:4000/question/fetch`, {
+      .post(`https://chainwhiz.herokuapp.com/question/fetch`, {
         _id: props.match.params.id,
       })
       .then((response) => {

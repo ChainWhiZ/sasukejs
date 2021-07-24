@@ -23,7 +23,7 @@ export default function BountiesPosted() {
   const [username] = useState(localStorage.getItem("username"));
   useEffect(() => {
     axios
-      .post(`http://localhost:4000/user/questions`, {
+      .post(`https://chainwhiz.herokuapp.com/user/questions`, {
         githubId:username
       })
       .then((response) => {

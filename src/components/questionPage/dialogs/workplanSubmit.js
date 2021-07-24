@@ -30,7 +30,7 @@ export default function WorkplanSubmit(props) {
       data: buffer,
     });
     axios
-      .post(`http://localhost:4000/workplan/save`, {
+      .post(`https://chainwhiz.herokuapp.com/workplan/save`, {
         githubId: localStorage.getItem("username"),
         workplan: uploadedFile.hash,
         questionId: props.questionId,

@@ -14,10 +14,9 @@ const useStyles = makeStyles((theme) => ({
 export default function QuestionSolutionCard(props) {
   const classes = useStyles();
   const [applicants, setApplicants] = useState([]);
-  const [voteScore, setVoteScore] = useState(100);
   useEffect(() => {
     axios
-      .post(`http://localhost:4000/workplan/fetch`, {
+      .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
         _id: props.workplanId,
       })
       .then((response) => {
@@ -50,7 +49,7 @@ export default function QuestionSolutionCard(props) {
                         {props.isCommunityApprovedSolution &&
                         props.quesStage === "complete" ? (
                           <>
-                            <p>{voteScore}</p>
+                            <p>{solution.weightage}</p>
                             <p>Voting Score</p>
                           </>
                         ) : null}

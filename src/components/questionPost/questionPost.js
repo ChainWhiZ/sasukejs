@@ -78,7 +78,7 @@ export default function QuestionPost() {
   };
   const handleGithubIssueValidation = async () => {
     return axios
-      .post("http://localhost:4000/question/validate", {
+      .post("https://chainwhiz.herokuapp.com/question/validate", {
         githubIssueUrl: githubLink,
       })
       .then((response) => {
@@ -142,7 +142,7 @@ export default function QuestionPost() {
       .then(async function () {
         console.log("Inside 2nd ")
         return axios
-          .post(`http://localhost:4000/question/save`, {
+          .post(`https://chainwhiz.herokuapp.com/question/save`, {
             githubId: username,
             publicAddress: walletAddress,
             questionTitle: questionTitle,

@@ -34,7 +34,7 @@ export default function StakingCard(props) {
     setBalance((parseInt(await contract.methods.balanceOf(walletAddress).call({ from: walletAddress }))) * (10 ^ (-18)))
 
     axios
-      .post(`http://localhost:4000/solution/fetch`, {
+      .post(`https://chainwhiz.herokuapp.com/solution/fetch`, {
         solutionId: props.solutionId
       })
       .then((response) => {
@@ -44,7 +44,7 @@ export default function StakingCard(props) {
       .catch((err) => console.log(err));
 
     axios
-      .post(`http://localhost:4000/user/isvoter`, {
+      .post(`https://chainwhiz.herokuapp.com/user/isvoter`, {
         userId: username
 
       })
@@ -74,7 +74,7 @@ export default function StakingCard(props) {
         if (!isVoter) {
           console.log("2st if")
           return await axios
-            .post(`http://localhost:4000/vote/voterDetails`, {
+            .post(`https://chainwhiz.herokuapp.com/vote/voterdetails`, {
               githubId: username
 
             })
@@ -97,7 +97,7 @@ export default function StakingCard(props) {
       .then(async function () {
         console.log("4th")
         return await axios
-          .post(`http://localhost:4000/vote/save`, {
+          .post(`https://chainwhiz.herokuapp.com/vote/save`, {
             publicAddress: walletAddress,
             amountStaked: stakedAmount,
             timestamp: (Date.now() / 1000),
