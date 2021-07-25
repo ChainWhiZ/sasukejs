@@ -3,12 +3,26 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import {
+  initiliaseWeb3,
+  fetchAccount,
+  initiliaseContract,
+} from "../../../web3js/web3";
 
 export default function EscrowDialog(props) {
   const [open, setOpen] = useState(props.open);
   const [escrow, setEscrow] = useState('');
   const [username] = localStorage.getItem("username");
-  useEffect(() => {
+  const [walletAddress, setWalletAddress] = useState("");
+  const [contract, setContract] = useState("");
+
+  useEffect(async() => {
+    await initiliaseWeb3();
+    await fetchAccount(function (result) {
+      setWalletAddress(result[0]);
+    });
+    setContract(await initiliaseContract());
+
     if (props.escrowId) {
 
       axios
@@ -27,7 +41,13 @@ export default function EscrowDialog(props) {
     props.handleDialogClose(false);
   };
   const handleInit = () => {
-    axios
+    return Promise.resolve()
+    .then(async function () {
+      return await contract.methods.initEscrow(props.questionURL,props.solverAddress)//questionhash and solver address from props
+    })
+    
+    .then(async function () {
+      return axios
       .post(`https://chainwhiz.herokuapp.com/escrow/init`, {
         _id:props.solutionId
       })
@@ -35,9 +55,17 @@ export default function EscrowDialog(props) {
         console.log(response.status)
       })
       .catch((err) => console.log(err));
+    })
+    
+
   };
   const handleInProcess = () => {
-    axios
+    return Promise.resolve()
+    .then(async function(){
+      return await contract.methods.transferOwnership(props.solverAddress,props.questionURL)//solver address and questionhash
+    })
+    .then(async function(){
+      axios
       .post(`https://chainwhiz.herokuapp.com/escrow/inprocess`, {
         _id:props.escrowId
       })
@@ -46,9 +74,17 @@ export default function EscrowDialog(props) {
        
       })
       .catch((err) => console.log(err));
+    })
+
   };
   const handleComplete = () => {
-    axios
+
+    return Promise.resolve()
+    .then(async function(){
+      return await contract.methods.transferMoney()//publisher address and question hash
+    })
+    .then(async function(){
+      axios
       .post(`https://chainwhiz.herokuapp.com/escrow/complete`, {
         _id:props.escrowId
       })
@@ -56,6 +92,9 @@ export default function EscrowDialog(props) {
         console.log(response.status)
       })
       .catch((err) => console.log(err));
+
+    })
+
   };
 
   return (
