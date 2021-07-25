@@ -26,6 +26,7 @@ export default function BountySolutionCard(props) {
   const [initiated, setInitiated] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [solutionId, setSolutionId] = useState('');
+  const [solverAddress,setSolverAddress] = useState('');
   useEffect(async () => {
 
     await initiliaseWeb3();
@@ -83,9 +84,9 @@ export default function BountySolutionCard(props) {
                             </>
                           ) : null}
                           {props.questionDetails.questionStage === "complete" && !escrowId ?
-                            (<Button onClick={(event) => { setIsEscrowDialogOpen(true); setSolutionId(solution._id); event.preventDefault() }}>View Escrow</Button>)
+                            (<Button onClick={(event) => { setIsEscrowDialogOpen(true); setSolutionId(solution._id); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
                             : escrowId ?
-                              (<Button onClick={(event) => { setIsEscrowDialogOpen(true); event.preventDefault() }}>View Escrow</Button>)
+                              (<Button onClick={(event) => { setIsEscrowDialogOpen(true); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
                               :
                               null}
                         </li>
@@ -105,6 +106,8 @@ export default function BountySolutionCard(props) {
           from="bountyPosted"
           escrowId={escrowId}
           solutionId={solutionId}
+          questionURL={props.questionDetails.githubIssueUrl}
+          solverAddress={solverAddress}
         />
       ) : (
         ""
