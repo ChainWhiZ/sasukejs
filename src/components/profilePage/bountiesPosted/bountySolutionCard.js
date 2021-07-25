@@ -107,7 +107,7 @@ export default function BountySolutionCard(props) {
           from="bountyPosted"
           escrowId={escrowId}
           solutionId={solutionId}
-          questionURL={props.questionDetails.githubIssueUrl}
+          questionUrl={props.questionDetails.githubIssueUrl}
           solverAddress={solverAddress}
         />
       ) : (

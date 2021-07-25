@@ -43,7 +43,9 @@ export default function EscrowDialog(props) {
   const handleInit = () => {
     return Promise.resolve()
     .then(async function () {
-      return await contract.methods.initEscrow(props.questionURL,props.solverAddress)//questionhash and solver address from props
+      console.log("hi")
+      console.log(contract)
+      return await contract.methods.initEscrow(props.questionUrl,props.solverAddress).send({from:walletAddress})//questionhash and solver address from props
     })
     
     .then(async function () {
@@ -62,7 +64,7 @@ export default function EscrowDialog(props) {
   const handleInProcess = () => {
     return Promise.resolve()
     .then(async function(){
-      return await contract.methods.transferOwnership(props.solverAddress,props.questionURL)//solver address and questionhash
+      return await contract.methods.transferOwnership(props.solverAddress,props.questionUrl).send({from:walletAddress})//solver address and questionhash
     })
     .then(async function(){
       axios
@@ -81,7 +83,7 @@ export default function EscrowDialog(props) {
 
     return Promise.resolve()
     .then(async function(){
-      return await contract.methods.transferMoney()//publisher address and question hash
+      return await contract.methods.transferMoney(props.publisherAddress,props.questionUrl).send({from:walletAddress})//publisher address and question hash
     })
     .then(async function(){
       axios

@@ -62,6 +62,8 @@ export default function SolutionCard(props) {
           handleDialogClose={() => setIsEscrowDialogOpen(false)}
           from="bountySolved"
           escrowId={props.solutionDetails.escrowId}
+          publisherAddress={props.solutionDetails.questionId.publicAddress}
+          questionUrl={props.solutionDetails.questionId.githubIssueUrl}
         />
       ) : (
         ""
