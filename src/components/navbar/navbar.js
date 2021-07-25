@@ -8,12 +8,13 @@ import Authenticate from './authenticate';
 import Grid from "@material-ui/core/Grid";
 import { Link } from 'react-router-dom';
 import logo from '../../assets/cwz.png';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 export default function Navbar() {
   const classes = useStyles();
   const [username, setUsername] = useState(localStorage.getItem('username'));
   return (
     <div className={classes.root}>
-      <AppBar style={{ backgroundColor: 'white',boxShadow:"none",color:"black"}} >
+      <AppBar style={{ backgroundColor: 'white', boxShadow: "none", color: "black" }} >
         <Toolbar>
           <img src={logo} />
           {/* <Typography variant="h6" className={classes.title}>
@@ -37,12 +38,17 @@ export default function Navbar() {
                   <Button color="inherit">Vote a Bounty</Button>
                 </Link>
               </Grid>
-              <Grid item md={3} xs={12}>
-              <p>{username}</p>
+              <Grid item md={2} xs={12}>
+                <p>{username}</p>
+              </Grid>
+              <Grid item md={1} xs={12}>
+                <Link to="/profile" className={classes.link} >
+                  <AccountCircle className={classes.accountIcon} />
+                </Link>
               </Grid>
             </Grid>
-          ) : 
-          <Authenticate handleLogin={(data) => setUsername(data)}/>}
+          ) :
+            <Authenticate handleLogin={(data) => setUsername(data)} />}
         </Toolbar>
       </AppBar>
     </div>

@@ -3,8 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
-
-const useStyles = makeStyles((theme) => ({}));
+import { Link } from 'react-router-dom';
+const useStyles = makeStyles((theme) => ({
+  link: {
+    color: 'inherit',
+    textDecoration: 'inherit'
+  }
+}));
 
 export default function QuestionCard(props) {
   const classes = useStyles();
@@ -13,7 +18,9 @@ export default function QuestionCard(props) {
     <>
       <Grid container spacing={1}>
         <Grid item md={9} xs={12}>
-          <p>{props.questionTitle}</p>
+          <Link to={`/bounty/${props._id}`} className={classes.link}>
+            <p>{props.questionTitle}</p>
+          </Link>
         </Grid>
         <Grid item md={3} xs={12}>
           {props.isCommunityApprovedSolution ? (

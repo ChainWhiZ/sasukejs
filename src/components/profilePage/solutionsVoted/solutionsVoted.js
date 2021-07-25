@@ -32,7 +32,7 @@ export default function SolutionsVoted() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log("hi");
+ 
   return (
     <div className={classes.root}>
       <br />

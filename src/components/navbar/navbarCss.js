@@ -15,5 +15,10 @@ export const useStyles = makeStyles((theme) => ({
         color: "black",
         backgroundColor: "white",
         boxShadow: "none"
+    },
+    accountIcon:{
+        marginTop: "17%",
+        marginLeft: "-68%"
     }
+
 }));
