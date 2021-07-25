@@ -99,6 +99,7 @@ export default function BountySolutionCard(props) {
 
         </CardContent>
       </Card>
+      <br></br>
       {isEscrowDialogOpen && walletAddress === props.questionDetails.publicAddress ? (
         <EscrowDialog
           open={isEscrowDialogOpen}

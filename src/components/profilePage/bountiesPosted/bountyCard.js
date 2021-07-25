@@ -37,6 +37,7 @@ export default function BountyCard(props) {
             )}
         </AccordionDetails>
       </Accordion>
+      <br></br>
     </div>
   );
 }

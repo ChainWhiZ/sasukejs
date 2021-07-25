@@ -55,6 +55,7 @@ export default function SolutionCard(props) {
           </Grid>
         </CardContent>
       </Card>
+      <br></br>
       {isEscrowDialogOpen && walletAddress === props.solutionDetails.publicAddress ? (
         <EscrowDialog
           open={isEscrowDialogOpen}
