@@ -54,7 +54,7 @@ export default function StakingCard(props) {
       })
       .catch((err) => console.log(err));
 
-  }, []);
+  }, [walletAddress,contract]);
   const handleStake = () => {
 
     return Promise.resolve()
@@ -112,6 +112,8 @@ export default function StakingCard(props) {
       })
 
   }
+
+
   if (contract)
     return (
       <>
