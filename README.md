@@ -1,5 +1,5 @@
 # ChainWhiZ 
-
+We are building an Open source and Decentralised Marketplace for Dapp development (blockchain applications).
 ## Web Repo
 
 ### What is ChainWhiZ?
