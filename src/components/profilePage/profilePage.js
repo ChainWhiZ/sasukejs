@@ -31,7 +31,8 @@ export default function ProfilePage(props) {
     //       })
     //       .catch((err) => console.log(err));
     //   }, [data._id]);
-
+console.log(listItem)
+console.log("hi")
     return (
         <div className={classes.root}>
 

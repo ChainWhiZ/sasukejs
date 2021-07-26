@@ -115,7 +115,9 @@ export default function SolutionSubmit(props) {
       <DialogTitle id="simple-dialog-title">Submit Solution</DialogTitle>
       <DialogContent dividers={scroll === "paper"}>
         <DialogContentText id="scroll-dialog-description">
-          {props.quesDetails.workplanIds.map((workplanId, index) => (
+          {props.quesDetails.workplanIds &&
+          props.quesDetails.workplanIds.length &&
+          props.quesDetails.workplanIds.map((workplanId, index) => (
             <>
               <Card>
                 <CardContent>

@@ -41,19 +41,23 @@ export default function QuestionSolutionCard(props) {
                   {applicants.solutionIds &&
                     applicants.solutionIds.length &&
                     applicants.solutionIds.map((solution, index) => (
+                      <>
                       <a href="">
                         {" "}
                         <li>
                           {solution.userId + " submitted " + solution._id}
                         </li>
-                        {props.isCommunityApprovedSolution &&
-                        props.quesStage === "complete" ? (
-                          <>
-                            <p>{solution.weightage}</p>
-                            <p>Voting Score</p>
-                          </>
-                        ) : null}
+                       
                       </a>
+                       {props.isCommunityApprovedSolution &&
+                        props.quesStage === "complete" ? (
+                        <>
+                          <p>Voting Score</p>
+                          <p>{solution.weightage}</p>
+
+                        </>
+                      ) : null}
+                      </>
                     ))}
                 </ul>
               ) : null}

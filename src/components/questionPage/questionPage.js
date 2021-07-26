@@ -41,6 +41,10 @@ export default function QuestionPage(props) {
       <Grid container>
         <Grid item md={12} xs={12}>
           <Navbar />
+          <br/>
+          <br/>
+          <br/>
+          <br/>
         </Grid>
         <Grid item md={8} xs={12}>
           <QuestionHeading {...data} />

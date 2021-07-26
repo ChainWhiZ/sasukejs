@@ -36,6 +36,7 @@ export default function Explore(props) {
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
           <Navbar />
+          <br/>
         </Grid>
         <Grid item md={3} xs={12}>
           <Search />
