@@ -136,11 +136,9 @@ export default function QuestionPost() {
     let timeEnd = timeBegin + days * 24 * 60 * 60;
     return Promise.resolve()
       .then(async function () {
-        console.log("Inside 1st ")
         return await questionPosting();
       })
       .then(async function () {
-        console.log("Inside 2nd ")
         return axios
           .post(`https://chainwhiz.herokuapp.com/question/save`, {
             githubId: username,

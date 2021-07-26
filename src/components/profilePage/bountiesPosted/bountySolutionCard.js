@@ -38,7 +38,6 @@ export default function BountySolutionCard(props) {
         _id: props.workplanId,
       })
       .then((response) => {
-        console.log(response.data)
         setApplicants(response.data);
       })
       .catch((err) => alert(err));
@@ -47,7 +46,6 @@ export default function BountySolutionCard(props) {
       applicants.solutionIds.length !== 0 &&
       applicants.solutionIds.map((solution) => {
         if (solution.escrowId) {
-          console.log(solution.escrowId)
           setEscrowId(solution.escrowId);
         }
       })

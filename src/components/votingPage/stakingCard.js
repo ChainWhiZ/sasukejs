@@ -22,14 +22,12 @@ export default function StakingCard(props) {
   const [isVoter, setIsVoter] = useState(false)
 
   useEffect(async () => {
-    console.log(props)
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
-    console.log(contract)
-    console.log(walletAddress)
+   
     if(contract && walletAddress)
     setBalance((parseInt(await contract.methods.balanceOf(walletAddress).call({ from: walletAddress }))) * (10 ^ (-18)))
 
@@ -38,7 +36,6 @@ export default function StakingCard(props) {
         solutionId: props.solutionId
       })
       .then((response) => {
-        console.log(response.data);
         setSolution(response.data);
       })
       .catch((err) => console.log(err));
@@ -59,20 +56,15 @@ export default function StakingCard(props) {
 
     return Promise.resolve()
       .then(async function () {
-        console.log("1st")
         if (!isVoter) {
-          console.log("1st if")
           return await contract.methods.registerVoter().send({from:walletAddress})
         }
         else {
-          console.log("1st else")
           return
         }
       })
       .then(async function () {
-        console.log("2nd")
         if (!isVoter) {
-          console.log("2st if")
           return await axios
             .post(`https://chainwhiz.herokuapp.com/vote/voterdetails`, {
               githubId: username
@@ -84,18 +76,15 @@ export default function StakingCard(props) {
             .catch((err) => console.error(err));
         }
         else {
-          console.log("2st else")
           return
         }
 
       })
       .then(async function () {
-        console.log("3rd")
         return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({from:walletAddress.toString()})
 
       })
       .then(async function () {
-        console.log("4th")
         return await axios
           .post(`https://chainwhiz.herokuapp.com/vote/save`, {
             publicAddress: walletAddress,

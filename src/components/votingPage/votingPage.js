@@ -18,7 +18,6 @@ export default function VotingPage(props) {
         _id: props.location.state.questionDetails._id
       })
       .then((response) => {
-        console.log(response.data)
         setData(response.data);
       })
       .catch((err) => console.log(err));

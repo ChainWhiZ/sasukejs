@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SolutionVotedCard(props) {
   const classes = useStyles();
-  console.log(props)
   const handleUnstake = () => {
     axios
       .post(`https://chainwhiz.herokuapp.com/vote/updatereward`, {

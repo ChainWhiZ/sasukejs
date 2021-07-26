@@ -22,17 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfilePage(props) {
     const classes = useStyles();
     const [listItem, setListItem] = useState(drawerList[1]);
-    //   const [data, setData] = useState([]);
-    //   useEffect(() => {
-    //     axios
-    //       .get(`https://chainwhiz.herokuapp.com/question/fetchall`)
-    //       .then((response) => {
-    //         setData(response.data);
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }, [data._id]);
-console.log(listItem)
-console.log("hi")
+
     return (
         <div className={classes.root}>
 

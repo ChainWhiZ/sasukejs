@@ -27,7 +27,6 @@ export default function Bounties() {
         githubId:username
       })
       .then((response) => {
-        console.log(response.data)
         setData(response.data);
       })
       .catch((err) => console.log(err));
