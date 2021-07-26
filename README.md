@@ -1,11 +1,11 @@
-#ChainWhiZ 
+# ChainWhiZ 
 
-##Web Repo
+## Web Repo
 
-###What is ChainWhiZ?
+### What is ChainWhiZ?
 
 
-###Functionality
+### Functionality
 * Login using github account.
 * Post a bounty
 * Post a workplan for the bounty
