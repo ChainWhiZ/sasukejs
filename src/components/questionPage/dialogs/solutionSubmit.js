@@ -123,7 +123,7 @@ export default function SolutionSubmit(props) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <a href="#">{workplanId}</a>
+                      <a href={`https://ipfs.io/ipfs/${workplanId}`} target="_blank">{workplanId}</a>
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
