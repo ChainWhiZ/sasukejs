@@ -1,3 +1,15 @@
-##ChainWhiZ Frontend
-This is the frotend application of ChainWhiZ. The its build following the `create-react-app`. 
- First login using your github account. 
+# ChainWhiZ 
+We are building an Open source and Decentralised Marketplace for Dapp development (blockchain applications).
+## Web Repo
+
+### What is ChainWhiZ?
+
+
+### Functionality
+* Login using github account.
+* Post a bounty
+* Post a workplan for the bounty
+* Solve for any workplan of the bounty and win the bounty if selected.
+* Vote on any solutions by staking CW tokens and win rewards, if the solution gets the highest score.
+
+
