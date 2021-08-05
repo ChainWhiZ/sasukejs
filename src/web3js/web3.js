@@ -37,7 +37,8 @@ export const initiliaseContract = async () => {
   let contract = new web3.eth.Contract(
     chainwhiz,
     // "0xbdc46E2543bACf67D0F14553348e354E7ed05052"
-    "0x7fA47322B674FeCc80E5F925CdeCe08688cE8d83"
+    "0x7fA47322B674FeCc80E5F925CdeCe08688cE8d83" //"old contract"
+    // "0xc46Dbf7F0E2d4d5e1DfC050c40a92702dd67EE50"
   );
   return contract;
 };

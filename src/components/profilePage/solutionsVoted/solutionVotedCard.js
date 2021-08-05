@@ -1,10 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
+import {
+  initiliaseWeb3,
+  fetchAccount,
+  initiliaseContract,
+} from "../../../web3js/web3";
 const useStyles = makeStyles((theme) => ({
   list: {
     "list-style-type": "none",
@@ -13,8 +18,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SolutionVotedCard(props) {
   const classes = useStyles();
+  console.log(props)
+  const [walletAddress, setWalletAddress] = useState("");
+  const [contract, setContract] = useState("");
+  useEffect(async ()=>{
+    await initiliaseWeb3();
+    await fetchAccount(function (result) {
+      setWalletAddress(result[0]);
+    });
+    setContract(await initiliaseContract());
+  },[])
   const handleUnstake = () => {
-    axios
+    return Promise.resolve()
+      .then(async function () {
+        // publisher address,github url, solver address, unstake amount
+        contract.methods.unStake()
+      })
+      .then(async function(){
+        axios
       .post(`https://chainwhiz.herokuapp.com/vote/updatereward`, {
         voterId: props.solutionVotedOn._id,
         solutionId: props.solutionVotedOn.solutionId
@@ -23,6 +44,8 @@ export default function SolutionVotedCard(props) {
         console.log(response.status)
       })
       .catch((err) => console.log(err));
+      })
+    
   }
 
   return (
@@ -39,7 +62,7 @@ export default function SolutionVotedCard(props) {
               {props.solutionVotedOn.amountToBeReturned ?
                 (<>
                 <p>{props.solutionVotedOn.amountToBeReturned}</p>
-                <Button onClick={() => handleUnstake}>Unstake</Button>
+                <Button onClick={ handleUnstake}>Unstake</Button>
                 </>
                 )
                 : null

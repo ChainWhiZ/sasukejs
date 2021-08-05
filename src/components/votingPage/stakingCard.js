@@ -4,7 +4,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import githubIcon from '../../assets/Vector1.png';
 import workplanIcon from '../../assets/Vector.png';
-import { useStyles } from './votingPageCss'
+import { useStyles } from './votingPageCss';
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import {
   initiliaseWeb3,
@@ -27,9 +28,9 @@ export default function StakingCard(props) {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
-   
-    if(contract && walletAddress)
-    setBalance((parseInt(await contract.methods.balanceOf(walletAddress).call({ from: walletAddress }))) * (10 ^ (-18)))
+
+    if (contract && walletAddress)
+      setBalance((parseInt(await contract.methods.balanceOf(walletAddress).call({ from: walletAddress }))) * (10 ^ (-18)))
 
     axios
       .post(`https://chainwhiz.herokuapp.com/solution/fetch`, {
@@ -51,13 +52,13 @@ export default function StakingCard(props) {
       })
       .catch((err) => console.log(err));
 
-  }, [walletAddress,contract]);
+  }, [walletAddress, contract]);
   const handleStake = () => {
 
     return Promise.resolve()
       .then(async function () {
         if (!isVoter) {
-          return await contract.methods.registerVoter().send({from:walletAddress})
+          return await contract.methods.registerVoter().send({ from: walletAddress })
         }
         else {
           return
@@ -81,7 +82,7 @@ export default function StakingCard(props) {
 
       })
       .then(async function () {
-        return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({from:walletAddress.toString()})
+        return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
 
       })
       .then(async function () {
@@ -101,7 +102,7 @@ export default function StakingCard(props) {
       })
 
   }
-
+console.log(props)
 
   if (contract)
     return (
@@ -110,15 +111,17 @@ export default function StakingCard(props) {
         <div className={classes.solutionDiv}>
           <div className={classes.innerDiv} style={{ width: "55%" }}>
             <img src={githubIcon} className={classes.icon} />
-
-            <Button size="small" variant="outlined" >Github Repo</Button>
-
+            <Link to={{ pathname: props.solutionId }} target="_blank" className={classes.link}>
+              <Button size="small" variant="outlined" >Github Repo</Button>
+            </Link>
 
           </div>
           <div className={classes.innerDiv}>
             <img src={workplanIcon} className={classes.icon} />
             <br />
-            <Button size="small" variant="outlined">Workplan</Button>
+            <Link to={{ pathname: `https://ipfs.io/ipfs/${props.workplan.id}` }} target="_blank" className={classes.link} >
+              <Button size="small" variant="outlined">Workplan</Button>
+            </Link>
           </div>
 
           <div className={classes.author}>
