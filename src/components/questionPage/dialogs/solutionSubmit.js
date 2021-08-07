@@ -68,7 +68,7 @@ export default function SolutionSubmit(props) {
         .then(async function() {
             return  await axios
             .post(`https://chainwhiz.herokuapp.com/solution/save`, {
-              githubId: "rajashree23",
+              githubId: localStorage.getItem("username"),
               address: walletAddress,
               githubLink: solution,
               _id: workplanId,

@@ -52,12 +52,13 @@ export default function StakingCard(props) {
       })
       .catch((err) => console.log(err));
 
-  }, [walletAddress, contract]);
+  }, []);
   const handleStake = () => {
 
     return Promise.resolve()
       .then(async function () {
         if (!isVoter) {
+          console.log("1st");
           return await contract.methods.registerVoter().send({ from: walletAddress })
         }
         else {
@@ -66,6 +67,8 @@ export default function StakingCard(props) {
       })
       .then(async function () {
         if (!isVoter) {
+          console.log("2nd");
+          console.log(username);
           return await axios
             .post(`https://chainwhiz.herokuapp.com/vote/voterdetails`, {
               githubId: username
@@ -82,6 +85,7 @@ export default function StakingCard(props) {
 
       })
       .then(async function () {
+        console.log("3rd");
         return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
 
       })
