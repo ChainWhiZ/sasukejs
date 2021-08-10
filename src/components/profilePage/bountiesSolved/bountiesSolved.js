@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Bounties() {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [username] = useState(localStorage.getItem("username"));
+  const [username] = useState(localStorage.getItem('username'));
   useEffect(() => {
     axios
       .post(`https://chainwhiz.herokuapp.com/user/solutions`, {
