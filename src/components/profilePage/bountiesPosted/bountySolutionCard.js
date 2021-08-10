@@ -77,7 +77,7 @@ export default function BountySolutionCard(props) {
                           {props.questionDetails.isCommunityApprovedSolution &&
                             props.questionDetails.questionStage === "complete" ? (
                             <>
-                              <p>{solution.weightage}</p>
+                              <p>{(solution.weightage)/1000000000000000000}</p>
                               <p>Voting Score</p>
                             </>
                           ) : null}

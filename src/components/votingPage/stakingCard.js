@@ -135,11 +135,11 @@ console.log(props)
 
         </div>
         <div className={classes.stakeDiv}>
-          <TextField id="outlined-basic" type={"number"} className={classes.stakeInput} variant="outlined" size="small" value={stakedAmount} onChange={e => setStakedAmount((e.target.value).toString())} />
+          <TextField id="outlined-basic" type={"number"} className={classes.stakeInput} variant="outlined" size="small" value={stakedAmount/1000000000000000000} onChange={e => setStakedAmount((e.target.value).toString())} />
           <br />
           <br />
           <Button variant="contained" onClick={() => handleStake()}>Stake Now</Button>
-          <p>Avbl. Balance- {balance} CW</p>
+          <p>Avbl. Balance- {balance/1000000000000000000} CW</p>
         </div>
 
       </>
