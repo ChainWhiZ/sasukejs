@@ -6,6 +6,7 @@ import githubIcon from '../../assets/Vector1.png';
 import workplanIcon from '../../assets/Vector.png';
 import { useStyles } from './votingPageCss'
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import {
   initiliaseWeb3,
   fetchAccount,
@@ -54,7 +55,7 @@ export default function StakingCard(props) {
       })
       .catch((err) => console.log(err));
 
-  }, [walletAddress,contract]);
+  }, []);
   const handleStake = () => {
 
     return Promise.resolve()
@@ -122,14 +123,18 @@ export default function StakingCard(props) {
           <div className={classes.innerDiv} style={{ width: "55%" }}>
             <img src={githubIcon} className={classes.icon} />
 
-            <Button size="small" variant="outlined" >Github Repo</Button>
+            <Link to={{ pathname: props.solutionId }} target="_blank" className={classes.link}>
+              <Button size="small" variant="outlined" >Github Repo</Button>
+            </Link>
 
 
           </div>
           <div className={classes.innerDiv}>
             <img src={workplanIcon} className={classes.icon} />
             <br />
-            <Button size="small" variant="outlined">Workplan</Button>
+            <Link to={{ pathname: `https://ipfs.io/ipfs/${props.workplan.id}` }} target="_blank" className={classes.link} >
+              <Button size="small" variant="outlined">Workplan</Button>
+            </Link>
           </div>
 
           <div className={classes.author}>

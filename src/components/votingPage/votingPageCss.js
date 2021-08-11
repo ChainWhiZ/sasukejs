@@ -37,8 +37,10 @@ export const useStyles = makeStyles((theme) => ({
       },
       author:{
         clear:"both"
-      }
-
-
+      },
+      link: {
+        color: 'inherit',
+        textDecoration: 'inherit'
+      },
     
 }));
