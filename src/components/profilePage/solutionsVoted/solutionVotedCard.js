@@ -31,8 +31,9 @@ export default function SolutionVotedCard(props) {
   const handleUnstake = () => {
     return Promise.resolve()
       .then(async function () {
+        console.log(contract)
         // publisher address,github url, solver address, unstake amount
-        contract.methods.unStake()
+        contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,props.solutionVotedOn.questionDetails.githubIssueUrl,"0xE98e1D47D983568cFa91A26BB89c03287581c16a",parseInt(props.solutionVotedOn.amountToBeReturned))
       })
       .then(async function(){
         axios
@@ -59,7 +60,11 @@ export default function SolutionVotedCard(props) {
               </a>
             </Grid>
             <Grid item md={4}>
+<<<<<<< HEAD
+            {props.solutionVotedOn.amountToBeReturned ?
+=======
               {props.solutionVotedOn.amountToBeReturned ?
+>>>>>>> 3d5ae1dbe2ba35e92acae05cb5186d134ae388f8
                 (<>
                 <p>{"Return-"+props.solutionVotedOn.amountToBeReturned}</p>
                 <p>{"Staked-"+props.solutionVotedOn.amountstaked}</p>

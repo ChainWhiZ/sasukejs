@@ -7,6 +7,7 @@ import workplanIcon from '../../assets/Vector.png';
 import { useStyles } from './votingPageCss';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import {
   initiliaseWeb3,
   fetchAccount,
