@@ -35,6 +35,7 @@ export default function BountyCard(props) {
             props.questionDetails.workplanIds.map(workplanId =>
               <BountySolutionCard workplanId={workplanId} questionDetails={props.questionDetails} />
             )}
+            
         </AccordionDetails>
       </Accordion>
       <br></br>

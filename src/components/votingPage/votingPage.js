@@ -18,7 +18,6 @@ export default function VotingPage(props) {
         _id: props.location.state.questionDetails._id
       })
       .then((response) => {
-        console.log(response.data)
         setData(response.data);
       })
       .catch((err) => console.log(err));
@@ -31,6 +30,9 @@ export default function VotingPage(props) {
       <Grid container>
         <Grid item md={12} xs={12}>
           <Navbar />
+          <br/>
+          <br/>
+          <br/>
         </Grid>
         <Grid item md={12} xs={12}>
           <h1>Cast your vote by staking on solutions</h1>

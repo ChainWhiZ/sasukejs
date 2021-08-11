@@ -30,7 +30,6 @@ export default function EscrowDialog(props) {
           _id: props.escrowId
         })
         .then((response) => {
-          console.log(response.data)
           setEscrow(response.data);
         })
         .catch((err) => console.log(err));
@@ -43,8 +42,6 @@ export default function EscrowDialog(props) {
   const handleInit = () => {
     return Promise.resolve()
     .then(async function () {
-      console.log("hi")
-      console.log(contract)
       return await contract.methods.initEscrow(props.questionUrl,props.solverAddress).send({from:walletAddress})//questionhash and solver address from props
     })
     
