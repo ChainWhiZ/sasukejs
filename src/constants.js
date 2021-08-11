@@ -1,12 +1,14 @@
 export const votingPhaseDetails = {
   heading: "Voting on Solutions is live",
-  description:"",
+  description:
+    "Stake your favorite CWZ tokens and vote on winning solutions to earn attractive incentives.",
   buttonLabel: "Vote Now",
 };
 
 export const solvingPhaseDetails = {
   heading: "Solving on Questions is live",
-  description:"",
+  description:
+    "Fire up your development skills by building open source dapps and earn bounty rewards.",
   buttonLabel: "Solve Now",
 };
 
@@ -17,14 +19,14 @@ export const completed = {
 
 export const categoriesFields = ["frontend", "backend", "smart contract"];
 
-
 export const approvalTypes = [
   "I will approve the solution",
   "The community will approve the solution",
 ];
 
 export const drawerList = [
-  'Edit your profile',
-  'Bounties Posted',
-  'Bounties Solved',
-  'Voting'];
+  "Edit your profile",
+  "Bounties Posted",
+  "Bounties Solved",
+  "Voting",
+];
