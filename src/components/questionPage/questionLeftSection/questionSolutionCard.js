@@ -53,7 +53,7 @@ export default function QuestionSolutionCard(props) {
                         props.quesStage === "complete" ? (
                         <>
                           <p>Voting Score</p>
-                          <p>{(solution.weightage)/1000000000000000000}</p>
+                          <p>{solution.weightage}</p>
 
                         </>
                       ) : null}

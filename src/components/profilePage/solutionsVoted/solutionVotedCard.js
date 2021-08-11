@@ -61,8 +61,8 @@ export default function SolutionVotedCard(props) {
             <Grid item md={4}>
               {props.solutionVotedOn.amountToBeReturned ?
                 (<>
-                <p>{"Return-"+(props.solutionVotedOn.amountToBeReturned)/1000000000000000000}</p>
-                <p>{"Staked-"+(props.solutionVotedOn.amountstaked)/1000000000000000000}</p>
+                <p>{"Return-"+props.solutionVotedOn.amountToBeReturned}</p>
+                <p>{"Staked-"+props.solutionVotedOn.amountstaked}</p>
                 <Button onClick={ handleUnstake}>Unstake</Button>
                 </>
                 )

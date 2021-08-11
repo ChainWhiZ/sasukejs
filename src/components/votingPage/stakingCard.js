@@ -86,7 +86,7 @@ export default function StakingCard(props) {
       })
       .then(async function () {
         console.log("3rd");
-        return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
+        return contract.methods.stakeVote((stakedAmount* Math.pow(10, 18)).toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
 
       })
       .then(async function () {
@@ -135,7 +135,7 @@ console.log(props)
 
         </div>
         <div className={classes.stakeDiv}>
-          <TextField id="outlined-basic" type={"number"} className={classes.stakeInput} variant="outlined" size="small" value={stakedAmount/1000000000000000000} onChange={e => setStakedAmount((e.target.value).toString())} />
+          <TextField id="outlined-basic" type={"number"} className={classes.stakeInput} variant="outlined" size="small" value={stakedAmount} onChange={e => setStakedAmount((e.target.value).toString())} />
           <br />
           <br />
           <Button variant="contained" onClick={() => handleStake()}>Stake Now</Button>

@@ -1,14 +1,12 @@
 export const votingPhaseDetails = {
   heading: "Voting on Solutions is live",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer donec urna, imperdiet eget arcu in. Lectus amet nulla arcu at urna amet nunc donec dictum.",
+  description:"",
   buttonLabel: "Vote Now",
 };
 
 export const solvingPhaseDetails = {
   heading: "Solving on Questions is live",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer donec urna, imperdiet eget arcu in. Lectus amet nulla arcu at urna amet nunc donec dictum.",
+  description:"",
   buttonLabel: "Solve Now",
 };
 
