@@ -86,7 +86,7 @@ export default function StakingCard(props) {
       })
       .then(async function () {
         console.log("3rd");
-        return contract.methods.stakeVote(stakedAmount.toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
+        return contract.methods.stakeVote((stakedAmount* Math.pow(10, 18)).toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
 
       })
       .then(async function () {
@@ -139,7 +139,7 @@ console.log(props)
           <br />
           <br />
           <Button variant="contained" onClick={() => handleStake()}>Stake Now</Button>
-          <p>Avbl. Balance- {balance} CW</p>
+          <p>Avbl. Balance- {balance/1000000000000000000} CW</p>
         </div>
 
       </>

@@ -68,7 +68,7 @@ export default function SolutionSubmit(props) {
         .then(async function() {
             return  await axios
             .post(`https://chainwhiz.herokuapp.com/solution/save`, {
-              githubId: localStorage.getItem("username"),
+              githubId: "rajashree23",
               address: walletAddress,
               githubLink: solution,
               _id: workplanId,
@@ -123,6 +123,7 @@ export default function SolutionSubmit(props) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
+                      <p>Commit</p>
                       <a href={`https://ipfs.io/ipfs/${workplanId}`} target="_blank">{workplanId}</a>
                     </Grid>
                     <Grid item xs={12}>
