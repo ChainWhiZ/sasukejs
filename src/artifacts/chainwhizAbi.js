@@ -621,5 +621,5 @@ const chainwhiz = [
 		"stateMutability": "payable",
 		"type": "function"
 	}
-];
+]
 export default chainwhiz;
