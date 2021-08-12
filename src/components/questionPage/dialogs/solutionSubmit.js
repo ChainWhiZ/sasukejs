@@ -123,7 +123,7 @@ export default function SolutionSubmit(props) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <p>Commit</p>
+                      <p>Please paste your solution link directly beneath the work plan on top of which it has been built</p>
                       <a href={`https://ipfs.io/ipfs/${workplanId}`} target="_blank">{workplanId}</a>
                     </Grid>
                     <Grid item xs={12}>
