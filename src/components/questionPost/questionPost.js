@@ -184,8 +184,8 @@ export default function QuestionPost() {
           <Navbar />
         </Grid>
         <Grid item xs={12} className={classes.heading}>
-          <h1>Post your issue</h1>
-          <p>Publish your issue and let developers do the rest for you.</p>
+          <h1>Post your bounty</h1>
+          <p>Publish your bounty and let developers do the rest for you.</p>
         </Grid>
         <Grid item xs={12} className={classes.marginLeftRight10}>
           <p>QUESTION TITTLE</p>
@@ -217,7 +217,7 @@ export default function QuestionPost() {
           ))}{" "}
         </Grid>
         <Grid item xs={12} className={classes.heading}>
-          <h3>Provide details about your question</h3>
+          <h3>Provide details about your bounty</h3>
           <p>This helps the developer better understand your requirements.</p>
         </Grid>
         <Grid container >
