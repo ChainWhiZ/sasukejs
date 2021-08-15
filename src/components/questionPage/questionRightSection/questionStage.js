@@ -14,48 +14,53 @@ import { Link } from "react-router-dom";
 
 export default function QuestionStage(props) {
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
-
   return (
     <>
       <Grid container>
         {props.questionStage !== "complete" ? (
           <Grid item md={12}>
-            IN PROGRESS
+            <p class="stage-title">IN PROGRESS</p>
           </Grid>
         ) : (
           <Grid item md={12}>
-            COMPLETED
+            <p class="stage-title"> COMPLETED</p>
           </Grid>
         )}
-        <Grid item md={12}>
+        <Grid item md={12} class="card-grid">
           <Card>
             <CardContent>
               {props.isCommunityApprovedSolution ? (
                 props.questionStage === "solve" ? (
                   <>
-                    <p>{solvingPhaseDetails.heading}</p>
-                    <p>{solvingPhaseDetails.description}</p>
+                    <p class="stage-heading">{solvingPhaseDetails.heading}</p>
+                    <p class="stage-description">
+                      {solvingPhaseDetails.description}
+                    </p>
                   </>
                 ) : props.questionStage === "vote" ? (
                   <>
-                    <p>{votingPhaseDetails.heading}</p>
-                    <p>{votingPhaseDetails.description}</p>
+                    <p class="stage-heading">{votingPhaseDetails.heading}</p>
+                    <p class="stage-description">
+                      {votingPhaseDetails.description}
+                    </p>
                   </>
                 ) : (
                   <>
-                    <p>{completed.heading}</p>
-                    <p>{completed.description}</p>
+                    <p class="stage-heading">{completed.heading}</p>
+                    <p class="stage-description">{completed.description}</p>
                   </>
                 )
               ) : props.questionStage === "solve" ? (
                 <>
-                  <p>{solvingPhaseDetails.heading}</p>
-                  <p>{solvingPhaseDetails.description}</p>
+                  <p class="stage-heading">{solvingPhaseDetails.heading}</p>
+                  <p class="stage-description">
+                    {solvingPhaseDetails.description}
+                  </p>
                 </>
               ) : (
                 <>
-                  <p>{completed.heading}</p>
-                  <p>{completed.description}</p>
+                  <p class="stage-heading">{completed.heading}</p>
+                  <p class="stage-description">{completed.description}</p>
                 </>
               )}
             </CardContent>
@@ -63,29 +68,31 @@ export default function QuestionStage(props) {
               <CardActions>
                 {props.isCommunityApprovedSolution ? (
                   props.questionStage === "solve" ? (
-                   
-                      <Button
-                        size="small"
-                        onClick={() => setOpenSolveDialog(true)}
-                      >
-                        {solvingPhaseDetails.buttonLabel}
-                      </Button>
-                     
-                    
+                    <Button
+                      class="stage-button"
+                      onClick={() => setOpenSolveDialog(true)}
+                    >
+                      {solvingPhaseDetails.buttonLabel}
+                    </Button>
                   ) : (
-                    <Link to={{
-                      pathname: "/vote",
-                      state: {
-                        questionDetails: props
-                      },
-                    }}>
-                      <Button size="small">
+                    <Link
+                      to={{
+                        pathname: "/vote",
+                        state: {
+                          questionDetails: props,
+                        },
+                      }}
+                    >
+                      <Button class="stage-button">
                         {votingPhaseDetails.buttonLabel}
                       </Button>
                     </Link>
                   )
                 ) : (
-                  <Button onClick={() => setOpenSolveDialog(true)} size="small">
+                  <Button
+                    onClick={() => setOpenSolveDialog(true)}
+                    class="stage-button"
+                  >
                     {solvingPhaseDetails.buttonLabel}
                   </Button>
                 )}
