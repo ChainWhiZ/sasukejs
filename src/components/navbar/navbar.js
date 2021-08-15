@@ -38,28 +38,12 @@ export default function Navbar() {
                 </Link>
               </Grid>
               <Grid item md={3} xs={12}>
-<<<<<<< HEAD
                 <Link to={{
                   pathname: "/explore",
                   state: {
                     type: "solve"
                   },
-                }}
-                  className={classes.link}>
-                  <Button color="inherit">Solve a Bounty</Button>
-                </Link>
-              </Grid>
-              <Grid item md={3} xs={12}>
-              <Link to={{
-                  pathname: "/explore",
-                  state: {
-                    type: "vote"
-                  },
-                }}
-                  className={classes.link}>
-                  <Button color="inherit">Vote a Bounty</Button>
-=======
-                <Link to="/explore" className={classes.link}>
+                }} className={classes.link}>
                   <Button
                     className={classes.button}
                     style={{ textTransform: "none" }}
@@ -70,7 +54,12 @@ export default function Navbar() {
                 </Link>
               </Grid>
               <Grid item md={3} xs={12}>
-                <Link to="/explore" className={classes.link}>
+                <Link to={{
+                  pathname: "/explore",
+                  state: {
+                    type: "vote"
+                  },
+                }} className={classes.link}>
                   <Button
                     className={classes.button}
                     style={{ textTransform: "none" }}
@@ -78,7 +67,6 @@ export default function Navbar() {
                   >
                     Vote a Bounty
                   </Button>
->>>>>>> 59ba10d4b27037d879947d6a6a2681281290444b
                 </Link>
               </Grid>
               <Grid item md={2} xs={12}>
