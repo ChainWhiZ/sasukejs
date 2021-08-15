@@ -32,6 +32,7 @@ export default function WorkplanSubmit(props) {
       key: username + timestamp,
       data: buffer,
     });
+    console.log(uploadedFile.hash)
     axios
       .post(`https://chainwhiz.herokuapp.com/workplan/save`, {
         githubId: localStorage.getItem("username"),
@@ -39,14 +40,16 @@ export default function WorkplanSubmit(props) {
         questionId: props.questionId,
       })
       .then((response) => {
+        
         if (response.status === 201) {
+          props.handleFetch();
           setOpen(false);
           props.handleDialogClose(false);
         }
       })
       .catch((err) => {
          //error snackbar and remove console.log
-        console.log(err);
+        alert("Workplan already exists. Submit a different workplan");
       });
   };
 

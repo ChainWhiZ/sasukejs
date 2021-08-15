@@ -13,6 +13,9 @@ export default function QuestionPage(props) {
   const [data, setData] = useState({});
   const [loader, setLoader] = useState(true);
   useEffect(() => {
+    fetchQuestion();
+  }, [data._id]);
+  const fetchQuestion = () => {
     axios
       .post(`https://chainwhiz.herokuapp.com/question/fetch`, {
         _id: props.match.params.id,
@@ -23,10 +26,9 @@ export default function QuestionPage(props) {
       })
       .catch((err) => {
         setLoader(false);
-        alert(err);
+        alert("Question or github issue url not found");
       });
-  }, [data._id]);
-
+  };
   return (
     <>
       <Navbar />
@@ -40,7 +42,7 @@ export default function QuestionPage(props) {
         <Grid container>
           <Grid item md={12} xs={12}></Grid>
           <Grid item md={9} xs={12}>
-            <QuestionHeading {...data} />
+            <QuestionHeading {...data} handleFetch={() => fetchQuestion()} />
             <QuestionDescription {...data} />
             <QuestionApplicants {...data} />
           </Grid>
