@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import fleekStorage from "@fleekhq/fleek-storage-js";
@@ -27,12 +26,17 @@ export default function WorkplanSubmit(props) {
   const handleSubmit = async () => {
     setLoader(true);
     const timestamp = new Date().getTime();
+    if(!buffer){
+      //error snackbar and remove console.log
+      console.log("display err here as well")
+    }
     const uploadedFile = await fleekStorage.upload({
       apiKey: "U3QGDwCkWltjBLGG1hATUg==",
       apiSecret: "GMFzg7TFJC2fjhwoz9slkfnncmV/TAHK/4WVeI0qpYY=",
       key: username + timestamp,
       data: buffer,
     });
+    console.log(uploadedFile.hash)
     axios
       .post(`https://chainwhiz.herokuapp.com/workplan/save`, {
         githubId: localStorage.getItem("username"),
@@ -40,20 +44,32 @@ export default function WorkplanSubmit(props) {
         questionId: props.questionId,
       })
       .then((response) => {
-        props.handleFetch();
-        setLoader(false);
-        setOpen(false);
-        props.handleDialogClose(false);
+        
+        if (response.status === 201) {
+          props.handleFetch();
+          setOpen(false);
+          props.handleDialogClose(false);
+        }
+      })
+      .catch((err) => {
+         //error snackbar and remove console.log
+        alert("Workplan already exists. Submit a different workplan");
       });
   };
 
   return (
     <>
     <Dialog aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle id="simple-dialog-title">Submit Workplan</DialogTitle>
+      <p class="dialog-title">Submit Workplan</p>
       <input type="file" onChange={(e) => captureFile(e)} />
-      <Button onClick={handleSubmit}>Submit</Button>
-      <Button onClick={handleClose}>Close</Button>
+      <Button class="dialog-button" onClick={handleSubmit}>
+        Submit
+      </Button>
+      <span>
+        <Button class="dialog-button" onClick={handleClose}>
+          Close
+        </Button>
+      </span>
     </Dialog>
     {loader?
     (<CircularIndeterminate/>)
