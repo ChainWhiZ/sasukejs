@@ -52,8 +52,7 @@ export default function QuestionSolutionCard(props) {
                        {props.isCommunityApprovedSolution &&
                         props.quesStage === "complete" ? (
                         <>
-                          <p>Voting Score</p>
-                          <p>{solution.weightage}</p>
+                          <p>{"Voting Score"+solution.weightage}</p>
 
                         </>
                       ) : null}

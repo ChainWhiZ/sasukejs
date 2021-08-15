@@ -2,20 +2,8 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-
-
 import BountyCard from "./bountyCard";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+import {useStyles} from "../profilePageCss";
 
 export default function BountiesPosted() {
   const classes = useStyles();
@@ -32,12 +20,12 @@ export default function BountiesPosted() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className={classes.root}>
+    <div className={classes.flexRoot}>
       <br />
       <br />
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          {data && data.length && data.map(question=>
+          {data && data.length>0  && data.map(question=>
           <BountyCard questionDetails={question} />
           )}
         </Grid>

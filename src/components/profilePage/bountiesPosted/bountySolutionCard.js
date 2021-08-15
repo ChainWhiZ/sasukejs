@@ -12,11 +12,7 @@ import {
   fetchAccount,
   initiliaseContract,
 } from "../../../web3js/web3";
-const useStyles = makeStyles((theme) => ({
-  list: {
-    "list-style-type": "none",
-  },
-}));
+import { useStyles } from "../profilePageCss";
 
 export default function BountySolutionCard(props) {
   const classes = useStyles();
@@ -26,13 +22,18 @@ export default function BountySolutionCard(props) {
   const [initiated, setInitiated] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
   const [solutionId, setSolutionId] = useState('');
-  const [solverAddress,setSolverAddress] = useState('');
+  const [solverAddress, setSolverAddress] = useState('');
   useEffect(async () => {
 
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
     });
+    fetchSolutions();
+
+  }, [applicants._id, props.workplanId]);
+
+  const fetchSolutions = () => {
     axios
       .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
         _id: props.workplanId,
@@ -50,46 +51,59 @@ export default function BountySolutionCard(props) {
         }
       })
 
-
-  }, [applicants._id, props.workplanId]);
-
-
+  }
   return (
     <>
-      <Card>
+      <Card className={classes.cardColor}>
         <CardContent>
           <Grid container>
             <Grid item md={12}>
-              <a href="#">
-                {applicants.userId + " submitted " + applicants._id}
-              </a>
+              <span>
+                {applicants.userId + " submitted "}
+                <a href={`https://ipfs.io/ipfs/${applicants._id}`} target="blank" className={classes.link}>
+                  {applicants._id}
+                </a>
+              </span>
+
             </Grid>
             <Grid item md={12}>
               {applicants.solutionIds && applicants.solutionIds.length !== 0 ? (
                 <ul className={classes.list}>
                   {applicants.solutionIds &&
-                    applicants.solutionIds.length &&
-                    applicants.solutionIds.map((solution) => (
-                      <a href="">
-                        {" "}
-                        <li>
-                          {solution.userId + " submitted " + solution._id}
-                          {props.questionDetails.isCommunityApprovedSolution &&
-                            props.questionDetails.questionStage === "complete" ? (
-                            <>
-                              <p>{solution.weightage}</p>
-                              <p>Voting Score</p>
-                            </>
-                          ) : null}
-                          {props.questionDetails.questionStage === "complete" && !escrowId ?
-                            (<Button onClick={(event) => { setIsEscrowDialogOpen(true); setSolutionId(solution._id); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
-                            : escrowId ?
-                              (<Button onClick={(event) => { setIsEscrowDialogOpen(true); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
-                              :
-                              null}
-                        </li>
-                      </a>
-                    ))}
+                    applicants.solutionIds.length > 0 &&
+                    applicants.solutionIds.map((solution) =>
+
+                      <li>
+                        <span>
+                          {solution.userId + " submitted "}
+                          <a href={solution._id} target="blank" className={classes.link}>
+                            {solution._id}
+                          </a>
+                        </span>
+                        <br />
+                        {props.questionDetails.isCommunityApprovedSolution &&
+                          props.questionDetails.questionStage === "complete" ? (
+                          <>
+                            <p>{"Voting Score " + solution.weightage}</p>
+                          </>
+                        ) : null}
+                        {props.questionDetails.questionStage === "complete" && !escrowId ?
+                          (<Button variant="outlined"
+                            size="small"
+                            className={classes.button}
+                            onClick={(event) => { setIsEscrowDialogOpen(true); setSolutionId(solution._id); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
+                          : escrowId ?
+                            (<Button variant="outlined"
+                              size="small"
+                              className={classes.button}
+                              onClick={(event) => { setIsEscrowDialogOpen(true); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
+                            :
+                            null}
+                        <br />
+                        <br />
+                      </li>
+
+                    )}
                 </ul>
               ) : null}
             </Grid>
@@ -98,19 +112,22 @@ export default function BountySolutionCard(props) {
         </CardContent>
       </Card>
       <br></br>
-      {isEscrowDialogOpen && walletAddress === props.questionDetails.publicAddress ? (
-        <EscrowDialog
-          open={isEscrowDialogOpen}
-          handleDialogClose={() => setIsEscrowDialogOpen(false)}
-          from="bountyPosted"
-          escrowId={escrowId}
-          solutionId={solutionId}
-          questionUrl={props.questionDetails.githubIssueUrl}
-          solverAddress={solverAddress}
-        />
-      ) : (
-        ""
-      )}
+      {
+        isEscrowDialogOpen && walletAddress === props.questionDetails.publicAddress ? (
+          <EscrowDialog
+            open={isEscrowDialogOpen}
+            handleDialogClose={() => setIsEscrowDialogOpen(false)}
+            from="bountyPosted"
+            escrowId={escrowId}
+            solutionId={solutionId}
+            questionUrl={props.questionDetails.githubIssueUrl}
+            solverAddress={solverAddress}
+            handleFetch={() => fetchSolutions()}
+          />
+        ) : (
+          ""
+        )
+      }
     </>
   );
 }

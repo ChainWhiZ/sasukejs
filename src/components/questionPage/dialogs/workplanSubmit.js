@@ -4,11 +4,13 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import fleekStorage from "@fleekhq/fleek-storage-js";
 import axios from "axios";
+import CircularIndeterminate from "../../loader/loader"
 
 export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [buffer, setBuffer] = useState("");
   const [username] = localStorage.getItem("username");
+  const [loader,setLoader] = useState(false);
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
@@ -21,7 +23,9 @@ export default function WorkplanSubmit(props) {
       setBuffer(Buffer(reader.result));
     };
   };
+
   const handleSubmit = async () => {
+    setLoader(true);
     const timestamp = new Date().getTime();
     const uploadedFile = await fleekStorage.upload({
       apiKey: "U3QGDwCkWltjBLGG1hATUg==",
@@ -36,17 +40,24 @@ export default function WorkplanSubmit(props) {
         questionId: props.questionId,
       })
       .then((response) => {
+        props.handleFetch();
+        setLoader(false);
         setOpen(false);
         props.handleDialogClose(false);
       });
   };
 
   return (
+    <>
     <Dialog aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">Submit Workplan</DialogTitle>
       <input type="file" onChange={(e) => captureFile(e)} />
       <Button onClick={handleSubmit}>Submit</Button>
       <Button onClick={handleClose}>Close</Button>
     </Dialog>
+    {loader?
+    (<CircularIndeterminate/>)
+    :(null)}
+    </>
   );
 }

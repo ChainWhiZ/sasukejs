@@ -29,12 +29,24 @@ export default function Navbar() {
                 </Link>
               </Grid>
               <Grid item md={3} xs={12}>
-                <Link to="/explore" className={classes.link}>
+                <Link to={{
+                  pathname: "/explore",
+                  state: {
+                    type: "solve"
+                  },
+                }}
+                  className={classes.link}>
                   <Button color="inherit">Solve a Bounty</Button>
                 </Link>
               </Grid>
               <Grid item md={3} xs={12}>
-                <Link to="/explore" className={classes.link}>
+              <Link to={{
+                  pathname: "/explore",
+                  state: {
+                    type: "vote"
+                  },
+                }}
+                  className={classes.link}>
                   <Button color="inherit">Vote a Bounty</Button>
                 </Link>
               </Grid>

@@ -89,6 +89,7 @@ export default function QuestionHeading(props) {
           open={openWorkplanDialog}
           handleDialogClose={() => setOpenWorkplanDialog(false)}
           questionId={props._id}
+          handleFetch={()=>props.handleFetch()} 
         />
       ) : (
         ""

@@ -24,7 +24,12 @@ const useStyles = makeStyles((theme) => ({
 export default function QuestionPage(props) {
   const classes = useStyles();
   const [data, setData] = useState({});
+
   useEffect(() => {
+    fetchQuestion();
+  }, [data._id]);
+  const fetchQuestion = () => {
+    console.log("Fetch")
     axios
       .post(`https://chainwhiz.herokuapp.com/question/fetch`, {
         _id: props.match.params.id,
@@ -33,21 +38,20 @@ export default function QuestionPage(props) {
         setData(response.data);
       })
       .catch((err) => alert(err));
-  }, [data._id]);
-
+  }
   return (
     <div className={classes.root}>
 
       <Grid container>
         <Grid item md={12} xs={12}>
           <Navbar />
-          <br/>
-          <br/>
-          <br/>
-          <br/>
+          <br />
+          <br />
+          <br />
+          <br />
         </Grid>
         <Grid item md={8} xs={12}>
-          <QuestionHeading {...data} />
+          <QuestionHeading {...data} handleFetch={()=>fetchQuestion()} />
           <QuestionDescription {...data} />
           <QuestionApplicants {...data} />
         </Grid>

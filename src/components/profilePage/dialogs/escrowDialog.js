@@ -8,15 +8,22 @@ import {
   fetchAccount,
   initiliaseContract,
 } from "../../../web3js/web3";
+import CircularIndeterminate from "../../loader/loader";
+import SimpleAlerts from "../../alert/alert";
+import {useStyles} from "../profilePageCss";
 
 export default function EscrowDialog(props) {
+  const classes = useStyles();
   const [open, setOpen] = useState(props.open);
   const [escrow, setEscrow] = useState('');
   const [username] = localStorage.getItem("username");
   const [walletAddress, setWalletAddress] = useState("");
   const [contract, setContract] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
 
-  useEffect(async() => {
+  useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
@@ -34,76 +41,144 @@ export default function EscrowDialog(props) {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [open]);
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
   };
   const handleInit = () => {
+    setLoader(true);
     return Promise.resolve()
-    .then(async function () {
-      return await contract.methods.initEscrow(props.questionUrl,props.solverAddress).send({from:walletAddress})//questionhash and solver address from props
-    })
-    
-    .then(async function () {
-      return axios
-      .post(`https://chainwhiz.herokuapp.com/escrow/init`, {
-        _id:props.solutionId
+      .then(async function () {
+        return await contract.methods.initEscrow(props.questionUrl, props.solverAddress).send({ from: walletAddress })//questionhash and solver address from props
       })
-      .then((response) => {
-        console.log(response.status)
+
+      .then(async function () {
+        return axios
+          .post(`https://chainwhiz.herokuapp.com/escrow/init`, {
+            _id: props.solutionId
+          })
+          .then((response) => {
+            console.log(response.status)
+            props.handleFetch();
+            setLoader(false);
+            setOpen(false);
+            props.handleDialogClose(false);
+          })
+          .catch((err) => {
+            setAlert(prevState => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Error"
+            }));
+            setLoader(false);
+            setOpen(false);
+            props.handleDialogClose(false);
+            console.log(err)
+          });
       })
-      .catch((err) => console.log(err));
-    })
-    
 
   };
   const handleInProcess = () => {
+    setLoader(true);
     return Promise.resolve()
-    .then(async function(){
-      return await contract.methods.transferOwnership(props.solverAddress,props.questionUrl).send({from:walletAddress})//solver address and questionhash
-    })
-    .then(async function(){
-      axios
-      .post(`https://chainwhiz.herokuapp.com/escrow/inprocess`, {
-        _id:props.escrowId
+      .then(async function () {
+        return await contract.methods.transferOwnership(props.solverAddress, props.questionUrl).send({ from: walletAddress })//solver address and questionhash
       })
-      .then((response) => {
-        console.log(response.status)
-       
-      })
-      .catch((err) => console.log(err));
-    })
+      .then(async function () {
+        axios
+          .post(`https://chainwhiz.herokuapp.com/escrow/inprocess`, {
+            _id: props.escrowId
+          })
+          .then((response) => {
+            console.log(response.status)
+            setLoader(false);
+            setOpen(false);
+            props.handleDialogClose(false);
 
+          })
+          .catch((err) => {
+            setAlert(prevState => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Error"
+            }));
+            setLoader(false);
+            setOpen(false);
+            props.handleDialogClose(false);
+            console.log(err)
+          });
+      })
   };
   const handleComplete = () => {
-
+    setLoader(true);
     return Promise.resolve()
-    .then(async function(){
-      return await contract.methods.transferMoney(props.publisherAddress,props.questionUrl).send({from:walletAddress})//publisher address and question hash
-    })
-    .then(async function(){
-      axios
-      .post(`https://chainwhiz.herokuapp.com/escrow/complete`, {
-        _id:props.escrowId
+      .then(async function () {
+        return await contract.methods.transferMoney(props.publisherAddress, props.questionUrl).send({ from: walletAddress })//publisher address and question hash
       })
-      .then((response) => {
-        console.log(response.status)
+      .then(async function () {
+        axios
+          .post(`https://chainwhiz.herokuapp.com/escrow/complete`, {
+            _id: props.escrowId
+          })
+          .then((response) => {
+            console.log(response.status)
+            setLoader(false);
+            setOpen(false);
+            props.handleDialogClose(false);
+          })
+          .catch((err) => {
+            setAlert(prevState => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Error"
+            }));
+            setLoader(false);
+            setOpen(false);
+            props.handleDialogClose(false);
+            console.log(err)
+          });
       })
-      .catch((err) => console.log(err));
-
-    })
-
   };
 
   return (
-    <Dialog aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle id="simple-dialog-title">Escrow Stage</DialogTitle>
-      <p>{escrow.escrowStatus}</p>
-      <Button disabled={props.from === "bountyPosted" && !escrow ? false : true} onClick={()=>handleInit()}>Init</Button>
-      <Button disabled={props.from === "bountyPosted" && escrow.escrowStatus==="init" ? false : true} onClick={()=>handleInProcess()}>Onwership Received</Button>
-      <Button disabled={props.from === "bountySolved" && escrow.escrowStatus==="inprocess" ? false : true} onClick={()=>handleComplete()}>Bounty Received</Button>
-      <Button onClick={handleClose}>Close</Button>
-    </Dialog>
+    <>
+      <Dialog aria-labelledby="simple-dialog-title" open={open} >
+        <DialogTitle id="simple-dialog-title">Escrow Stage</DialogTitle>
+        <p>{escrow.escrowStatus}</p>
+        <Button
+          disabled={props.from === "bountyPosted" && !escrow ? false : true}
+          onClick={() => handleInit()}
+          variant="outlined"
+          size="small"
+          className={classes.button}>Init</Button>
+          <br/>
+        <Button
+          disabled={props.from === "bountyPosted" && escrow.escrowStatus === "init" ? false : true}
+          onClick={() => handleInProcess()}
+          variant="outlined"
+          size="small"
+          className={classes.button}>Onwership Received</Button>
+           <br/>
+        <Button
+          disabled={props.from === "bountySolved" && escrow.escrowStatus === "inprocess" ? false : true}
+          onClick={() => handleComplete()}
+          variant="outlined"
+          size="small"
+          className={classes.button}>Bounty Received</Button>
+           <br/>
+        <Button onClick={handleClose}>Close</Button>
+      </Dialog>
+      {
+        loader ?
+          (<CircularIndeterminate />)
+          : (null)
+      }
+      {
+        alert.open ?
+          (<SimpleAlerts severity={alert.severity} message={alert.errorMessage} />)
+          : (null)
+      }
+    </>
   );
 }
