@@ -15,19 +15,18 @@ import SimpleAlerts from "../alert/alert";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
 import { categoriesFields, approvalTypes } from "../../constants";
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import Paper from '@material-ui/core/Paper';
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import Paper from "@material-ui/core/Paper";
 import {
   initiliaseWeb3,
   fetchAccount,
   initiliaseContract,
 } from "../../web3js/web3";
-import { useStyles } from './questionPostCss';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
-
-
+import { useStyles } from "./questionPostCss";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
+import "../questionPage/questionPage.css"
 export default function QuestionPost() {
   const classes = useStyles();
   let history = useHistory();
@@ -44,7 +43,11 @@ export default function QuestionPost() {
     undertaking1: false,
     undertaking2: false,
   });
-  const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "warning" });
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "warning",
+  });
   const [contract, setContract] = useState("");
   const [successStatus, setSuccessStatus] = useState(false);
   useEffect(async () => {
@@ -53,12 +56,9 @@ export default function QuestionPost() {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
-
-
   }, []);
 
   const questionPosting = async () => {
-
     return await contract.methods
       .questionPosting(
         githubLink,
@@ -70,7 +70,7 @@ export default function QuestionPost() {
         if (transactionHash) {
           return true;
         }
-      })
+      });
   };
   const handleUndertakings = (e) => {
     setUndertakings({ ...undertakings, [e.target.name]: e.target.checked });
@@ -98,68 +98,67 @@ export default function QuestionPost() {
   const handleValidation = async () => {
     const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)+(?:issues\/\d+)/;
     if (questionTitle === "") {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please enter question title"
+        errorMessage: "Please enter question title",
       }));
     } else if (!githubLink.match(reg)) {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please enter github issue link"
+        errorMessage: "Please enter github issue link",
       }));
     } else if (!(await handleGithubIssueValidation())) {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please enter valid github issue link"
+        errorMessage: "Please enter valid github issue link",
       }));
     } else if (days <= 0) {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please valid number of days"
+        errorMessage: "Please valid number of days",
       }));
     } else if (walletAddress === "") {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please enter your wallet address"
+        errorMessage: "Please enter your wallet address",
       }));
     } else if (categories === []) {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please select categories"
+        errorMessage: "Please select categories",
       }));
     } else if (approvalType === "") {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please select approval types"
+        errorMessage: "Please select approval types",
       }));
     } else if (bountyReward <= 0) {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please valid bounty reward"
+        errorMessage: "Please valid bounty reward",
       }));
-     
     } else if (approvalType === approvalTypes[1] && communityReward <= 0) {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please valid community reward"
+        errorMessage: "Please valid community reward",
       }));
     } else if (
       undertakings.undertaking1 === false ||
       undertakings.undertaking2 === false
     ) {
-      setAlert(prevState => ({
+      setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please confirm the undertakings"
+        errorMessage: "Please confirm the undertakings",
       }));
     } else {
       await handleSubmit();
@@ -174,7 +173,7 @@ export default function QuestionPost() {
         return await questionPosting();
       })
       .then(async function () {
-        return setSuccessStatus(true)
+        return setSuccessStatus(true);
       })
       .then(async function () {
         return axios
@@ -196,7 +195,6 @@ export default function QuestionPost() {
             questionCategories: categories,
           })
           .then((response) => {
-
             history.push({
               pathname: `/bounty/${response.data}`,
               state: { id: response.data },
@@ -205,19 +203,12 @@ export default function QuestionPost() {
       })
       .then(function () {
         console.log(" ---- done ----");
-
       });
-  }
-
-  
+  };
 
   return (
     <div className={classes.root}>
-
-      <Grid container spacing={3}
-        direction="column"
-        justifyContent="center"
-      >
+      <Grid container spacing={3} direction="column" justifyContent="center">
         <Grid item md={12} xs={12}>
           <Navbar />
         </Grid>
@@ -225,7 +216,12 @@ export default function QuestionPost() {
           <h1>Post your bounty</h1>
           <p>Publish your bounty and let developers do the rest for you.</p>
         </Grid>
-        <Grid container xs={12} className={classes.marginLeftRight10} direction="column">
+        <Grid
+          container
+          xs={12}
+          className={classes.marginLeftRight10}
+          direction="column"
+        >
           <p>QUESTION TITTLE</p>
 
           <TextField
@@ -241,10 +237,24 @@ export default function QuestionPost() {
         <Grid container xs={12} className={classes.marginLeftRight10}>
           <p>CATEGORY</p>
         </Grid>
-        <Grid container className={classes.marginLeftRight10}  >
-          <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={12}>
+        <Grid container className={classes.marginLeftRight10}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            spacing={12}
+          >
             {categoriesFields.map((category) => (
-              <Paper className={classes.paper} style={{ marginRight: "270px", padding: "5px", paddingRight: "5px", borderStyle: "solid", borderWidth: "1px" }}>
+              <Paper
+                className={classes.paper}
+                style={{
+                  marginRight: "270px",
+                  padding: "5px",
+                  paddingRight: "5px",
+                  border: "1px solid #707070",
+                }}
+              >
                 <FormControlLabel
                   value={category}
                   onChange={(e) => handleCategoryChange(e.target.value)}
@@ -257,16 +267,27 @@ export default function QuestionPost() {
                   }
                   label={category}
                 />
-
               </Paper>
             ))}{" "}
           </Grid>
         </Grid>
-        <Grid item xs={12} className={classes.heading} style={{ marginTop: "70px" }}>
+        <Grid
+          item
+          xs={12}
+          className={classes.heading}
+          style={{ marginTop: "70px" }}
+        >
           <h3>Provide details about your bounty</h3>
           <p>This helps the developer better understand your requirements.</p>
         </Grid>
-        <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" spacing={12} className={classes.marginLeftRight10}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          spacing={12}
+          className={classes.marginLeftRight10}
+        >
           <Grid item xs={12} md={6} lg={6}>
             <p>GITHUB LINK</p>
             <TextField
@@ -280,11 +301,16 @@ export default function QuestionPost() {
           </Grid>
         </Grid>
 
-        <Grid container xs={12} md={6} lg={3} className={classes.marginLeftRight10} direction="row" style={{ marginTop: "50px" }}>
-          <Grid item>
+        <Grid
+          container
+          className={classes.marginLeftRight10}
+          direction="row"
+          style={{ marginTop: "50px" }}
+        >
+          <Grid item md={12}>
             <p>EXPECTED TIME OF DELIVERY</p>
           </Grid>
-          <Grid>
+          <Grid md={1}>
             <TextField
               size="small"
               variant="outlined"
@@ -293,13 +319,26 @@ export default function QuestionPost() {
               InputProps={{ inputProps: { min: 0, max: 360 } }}
               onChange={(e) => setDays(e.target.value)}
             />
-            <Box component="span" p={1} border={1} style={{ borderRadius: "5px", marginLeft: "10px" }}>
+          </Grid>
+          <Grid md={11} style={{ marginTop: "7.5px" }}>
+            <Box
+              component="span"
+              p={1}
+              border={1}
+              style={{ borderRadius: "5px", marginLeft: "-3px" }}
+            >
               Days
             </Box>
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={12} className={classes.heading} style={{ marginTop: "70px" }}>
+        <Grid
+          item
+          xs={12}
+          md={12}
+          className={classes.heading}
+          style={{ marginTop: "70px" }}
+        >
           <h3>Decide how the solution will be approved</h3>
           <p>
             You can either self approve the solution or let the community vote
@@ -307,7 +346,12 @@ export default function QuestionPost() {
           </p>
         </Grid>
 
-        <Grid container xs={12} className={classes.marginLeftRight10} justifyContent="space-between">
+        <Grid
+          container
+          xs={12}
+          className={classes.marginLeftRight10}
+          justifyContent="space-between"
+        >
           <FormControl component="fieldset">
             <p>APPROVAL TYPE</p>
 
@@ -320,7 +364,14 @@ export default function QuestionPost() {
               onChange={(e) => setApprovalType(e.target.value)}
             >
               {approvalTypes.map((approvalType) => (
-                <Paper style={{ marginRight: "120px", padding: "5px", borderStyle: "solid", borderWidth: "1px" }}>
+                <Paper
+                  style={{
+                    marginRight: "120px",
+                    padding: "5px",
+                    borderStyle: "solid",
+                    borderWidth: "1px",
+                  }}
+                >
                   <Box sx={{ border: "1px dashed grey" }}>
                     <FormControlLabel
                       value={approvalType}
@@ -334,32 +385,55 @@ export default function QuestionPost() {
           </FormControl>
         </Grid>
 
-        <Grid container direction="row"
+        <Grid
+          container
+          direction="row"
           justifyContent="flex-start"
-          alignItems="center">
-          <Grid item lg={6} className={classes.marginLeftRight10} style={{ marginTop: "50px" }}>
+          alignItems="center"
+        >
+          <Grid
+            item
+            md={12}
+            className={classes.marginLeftRight10}
+            style={{ marginTop: "50px" }}
+          >
             <p>BOUNTY REWARD</p>
-            <Grid container >
-              <TextField
-                size="small"
-                variant="outlined"
-                type={"number"}
-                value={bountyReward}
-                InputProps={{ inputProps: { min: 0, max: 10000 } }}
-                onChange={(e) => {
-                  setBountyReward(e.target.value);
-                }}
-              />
-              <Box component="span" p={1} border={1} style={{ borderRadius: "5px", marginLeft: "10px" }}>
-                CW
-              </Box>
+            <Grid container>
+              <Grid item md={1}>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  type={"number"}
+                  value={bountyReward}
+                  InputProps={{ inputProps: { min: 0, max: 10000 } }}
+                  onChange={(e) => {
+                    setBountyReward(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item md={11} style={{ marginTop: "7.5px" }}>
+                <Box
+                  component="span"
+                  p={1}
+                  border={1}
+                  style={{ borderRadius: "5px", marginLeft: "10px" }}
+                >
+                  CW
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
 
           {approvalType === approvalTypes[1] ? (
-            <Grid container xs={12} md={6} lg={6} className={classes.marginLeftRight10} direction="row">
-              <Grid item >
+            <Grid
+              container
+              className={classes.marginLeftRight10}
+              direction="row"
+            >
+              <Grid item md={12}>
                 <p>COMMUNITY REWARD</p>
+              </Grid>
+              <Grid item md={1}>
                 <TextField
                   size="small"
                   variant="outlined"
@@ -370,7 +444,14 @@ export default function QuestionPost() {
                     setCommunityReward(e.target.value);
                   }}
                 />
-                <Box component="span" p={1} border={1} style={{ borderRadius: "5px", marginLeft: "10px" }}>
+              </Grid>
+              <Grid item md={11} style={{ marginTop: "7.5px" }}>
+                <Box
+                  component="span"
+                  p={1}
+                  border={1}
+                  style={{ borderRadius: "5px", marginLeft: "10px" }}
+                >
                   CW
                 </Box>
               </Grid>
@@ -378,9 +459,15 @@ export default function QuestionPost() {
           ) : (
             ""
           )}
-
         </Grid>
-        <Grid container xs={12} className={classes.marginLeftRight10} style={{ marginTop: "50px" }} direction="column">
+
+        <Grid
+          container
+          xs={12}
+          className={classes.marginLeftRight10}
+          style={{ marginTop: "50px" }}
+          direction="column"
+        >
           <p>WALLET ADDRESS</p>
           <TextField
             style={{ width: "70%" }}
@@ -392,7 +479,12 @@ export default function QuestionPost() {
             disabled
           />
         </Grid>
-        <Grid container xs={12} className={classes.marginLeftRight10} style={{ marginTop: "70px" }}>
+        <Grid
+          container
+          xs={12}
+          className={classes.marginLeftRight10}
+          style={{ marginTop: "70px" }}
+        >
           <FormControlLabel
             control={
               <Checkbox
@@ -407,7 +499,7 @@ export default function QuestionPost() {
             label="I have read, understand, and agree to, the Terms of Service."
           />
         </Grid>
-        <Grid container xs={12} className={classes.marginLeftRight10} >
+        <Grid container xs={12} className={classes.marginLeftRight10}>
           <FormControlLabel
             control={
               <Checkbox
@@ -428,18 +520,13 @@ export default function QuestionPost() {
           </Button>
         </Grid>
       </Grid>
-      <Snackbar open={successStatus}><Alert severity="success">Question Posted</Alert></Snackbar>
-      {/* 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="warning">
-          {errorMessage}
-        </Alert>
-      </Snackbar> */}
-      {
-        alert.open ?
-          (<SimpleAlerts severity={alert.severity} message={alert.errorMessage}/>)
-          : (null)
-      }
+      <Snackbar open={successStatus}>
+        <Alert severity="success">Question Posted</Alert>
+      </Snackbar>
+
+      {alert.open ? (
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+      ) : null}
     </div>
   );
 }

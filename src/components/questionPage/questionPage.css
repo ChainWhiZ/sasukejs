@@ -64,12 +64,12 @@
   border-radius: 9px;
   color: rgba(29, 29, 29, 1);
   background-color: white;
-  text-transform: "none";
+  text-transform: 'none';
 }
 .button:hover {
   color: rgba(255, 255, 255, 1);
   background-color: rgba(29, 29, 29, 1);
-  text-transform: "none";
+  text-transform: 'none';
 }
 button[disabled] {
   background-color: #cccccc;
@@ -143,7 +143,7 @@ hr {
 .stage-button {
   background-color: rgba(196, 196, 196);
   color: rgba(29, 29, 29, 1);
-  text-transform: "none";
+  text-transform: 'none';
 
   font-size: 11px;
   font-style: normal;
@@ -278,4 +278,11 @@ input {
   text-align: left;
   margin-top: 3%;
   margin-left: -2%;
+}
+.MuiFormControlLabel-label {
+  font-family: 'Poppins' !important;
+  font-size: 13px !important;
+  letter-spacing: 0.01px;
+  color: #1d1d1d;
+  opacity: 0.68;
 }
