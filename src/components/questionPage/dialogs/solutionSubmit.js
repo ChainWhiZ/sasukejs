@@ -14,6 +14,9 @@ import {
   fetchAccount,
   initiliaseContract,
 } from "../../../web3js/web3";
+import "../questionPage.css";
+import CircularIndeterminate from "../../loader/loader";
+import SimpleAlerts from "../../alert/alert";
 
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
@@ -21,13 +24,20 @@ export default function SolutionSubmit(props) {
   const [walletAddress, setWalletAddress] = useState("");
   const [solutions, setSolution] = useState([]);
   const [contract, setContract] = useState("");
-
+  const [loader, setLoader] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
+  const reg = /https?:\/\/github\.com\/(?:[^\\/\s]+\/)\/(?:[^\\/\s]+\/)/;
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
+    props.handleFetch();
   }, []);
 
   const handleClose = () => {
@@ -56,121 +66,150 @@ export default function SolutionSubmit(props) {
   };
 
   const handleSubmit = async (workplanId, solution) => {
+    setLoader(true);
     //TO DO
-    
-    //check github url is valid or not
-    //check if solution poster is publisher or not(better to keep check by github id as well as  address)
-    //check if solution link exists or not
-    return Promise.resolve()
-      .then(async function () {
-        return await solutionPosting(solution);
-      })
+     //check github url is valid or not
+    // if (solution.match(reg)) {
+    //   setAlert((prevState) => ({
+    //     ...prevState,
+    //     open: true,
+    //     errorMessage: "Incorrect GitHub link",
+    //   }));
+    // }
 
-      .then(async function () {
-        return await axios
-          .post(`https://chainwhiz.herokuapp.com/solution/save`, {
-            githubId: "rajashree23",
-            address: walletAddress,
-            githubLink: solution,
-            _id: workplanId,
-            questionId: props.quesDetails._id,
-          })
-          .then(async (response) => {
-            console.log(response);
-            setOpen(false);
-            props.handleDialogClose(false);
-          });
-      })
-      .then(function () {});
+    if (!solution) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Solution link field is empty",
+      }));
+      setLoader(false);
+    } else {
+     
+      //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
+      //check if solution link exists or not
+      return Promise.resolve()
+        .then(async function () {
+          return await solutionPosting(solution);
+        })
+
+        .then(async function () {
+          return await axios
+            .post(`https://chainwhiz.herokuapp.com/solution/save`, {
+              githubId: "rajashree23",
+              address: walletAddress,
+              githubLink: solution,
+              _id: workplanId,
+              questionId: props.quesDetails._id,
+            })
+            .then(async (response) => {
+              props.handleFetch();
+              setOpen(false);
+              setLoader(false);
+              props.handleDialogClose(false);
+            });
+        });
+    }
   };
 
   return (
-    <Dialog
-      aria-labelledby="simple-dialog-title"
-      open={open}
-      scroll={scroll}
-      aria-describedby="scroll-dialog-description"
-    >
-      <p class="dialog-title">Submit Solution</p>
-      <p class="solution-submit-title">
-        Please paste your solution link directly beneath the work plan on top of
-        which it has been built
-      </p>
-      <DialogContent dividers={scroll === "paper"}>
-        <DialogContentText id="scroll-dialog-description">
-          {props.quesDetails.workplanIds &&
-          props.quesDetails.workplanIds.length ? (
-            props.quesDetails.workplanIds &&
-            props.quesDetails.workplanIds.length &&
-            props.quesDetails.workplanIds.map((workplanId, index) => (
-              <>
-                <Card>
-                  <CardContent>
-                    <Grid container>
-                      <Grid item md={2}>
-                        <p class="workplan-title">Workplan:</p>
+    <>
+      <Dialog
+        aria-labelledby="simple-dialog-title"
+        open={open}
+        scroll={scroll}
+        aria-describedby="scroll-dialog-description"
+      >
+        <p class="dialog-title">Submit Solution</p>
+        <p class="solution-submit-title">
+          Please paste your solution link directly beneath the work plan on top
+          of which it has been built
+        </p>
+        <DialogContent dividers={scroll === "paper"}>
+          <DialogContentText id="scroll-dialog-description">
+            {props.quesDetails.workplanIds &&
+            props.quesDetails.workplanIds.length ? (
+              props.quesDetails.workplanIds &&
+              props.quesDetails.workplanIds.length &&
+              props.quesDetails.workplanIds.map((workplanId, index) => (
+                <>
+                  <Card >
+                    <CardContent>
+                      <Grid container>
+                        <Grid item md={2}>
+                          <p class="workplan-title">Workplan:</p>
+                        </Grid>
+                        <Grid item md={10}>
+                          <a
+                            href={`https://ipfs.io/ipfs/${workplanId}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            class="dialog-workplan"
+                          >
+                            {workplanId}
+                          </a>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            variant="outlined"
+                            size="small"
+                            type={"text"}
+                            label="Paste you GitHub repository link"
+                            value={solutions[index]}
+                            onChange={(e) =>
+                              handleChange(e.target.value, index)
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <p class="wallet-title">Your wallet address:</p>
+                          <TextField
+                            size="small"
+                            type={"text"}
+                            fullWidth
+                            variant="outlined"
+                            value={walletAddress}
+                            disabled
+                          />
+                        </Grid>
                       </Grid>
-                      <Grid item md={10}>
-                        <a
-                          href={`https://ipfs.io/ipfs/${workplanId}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          class="dialog-workplan"
-                        >
-                          {workplanId}
-                        </a>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          variant="outlined"
-                          size="small"
-                          type={"text"}
-                          label="Paste you GitHub repository link"
-                          value={solutions[index]}
-                          onChange={(e) => handleChange(e.target.value, index)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <p class="wallet-title">Your wallet address:</p>
-                        <TextField
-                          size="small"
-                          type={"text"}
-                          fullWidth
-                          variant="outlined"
-                          value={walletAddress}
-                          disabled
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      class="dialog-button"
-                      onClick={async () =>
-                        await handleSubmit(workplanId, solutions[index])
-                      }
-                    >
-                      Submit
-                    </Button>
-                  </CardActions>
-                </Card>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        class="dialog-button"
+                        onClick={async () =>
+                          await handleSubmit(workplanId, solutions[index])
+                        }
+                      >
+                        Submit
+                      </Button>
+                    </CardActions>
+                    {alert.open ? (
+                      <SimpleAlerts
+                        severity={alert.severity}
+                        message={alert.errorMessage}
+                      />
+                    ) : null}
+                  </Card>
 
-                <br />
-              </>
-            ))
-          ) : (
-            <p>
-              No workplans have been submitted yet. You must submit a workplan
-              before submitting a solution
-            </p>
-          )}
+                  <br />
+                </>
+              ))
+            ) : (
+              <p>
+                No workplans have been submitted yet. You must submit a workplan
+                before submitting a solution
+              </p>
+            )}
 
-          <Button class="dialog-button" onClick={handleClose}>
-            Close
-          </Button>
-        </DialogContentText>
-      </DialogContent>
-    </Dialog>
+            <Button class="dialog-button" onClick={handleClose}>
+              Close
+            </Button>
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+      {loader ? <CircularIndeterminate /> : null}
+    </>
   );
 }

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useStyles } from "./navbarCss";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Authenticate from "./authenticate";
 import Grid from "@material-ui/core/Grid";
@@ -11,7 +10,19 @@ import logo from "../../assets/cwz.png";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 export default function Navbar() {
   const classes = useStyles();
-  const [username, setUsername] = useState(localStorage.getItem("username"));
+  let [username, setUsername] = useState(localStorage.getItem("username"));
+  const [hover, setHover] = useState(false);
+  const onHover = () => {
+    setHover(true);
+  };
+  const onLeave = () => {
+    setHover(false);
+  };
+  let usernameTruncated;
+  if (username.length > 11) {
+    usernameTruncated = username.substring(0, 11) + "...";
+  }
+
   return (
     <div className={classes.root}>
       <AppBar
@@ -20,7 +31,7 @@ export default function Navbar() {
         <Toolbar>
           <Grid container>
             <Grid item md={2}>
-              <img src={logo} />
+              <img src={logo} alt="logo" />
             </Grid>
           </Grid>
 
@@ -38,12 +49,15 @@ export default function Navbar() {
                 </Link>
               </Grid>
               <Grid item md={3} xs={12}>
-                <Link to={{
-                  pathname: "/explore",
-                  state: {
-                    type: "solve"
-                  },
-                }} className={classes.link}>
+                <Link
+                  to={{
+                    pathname: "/explore",
+                    state: {
+                      type: "solve",
+                    },
+                  }}
+                  className={classes.link}
+                >
                   <Button
                     className={classes.button}
                     style={{ textTransform: "none" }}
@@ -54,12 +68,15 @@ export default function Navbar() {
                 </Link>
               </Grid>
               <Grid item md={3} xs={12}>
-                <Link to={{
-                  pathname: "/explore",
-                  state: {
-                    type: "vote"
-                  },
-                }} className={classes.link}>
+                <Link
+                  to={{
+                    pathname: "/explore",
+                    state: {
+                      type: "vote",
+                    },
+                  }}
+                  className={classes.link}
+                >
                   <Button
                     className={classes.button}
                     style={{ textTransform: "none" }}
@@ -69,8 +86,20 @@ export default function Navbar() {
                   </Button>
                 </Link>
               </Grid>
-              <Grid item md={2} xs={12}>
-                <p className={classes.username}>{username}</p>
+              <Grid
+                item
+                md={2}
+                xs={12}
+                onMouseEnter={onHover}
+                onMouseLeave={onLeave}
+              >
+                <p className={classes.username}>
+                  {hover && username.length > 11
+                    ? username
+                    : username.length > 11
+                    ? usernameTruncated
+                    : username}
+                </p>
               </Grid>
               <Grid item md={1} xs={12}>
                 <Link to="/profile" className={classes.link}>
