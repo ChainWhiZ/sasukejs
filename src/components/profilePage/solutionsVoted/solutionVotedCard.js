@@ -12,7 +12,7 @@ import {
 } from "../../../web3js/web3";
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
-import {useStyles} from "../profilePageCss";
+import { useStyles } from "../profilePageCss";
 
 
 export default function SolutionVotedCard(props) {
@@ -33,17 +33,21 @@ export default function SolutionVotedCard(props) {
   const handleUnstake = () => {
     setLoader(true);
     return Promise.resolve()
+      // .then(async function () {
+      //   // publisher address,github url, solver address, unstake amount
+      //   return await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,props.solutionVotedOn.questionDetails.githubIssueUrl,props.solutionVotedOn.solutionId.publicAddress,(props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({from:walletAddress})
+      // })
       .then(async function () {
         console.log(contract.methods)
         // publisher address,github url, solver address, unstake amount
-        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress, props.solutionVotedOn.questionDetails.githubIssueUrl, props.solutionVotedOn.solutionId.publicAddress,(props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
+        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress, props.solutionVotedOn.questionDetails.githubIssueUrl, props.solutionVotedOn.solutionId.publicAddress, (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
       })
       .then(async function () {
         console.log("api")
         axios
           .post(`https://chainwhiz.herokuapp.com/vote/updatereward`, {
-            voterId: props.solutionVotedOn._id,
-            solutionId: props.solutionVotedOn.solutionId
+            voterId: props.solutionVotedOn.voterId,
+            solutionId: props.solutionVotedOn.solutionId._id,
           })
           .then((response) => {
             console.log(response.status)
@@ -62,7 +66,7 @@ export default function SolutionVotedCard(props) {
       })
 
   }
-console.log(props)
+  console.log(props)
   return (
     <>
       <Card>
