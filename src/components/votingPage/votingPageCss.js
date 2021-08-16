@@ -6,11 +6,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   solutionDiv: {
     marginLeft: "2%",
-    marginTop: "2%",
+    marginTop: "4%",
     marginBottom: "2%",
     float: "left",
-    backgroundColor: "ghostwhite",
+    backgroundColor: "rgba(220, 220, 220, 1)",
     padding: "2%",
+    paddingTop: "4.1%",
+    paddingBottom:"0%",
     borderRadius: "4% 0 0 4%",
     height: "72%",
     textAlign: "center",
@@ -22,10 +24,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   stakeDiv: {
     marginRight: "2%",
-    marginTop: "2%",
-    marginBottom: "2%",
+    marginTop: "4%",
+    paddingTop:"6%",
+    marginBottom: "1.9%",
     float: "left",
-    backgroundColor: "gainsboro",
+    backgroundColor: "rgba(196, 196, 196, 1)",
     padding: "2%",
     textAlign: "center",
     borderRadius: "0 4% 4% 0"
@@ -38,7 +41,8 @@ export const useStyles = makeStyles((theme) => ({
     width: "150px"
   },
   icon: {
-    width: "40px"
+    width: "40px",
+    marginBottom: "10%",
   },
   author: {
     clear: "both"

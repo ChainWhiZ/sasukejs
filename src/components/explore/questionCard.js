@@ -4,12 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import { Link } from 'react-router-dom';
-const useStyles = makeStyles((theme) => ({
-  link: {
-    color: 'inherit',
-    textDecoration: 'inherit'
-  }
-}));
+import { useStyles } from './exploreCss'
 
 export default function QuestionCard(props) {
   const classes = useStyles();
@@ -19,10 +14,10 @@ export default function QuestionCard(props) {
       <Grid container spacing={1}>
         <Grid item md={9} xs={12}>
           <Link to={`/bounty/${props._id}`} className={classes.link}>
-            <p>{props.questionTitle}</p>
+            <p className={classes.questionTitle}>{props.questionTitle}</p>
           </Link>
         </Grid>
-        <Grid item md={3} xs={12}>
+        <Grid item md={3} xs={12} className={classes.bountyGrid}>
           {props.isCommunityApprovedSolution ? (
             <>
               <Box
@@ -32,6 +27,8 @@ export default function QuestionCard(props) {
                 bgcolor="black"
                 color="white"
                 borderRadius={3}
+                width="18%"
+                className={classes.bounty}
               >
                 {props.bountyReward + " CW"}
               </Box>
@@ -42,19 +39,31 @@ export default function QuestionCard(props) {
                 bgcolor="black"
                 color="white"
                 borderRadius={3}
+                width="18%"
+                className={classes.bounty}
               >
                 {props.communityReward + " CW"}
               </Box>
             </>
           ) : (
-            <Box p={1} bgcolor="black" color="white" borderRadius={3}>
+            <Box p={1}
+              bgcolor="black"
+              color="white"
+              borderRadius={3}
+              width="13%"
+              className={classes.bounty}>
               {props.bountyReward + " CW"}
             </Box>
           )}
         </Grid>
         <Grid item md={12} xs={12}>
           {props.questionCategories.map((category) => (
-            <Box component="span" p={1} m={1} bgcolor="grey.300">
+            <Box component="span"
+              p={1}
+              m={1}
+              bgcolor="grey.300"
+              borderRadius={4}
+              className={classes.category}>
               {category}
             </Box>
           ))}

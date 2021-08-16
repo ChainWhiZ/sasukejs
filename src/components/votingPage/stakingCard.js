@@ -12,6 +12,9 @@ import {
   fetchAccount,
   initiliaseContract,
 } from "../../web3js/web3";
+import SimpleAlerts from "../alert/alert";
+import CircularIndeterminate from "../loader/loader";
+
 export default function StakingCard(props) {
   const classes = useStyles();
   const [stakedAmount, setStakedAmount] = useState('');
@@ -21,16 +24,24 @@ export default function StakingCard(props) {
   const [contract, setContract] = useState("");
   const [username] = useState(localStorage.getItem("username"));
   const [isVoter, setIsVoter] = useState(false)
+  const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
+  const [loader, setLoader] = useState(false);
 
   useEffect(async () => {
     await initiliaseWeb3();
-    await fetchAccount(function (result) {
+    fetchAccount(function (result) {
       setWalletAddress(result[0]);
     });
-    setContract(await initiliaseContract());
+    const getContract = await initiliaseContract()
+    setContract(getContract)
+    console.log(contract)
+    console.log(walletAddress)
 
-    if (contract && walletAddress)
-      setBalance((parseInt(await contract.methods.balanceOf(walletAddress).call({ from: walletAddress }))) * (10 ^ (-18)))
+    if (contract && walletAddress) {
+      const getBalance = (parseInt(await contract.methods.balanceOf(walletAddress).call({ from: walletAddress })))
+      setBalance(getBalance)
+    }
+
 
     axios
       .post(`https://chainwhiz.herokuapp.com/solution/fetch`, {
@@ -52,9 +63,9 @@ export default function StakingCard(props) {
       })
       .catch((err) => console.log(err));
 
-  }, []);
+  }, [walletAddress]);
   const handleStake = () => {
-
+    setLoader(true);
     return Promise.resolve()
       .then(async function () {
         if (!isVoter) {
@@ -76,8 +87,17 @@ export default function StakingCard(props) {
             })
             .then((response) => {
               console.log(response)
+              setLoader(false);
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+              console.error(err);
+              setAlert(prevState => ({
+                ...prevState,
+                open: true,
+                errorMessage: "Error while staking"
+              }));
+              setLoader(false);
+            });
         }
         else {
           return
@@ -86,7 +106,7 @@ export default function StakingCard(props) {
       })
       .then(async function () {
         console.log("3rd");
-        return contract.methods.stakeVote((stakedAmount* Math.pow(10, 18)).toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
+        return contract.methods.stakeVote((stakedAmount * Math.pow(10, 18)).toString(), props.questionDetails.githubIssueUrl.toString(), props.questionDetails.publicAddress.toString(), solution.publicAddress.toString()).send({ from: walletAddress.toString() })
 
       })
       .then(async function () {
@@ -99,6 +119,7 @@ export default function StakingCard(props) {
             githubId: username
           })
           .then((response) => {
+            setStakedAmount(0)
             console.log(response)
           })
           .catch((err) => console.error(err));
@@ -106,42 +127,53 @@ export default function StakingCard(props) {
       })
 
   }
-console.log(props)
+  console.log(props)
 
   if (contract)
     return (
       <>
+        {
+          loader ?
+            (<CircularIndeterminate />)
+            :
+            <>
+              <div className={classes.solutionDiv}>
+                <div className={classes.innerDiv} style={{ width: "55%" }}>
+                  <img src={githubIcon} className={classes.icon} />
+                  <br />
+                  <Link to={{ pathname: props.solutionId }} target="_blank" className={classes.link}>
+                    <Button size="small" variant="outlined" >Github Repo</Button>
+                  </Link>
 
-        <div className={classes.solutionDiv}>
-          <div className={classes.innerDiv} style={{ width: "55%" }}>
-            <img src={githubIcon} className={classes.icon} />
-            <Link to={{ pathname: props.solutionId }} target="_blank" className={classes.link}>
-              <Button size="small" variant="outlined" >Github Repo</Button>
-            </Link>
+                </div>
+                <div className={classes.innerDiv}>
+                  <img src={workplanIcon} className={classes.icon} />
+                  <br />
+                  <Link to={{ pathname: `https://ipfs.io/ipfs/${props.workplan.id}` }} target="_blank" className={classes.link} >
+                    <Button size="small" variant="outlined">Work Plan</Button>
+                  </Link>
+                </div>
 
-          </div>
-          <div className={classes.innerDiv}>
-            <img src={workplanIcon} className={classes.icon} />
-            <br />
-            <Link to={{ pathname: `https://ipfs.io/ipfs/${props.workplan.id}` }} target="_blank" className={classes.link} >
-              <Button size="small" variant="outlined">Workplan</Button>
-            </Link>
-          </div>
+                <div className={classes.author}>
+                  <br />
+                  <p style={{ marginTop: "6%" }}>Solution posted by {solution.userId}</p>
+                </div>
 
-          <div className={classes.author}>
-            <br />
-            <p>Solution posted by {solution.userId}</p>
-          </div>
-
-        </div>
-        <div className={classes.stakeDiv}>
-          <TextField id="outlined-basic" type={"number"} className={classes.stakeInput} variant="outlined" size="small" value={stakedAmount} onChange={e => setStakedAmount((e.target.value).toString())} />
-          <br />
-          <br />
-          <Button variant="contained" onClick={() => handleStake()}>Stake Now</Button>
-          <p>Avbl. Balance- {balance/1000000000000000000} CW</p>
-        </div>
-
+              </div>
+              <div className={classes.stakeDiv}>
+                <TextField id="outlined-basic" type={"number"} className={classes.stakeInput} style={{ backgroundColor: "white", borderRadius: "8px" }} variant="outlined" size="small" value={stakedAmount} InputProps={{ inputProps: { min: 0, max: 10000 } }} onChange={e => setStakedAmount((e.target.value).toString())} />
+                <br />
+                <br />
+                <Button variant="contained" onClick={() => handleStake()} style={{ color: "white", backgroundColor: "black" }}>Stake Now</Button>
+                <p>Avbl. Balance- {balance / 1000000000000000000} CW</p>
+              </div>
+            </>
+        }
+        {
+          alert.open ?
+            (<SimpleAlerts severity={alert.severity} message={alert.errorMessage} />)
+            : (null)
+        }
       </>
     );
   else

@@ -8,16 +8,8 @@ import BountiesPosted from "./bountiesPosted/bountiesPosted"
 import BountiesSolved from "./bountiesSolved/bountiesSolved"
 import SolutionsVoted from "./solutionsVoted/solutionsVoted";
 import { drawerList } from '../../constants';
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: "center",
-        color: theme.palette.text.secondary,
-    },
-}));
+import {useStyles} from "./profilePageCss";
+
 
 export default function ProfilePage(props) {
     const classes = useStyles();

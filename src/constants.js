@@ -17,7 +17,7 @@ export const completed = {
   description: "It is completed",
 };
 
-export const categoriesFields = ["Frontend", "Backend", "Smart Contract"];
+export const categoriesFields = ["Front End", "Back End", "Smart Contract"];
 
 export const approvalTypes = [
   "I will approve the solution",

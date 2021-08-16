@@ -6,40 +6,34 @@ import axios from "axios";
 
 import SolutionVotedCard from "./solutionVotedCard";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+import {useStyles} from "../profilePageCss";
 
 export default function SolutionsVoted() {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [username] = useState(localStorage.getItem("username"));
   useEffect(() => {
+    fetchVoteDetails();
+  }, []);
+
+  const fetchVoteDetails = () => {
     axios
       .post(`https://chainwhiz.herokuapp.com/user/votedetails`, {
-        githubId:username
+        githubId: username
       })
       .then((response) => {
         setData(response.data);
       })
       .catch((err) => console.log(err));
-  }, []);
- 
+  }
   return (
-    <div className={classes.root}>
+    <div className={classes.flexRoot}>
       <br />
       <br />
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          {data && data.length && data.map(votedOn=>
-          <SolutionVotedCard solutionVotedOn={votedOn} />
+          {data && data.length > 0 && data.map(votedOn =>
+            <SolutionVotedCard solutionVotedOn={votedOn} handleFetch={() => fetchVoteDetails()} />
           )}
         </Grid>
 

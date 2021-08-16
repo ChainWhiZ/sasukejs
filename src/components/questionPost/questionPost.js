@@ -11,8 +11,7 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import Alert from "@material-ui/lab/Alert";
-import Snackbar from "@material-ui/core/Snackbar";
+import SimpleAlerts from "../alert/alert";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
 import { categoriesFields, approvalTypes } from "../../constants";
@@ -25,6 +24,8 @@ import {
   initiliaseContract,
 } from "../../web3js/web3";
 import { useStyles } from './questionPostCss';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 
 export default function QuestionPost() {
@@ -43,8 +44,7 @@ export default function QuestionPost() {
     undertaking1: false,
     undertaking2: false,
   });
-  const [open, setOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "warning" });
   const [contract, setContract] = useState("");
   const [successStatus, setSuccessStatus] = useState(false);
   useEffect(async () => {
@@ -98,38 +98,69 @@ export default function QuestionPost() {
   const handleValidation = async () => {
     const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)+(?:issues\/\d+)/;
     if (questionTitle === "") {
-      setOpen(true);
-      setErrorMessage("Please enter question title");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please enter question title"
+      }));
     } else if (!githubLink.match(reg)) {
-      setOpen(true);
-      setErrorMessage("Please enter github issue link");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please enter github issue link"
+      }));
     } else if (!(await handleGithubIssueValidation())) {
-      setOpen(true);
-      setErrorMessage("Please enter valid github issue link");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please enter valid github issue link"
+      }));
     } else if (days <= 0) {
-      setOpen(true);
-      setErrorMessage("Please valid number of days");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please valid number of days"
+      }));
     } else if (walletAddress === "") {
-      setOpen(true);
-      setErrorMessage("Please enter your wallet address");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please enter your wallet address"
+      }));
     } else if (categories === []) {
-      setOpen(true);
-      setErrorMessage("Please select categories");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please select categories"
+      }));
     } else if (approvalType === "") {
-      setOpen(true);
-      setErrorMessage("Please select approval types");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please select approval types"
+      }));
     } else if (bountyReward <= 0) {
-      setOpen(true);
-      setErrorMessage("Please valid bounty reward");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please valid bounty reward"
+      }));
+     
     } else if (approvalType === approvalTypes[1] && communityReward <= 0) {
-      setOpen(true);
-      setErrorMessage("Please valid community reward");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please valid community reward"
+      }));
     } else if (
       undertakings.undertaking1 === false ||
       undertakings.undertaking2 === false
     ) {
-      setOpen(true);
-      setErrorMessage("Please confirm the undertakings");
+      setAlert(prevState => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please confirm the undertakings"
+      }));
     } else {
       await handleSubmit();
     }
@@ -178,9 +209,7 @@ export default function QuestionPost() {
       });
   }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
 
   return (
     <div className={classes.root}>
@@ -400,11 +429,17 @@ export default function QuestionPost() {
         </Grid>
       </Grid>
       <Snackbar open={successStatus}><Alert severity="success">Question Posted</Alert></Snackbar>
+      {/* 
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="warning">
           {errorMessage}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
+      {
+        alert.open ?
+          (<SimpleAlerts severity={alert.severity} message={alert.errorMessage}/>)
+          : (null)
+      }
     </div>
   );
 }

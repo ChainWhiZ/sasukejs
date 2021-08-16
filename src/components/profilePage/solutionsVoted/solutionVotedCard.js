@@ -10,17 +10,19 @@ import {
   fetchAccount,
   initiliaseContract,
 } from "../../../web3js/web3";
-const useStyles = makeStyles((theme) => ({
-  list: {
-    "list-style-type": "none",
-  },
-}));
+import CircularIndeterminate from "../../loader/loader";
+import SimpleAlerts from "../../alert/alert";
+import { useStyles } from "../profilePageCss";
+
 
 export default function SolutionVotedCard(props) {
   const classes = useStyles();
   console.log(props)
   const [walletAddress, setWalletAddress] = useState("");
   const [contract, setContract] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
+
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
@@ -29,32 +31,49 @@ export default function SolutionVotedCard(props) {
     setContract(await initiliaseContract());
   }, [])
   const handleUnstake = () => {
+    setLoader(true);
     return Promise.resolve()
       // .then(async function () {
       //   // publisher address,github url, solver address, unstake amount
       //   return await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,props.solutionVotedOn.questionDetails.githubIssueUrl,props.solutionVotedOn.solutionId.publicAddress,(props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({from:walletAddress})
       // })
       .then(async function () {
-        return axios
+        console.log(contract.methods)
+        // publisher address,github url, solver address, unstake amount
+        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress, props.solutionVotedOn.questionDetails.githubIssueUrl, props.solutionVotedOn.solutionId.publicAddress, (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
+      })
+      .then(async function () {
+        console.log("api")
+        axios
           .post(`https://chainwhiz.herokuapp.com/vote/updatereward`, {
-            voterId: props.solutionVotedOn._id,
-            solutionId: props.solutionVotedOn.solutionId
+            voterId: props.solutionVotedOn.voterId,
+            solutionId: props.solutionVotedOn.solutionId._id,
           })
           .then((response) => {
             console.log(response.status)
+            props.handleFetch();
+            setLoader(false);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            setAlert(prevState => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Error"
+            }));
+            setLoader(false);
+          });
       })
 
   }
-
+  console.log(props)
   return (
     <>
       <Card>
         <CardContent>
           <Grid container>
             <Grid item md={8}>
-              <a href="#">
+              <a href={props.solutionVotedOn.solutionId.id} target="blank" className={classes.link}>
                 {props.solutionVotedOn.solutionId.id}
               </a>
             </Grid>
@@ -73,6 +92,16 @@ export default function SolutionVotedCard(props) {
         </CardContent>
       </Card>
       <br></br>
+      {
+        loader ?
+          (<CircularIndeterminate />)
+          : (null)
+      }
+      {
+        alert.open ?
+          (<SimpleAlerts severity={alert.severity} message={alert.errorMessage} />)
+          : (null)
+      }
     </>
   );
 }

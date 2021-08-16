@@ -2,20 +2,9 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-
-
+import {useStyles} from "../profilePageCss";
 import SolutionCard from "./solutionCard";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
 
 export default function Bounties() {
   const classes = useStyles();
@@ -32,12 +21,12 @@ export default function Bounties() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className={classes.root}>
+    <div className={classes.flexRoot}>
       <br />
       <br />
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          {data && data.length && data.map(solution=>
+          {data && data.length>0 && data.map(solution=>
           <SolutionCard solutionDetails={solution} />
           )}
         </Grid>

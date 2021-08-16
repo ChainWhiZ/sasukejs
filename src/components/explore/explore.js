@@ -6,29 +6,22 @@ import Navbar from "../navbar/navbar";
 
 import QuestionCard from "./questionCard";
 import Search from "./search";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+import { useStyles } from './exploreCss'
 
 export default function Explore(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
   useEffect(() => {
+    console.log("hi");
     axios
       .get(`https://chainwhiz.herokuapp.com/question/fetchall`)
       .then((response) => {
+        console.log(response)
+        //response.data= response.data.filter(question => question.questionStage === props.location.state.type);
         setData(response.data);
       })
       .catch((err) => alert(err));
-  }, [data._id]);
+  }, [props.location.state.type]);
 
   return (
     <div className={classes.root}>
@@ -36,17 +29,18 @@ export default function Explore(props) {
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
           <Navbar />
-          <br/>
+          <br />
         </Grid>
         <Grid item md={3} xs={12}>
           <Search />
         </Grid>
         <Grid item md={9} xs={12}>
-          <p>Available Bounties</p>
+          <h2>Available Bounties</h2>
           <hr />
           {data.map((question) => (
             <>
               <QuestionCard {...question} />
+              <br />
               <hr />
             </>
           ))}
