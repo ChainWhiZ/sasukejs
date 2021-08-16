@@ -11,6 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import SolutionSubmit from "../dialogs/solutionSubmit";
 import { Link } from "react-router-dom";
+import "../questionPage.css";
 
 export default function QuestionStage(props) {
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
@@ -106,6 +107,7 @@ export default function QuestionStage(props) {
           open={openSolveDialog}
           quesDetails={props}
           handleDialogClose={() => setOpenSolveDialog(false)}
+          handleFetch={() => props.handleFetch()}
         />
       ) : (
         ""

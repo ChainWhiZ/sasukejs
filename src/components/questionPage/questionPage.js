@@ -7,11 +7,19 @@ import QuestionStage from "./questionRightSection/questionStage";
 import QuestionDescription from "./questionLeftSection/questionDescription";
 import QuestionApplicants from "./questionLeftSection/questionApplicants";
 import QuestionActivities from "./questionRightSection/questionActivities";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularIndeterminate from "../loader/loader";
 import "./questionPage.css";
+import SimpleAlerts from "../alert/alert";
+
 export default function QuestionPage(props) {
   const [data, setData] = useState({});
   const [loader, setLoader] = useState(true);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
+
   useEffect(() => {
     fetchQuestion();
   }, [data._id]);
@@ -25,8 +33,12 @@ export default function QuestionPage(props) {
         setLoader(false);
       })
       .catch((err) => {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Question or GitHub issue URL not found",
+        }));
         setLoader(false);
-        alert("Question or github issue url not found");
       });
   };
   return (
@@ -37,7 +49,7 @@ export default function QuestionPage(props) {
       <br />
       <br />
       {loader ? (
-        <CircularProgress />
+        <CircularIndeterminate />
       ) : (
         <Grid container>
           <Grid item md={12} xs={12}></Grid>
@@ -47,11 +59,14 @@ export default function QuestionPage(props) {
             <QuestionApplicants {...data} />
           </Grid>
           <Grid item md={3} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
-            <QuestionStage {...data} />
+            <QuestionStage {...data} handleFetch={() => fetchQuestion()} />
             <QuestionActivities />
           </Grid>
         </Grid>
       )}
+      {alert.open ? (
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+      ) : null}
     </>
   );
 }
