@@ -16,6 +16,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
 import { categoriesFields, approvalTypes } from "../../constants";
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import Paper from '@material-ui/core/Paper';
 import {
   initiliaseWeb3,
   fetchAccount,
@@ -43,6 +46,7 @@ export default function QuestionPost() {
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [contract, setContract] = useState("");
+  const [successStatus, setSuccessStatus] = useState(false);
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
@@ -139,6 +143,9 @@ export default function QuestionPost() {
         return await questionPosting();
       })
       .then(async function () {
+        return setSuccessStatus(true)
+      })
+      .then(async function () {
         return axios
           .post(`https://chainwhiz.herokuapp.com/question/save`, {
             githubId: username,
@@ -158,6 +165,7 @@ export default function QuestionPost() {
             questionCategories: categories,
           })
           .then((response) => {
+
             history.push({
               pathname: `/bounty/${response.data}`,
               state: { id: response.data },
@@ -166,6 +174,7 @@ export default function QuestionPost() {
       })
       .then(function () {
         console.log(" ---- done ----");
+
       });
   }
 
@@ -187,11 +196,11 @@ export default function QuestionPost() {
           <h1>Post your bounty</h1>
           <p>Publish your bounty and let developers do the rest for you.</p>
         </Grid>
-        <Grid item xs={12} className={classes.marginLeftRight10}>
+        <Grid container xs={12} className={classes.marginLeftRight10} direction="column">
           <p>QUESTION TITTLE</p>
 
           <TextField
-            fullWidth
+            style={{ width: "70%" }}
             size="small"
             type={"text"}
             variant="outlined"
@@ -199,33 +208,40 @@ export default function QuestionPost() {
             onChange={(e) => setQuestionTitle(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12} className={classes.marginLeftRight10}>
+
+        <Grid container xs={12} className={classes.marginLeftRight10}>
           <p>CATEGORY</p>
-          {categoriesFields.map((category) => (
-            <FormControlLabel
-              value={category}
-              onChange={(e) => handleCategoryChange(e.target.value)}
-              control={
-                <Checkbox
-                  icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                  checkedIcon={<CheckBoxIcon fontSize="small" />}
-                  color="primary"
-                />
-              }
-              label={category}
-            />
-          ))}{" "}
         </Grid>
-        <Grid item xs={12} className={classes.heading}>
+        <Grid container className={classes.marginLeftRight10}  >
+          <Grid container direction="row" justifyContent="space-between" alignItems="flex-start" spacing={12}>
+            {categoriesFields.map((category) => (
+              <Paper className={classes.paper} style={{ marginRight: "270px", padding: "5px", paddingRight: "5px", borderStyle: "solid", borderWidth: "1px" }}>
+                <FormControlLabel
+                  value={category}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
+                  control={
+                    <Checkbox
+                      icon={<RadioButtonUncheckedIcon fontSize="small" />}
+                      checkedIcon={<RadioButtonCheckedIcon fontSize="small" />}
+                      color="primary"
+                    />
+                  }
+                  label={category}
+                />
+
+              </Paper>
+            ))}{" "}
+          </Grid>
+        </Grid>
+        <Grid item xs={12} className={classes.heading} style={{ marginTop: "70px" }}>
           <h3>Provide details about your bounty</h3>
           <p>This helps the developer better understand your requirements.</p>
         </Grid>
-        <Grid container >
-
-          <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
+        <Grid container direction="row" justifyContent="flex-start" alignItems="flex-start" spacing={12} className={classes.marginLeftRight10}>
+          <Grid item xs={12} md={6} lg={6}>
             <p>GITHUB LINK</p>
-
             <TextField
+              fullWidth
               size="small"
               variant="outlined"
               type={"text"}
@@ -233,24 +249,28 @@ export default function QuestionPost() {
               onChange={(e) => setGithubLink(e.target.value)}
             />
           </Grid>
+        </Grid>
 
-
-          <Grid item xs={12} md={6} className={classes.marginLeftRight10}>
+        <Grid container xs={12} md={6} lg={3} className={classes.marginLeftRight10} direction="row" style={{ marginTop: "50px" }}>
+          <Grid item>
             <p>EXPECTED TIME OF DELIVERY</p>
-
+          </Grid>
+          <Grid>
             <TextField
               size="small"
               variant="outlined"
               type={"number"}
               value={days}
+              InputProps={{ inputProps: { min: 0, max: 360 } }}
               onChange={(e) => setDays(e.target.value)}
             />
-            <Box component="span" p={1} border={1}>
+            <Box component="span" p={1} border={1} style={{ borderRadius: "5px", marginLeft: "10px" }}>
               Days
             </Box>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={12} className={classes.heading}>
+
+        <Grid item xs={12} md={12} className={classes.heading} style={{ marginTop: "70px" }}>
           <h3>Decide how the solution will be approved</h3>
           <p>
             You can either self approve the solution or let the community vote
@@ -258,7 +278,7 @@ export default function QuestionPost() {
           </p>
         </Grid>
 
-        <Grid item xs={12} className={classes.marginLeftRight10}>
+        <Grid container xs={12} className={classes.marginLeftRight10} justifyContent="space-between">
           <FormControl component="fieldset">
             <p>APPROVAL TYPE</p>
 
@@ -271,54 +291,70 @@ export default function QuestionPost() {
               onChange={(e) => setApprovalType(e.target.value)}
             >
               {approvalTypes.map((approvalType) => (
-                <Box sx={{ p: 2, border: "1px dashed grey" }}>
-                  <FormControlLabel
-                    value={approvalType}
-                    control={<Radio color="primary" />}
-                    label={approvalType}
-                  />
-                </Box>
+                <Paper style={{ marginRight: "120px", padding: "5px", borderStyle: "solid", borderWidth: "1px" }}>
+                  <Box sx={{ border: "1px dashed grey" }}>
+                    <FormControlLabel
+                      value={approvalType}
+                      control={<Radio color="primary" />}
+                      label={approvalType}
+                    />
+                  </Box>
+                </Paper>
               ))}
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item xs={12} className={classes.marginLeftRight10}>
-          <p>BOUNTY REWARD</p>
-          <TextField
-            size="small"
-            variant="outlined"
-            type={"number"}
-            value={bountyReward}
-            onChange={(e) => {
-              setBountyReward(e.target.value);
-            }}
-          />
 
-          <Box component="span" p={1} border={1}>
-            CW
-          </Box>
-        </Grid>
-        {approvalType === approvalTypes[1] ? (
-          <Grid item xs={12} className={classes.marginLeftRight10}>
-            <p>COMMUNITY REWARD</p>
-            <TextField
-              size="small"
-              variant="outlined"
-              type={"number"}
-              value={communityReward}
-              onChange={(e) => {
-                setCommunityReward(e.target.value);
-              }}
-            />
-
-            <span>CW</span>
+        <Grid container direction="row"
+          justifyContent="flex-start"
+          alignItems="center">
+          <Grid item lg={6} className={classes.marginLeftRight10} style={{ marginTop: "50px" }}>
+            <p>BOUNTY REWARD</p>
+            <Grid container >
+              <TextField
+                size="small"
+                variant="outlined"
+                type={"number"}
+                value={bountyReward}
+                InputProps={{ inputProps: { min: 0, max: 10000 } }}
+                onChange={(e) => {
+                  setBountyReward(e.target.value);
+                }}
+              />
+              <Box component="span" p={1} border={1} style={{ borderRadius: "5px", marginLeft: "10px" }}>
+                CW
+              </Box>
+            </Grid>
           </Grid>
-        ) : (
-          ""
-        )}
-        <Grid item xs={12} className={classes.marginLeftRight10}>
+
+          {approvalType === approvalTypes[1] ? (
+            <Grid container xs={12} md={6} lg={6} className={classes.marginLeftRight10} direction="row">
+              <Grid item >
+                <p>COMMUNITY REWARD</p>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  type={"number"}
+                  InputProps={{ inputProps: { min: 0, max: 10000 } }}
+                  value={communityReward}
+                  onChange={(e) => {
+                    setCommunityReward(e.target.value);
+                  }}
+                />
+                <Box component="span" p={1} border={1} style={{ borderRadius: "5px", marginLeft: "10px" }}>
+                  CW
+                </Box>
+              </Grid>
+            </Grid>
+          ) : (
+            ""
+          )}
+
+        </Grid>
+        <Grid container xs={12} className={classes.marginLeftRight10} style={{ marginTop: "50px" }} direction="column">
           <p>WALLET ADDRESS</p>
           <TextField
+            style={{ width: "70%" }}
             size="small"
             type={"text"}
             fullWidth
@@ -327,7 +363,7 @@ export default function QuestionPost() {
             disabled
           />
         </Grid>
-        <Grid item xs={12} className={classes.marginLeftRight10}>
+        <Grid container xs={12} className={classes.marginLeftRight10} style={{ marginTop: "70px" }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -342,7 +378,7 @@ export default function QuestionPost() {
             label="I have read, understand, and agree to, the Terms of Service."
           />
         </Grid>
-        <Grid item xs={12} className={classes.marginLeftRight10}>
+        <Grid container xs={12} className={classes.marginLeftRight10} >
           <FormControlLabel
             control={
               <Checkbox
@@ -363,7 +399,7 @@ export default function QuestionPost() {
           </Button>
         </Grid>
       </Grid>
-
+      <Snackbar open={successStatus}><Alert severity="success">Question Posted</Alert></Snackbar>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="warning">
           {errorMessage}
