@@ -59,7 +59,7 @@ export default function QuestionPage(props) {
             <QuestionApplicants {...data} />
           </Grid>
           <Grid item md={3} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
-            <QuestionStage {...data} handleFetch={() => fetchQuestion()} />
+            <QuestionStage question={data} handleFetch={() => fetchQuestion()} />
             <QuestionActivities />
           </Grid>
         </Grid>

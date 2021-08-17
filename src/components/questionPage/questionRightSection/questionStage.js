@@ -15,10 +15,11 @@ import "../questionPage.css";
 
 export default function QuestionStage(props) {
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
+  console.log(props)
   return (
     <>
       <Grid container>
-        {props.questionStage !== "complete" ? (
+        {props.question.questionStage !== "complete" ? (
           <Grid item md={12}>
             <p class="stage-title">IN PROGRESS</p>
           </Grid>
@@ -30,15 +31,15 @@ export default function QuestionStage(props) {
         <Grid item md={12} class="card-grid">
           <Card>
             <CardContent>
-              {props.isCommunityApprovedSolution ? (
-                props.questionStage === "solve" ? (
+              {props.question.isCommunityApprovedSolution ? (
+                props.question.questionStage === "solve" ? (
                   <>
                     <p class="stage-heading">{solvingPhaseDetails.heading}</p>
                     <p class="stage-description">
                       {solvingPhaseDetails.description}
                     </p>
                   </>
-                ) : props.questionStage === "vote" ? (
+                ) : props.question.questionStage === "vote" ? (
                   <>
                     <p class="stage-heading">{votingPhaseDetails.heading}</p>
                     <p class="stage-description">
@@ -51,7 +52,7 @@ export default function QuestionStage(props) {
                     <p class="stage-description">{completed.description}</p>
                   </>
                 )
-              ) : props.questionStage === "solve" ? (
+              ) : props.question.questionStage === "solve" ? (
                 <>
                   <p class="stage-heading">{solvingPhaseDetails.heading}</p>
                   <p class="stage-description">
@@ -65,10 +66,10 @@ export default function QuestionStage(props) {
                 </>
               )}
             </CardContent>
-            {props.questionStage !== "complete" && (
+            {props.question.questionStage !== "complete" && (
               <CardActions>
-                {props.isCommunityApprovedSolution ? (
-                  props.questionStage === "solve" ? (
+                {props.question.isCommunityApprovedSolution ? (
+                  props.question.questionStage === "solve" ? (
                     <Button
                       class="stage-button"
                       onClick={() => setOpenSolveDialog(true)}
@@ -80,7 +81,7 @@ export default function QuestionStage(props) {
                       to={{
                         pathname: "/vote",
                         state: {
-                          questionDetails: props,
+                          questionDetails: props.question,
                         },
                       }}
                     >
@@ -105,7 +106,7 @@ export default function QuestionStage(props) {
       {openSolveDialog ? (
         <SolutionSubmit
           open={openSolveDialog}
-          quesDetails={props}
+          quesDetails={props.question}
           handleDialogClose={() => setOpenSolveDialog(false)}
           handleFetch={() => props.handleFetch()}
         />
