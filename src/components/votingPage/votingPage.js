@@ -12,14 +12,15 @@ export default function VotingPage(props) {
   const classes = useStyles();
 
   const [data, setData] = useState([]);
-  const [loader, setLoadr] = useState(true)
+  const [loader, setLoader] = useState(false)
   useEffect(() => {
+    console.log(props)
     axios
       .post(`https://chainwhiz.herokuapp.com/workplan/fetchall`, {
         _id: props.location.state.questionDetails._id
       })
       .then((response) => {
-        setLoadr(false)
+        // setLoader(false)
         setData(response.data);
       })
       .catch((err) => console.log(err));
@@ -28,9 +29,7 @@ export default function VotingPage(props) {
 
   return (
     <div className={classes.root}>
-      {
-        loader ?
-          (<CircularIndeterminate />) :
+
           <>
             <Grid container>
               <Grid item md={12} xs={12}>
@@ -52,7 +51,6 @@ export default function VotingPage(props) {
                 ))))}
             </Grid>
           </>
-      }
 
     </div>
   );

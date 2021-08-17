@@ -10,7 +10,7 @@ import logo from "../../assets/cwz.png";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 export default function Navbar() {
   const classes = useStyles();
-  let [username, setUsername] = useState(localStorage.getItem("username"));
+  let [username, setUsername] = useState(localStorage.getItem("username")?localStorage.getItem("username"):"");
   const [hover, setHover] = useState(false);
   const onHover = () => {
     setHover(true);
