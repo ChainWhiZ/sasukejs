@@ -244,28 +244,32 @@ export default function QuestionPost() {
             spacing={12}
           >
             {categoriesFields.map((category) => (
-              <Paper
-                className={classes.paper}
-                style={{
-                  marginRight: "270px",
-                  padding: "5px",
-                  paddingRight: "5px",
-                  border: "1px solid #707070",
-                }}
-              >
-                <FormControlLabel
-                  value={category}
-                  onChange={(e) => handleCategoryChange(e.target.value)}
-                  control={
-                    <Checkbox
-                      icon={<RadioButtonUncheckedIcon fontSize="small" />}
-                      checkedIcon={<RadioButtonCheckedIcon fontSize="small" />}
-                      color="primary"
-                    />
-                  }
-                  label={category}
-                />
-              </Paper>
+              <Grid item md>
+                <Paper
+                  className={classes.paper}
+                  style={{
+                    marginRight: "270px",
+                    padding: "5px",
+                    paddingRight: "5px",
+                    border: "1px solid #707070",
+                  }}
+                >
+                  <FormControlLabel
+                    value={category}
+                    onChange={(e) => handleCategoryChange(e.target.value)}
+                    control={
+                      <Checkbox
+                        icon={<RadioButtonUncheckedIcon fontSize="small" />}
+                        checkedIcon={
+                          <RadioButtonCheckedIcon fontSize="small" />
+                        }
+                        color="primary"
+                      />
+                    }
+                    label={category}
+                  />
+                </Paper>
+              </Grid>
             ))}{" "}
           </Grid>
         </Grid>
