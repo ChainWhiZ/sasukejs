@@ -3,13 +3,21 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import fleekStorage from "@fleekhq/fleek-storage-js";
 import axios from "axios";
-import CircularIndeterminate from "../../loader/loader"
+import CircularIndeterminate from "../../loader/loader";
+import SimpleAlerts from "../../alert/alert";
+import "../questionPage.css";
 
 export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [buffer, setBuffer] = useState("");
   const [username] = localStorage.getItem("username");
-  const [loader,setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
+
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
@@ -26,9 +34,13 @@ export default function WorkplanSubmit(props) {
   const handleSubmit = async () => {
     setLoader(true);
     const timestamp = new Date().getTime();
-    if(!buffer){
-      //error snackbar and remove console.log
-      console.log("display err here as well")
+    if (!buffer) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "No file selected",
+      }));
+      setLoader(false);
     }
     const uploadedFile = await fleekStorage.upload({
       apiKey: "U3QGDwCkWltjBLGG1hATUg==",
@@ -36,7 +48,6 @@ export default function WorkplanSubmit(props) {
       key: username + timestamp,
       data: buffer,
     });
-    console.log(uploadedFile.hash)
     axios
       .post(`https://chainwhiz.herokuapp.com/workplan/save`, {
         githubId: localStorage.getItem("username"),
@@ -44,36 +55,44 @@ export default function WorkplanSubmit(props) {
         questionId: props.questionId,
       })
       .then((response) => {
-        
         if (response.status === 201) {
           props.handleFetch();
           setOpen(false);
+          setLoader(false);
           props.handleDialogClose(false);
         }
       })
       .catch((err) => {
-         //error snackbar and remove console.log
-        alert("Workplan already exists. Submit a different workplan");
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Workplan already exists. Submit a different workplan",
+        }));
+        setLoader(false);
       });
   };
 
   return (
     <>
-    <Dialog aria-labelledby="simple-dialog-title" open={open}>
-      <p class="dialog-title">Submit Workplan</p>
-      <input type="file" onChange={(e) => captureFile(e)} />
-      <Button class="dialog-button" onClick={handleSubmit}>
-        Submit
-      </Button>
-      <span>
-        <Button class="dialog-button" onClick={handleClose}>
-          Close
+      <Dialog aria-labelledby="simple-dialog-title" open={open}>
+        <p class="dialog-title">Submit Workplan</p>
+        <input type="file" onChange={(e) => captureFile(e)} />
+        <Button class="dialog-button" onClick={handleSubmit}>
+          Submit
         </Button>
-      </span>
-    </Dialog>
-    {loader?
-    (<CircularIndeterminate/>)
-    :(null)}
+        <span>
+          <Button class="dialog-button" onClick={handleClose}>
+            Close
+          </Button>
+        </span>
+        {alert.open ? (
+          <SimpleAlerts
+            severity={alert.severity}
+            message={alert.errorMessage}
+          />
+        ) : null}
+      </Dialog>
+      {loader ? <CircularIndeterminate /> : null}
     </>
   );
 }

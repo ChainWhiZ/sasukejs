@@ -1,5 +1,4 @@
 .heading {
-  /* font-family: "Poppins"; */
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -9,7 +8,6 @@
 }
 
 .title {
-  /* font-family: "Poppins"; */
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
@@ -21,7 +19,6 @@
   margin-right: 2%;
 }
 .number {
-  /* font-family: "Poppins"; */
   font-size: 36px;
   font-style: normal;
   font-weight: 700;
@@ -52,7 +49,6 @@
 }
 
 .button {
-  /* font-family: "Poppins"; */
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
@@ -68,20 +64,20 @@
   border-radius: 9px;
   color: rgba(29, 29, 29, 1);
   background-color: white;
-  text-transform: "none";
+  text-transform: 'none';
 }
 .button:hover {
   color: rgba(255, 255, 255, 1);
   background-color: rgba(29, 29, 29, 1);
-  text-transform: "none";
+  text-transform: 'none';
 }
-button[disabled] {
+button:disabled {
   background-color: #cccccc;
   color: #666666;
   opacity: 39%;
   cursor: auto;
 }
-button[disabled]:hover {
+button:disabled:hover {
   background-color: #cccccc;
   color: #666666;
 }
@@ -126,7 +122,6 @@ hr {
   color: #ffffff;
 }
 .stage-heading {
-  /* font-family: "Poppins"; */
   font-size: 17px;
   font-style: normal;
   font-weight: 500;
@@ -136,7 +131,6 @@ hr {
   color: rgba(0, 0, 0, 1);
 }
 .stage-description {
-  /* font-family: "Poppins"; */
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -149,8 +143,8 @@ hr {
 .stage-button {
   background-color: rgba(196, 196, 196);
   color: rgba(29, 29, 29, 1);
-  text-transform: "none";
-  /* font-family: "Poppins"; */
+  text-transform: 'none';
+
   font-size: 11px;
   font-style: normal;
   font-weight: 600;
@@ -168,7 +162,7 @@ hr {
 
 span a {
   text-decoration: none;
-  /* font-family: "Poppins"; */
+
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
@@ -191,7 +185,7 @@ span a {
 }
 .voting-score-title {
   text-decoration: none;
-  /* font-family: "Poppins"; */
+
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
@@ -207,7 +201,7 @@ span a {
 
 .dialog-title {
   text-decoration: none;
-  /* font-family: "Poppins"; */
+
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
@@ -225,7 +219,7 @@ input {
 .dialog-button {
   width: 100px;
   height: 38px;
-  /* font-family: "Poppins"; */
+
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
@@ -237,7 +231,7 @@ input {
 }
 .solution-submit-title {
   text-decoration: none;
-  /* font-family: "Poppins"; */
+
   font-size: 15px;
   font-style: normal;
   line-height: 18px;
@@ -250,7 +244,7 @@ input {
 
 .workplan-title {
   text-decoration: none;
-  /* font-family: "Poppins"; */
+
   font-size: 15px;
   font-style: normal;
   line-height: 18px;
@@ -263,7 +257,7 @@ input {
 
 .dialog-workplan {
   text-decoration: none;
-  /* font-family: "Poppins"; */
+
   font-size: 12px;
   font-style: normal;
   font-weight: 600;
@@ -275,7 +269,7 @@ input {
 }
 .wallet-title {
   text-decoration: none;
-  /* font-family: "Poppins"; */
+
   font-size: 15px;
   font-style: normal;
   line-height: 18px;
@@ -284,4 +278,11 @@ input {
   text-align: left;
   margin-top: 3%;
   margin-left: -2%;
+}
+.MuiFormControlLabel-label {
+  font-family: 'Poppins' !important;
+  font-size: 13px !important;
+  letter-spacing: 0.01px;
+  color: #1d1d1d;
+  opacity: 0.68;
 }

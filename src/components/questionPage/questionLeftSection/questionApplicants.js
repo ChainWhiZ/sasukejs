@@ -1,7 +1,7 @@
 import React from "react";
 import "../questionPage.css";
 import Grid from "@material-ui/core/Grid";
-
+import "../questionPage.css";
 import QuestionSolutionCard from "./questionSolutionCard";
 
 export default function QuestionApplicants(props) {

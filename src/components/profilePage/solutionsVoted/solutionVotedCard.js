@@ -33,6 +33,10 @@ export default function SolutionVotedCard(props) {
   const handleUnstake = () => {
     setLoader(true);
     return Promise.resolve()
+      // .then(async function () {
+      //   // publisher address,github url, solver address, unstake amount
+      //   return await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,props.solutionVotedOn.questionDetails.githubIssueUrl,props.solutionVotedOn.solutionId.publicAddress,(props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({from:walletAddress})
+      // })
       .then(async function () {
         console.log(contract.methods)
         // publisher address,github url, solver address, unstake amount
@@ -42,8 +46,8 @@ export default function SolutionVotedCard(props) {
         console.log("api")
         axios
           .post(`https://chainwhiz.herokuapp.com/vote/updatereward`, {
-            voterId: props.solutionVotedOn._id,
-            solutionId: props.solutionVotedOn.solutionId
+            voterId: props.solutionVotedOn.voterId,
+            solutionId: props.solutionVotedOn.solutionId._id,
           })
           .then((response) => {
             console.log(response.status)

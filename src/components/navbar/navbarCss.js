@@ -22,6 +22,7 @@ export const useStyles = makeStyles((theme) => ({
     lineHeight: "21px",
     letterSpacing: "0.03em",
     textAlign: "left",
+    marginLeft:"-11%"
   },
   button: {
     fontFamily: "Poppins",
