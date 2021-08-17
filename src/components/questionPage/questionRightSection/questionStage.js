@@ -80,7 +80,7 @@ export default function QuestionStage(props) {
                       to={{
                         pathname: "/vote",
                         state: {
-                          questionDetails: props,
+                          questionDetails:props,
                         },
                       }}
                     >
