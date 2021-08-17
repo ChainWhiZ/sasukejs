@@ -57,6 +57,7 @@ export default function StakingCard(props) {
       })
       .then((response) => {
         setSolution(response.data);
+        setLoader(false);
       })
       .catch((err) => {
         setAlert((prevState) => ({
@@ -81,8 +82,9 @@ export default function StakingCard(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "You are not a voter",
+          errorMessage: "Server side issue",
         }));
+
         setLoader(false);
       });
   }, [walletAddress]);
