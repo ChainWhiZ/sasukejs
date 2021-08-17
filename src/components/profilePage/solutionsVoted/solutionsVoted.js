@@ -5,13 +5,15 @@ import axios from "axios";
 
 
 import SolutionVotedCard from "./solutionVotedCard";
-
-import {useStyles} from "../profilePageCss";
+import CircularIndeterminate from "../../loader/loader";
+import { useStyles } from "../profilePageCss";
 
 export default function SolutionsVoted() {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [username] = useState(localStorage.getItem("username"));
+  const [loader, setLoader] = useState(true);
+
   useEffect(() => {
     fetchVoteDetails();
   }, []);
@@ -22,9 +24,13 @@ export default function SolutionsVoted() {
         githubId: username
       })
       .then((response) => {
+        setLoader(false);
         setData(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoader(false);
+        console.log(err)
+      });
   }
   return (
     <div className={classes.flexRoot}>
@@ -38,6 +44,11 @@ export default function SolutionsVoted() {
         </Grid>
 
       </Grid>
+      {
+        loader ?
+          (<CircularIndeterminate />)
+          : (null)
+      }
     </div>
   );
 }

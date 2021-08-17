@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
-
+import CircularIndeterminate from "../loader/loader";
 import QuestionCard from "./questionCard";
 import Search from "./search";
 import { useStyles } from './exploreCss'
@@ -11,16 +11,21 @@ import { useStyles } from './exploreCss'
 export default function Explore(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(false);
   useEffect(() => {
-    console.log("hi");
+    setLoader(true);
     axios
       .get(`https://chainwhiz.herokuapp.com/question/fetchall`)
       .then((response) => {
         console.log(response)
-        //response.data= response.data.filter(question => question.questionStage === props.location.state.type);
+        response.data = response.data.filter(question => question.questionStage === props.location.state.type);
+        setLoader(false);
         setData(response.data);
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        setLoader(false);
+        alert(err)
+      });
   }, [props.location.state.type]);
 
   return (
@@ -46,6 +51,11 @@ export default function Explore(props) {
           ))}
         </Grid>
       </Grid>
+      {
+        loader ?
+          (<CircularIndeterminate />)
+          : (null)
+      }
     </div>
   );
 }

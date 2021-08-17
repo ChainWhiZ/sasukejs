@@ -12,7 +12,7 @@ import {
 } from "../../../web3js/web3";
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
-import {useStyles} from "../profilePageCss";
+import { useStyles } from "../profilePageCss";
 
 
 export default function SolutionVotedCard(props) {
@@ -36,7 +36,7 @@ export default function SolutionVotedCard(props) {
       .then(async function () {
         console.log(contract.methods)
         // publisher address,github url, solver address, unstake amount
-        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress, props.solutionVotedOn.questionDetails.githubIssueUrl, props.solutionVotedOn.solutionId.publicAddress,(props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
+        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress, props.solutionVotedOn.questionDetails.githubIssueUrl, props.solutionVotedOn.solutionId.publicAddress, (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
       })
       .then(async function () {
         console.log("api")
@@ -62,26 +62,44 @@ export default function SolutionVotedCard(props) {
       })
 
   }
-console.log(props)
+  console.log(props)
   return (
     <>
       <Card>
         <CardContent>
           <Grid container>
-            <Grid item md={8}>
+            <Grid item md={7}>
               <a href={props.solutionVotedOn.solutionId.id} target="blank" className={classes.link}>
                 {props.solutionVotedOn.solutionId.id}
               </a>
             </Grid>
-            <Grid item md={4}>
+            <Grid item md={5}>
               {props.solutionVotedOn.amountToBeReturned ?
                 (<>
-                  <p>{"Return-" + props.solutionVotedOn.amountToBeReturned}</p>
-                  <p>{"Staked-" + props.solutionVotedOn.amountStaked}</p>
-                  <Button onClick={handleUnstake}>Unstake</Button>
+                  <span className={classes.marginRight}>
+                    {"Return-" + props.solutionVotedOn.amountToBeReturned}
+                  </span>
+                  <span className={classes.marginRight}>
+                    {"Staked-" + props.solutionVotedOn.amountStaked}
+                  </span>
+                  <Button variant="outlined"
+                    size="small"
+                    className={classes.button} onClick={handleUnstake}>Unstake</Button>
+
+
                 </>
                 )
-                : null
+                :
+                <>
+                  <span className={classes.marginRight}>
+                    {"Return-" + props.solutionVotedOn.amountToBeReturned}
+                  </span>
+                  <span className={classes.marginRight}>
+                    {"Staked-" + props.solutionVotedOn.amountStaked}
+                  </span>
+                  
+
+                </>
               }
             </Grid>
           </Grid>
