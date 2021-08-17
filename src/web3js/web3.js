@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import chainwhiz from "../artifacts/chainwhizAbi";
+
 let web3;
 
 export const initiliaseWeb3 = async () => {
@@ -10,7 +11,7 @@ export const initiliaseWeb3 = async () => {
       await window.ethereum.enable();
     } catch (error) {
       // User denied account access
-      alert(error);
+      alert("User denied");
     }
   } else if (window.web3) {
     // Legacy dapp browsers
@@ -26,7 +27,7 @@ export const initiliaseWeb3 = async () => {
 export const fetchAccount = async (callback) => {
   web3.eth.getAccounts((error, result) => {
     if (error) {
-      alert(error);
+      alert("Can't fetch account");
     } else {
       callback(result);
     }

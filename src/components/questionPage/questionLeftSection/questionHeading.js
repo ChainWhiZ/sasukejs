@@ -6,6 +6,7 @@ import "../questionPage.css";
 
 export default function QuestionHeading(props) {
   let hoursOrDaysOrMinutes = "DAYS";
+  let disabled = true;
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = (props.timeEnd - seconds) / (3600 * 24);
   if (timeLeft < 1) {
@@ -81,12 +82,12 @@ export default function QuestionHeading(props) {
           </a>
         </Grid>
         <Grid item md={3}>
-          <Button class="button" disabled>
+          <Button class="button" disabled={disabled}>
             Get Shareable Link
           </Button>
         </Grid>
         <Grid item md={3}>
-          <Button class="button" disabled>
+          <Button class="button" disabled={disabled}>
             Report Pricing
           </Button>
         </Grid>

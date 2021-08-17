@@ -26,7 +26,7 @@ import {
 import { useStyles } from "./questionPostCss";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
-import "../questionPage/questionPage.css"
+import "../questionPage/questionPage.css";
 export default function QuestionPost() {
   const classes = useStyles();
   let history = useHistory();
@@ -201,9 +201,7 @@ export default function QuestionPost() {
             });
           });
       })
-      .then(function () {
-        console.log(" ---- done ----");
-      });
+      .then(function () {});
   };
 
   return (
