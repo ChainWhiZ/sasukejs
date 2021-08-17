@@ -78,15 +78,7 @@ export default function StakingCard(props) {
         setLoader(false);
         setIsVoter(response.data);
       })
-      .catch((err) => {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          errorMessage: "Server side issue. Sorry for the inconvenience",
-        }));
-
-        setLoader(false);
-      });
+      .catch((err) => {});
   }, [walletAddress]);
 
   const handleStake = () => {
