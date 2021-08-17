@@ -57,13 +57,14 @@ export default function StakingCard(props) {
       })
       .then((response) => {
         setSolution(response.data);
+        setLoader(false);
       })
       .catch((err) => {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
           errorMessage:
-            "Solutions can't be loaded! Sorry for the inconvenience",
+            "Solutions can't be loaded! Server-side issue. Sorry for the inconvenience",
         }));
 
         setLoader(false);
@@ -77,14 +78,7 @@ export default function StakingCard(props) {
         setLoader(false);
         setIsVoter(response.data);
       })
-      .catch((err) => {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          errorMessage: "You are not a voter",
-        }));
-        setLoader(false);
-      });
+      .catch((err) => {});
   }, [walletAddress]);
 
   const handleStake = () => {
