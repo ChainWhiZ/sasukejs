@@ -64,7 +64,7 @@ export default function StakingCard(props) {
           ...prevState,
           open: true,
           errorMessage:
-            "Solutions can't be loaded! Sorry for the inconvenience",
+            "Solutions can't be loaded! Server-side issue. Sorry for the inconvenience",
         }));
 
         setLoader(false);
@@ -82,7 +82,7 @@ export default function StakingCard(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Server side issue",
+          errorMessage: "Server side issue. Sorry for the inconvenience",
         }));
 
         setLoader(false);
