@@ -522,9 +522,11 @@ export default function QuestionPost() {
           </Button>
         </Grid>
       </Grid>
-      <Snackbar open={successStatus}>
-        <Alert severity="success">Question Posted</Alert>
-      </Snackbar>
+      {
+        successStatus?(
+          <SimpleAlerts severity={"success"} message={"Question Posted"} />):
+          null
+      }
 
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
