@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import logo from "../../assets/cwz.png";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+
 export default function Navbar() {
   const classes = useStyles();
   let [username, setUsername] = useState(localStorage.getItem("username"));
@@ -19,7 +20,7 @@ export default function Navbar() {
     setHover(false);
   };
   let usernameTruncated;
-  if (username.length > 11) {
+  if ( username && username.length > 11) {
     usernameTruncated = username.substring(0, 11) + "...";
   }
 
@@ -94,10 +95,10 @@ export default function Navbar() {
                 onMouseLeave={onLeave}
               >
                 <p className={classes.username}>
-                  {hover && username.length > 11
-                    ? username
-                    : username.length > 11
-                    ? usernameTruncated
+                  {hover && username && username.length > 11
+                  ? username
+                    :username && username.length > 11
+                  ? usernameTruncated
                     : username}
                 </p>
               </Grid>

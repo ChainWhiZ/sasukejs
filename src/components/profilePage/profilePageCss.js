@@ -10,11 +10,11 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   accordianRoot: {
-
+    width: '100%',
   },
   accordian: {
     display: "block",
-    width: '100%',
+   
   },
   paper: {
     padding: theme.spacing(2),
@@ -45,6 +45,7 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "ghostwhite",
   },
   button: {
+    textTransform:"none",
     '&:hover': {
       background: "#1D1D1D",
       color: "white"
@@ -56,6 +57,21 @@ export const useStyles = makeStyles((theme) => ({
   },
   marginRight: {
     marginRight: "5%"
+  },
+  smallButton:{
+    width:"50%"
+  },
+  center:{
+    alignItems:"center"
+  },
+  font:{
+    fontFamily: 'Poppins'
+  },
+  dialog:{
+    width:"35% ",
+    height:"70% ",
+    marginLeft:"30%"
+
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,

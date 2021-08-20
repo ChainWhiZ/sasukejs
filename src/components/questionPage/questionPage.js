@@ -9,6 +9,7 @@ import QuestionApplicants from "./questionLeftSection/questionApplicants";
 import QuestionActivities from "./questionRightSection/questionActivities";
 import CircularIndeterminate from "../loader/loader";
 import "./questionPage.css";
+import { Redirect } from "react-router-dom";
 import SimpleAlerts from "../alert/alert";
 
 export default function QuestionPage(props) {
@@ -19,6 +20,7 @@ export default function QuestionPage(props) {
     errorMessage: "",
     severity: "error",
   });
+  const [username] = useState(localStorage.getItem('username'));
 
   useEffect(() => {
     fetchQuestion();
@@ -41,6 +43,11 @@ export default function QuestionPage(props) {
         setLoader(false);
       });
   };
+  if (!username) {
+    return (
+      <Redirect to="/" />
+    )
+  }
   return (
     <>
       <Navbar />
