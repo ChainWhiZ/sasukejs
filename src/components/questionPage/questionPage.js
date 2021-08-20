@@ -59,14 +59,16 @@ export default function QuestionPage(props) {
         <CircularIndeterminate />
       ) : (
         <Grid container>
-          <Grid item md={12} xs={12}></Grid>
           <Grid item md={9} xs={12}>
             <QuestionHeading {...data} handleFetch={() => fetchQuestion()} />
             <QuestionDescription {...data} />
             <QuestionApplicants {...data} />
           </Grid>
           <Grid item md={3} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
-            <QuestionStage question={data} handleFetch={() => fetchQuestion()} />
+            <QuestionStage
+              question={data}
+              handleFetch={() => fetchQuestion()}
+            />
             <QuestionActivities />
           </Grid>
         </Grid>
