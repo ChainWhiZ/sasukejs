@@ -34,24 +34,25 @@ export default function BountySolutionCard(props) {
   }, [applicants._id, props.workplanId]);
 
   const fetchSolutions = () => {
+    console.log("soltuions")
     axios
       .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
         _id: props.workplanId,
       })
       .then((response) => {
+        response.data.solutionIds &&
+        response.data.solutionIds.length !== 0 &&
+        response.data.solutionIds.map((solution) => {
+          if (solution.escrowId) {
+            setEscrowId(solution.escrowId);
+          }
+        })
         setApplicants(response.data);
       })
       .catch((err) => alert(err));
 
-    applicants.solutionIds &&
-      applicants.solutionIds.length !== 0 &&
-      applicants.solutionIds.map((solution) => {
-        if (solution.escrowId) {
-          setEscrowId(solution.escrowId);
-        }
-      })
-
   }
+ 
   return (
     <>
       <Card className={classes.cardColor}>

@@ -73,6 +73,9 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft:"30%"
 
   },
+  listItem:{
+    fontFamily: 'Poppins'
+  },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
 

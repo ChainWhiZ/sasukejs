@@ -32,6 +32,7 @@ export default function SolutionsVoted() {
         console.log(err)
       });
   }
+  console.log(data);
   return (
     <div className={classes.flexRoot}>
       <br />
