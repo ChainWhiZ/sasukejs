@@ -15,7 +15,6 @@ export default function ProfilePage(props) {
     const classes = useStyles();
     const [listItem, setListItem] = useState(drawerList[1]);
     const [username] = useState(localStorage.getItem('username'));
-
     if (!username) {
         return (
           <Redirect to="/" />

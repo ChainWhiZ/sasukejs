@@ -1,5 +1,5 @@
 import React from 'react';
-import {useStyles} from "./profilePageCss";
+import { useStyles } from "./profilePageCss";
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,13 +13,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { drawerList } from '../../constants';
+import Button from "@material-ui/core/Button";
 
 export default function SideDrawer(props) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-   
+
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -28,22 +29,22 @@ export default function SideDrawer(props) {
         }}
         anchor="left"
       >
-       
-        
+
+
         <List>
           {drawerList.map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem onClick={(e) => { props.itemClicked(text) }} button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText onClick={()=>props.itemClicked(text)} primary={text} />
-              <br/>
-              <br/>
-              <br/>
-              
+              <ListItemText className={classes.listItem} primary={text} />
+              <br />
+              <br />
+              <br />
+
             </ListItem>
           ))}
         </List>
       </Drawer>
-      
+
     </div>
   );
 }

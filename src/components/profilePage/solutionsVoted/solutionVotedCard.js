@@ -24,6 +24,8 @@ export default function SolutionVotedCard(props) {
   const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
 
   useEffect(async () => {
+    props.handleFetch();
+
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
@@ -33,14 +35,11 @@ export default function SolutionVotedCard(props) {
   const handleUnstake = () => {
     setLoader(true);
     return Promise.resolve()
-      // .then(async function () {
-      //   // publisher address,github url, solver address, unstake amount
-      //   return await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,props.solutionVotedOn.questionDetails.githubIssueUrl,props.solutionVotedOn.solutionId.publicAddress,(props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({from:walletAddress})
-      // })
       .then(async function () {
-        console.log(contract.methods)
-        // publisher address,github url, solver address, unstake amount
-        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress, props.solutionVotedOn.questionDetails.githubIssueUrl, props.solutionVotedOn.solutionId.publicAddress, (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
+        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,
+          props.solutionVotedOn.questionDetails.githubIssueUrl,
+          props.solutionVotedOn.solutionId.publicAddress,
+          (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
       })
       .then(async function () {
         console.log("api")
@@ -101,7 +100,7 @@ export default function SolutionVotedCard(props) {
                   <span className={classes.marginRight}>
                     {"Staked-" + props.solutionVotedOn.amountStaked}
                   </span>
-                  
+
 
                 </>
               }

@@ -25,6 +25,7 @@ export default function EscrowDialog(props) {
   const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
 
   useEffect(async () => {
+    props.handleFetch();
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
