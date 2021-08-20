@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
@@ -9,12 +8,20 @@ import BountiesSolved from "./bountiesSolved/bountiesSolved"
 import SolutionsVoted from "./solutionsVoted/solutionsVoted";
 import { drawerList } from '../../constants';
 import {useStyles} from "./profilePageCss";
+import { Redirect } from "react-router-dom";
 
 
 export default function ProfilePage(props) {
     const classes = useStyles();
     const [listItem, setListItem] = useState(drawerList[1]);
+    const [username] = useState(localStorage.getItem('username'));
 
+    if (!username) {
+        return (
+          <Redirect to="/" />
+        )
+      }
+    
     return (
         <div className={classes.root}>
 

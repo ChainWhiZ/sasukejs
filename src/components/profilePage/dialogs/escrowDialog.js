@@ -10,7 +10,9 @@ import {
 } from "../../../web3js/web3";
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
-import {useStyles} from "../profilePageCss";
+import { useStyles } from "../profilePageCss";
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
 export default function EscrowDialog(props) {
   const classes = useStyles();
@@ -19,7 +21,6 @@ export default function EscrowDialog(props) {
   const [username] = localStorage.getItem("username");
   const [walletAddress, setWalletAddress] = useState("");
   const [contract, setContract] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [loader, setLoader] = useState(false);
   const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
 
@@ -41,6 +42,7 @@ export default function EscrowDialog(props) {
         })
         .catch((err) => console.log(err));
     }
+  
   }, [open]);
   const handleClose = () => {
     setOpen(false);
@@ -114,7 +116,12 @@ export default function EscrowDialog(props) {
     setLoader(true);
     return Promise.resolve()
       .then(async function () {
-        return await contract.methods.transferMoney(props.publisherAddress, props.questionUrl).send({ from: walletAddress })//publisher address and question hash
+        await contract.methods.transferMoney(props.publisherAddress,
+          props.questionUrl).send({ from: walletAddress })
+          .on('error', function(){
+          console.log("error");
+        })
+
       })
       .then(async function () {
         axios
@@ -143,31 +150,43 @@ export default function EscrowDialog(props) {
 
   return (
     <>
-      <Dialog aria-labelledby="simple-dialog-title" open={open} >
+      <Dialog aria-labelledby="simple-dialog-title" open={open} className={classes.dialog} >
         <DialogTitle id="simple-dialog-title">Escrow Stage</DialogTitle>
-        <p>{escrow.escrowStatus}</p>
-        <Button
-          disabled={props.from === "bountyPosted" && !escrow ? false : true}
-          onClick={() => handleInit()}
-          variant="outlined"
-          size="small"
-          className={classes.button}>Init</Button>
-          <br/>
-        <Button
-          disabled={props.from === "bountyPosted" && escrow.escrowStatus === "init" ? false : true}
-          onClick={() => handleInProcess()}
-          variant="outlined"
-          size="small"
-          className={classes.button}>Onwership Received</Button>
-           <br/>
-        <Button
-          disabled={props.from === "bountySolved" && escrow.escrowStatus === "inprocess" ? false : true}
-          onClick={() => handleComplete()}
-          variant="outlined"
-          size="small"
-          className={classes.button}>Bounty Received</Button>
-           <br/>
-        <Button onClick={handleClose}>Close</Button>
+        <DialogContent >
+          {escrow.escrowStatus ?
+            (<h4 className={classes.font}>{"Escrow Stage- " + (escrow.escrowStatus).toUpperCase()}</h4>)
+            : (null)}
+          <Button
+            disabled={props.from === "bountyPosted" && !escrow ? false : true}
+            onClick={() => handleInit()}
+            variant="outlined"
+            size="small"
+            className={`${classes.button} ${classes.smallButton} ${classes.font}`}>Initiation</Button>
+          <br />
+          <br />
+          <Button
+            disabled={props.from === "bountyPosted" && escrow.escrowStatus === "init" ? false : true}
+            onClick={() => handleInProcess()}
+            variant="outlined"
+            size="small"
+            className={`${classes.button} ${classes.smallButton} ${classes.font}`}>Onwership Received</Button>
+         <br />
+          <br />
+          <Button
+            disabled={props.from === "bountySolved" && escrow.escrowStatus === "inprocess" ? false : true}
+            onClick={() => handleComplete()}
+            variant="outlined"
+            size="small"
+            className={`${classes.button} ${classes.smallButton} ${classes.font}`}>Bounty Received</Button>
+          <br />
+          <br />
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outlined"
+            size="small"
+            className={classes.button}
+            onClick={handleClose}>Close</Button>
+        </DialogActions>
       </Dialog>
       {
         loader ?

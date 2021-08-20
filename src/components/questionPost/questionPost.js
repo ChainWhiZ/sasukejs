@@ -14,6 +14,7 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import SimpleAlerts from "../alert/alert";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
+import { Redirect } from "react-router-dom";
 import { categoriesFields, approvalTypes } from "../../constants";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
@@ -201,10 +202,17 @@ export default function QuestionPost() {
             });
           });
       })
-      .then(function () {});
+      .then(function () { });
   };
 
+  if (!username) {
+    return (
+      <Redirect to="/" />
+    )
+  }
+
   return (
+
     <div className={classes.root}>
       <Grid container spacing={3} direction="column" justifyContent="center">
         <Grid item md={12} xs={12}>
