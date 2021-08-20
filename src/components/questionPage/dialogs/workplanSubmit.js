@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import fleekStorage from "@fleekhq/fleek-storage-js";
 import axios from "axios";
 import CircularIndeterminate from "../../loader/loader";
+import LinearIndeterminate from "../../loader/linearLoader";
 import SimpleAlerts from "../../alert/alert";
 import "../questionPage.css";
 
@@ -92,7 +93,7 @@ export default function WorkplanSubmit(props) {
           />
         ) : null}
       </Dialog>
-      {loader ? <CircularIndeterminate /> : null}
+      {loader ? <LinearIndeterminate /> : null} 
     </>
   );
 }

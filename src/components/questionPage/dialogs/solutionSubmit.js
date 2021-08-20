@@ -17,6 +17,7 @@ import {
 import "../questionPage.css";
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
+import LinearIndeterminate from "../../loader/linearLoader";
 
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
@@ -64,52 +65,81 @@ export default function SolutionSubmit(props) {
         }
       });
   };
+  const handleGithubLinkValidation = async (solution) => {
+    return axios
+      .post("https://chainwhiz.herokuapp.com/solution/validate", {
+        githubLink: solution,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            severity: "success",
+            errorMessage: "GitHub Repository link is valid",
+          }));
+          return true;
+        }
+      })
+      .catch((err) => {
+        setSolution([]);
+        return false;
+      });
+  };
 
-  const handleSubmit = async (workplanId, solution) => {
-    setLoader(true);
-    //TO DO
-     //check github url is valid or not
-    // if (solution.match(reg)) {
-    //   setAlert((prevState) => ({
-    //     ...prevState,
-    //     open: true,
-    //     errorMessage: "Incorrect GitHub link",
-    //   }));
-    // }
-
+  const handleValidation = async (workplan, solution) => {
+    const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)/;
+    console.log(solution)
     if (!solution) {
+      setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Solution link field is empty",
+        errorMessage: "GitHub Repository link field is empty",
       }));
-      setLoader(false);
+    } else if (!solution.match(reg)) {
+      setSolution([]);
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please enter valid GitHub repository link",
+      }));
+    } else if (!(await handleGithubLinkValidation(solution))) {
+      setSolution([]);
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "GitHub repository link doesn't exist",
+      }));
     } else {
-     
-      //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-      //check if solution link exists or not
-      return Promise.resolve()
-        .then(async function () {
-          return await solutionPosting(solution);
-        })
-
-        .then(async function () {
-          return await axios
-            .post(`https://chainwhiz.herokuapp.com/solution/save`, {
-              githubId: "rajashree23",
-              address: walletAddress,
-              githubLink: solution,
-              _id: workplanId,
-              questionId: props.quesDetails._id,
-            })
-            .then(async (response) => {
-              props.handleFetch();
-              setOpen(false);
-              setLoader(false);
-              props.handleDialogClose(false);
-            });
-        });
+      await handleSubmit(workplan, solution);
     }
+  };
+  const handleSubmit = async (workplanId, solution) => {
+    setLoader(true);
+    //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
+    //check if solution link exists or not
+    return Promise.resolve()
+      .then(async function () {
+        return await solutionPosting(solution);
+      })
+
+      .then(async function () {
+        return await axios
+          .post(`https://chainwhiz.herokuapp.com/solution/save`, {
+            githubId: "rajashree23",
+            address: walletAddress,
+            githubLink: solution,
+            _id: workplanId,
+            questionId: props.quesDetails._id,
+          })
+          .then(async (response) => {
+            props.handleFetch();
+            setOpen(false);
+            setLoader(false);
+            props.handleDialogClose(false);
+          });
+      });
   };
 
   return (
@@ -133,7 +163,7 @@ export default function SolutionSubmit(props) {
               props.quesDetails.workplanIds.length &&
               props.quesDetails.workplanIds.map((workplanId, index) => (
                 <>
-                  <Card >
+                  <Card>
                     <CardContent>
                       <Grid container>
                         <Grid item md={2}>
@@ -179,7 +209,7 @@ export default function SolutionSubmit(props) {
                       <Button
                         class="dialog-button"
                         onClick={async () =>
-                          await handleSubmit(workplanId, solutions[index])
+                          await handleValidation(workplanId, solutions[index])
                         }
                       >
                         Submit
@@ -209,7 +239,7 @@ export default function SolutionSubmit(props) {
           </DialogContentText>
         </DialogContent>
       </Dialog>
-      {loader ? <CircularIndeterminate /> : null}
+      {loader ? <LinearIndeterminate /> : null}
     </>
   );
 }

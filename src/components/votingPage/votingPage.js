@@ -5,12 +5,13 @@ import StakingCard from './stakingCard'
 import { useStyles } from './votingPageCss'
 import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader"
+import { Redirect } from "react-router-dom";
 
 
 
 export default function VotingPage(props) {
   const classes = useStyles();
-
+  const [username] = useState(localStorage.getItem('username'));
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false)
   useEffect(() => {
@@ -26,7 +27,11 @@ export default function VotingPage(props) {
       .catch((err) => console.log(err));
   }, []);
 
-
+  if (!username) {
+    return (
+      <Redirect to="/" />
+    )
+  }
   return (
     <div className={classes.root}>
 

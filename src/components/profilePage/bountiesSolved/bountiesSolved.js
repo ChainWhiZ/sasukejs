@@ -2,23 +2,28 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-import {useStyles} from "../profilePageCss";
+import { useStyles } from "../profilePageCss";
 import SolutionCard from "./solutionCard";
-
+import CircularIndeterminate from "../../loader/loader";
 
 export default function Bounties() {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [username] = useState(localStorage.getItem('username'));
+  const [loader, setLoader] = useState(true);
   useEffect(() => {
     axios
       .post(`https://chainwhiz.herokuapp.com/user/solutions`, {
-        githubId:username
+        githubId: username
       })
       .then((response) => {
+        setLoader(false);
         setData(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoader(false);
+        console.log(err)
+      });
   }, []);
   return (
     <div className={classes.flexRoot}>
@@ -26,12 +31,17 @@ export default function Bounties() {
       <br />
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          {data && data.length>0 && data.map(solution=>
-          <SolutionCard solutionDetails={solution} />
+          {data && data.length > 0 && data.map(solution =>
+            <SolutionCard solutionDetails={solution} />
           )}
         </Grid>
 
       </Grid>
+      {
+        loader ?
+          (<CircularIndeterminate />)
+          : (null)
+      }
     </div>
   );
 }

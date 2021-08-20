@@ -11,6 +11,7 @@ export default function Authenticate(props) {
     if (hasCode) {
       const query = window.location.search.substring(1);
       const token = query.split("code=")[1];
+ 
       axios
         .post(`https://chainwhiz.herokuapp.com/authenticate/user`, { code: token })
         .then((response) => {

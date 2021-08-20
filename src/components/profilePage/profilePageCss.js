@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
   flexRoot: {
     flexGrow: 1,
   },
-  accordianRoot:{
+  accordianRoot: {
     width: '100%',
   },
   accordian: {
@@ -35,24 +35,43 @@ export const useStyles = makeStyles((theme) => ({
   link: {
     color: 'inherit',
     textDecoration: 'inherit',
-    fontWeight:"700"
+    fontWeight: "700"
 
   },
   list: {
     "list-style-type": "none",
   },
-  cardColor:{
+  cardColor: {
     backgroundColor: "ghostwhite",
   },
-  button:{
+  button: {
+    textTransform:"none",
     '&:hover': {
       background: "#1D1D1D",
-      color:"white"
+      color: "white"
     }
   },
-  escrowDialog:{
-    width:"30%",
-    height:"40%"
+  escrowDialog: {
+    width: "30%",
+    height: "40%"
+  },
+  marginRight: {
+    marginRight: "5%"
+  },
+  smallButton:{
+    width:"50%"
+  },
+  center:{
+    alignItems:"center"
+  },
+  font:{
+    fontFamily: 'Poppins'
+  },
+  dialog:{
+    width:"35% ",
+    height:"70% ",
+    marginLeft:"30%"
+
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
