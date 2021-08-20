@@ -24,6 +24,7 @@ export default function StakingCard(props) {
   const [contract, setContract] = useState("");
   const [username] = useState(localStorage.getItem("username"));
   const [isVoter, setIsVoter] = useState(false);
+
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -157,7 +158,7 @@ export default function StakingCard(props) {
           <>
             <div className={classes.solutionDiv}>
               <div className={classes.innerDiv} style={{ width: "55%" }}>
-                <img src={githubIcon} className={classes.icon} />
+                <img src={githubIcon} alt="github" className={classes.icon} />
                 <br />
                 <Link
                   to={{ pathname: props.solutionId }}
@@ -169,15 +170,23 @@ export default function StakingCard(props) {
                   </Button>
                 </Link>
               </div>
-              <div className={classes.innerDiv}>
-                <img src={workplanIcon} className={classes.icon} />
+              <div className={classes.innerDiv} style={{ marginTop: "1%" }}>
+                <img
+                  src={workplanIcon}
+                  alt="wokplan"
+                  className={classes.icon}
+                />
                 <br />
                 <Link
                   to={{ pathname: `https://ipfs.io/ipfs/${props.workplan.id}` }}
                   target="_blank"
                   className={classes.link}
                 >
-                  <Button size="small" variant="outlined">
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    style={{ marginTop: "2.5%" }}
+                  >
                     Work Plan
                   </Button>
                 </Link>

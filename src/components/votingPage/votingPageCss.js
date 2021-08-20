@@ -31,11 +31,12 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgba(196, 196, 196, 1)",
     padding: "2%",
     textAlign: "center",
-    borderRadius: "0 4% 4% 0"
+    borderRadius: "0 4% 4% 0",
+    height:"61.5%"
   },
   innerDiv: {
     float: "left",
-    //width: "5s5%"
+    // width: "55%"
   },
   stakeInput: {
     width: "150px"
