@@ -93,7 +93,7 @@ export default function WorkplanSubmit(props) {
           />
         ) : null}
       </Dialog>
-      {loader ? <LinearIndeterminate /> : null} 
+      {/* {loader ? <LinearIndeterminate /> : null}  */}
     </>
   );
 }

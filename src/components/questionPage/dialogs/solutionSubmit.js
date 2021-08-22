@@ -239,7 +239,7 @@ export default function SolutionSubmit(props) {
           </DialogContentText>
         </DialogContent>
       </Dialog>
-      {loader ? <LinearIndeterminate /> : null}
+      {/* {loader ? <LinearIndeterminate /> : null} */}
     </>
   );
 }
