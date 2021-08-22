@@ -17,42 +17,39 @@ import { useStyles } from "../profilePageCss";
 export default function BountySolutionCard(props) {
   const classes = useStyles();
   const [applicants, setApplicants] = useState([]);
-  const [escrowId, setEscrowId] = useState('');
+  const [escrowId, setEscrowId] = useState("");
   const [isEscrowDialogOpen, setIsEscrowDialogOpen] = useState(false);
   const [initiated, setInitiated] = useState(false);
   const [walletAddress, setWalletAddress] = useState("");
-  const [solutionId, setSolutionId] = useState('');
-  const [solverAddress, setSolverAddress] = useState('');
+  const [solutionId, setSolutionId] = useState("");
+  const [solverAddress, setSolverAddress] = useState("");
   useEffect(async () => {
-
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
     });
     fetchSolutions();
-
   }, [applicants._id, props.workplanId]);
 
   const fetchSolutions = () => {
-    console.log("soltuions")
     axios
       .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
         _id: props.workplanId,
       })
       .then((response) => {
         response.data.solutionIds &&
-        response.data.solutionIds.length !== 0 &&
-        response.data.solutionIds.map((solution) => {
-          if (solution.escrowId) {
-            setEscrowId(solution.escrowId);
-          }
-        })
+          response.data.solutionIds.length !== 0 &&
+          response.data.solutionIds.map((solution) => {
+            if (solution.escrowId) {
+              console.log(solution.escrowId);
+              setEscrowId(solution.escrowId);
+            }
+          });
         setApplicants(response.data);
       })
       .catch((err) => alert(err));
+  };
 
-  }
- 
   return (
     <>
       <Card className={classes.cardColor}>
@@ -61,74 +58,97 @@ export default function BountySolutionCard(props) {
             <Grid item md={12}>
               <span>
                 {applicants.userId + " submitted "}
-                <a href={`https://ipfs.io/ipfs/${applicants._id}`} target="blank" className={classes.link}>
+                <a
+                  href={`https://ipfs.io/ipfs/${applicants._id}`}
+                  target="blank"
+                  className={classes.link}
+                >
                   {applicants._id}
                 </a>
               </span>
-
             </Grid>
             <Grid item md={12}>
               {applicants.solutionIds && applicants.solutionIds.length !== 0 ? (
                 <ul className={classes.list}>
                   {applicants.solutionIds &&
                     applicants.solutionIds.length > 0 &&
-                    applicants.solutionIds.map((solution) =>
-
+                    applicants.solutionIds.map((solution) => (
                       <li>
                         <span>
                           {solution.userId + " submitted "}
-                          <a href={solution._id} target="blank" className={classes.link}>
+                          <a
+                            href={solution._id}
+                            target="blank"
+                            className={classes.link}
+                          >
                             {solution._id}
                           </a>
                         </span>
                         <br />
                         {props.questionDetails.isCommunityApprovedSolution &&
-                          props.questionDetails.questionStage === "complete" ? (
+                        props.questionDetails.questionStage === "complete" ? (
                           <>
                             <p>{"Voting Score " + solution.weightage}</p>
                           </>
                         ) : null}
-                        {props.questionDetails.questionStage === "complete" && !escrowId ?
-                          (<Button variant="outlined"
+                        {props.questionDetails.questionStage === "complete" &&
+                        !escrowId ? (
+                          <Button
+                            variant="outlined"
                             size="small"
                             className={classes.button}
-                            onClick={(event) => { setIsEscrowDialogOpen(true); setSolutionId(solution._id); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
-                          : escrowId ?
-                            (<Button variant="outlined"
-                              size="small"
-                              className={classes.button}
-                              onClick={(event) => { setIsEscrowDialogOpen(true); setSolverAddress(solution.publicAddress); event.preventDefault() }}>View Escrow</Button>)
-                            :
-                            null}
+                            onClick={(event) => {
+                              console.log('hey')
+                              setIsEscrowDialogOpen(true);
+                              setSolutionId(solution._id);
+                              setSolverAddress(solution.publicAddress);
+                              event.preventDefault();
+                            }}
+                          >
+                            View Escrow
+                          </Button>
+                        ) : escrowId ? (
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            className={classes.button}
+                            onClick={(event) => {
+                              console.log('hi')
+                              setIsEscrowDialogOpen(true);
+                              setSolutionId(solution._id);
+                              setSolverAddress(solution.publicAddress);
+                          
+                            }}
+                          >
+                            View Escrow
+                          </Button>
+                        ) : null}
                         <br />
                         <br />
                       </li>
-
-                    )}
+                    ))}
                 </ul>
               ) : null}
             </Grid>
           </Grid>
-
         </CardContent>
       </Card>
       <br></br>
-      {
-        isEscrowDialogOpen && walletAddress === props.questionDetails.publicAddress ? (
-          <EscrowDialog
-            open={isEscrowDialogOpen}
-            handleDialogClose={() => setIsEscrowDialogOpen(false)}
-            from="bountyPosted"
-            escrowId={escrowId}
-            solutionId={solutionId}
-            questionUrl={props.questionDetails.githubIssueUrl}
-            solverAddress={solverAddress}
-            handleFetch={() => fetchSolutions()}
-          />
-        ) : (
-          ""
-        )
-      }
+      {isEscrowDialogOpen &&
+      walletAddress === props.questionDetails.publicAddress ? (
+        <EscrowDialog
+          open={isEscrowDialogOpen}
+          handleDialogClose={() => setIsEscrowDialogOpen(false)}
+          from="bountyPosted"
+          escrowId={escrowId}
+          solutionId={solutionId}
+          questionUrl={props.questionDetails.githubIssueUrl}
+          solverAddress={solverAddress}
+          handleFetch={() => fetchSolutions()}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 }

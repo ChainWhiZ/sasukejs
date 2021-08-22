@@ -222,7 +222,7 @@ export default function EscrowDialog(props) {
           </Button>
         </DialogActions>
       </Dialog>
-      {loader ? <CircularIndeterminate /> : null}
+      {/* {loader ? <CircularIndeterminate /> : null} */}
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
