@@ -4,13 +4,14 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import axios from "axios";
 import "../questionPage.css";
+import { port } from "../../../config/config";
 import CircularIndeterminate from "../../loader/loader";
 export default function QuestionSolutionCard(props) {
   const [applicants, setApplicants] = useState([]);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     axios
-      .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
+      .post(port +"workplan/fetch", {
         _id: props.workplanId,
       })
       .then((response) => {

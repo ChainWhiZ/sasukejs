@@ -18,6 +18,7 @@ import "../questionPage.css";
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
 import LinearIndeterminate from "../../loader/linearLoader";
+import { port } from "../../../config/config";
 
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
@@ -67,7 +68,7 @@ export default function SolutionSubmit(props) {
   };
   const handleGithubLinkValidation = async (solution) => {
     return axios
-      .post("https://chainwhiz.herokuapp.com/solution/validate", {
+      .post("port +solution/validate", {
         githubLink: solution,
       })
       .then((response) => {
@@ -89,7 +90,6 @@ export default function SolutionSubmit(props) {
 
   const handleValidation = async (workplan, solution) => {
     const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)/;
-    console.log(solution)
     if (!solution) {
       setSolution([]);
       setAlert((prevState) => ({
@@ -126,7 +126,7 @@ export default function SolutionSubmit(props) {
 
       .then(async function () {
         return await axios
-          .post(`https://chainwhiz.herokuapp.com/solution/save`, {
+          .post(port +"solution/save", {
             githubId: "rajashree23",
             address: walletAddress,
             githubLink: solution,

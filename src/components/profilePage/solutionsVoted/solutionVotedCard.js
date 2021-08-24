@@ -13,19 +13,16 @@ import {
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
 import { useStyles } from "../profilePageCss";
-
+import { port } from "../../../config/config";
 
 export default function SolutionVotedCard(props) {
   const classes = useStyles();
-  console.log(props)
   const [walletAddress, setWalletAddress] = useState("");
   const [contract, setContract] = useState("");
   const [loader, setLoader] = useState(false);
   const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
 
   useEffect(async () => {
-    props.handleFetch();
-
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
@@ -42,9 +39,8 @@ export default function SolutionVotedCard(props) {
           (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
       })
       .then(async function () {
-        console.log("api")
         axios
-          .post(`https://chainwhiz.herokuapp.com/vote/updatereward`, {
+          .post(port + "vote/updatereward", {
             voterId: props.solutionVotedOn.voterId,
             solutionId: props.solutionVotedOn.solutionId._id,
           })
@@ -65,7 +61,6 @@ export default function SolutionVotedCard(props) {
       })
 
   }
-  console.log(props)
   return (
     <>
       <Card>

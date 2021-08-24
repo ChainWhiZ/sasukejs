@@ -5,6 +5,7 @@ import axios from "axios";
 import BountyCard from "./bountyCard";
 import { useStyles } from "../profilePageCss";
 import CircularIndeterminate from "../../loader/loader";
+import { port } from "../../../config/config";
 
 export default function BountiesPosted() {
   const classes = useStyles();
@@ -13,7 +14,7 @@ export default function BountiesPosted() {
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     axios
-      .post(`https://chainwhiz.herokuapp.com/user/questions`, {
+      .post(port + "user/questions", {
         githubId: username
       })
       .then((response) => {

@@ -14,6 +14,7 @@ import {
 } from "../../web3js/web3";
 import SimpleAlerts from "../alert/alert";
 import CircularIndeterminate from "../loader/loader";
+import { port } from "../../config/config";
 
 export default function StakingCard(props) {
   const classes = useStyles();
@@ -40,8 +41,6 @@ export default function StakingCard(props) {
     });
     const getContract = await initiliaseContract();
     setContract(getContract);
-    console.log(contract);
-    console.log(walletAddress);
 
     if (contract && walletAddress) {
       const getBalance = parseInt(
@@ -53,7 +52,7 @@ export default function StakingCard(props) {
     }
 
     axios
-      .post(`https://chainwhiz.herokuapp.com/solution/fetch`, {
+      .post(port + "solution/fetch", {
         solutionId: props.solutionId,
       })
       .then((response) => {
@@ -72,7 +71,7 @@ export default function StakingCard(props) {
       });
 
     axios
-      .post(`https://chainwhiz.herokuapp.com/user/isvoter`, {
+      .post(port + "user/isvoter", {
         userId: username,
       })
       .then((response) => {
@@ -87,7 +86,6 @@ export default function StakingCard(props) {
     return Promise.resolve()
       .then(async function () {
         if (!isVoter) {
-          console.log("1st");
           return await contract.methods
             .registerVoter()
             .send({ from: walletAddress });
@@ -97,10 +95,8 @@ export default function StakingCard(props) {
       })
       .then(async function () {
         if (!isVoter) {
-          console.log("2nd");
-          console.log(username);
           return await axios
-            .post(`https://chainwhiz.herokuapp.com/vote/voterdetails`, {
+            .post(port + "vote/voterdetails", {
               githubId: username,
             })
             .then((response) => {
@@ -121,7 +117,6 @@ export default function StakingCard(props) {
         }
       })
       .then(async function () {
-        console.log("3rd");
         return contract.methods
           .stakeVote(
             (stakedAmount * Math.pow(10, 18)).toString(),
@@ -133,7 +128,7 @@ export default function StakingCard(props) {
       })
       .then(async function () {
         return await axios
-          .post(`https://chainwhiz.herokuapp.com/vote/save`, {
+          .post(port + "vote/save", {
             publicAddress: walletAddress,
             amountStaked: stakedAmount,
             timestamp: Date.now() / 1000,
@@ -147,7 +142,6 @@ export default function StakingCard(props) {
           .catch((err) => console.error(err));
       });
   };
-  console.log(props);
 
   if (contract)
     return (

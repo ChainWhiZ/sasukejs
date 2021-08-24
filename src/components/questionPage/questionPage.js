@@ -11,6 +11,7 @@ import CircularIndeterminate from "../loader/loader";
 import "./questionPage.css";
 import { Redirect } from "react-router-dom";
 import SimpleAlerts from "../alert/alert";
+import { port } from "../../config/config";
 
 export default function QuestionPage(props) {
   const [data, setData] = useState({});
@@ -27,7 +28,7 @@ export default function QuestionPage(props) {
   }, [data._id]);
   const fetchQuestion = () => {
     axios
-      .post(`https://chainwhiz.herokuapp.com/question/fetch`, {
+      .post(port + "question/fetch", {
         _id: props.match.params.id,
       })
       .then((response) => {

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Button from '@material-ui/core/Button';
+import { port } from "../../config/config";
 
 export default function Authenticate(props) {
 
@@ -13,7 +14,7 @@ export default function Authenticate(props) {
       const token = query.split("code=")[1];
  
       axios
-        .post(`https://chainwhiz.herokuapp.com/authenticate/user`, { code: token })
+        .post(port + "authenticate/user", { code: token })
         .then((response) => {
           localStorage.setItem('username', response.data.doc.githubId);
           props.handleLogin(response.data.doc.githubId);

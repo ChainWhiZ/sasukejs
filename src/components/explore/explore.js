@@ -6,7 +6,8 @@ import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader";
 import QuestionCard from "./questionCard";
 import Search from "./search";
-import { useStyles } from './exploreCss'
+import { useStyles } from './exploreCss';
+import { port } from "../../config/config";
 
 export default function Explore(props) {
   const classes = useStyles();
@@ -15,7 +16,7 @@ export default function Explore(props) {
   useEffect(() => {
     setLoader(true);
     axios
-      .get(`https://chainwhiz.herokuapp.com/question/fetchall`)
+      .get(port + "question/fetchall")
       .then((response) => {
         console.log(response)
         response.data = response.data.filter(question => question.questionStage === props.location.state.type);

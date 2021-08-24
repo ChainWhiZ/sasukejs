@@ -7,6 +7,7 @@ import CircularIndeterminate from "../../loader/loader";
 import LinearIndeterminate from "../../loader/linearLoader";
 import SimpleAlerts from "../../alert/alert";
 import "../questionPage.css";
+import { port } from "../../../config/config";
 
 export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
@@ -50,7 +51,7 @@ export default function WorkplanSubmit(props) {
       data: buffer,
     });
     axios
-      .post(`https://chainwhiz.herokuapp.com/workplan/save`, {
+      .post(port + "workplan/save", {
         githubId: localStorage.getItem("username"),
         workplan: uploadedFile.hash,
         questionId: props.questionId,

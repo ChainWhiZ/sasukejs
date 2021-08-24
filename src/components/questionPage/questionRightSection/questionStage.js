@@ -15,7 +15,6 @@ import "../questionPage.css";
 
 export default function QuestionStage(props) {
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
-  console.log(props)
   return (
     <>
       <Grid container>

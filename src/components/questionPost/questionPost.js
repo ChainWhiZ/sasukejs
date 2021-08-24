@@ -28,6 +28,8 @@ import { useStyles } from "./questionPostCss";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import "../questionPage/questionPage.css";
+import { port } from "../../config/config";
+
 export default function QuestionPost() {
   const classes = useStyles();
   let history = useHistory();
@@ -83,7 +85,7 @@ export default function QuestionPost() {
   };
   const handleGithubIssueValidation = async () => {
     return axios
-      .post("https://chainwhiz.herokuapp.com/question/validate", {
+      .post("port +question/validate", {
         githubIssueUrl: githubLink,
       })
       .then((response) => {
@@ -178,7 +180,7 @@ export default function QuestionPost() {
       })
       .then(async function () {
         return axios
-          .post(`https://chainwhiz.herokuapp.com/question/save`, {
+          .post(port + "question/save", {
             githubId: username,
             publicAddress: walletAddress,
             questionTitle: questionTitle,

@@ -6,7 +6,7 @@ import { useStyles } from './votingPageCss'
 import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader"
 import { Redirect } from "react-router-dom";
-
+import { port } from "../../config/config";
 
 
 export default function VotingPage(props) {
@@ -15,9 +15,8 @@ export default function VotingPage(props) {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false)
   useEffect(() => {
-    console.log(props)
     axios
-      .post(`https://chainwhiz.herokuapp.com/workplan/fetchall`, {
+      .post(port + "workplan/fetchall", {
         _id: props.location.state.questionDetails._id
       })
       .then((response) => {

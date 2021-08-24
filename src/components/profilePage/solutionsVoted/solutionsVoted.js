@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 
-
+import { port } from "../../../config/config";
 import SolutionVotedCard from "./solutionVotedCard";
 import CircularIndeterminate from "../../loader/loader";
 import { useStyles } from "../profilePageCss";
@@ -20,7 +20,7 @@ export default function SolutionsVoted() {
 
   const fetchVoteDetails = () => {
     axios
-      .post(`https://chainwhiz.herokuapp.com/user/votedetails`, {
+      .post(port + "user/votedetails", {
         githubId: username
       })
       .then((response) => {
@@ -32,7 +32,6 @@ export default function SolutionsVoted() {
         console.log(err)
       });
   }
-  console.log(data);
   return (
     <div className={classes.flexRoot}>
       <br />

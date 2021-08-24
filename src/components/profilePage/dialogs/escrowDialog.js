@@ -3,6 +3,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { port } from "../../../config/config";
 import {
   initiliaseWeb3,
   fetchAccount,
@@ -29,7 +30,6 @@ export default function EscrowDialog(props) {
   });
 
   useEffect(async () => {
-    props.handleFetch();
     await initiliaseWeb3();
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
@@ -38,7 +38,7 @@ export default function EscrowDialog(props) {
 
     if (props.escrowId) {
       axios
-        .post(`https://chainwhiz.herokuapp.com/escrow/fetch`, {
+        .post(port +"escrow/fetch", {
           _id: props.escrowId,
         })
         .then((response) => {
@@ -62,7 +62,7 @@ export default function EscrowDialog(props) {
 
       .then(async function () {
         return axios
-          .post(`https://chainwhiz.herokuapp.com/escrow/init`, {
+          .post(port + "escrow/init", {
             _id: props.solutionId,
           })
           .then((response) => {
@@ -95,7 +95,7 @@ export default function EscrowDialog(props) {
       })
       .then(async function () {
         axios
-          .post(`https://chainwhiz.herokuapp.com/escrow/inprocess`, {
+          .post(port + "escrow/inprocess", {
             _id: props.escrowId,
           })
           .then((response) => {
@@ -130,7 +130,7 @@ export default function EscrowDialog(props) {
       })
       .then(async function () {
         axios
-          .post(`https://chainwhiz.herokuapp.com/escrow/complete`, {
+          .post(port + "escrow/complete", {
             _id: props.escrowId,
           })
           .then((response) => {

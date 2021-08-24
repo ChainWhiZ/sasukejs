@@ -13,6 +13,7 @@ import {
   initiliaseContract,
 } from "../../../web3js/web3";
 import { useStyles } from "../profilePageCss";
+import { port } from "../../../config/config";
 
 export default function BountySolutionCard(props) {
   const classes = useStyles();
@@ -23,6 +24,7 @@ export default function BountySolutionCard(props) {
   const [walletAddress, setWalletAddress] = useState("");
   const [solutionId, setSolutionId] = useState("");
   const [solverAddress, setSolverAddress] = useState("");
+  
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
@@ -33,7 +35,7 @@ export default function BountySolutionCard(props) {
 
   const fetchSolutions = () => {
     axios
-      .post(`https://chainwhiz.herokuapp.com/workplan/fetch`, {
+      .post(port + "workplan/fetch", {
         _id: props.workplanId,
       })
       .then((response) => {
@@ -41,7 +43,6 @@ export default function BountySolutionCard(props) {
           response.data.solutionIds.length !== 0 &&
           response.data.solutionIds.map((solution) => {
             if (solution.escrowId) {
-              console.log(solution.escrowId);
               setEscrowId(solution.escrowId);
             }
           });
@@ -98,7 +99,6 @@ export default function BountySolutionCard(props) {
                             size="small"
                             className={classes.button}
                             onClick={(event) => {
-                              console.log('hey')
                               setIsEscrowDialogOpen(true);
                               setSolutionId(solution._id);
                               setSolverAddress(solution.publicAddress);
@@ -113,7 +113,6 @@ export default function BountySolutionCard(props) {
                             size="small"
                             className={classes.button}
                             onClick={(event) => {
-                              console.log('hi')
                               setIsEscrowDialogOpen(true);
                               setSolutionId(solution._id);
                               setSolverAddress(solution.publicAddress);
