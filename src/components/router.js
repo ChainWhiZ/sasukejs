@@ -1,16 +1,22 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Landing from "./landing/landing";
+import BeforeLogin from "./landing/beforeLogin/beforeLogin"
+import AfterLogin from "./landing/afterLogin";
 import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
 import Explore from "./explore/explore";
-import VotingPage  from "./votingPage/votingPage";
+import VotingPage from "./votingPage/votingPage";
 import ProfilePage from "./profilePage/profilePage";
 
 export default function RouterComponent() {
   return (
     <Router>
-      <Route exact path="/" component={Landing} />
+      {localStorage.getItem("username") ? (
+        <Route exact path="/" component={AfterLogin} />
+      ) : (
+        <Route exact path="/" component={BeforeLogin} />
+      )}
+
       <Route path="/post" component={QuestionPost} />
       <Route
         exact
