@@ -1,0 +1,66 @@
+.landing-heading{
+width: 565px;
+height: 203px;
+font-family: Poppins;
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+line-height: 55px;
+
+letter-spacing: 0.01em;
+
+color: #000000;
+
+}
+
+.margin-left10{
+ margin-left: 10%;
+}
+
+.margin-left5{
+    margin-left: 5%;
+   }
+.right-img{
+    float: right;
+    margin-right: -2%;
+    margin-top: -2%;
+}
+.test-heading{
+    margin-top: -10%;
+    margin-bottom: 10%;
+}
+.test-subheading{
+   margin-bottom: 10%;
+}
+.pointer{
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 100%;
+    padding:0% 2% 0% 2%;
+    margin-right:3%
+    
+}
+.landing-button{
+    font-size: 12px ;
+  font-style: normal ;
+  font-weight: 600 ;
+  line-height: 18px ;
+  letter-spacing: 0em ;
+  text-align: center ;
+  height: 38px ;
+  width: 144px ;
+  cursor: pointer ;
+  margin-left:21% ;
+  border: 1px solid #000000 ;
+  box-sizing: border-box ;
+  border-radius: 6px ;
+  color: rgba(29, 29, 29, 1) ;
+  background-color: white ;
+  text-transform: 'none' ;
+}
+.landing-button:hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(29, 29, 29, 1);
+    text-transform: 'none';
+  }
+

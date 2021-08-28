@@ -137,6 +137,7 @@ export default function StakingCard(props) {
           })
           .then((response) => {
             setStakedAmount(0);
+            setLoader(false);
             console.log(response);
           })
           .catch((err) => console.error(err));

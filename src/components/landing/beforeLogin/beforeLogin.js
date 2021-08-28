@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import eventBus from "../../EventBus";
 import Description from "./description";
 import Rules from "./rules";
+import "../landing.css";
+
 export default function BeforeLogin() {
   const [username, setUsername] = useState(localStorage.getItem("username"));
   useEffect(() => {
@@ -23,10 +25,10 @@ export default function BeforeLogin() {
         </Grid>
         <Grid item md={6} xs={12}>
           {" "}
-          <img alt="img1" src={rightImage} />
+          <img alt="img1" src={rightImage} class="right-img" />
         </Grid>
 
-        <Grid item md={6} xs={12}>
+        <Grid item md={6} xs={12} class="margin-left5">
           {" "}
           <img alt="img2" src={leftImage} />
         </Grid>
