@@ -68,7 +68,7 @@ export default function SolutionSubmit(props) {
   };
   const handleGithubLinkValidation = async (solution) => {
     return axios
-      .post(port + "solution/validate", {
+      .post(port +"solution/validate", {
         githubLink: solution,
       })
       .then((response) => {
