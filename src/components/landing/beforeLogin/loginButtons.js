@@ -49,7 +49,7 @@ export default function LoginButtons() {
                 </Grid>
                 <Grid item md={6} xs={6}>
                     <Button
-                        class="landing-button"
+                        class="landing-button demo"
                         style={{
                             width: "200px",
                             marginLeft: "-23%"

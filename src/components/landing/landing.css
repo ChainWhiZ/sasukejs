@@ -36,12 +36,12 @@ color: #000000;
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 100%;
-    padding:0% 2% 0% 2%;
+    padding:0px 11px 5px 12px;
     margin-right:3%
     
 }
 .landing-button{
-    font-size: 12px ;
+    font-size: 15px ;
   font-style: normal ;
   font-weight: 600 ;
   line-height: 18px ;
@@ -64,3 +64,14 @@ color: #000000;
     text-transform: 'none';
   }
 
+.demo{
+    background-color: rgba(28, 28, 28, 1);
+    color: rgba(255, 255, 255, 1);
+
+  
+}
+
+.demo:hover{
+    color: rgba(29, 29, 29, 1) ;
+    background-color: white ;
+}

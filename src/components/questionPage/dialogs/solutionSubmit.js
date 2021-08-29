@@ -68,7 +68,7 @@ export default function SolutionSubmit(props) {
   };
   const handleGithubLinkValidation = async (solution) => {
     return axios
-      .post("port +solution/validate", {
+      .post(port + "solution/validate", {
         githubLink: solution,
       })
       .then((response) => {
@@ -126,7 +126,7 @@ export default function SolutionSubmit(props) {
 
       .then(async function () {
         return await axios
-          .post(port +"solution/save", {
+          .post(port + "solution/save", {
             githubId: localStorage.getItem("username"),
             address: walletAddress,
             githubLink: solution,

@@ -85,7 +85,7 @@ export default function QuestionPost() {
   };
   const handleGithubIssueValidation = async () => {
     return axios
-      .post("port +question/validate", {
+      .post(port +"question/validate", {
         githubIssueUrl: githubLink,
       })
       .then((response) => {
