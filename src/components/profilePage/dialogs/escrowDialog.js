@@ -190,7 +190,7 @@ export default function EscrowDialog(props) {
             size="small"
             className={`${classes.button} ${classes.smallButton} ${classes.font}`}
           >
-            Onwership Received
+            Ownership Received
           </Button>
           <br />
           <br />
