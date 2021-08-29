@@ -127,7 +127,7 @@ export default function SolutionSubmit(props) {
       .then(async function () {
         return await axios
           .post(port +"solution/save", {
-            githubId: "rajashree23",
+            githubId: localStorage.getItem("username"),
             address: walletAddress,
             githubLink: solution,
             _id: workplanId,
