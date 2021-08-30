@@ -524,15 +524,7 @@ export default function QuestionPost() {
           />
         </Grid>
         <Grid item xs={12} className={classes.marginLeftRight10}>
-          <Button
-            variant="contained"
-            onClick={() => handleValidation()}
-            disabled={
-              undertakings.undertaking1 && undertakings.undertaking2
-                ? false
-                : true
-            }
-          >
+          <Button variant="contained" onClick={() => handleValidation()}>
             Publish
           </Button>
         </Grid>
