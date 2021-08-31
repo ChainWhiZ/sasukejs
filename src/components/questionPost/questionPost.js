@@ -85,7 +85,7 @@ export default function QuestionPost() {
   };
   const handleGithubIssueValidation = async () => {
     return axios
-      .post(port +"question/validate", {
+      .post(port + "question/validate", {
         githubIssueUrl: githubLink,
       })
       .then((response) => {
@@ -204,17 +204,14 @@ export default function QuestionPost() {
             });
           });
       })
-      .then(function () { });
+      .then(function () {});
   };
 
   if (!username) {
-    return (
-      <Redirect to="/" />
-    )
+    return <Redirect to="/" />;
   }
 
   return (
-
     <div className={classes.root}>
       <Grid container spacing={3} direction="column" justifyContent="center">
         <Grid item md={12} xs={12}>
@@ -532,11 +529,9 @@ export default function QuestionPost() {
           </Button>
         </Grid>
       </Grid>
-      {
-        successStatus?(
-          <SimpleAlerts severity={"success"} message={"Question Posted"} />):
-          null
-      }
+      {successStatus ? (
+        <SimpleAlerts severity={"success"} message={"Question Posted"} />
+      ) : null}
 
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
