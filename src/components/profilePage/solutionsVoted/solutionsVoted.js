@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-
+import SimpleAlerts from "../../alert/alert";
 import { port } from "../../../config/config";
 import SolutionVotedCard from "./solutionVotedCard";
 import CircularIndeterminate from "../../loader/loader";
@@ -13,6 +13,11 @@ export default function SolutionsVoted() {
   const [data, setData] = useState([]);
   const [username] = useState(localStorage.getItem("username"));
   const [loader, setLoader] = useState(true);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
 
   useEffect(() => {
     fetchVoteDetails();
@@ -29,7 +34,11 @@ export default function SolutionsVoted() {
       })
       .catch((err) => {
         setLoader(false);
-        console.log(err)
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Could'nt fetch voted solutions",
+        }));
       });
   }
   return (
@@ -44,6 +53,12 @@ export default function SolutionsVoted() {
         </Grid>
 
       </Grid>
+      {alert.open ? (
+        <SimpleAlerts
+          severity={alert.severity}
+          message={alert.errorMessage}
+        />
+      ) : null}
       {
         loader ?
           (<CircularIndeterminate />)

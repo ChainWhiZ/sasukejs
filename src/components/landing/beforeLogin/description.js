@@ -19,7 +19,6 @@ export default function Description() {
       axios
         .post(port + "authenticate/user", { code: token })
         .then((response) => {
-          console.log("hey");
           localStorage.setItem("username", response.data.doc.githubId);
           window.history.pushState({}, {}, "/");
 

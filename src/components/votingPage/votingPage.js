@@ -7,23 +7,35 @@ import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader"
 import { Redirect } from "react-router-dom";
 import { port } from "../../config/config";
-
+import SimpleAlerts from "../alert/alert";
 
 export default function VotingPage(props) {
   const classes = useStyles();
   const [username] = useState(localStorage.getItem('username'));
   const [data, setData] = useState([]);
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(true);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
+
   useEffect(() => {
     axios
       .post(port + "workplan/fetchall", {
         _id: props.location.state.questionDetails._id
       })
       .then((response) => {
-        // setLoader(false)
+        setLoader(false)
         setData(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Couldn't fetch solutions",
+        }));
+      });
   }, []);
 
   if (!username) {
@@ -34,27 +46,35 @@ export default function VotingPage(props) {
   return (
     <div className={classes.root}>
 
-          <>
-            <Grid container>
-              <Grid item md={12} xs={12}>
-                <Navbar />
-                <br />
-                <br />
-                <br />
-              </Grid>
-              <Grid item md={12} xs={12}>
-                <h1>Cast your vote by staking on solutions</h1>
-              </Grid>
+      <>
+        <Grid container>
+          <Grid item md={12} xs={12}>
+            <Navbar />
+            <br />
+            <br />
+            <br />
+          </Grid>
+          <Grid item md={12} xs={12}>
+            <h1>Cast your vote by staking on solutions</h1>
+          </Grid>
 
-              {data.map(workplan => (
-                workplan.solutionIds.map(id => (
+          {data.map(workplan => (
+            workplan.solutionIds.map(id => (
 
-                  <Grid item md={6} xs={12} >
-                    <StakingCard solutionId={id} workplan={workplan} questionDetails={props.location.state.questionDetails} />
-                  </Grid>
-                ))))}
-            </Grid>
-          </>
+              <Grid item md={6} xs={12} >
+                <StakingCard
+                  solutionId={id}
+                  workplan={workplan}
+                  questionDetails={props.location.state.questionDetails} />
+              </Grid>
+            ))))}
+        </Grid>
+        {
+          loader ?
+            (<CircularIndeterminate />)
+            : (null)
+        }
+      </>
 
     </div>
   );

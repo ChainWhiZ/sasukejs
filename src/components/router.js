@@ -9,6 +9,7 @@ import VotingPage from "./votingPage/votingPage";
 import ProfilePage from "./profilePage/profilePage";
 
 export default function RouterComponent() {
+  console.log = function() {}
   return (
     <Router>
       {localStorage.getItem("username") ? (

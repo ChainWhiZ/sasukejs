@@ -6,12 +6,19 @@ import BountyCard from "./bountyCard";
 import { useStyles } from "../profilePageCss";
 import CircularIndeterminate from "../../loader/loader";
 import { port } from "../../../config/config";
-
+import SimpleAlerts
+ from "../../alert/alert";
 export default function BountiesPosted() {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [username] = useState(localStorage.getItem("username"));
   const [loader, setLoader] = useState(true);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
+
   useEffect(() => {
     axios
       .post(port + "user/questions", {
@@ -22,8 +29,12 @@ export default function BountiesPosted() {
         setData(response.data);
       })
       .catch((err) => {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Could'nt fetch questions",
+        }));
         setLoader(false);
-        console.log(err)
       });
   }, []);
   return (
@@ -38,6 +49,12 @@ export default function BountiesPosted() {
         </Grid>
 
       </Grid>
+      {alert.open ? (
+        <SimpleAlerts
+          severity={alert.severity}
+          message={alert.errorMessage}
+        />
+      ) : null}
       {
         loader ?
           (<CircularIndeterminate />)

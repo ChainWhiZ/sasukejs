@@ -50,11 +50,10 @@ export default function SolutionVotedCard(props) {
             setLoader(false);
           })
           .catch((err) => {
-            console.log(err);
             setAlert(prevState => ({
               ...prevState,
               open: true,
-              errorMessage: "Error"
+              errorMessage: "Error while unstaking reward"
             }));
             setLoader(false);
           });

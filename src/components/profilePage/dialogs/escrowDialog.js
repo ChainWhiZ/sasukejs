@@ -38,13 +38,19 @@ export default function EscrowDialog(props) {
 
     if (props.escrowId) {
       axios
-        .post(port +"escrow/fetch", {
+        .post(port + "escrow/fetch", {
           _id: props.escrowId,
         })
         .then((response) => {
           setEscrow(response.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            errorMessage: "Error fetching escrow",
+          }))
+        });
     }
   }, [open]);
   const handleClose = () => {
@@ -81,7 +87,6 @@ export default function EscrowDialog(props) {
             setLoader(false);
             setOpen(false);
             props.handleDialogClose(false);
-            console.log(err);
           });
       });
   };
@@ -113,7 +118,6 @@ export default function EscrowDialog(props) {
             setLoader(false);
             setOpen(false);
             props.handleDialogClose(false);
-            console.log(err);
           });
       });
   };
@@ -125,7 +129,11 @@ export default function EscrowDialog(props) {
           .transferMoney(props.publisherAddress, props.questionUrl)
           .send({ from: walletAddress })
           .on("error", function () {
-            console.log("error");
+            setAlert((prevState) => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Error",
+            }));
           });
       })
       .then(async function () {
@@ -148,7 +156,6 @@ export default function EscrowDialog(props) {
             setLoader(false);
             setOpen(false);
             props.handleDialogClose(false);
-            console.log(err);
           });
       });
   };
@@ -181,7 +188,7 @@ export default function EscrowDialog(props) {
           <Button
             disabled={
               props.from === "bountyPosted" &&
-              escrow.escrowStatus === "Initiation"
+                escrow.escrowStatus === "Initiation"
                 ? false
                 : true
             }
@@ -197,7 +204,7 @@ export default function EscrowDialog(props) {
           <Button
             disabled={
               props.from === "bountySolved" &&
-              escrow.escrowStatus === "In-Process"
+                escrow.escrowStatus === "In-Process"
                 ? false
                 : true
             }

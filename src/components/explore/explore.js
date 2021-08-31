@@ -8,11 +8,17 @@ import QuestionCard from "./questionCard";
 import Search from "./search";
 import { useStyles } from "./exploreCss";
 import { port } from "../../config/config";
+import SimpleAlerts from "../alert/alert";
 
 export default function Explore(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
   useEffect(() => {
     setLoader(true);
     axios
@@ -27,7 +33,11 @@ export default function Explore(props) {
       })
       .catch((err) => {
         setLoader(false);
-        alert(err);
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Could'nt fetch questions",
+        }));
       });
   }, [props.location.state.type]);
 
@@ -53,6 +63,12 @@ export default function Explore(props) {
           ))}
         </Grid>
       </Grid>
+      {alert.open ? (
+        <SimpleAlerts
+          severity={alert.severity}
+          message={alert.errorMessage}
+        />
+      ) : null}
       {loader ? <CircularIndeterminate /> : null}
     </div>
   );
