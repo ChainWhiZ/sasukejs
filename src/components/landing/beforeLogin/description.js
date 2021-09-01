@@ -9,23 +9,7 @@ import "../landing.css";
 import LoginButtons from "./loginButtons";
 
 export default function Description() {
-  useEffect(() => {
-    const url = window.location.href;
-    const hasCode = url.includes("?code=");
-    if (hasCode) {
-      const query = window.location.search.substring(1);
-      const token = query.split("code=")[1];
-
-      axios
-        .post(port + "authenticate/user", { code: token })
-        .then((response) => {
-          localStorage.setItem("username", response.data.doc.githubId);
-          window.history.pushState({}, {}, "/");
-
-        });
-    }
-  });
-
+ 
   return (
     <>
       <Grid container >

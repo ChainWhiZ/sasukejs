@@ -64,7 +64,7 @@ export default function BountySolutionCard(props) {
                   target="blank"
                   className={classes.link}
                 >
-                  {applicants._id}
+                  workplan
                 </a>
               </span>
             </Grid>
@@ -107,7 +107,7 @@ export default function BountySolutionCard(props) {
                           >
                             View Escrow
                           </Button>
-                        ) : escrowId ? (
+                        ) : escrowId===solution.escrowId  ? (
                           <Button
                             variant="outlined"
                             size="small"
