@@ -4,7 +4,6 @@ import { useStyles } from "./navbarCss";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import Authenticate from "./authenticate";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import logo from "../../assets/cwz.png";
@@ -89,7 +88,6 @@ export default function Navbar(props) {
                 </Button>
               </Link>
             </Grid>
-            {props.explore !== "explore " && username ? (
               <>
                 <Grid
                   item
@@ -112,9 +110,6 @@ export default function Navbar(props) {
                   </Link>
                 </Grid>
               </>
-            ) : (
-              <Authenticate />
-            )}
           </Grid>
         </Toolbar>
       </AppBar>

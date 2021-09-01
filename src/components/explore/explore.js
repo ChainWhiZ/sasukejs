@@ -9,11 +9,13 @@ import Search from "./search";
 import { useStyles } from "./exploreCss";
 import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
+import { Redirect } from "react-router-dom";
 
 export default function Explore(props) {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [username] = useState(localStorage.getItem("username"));
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -41,11 +43,15 @@ export default function Explore(props) {
       });
   }, [props.location.state.type]);
 
+  if (!username) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div className={classes.root}>
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          <Navbar explore="explore" />
+          <Navbar  />
           <br />
         </Grid>
         <Grid item md={3} xs={12}>
