@@ -26,7 +26,7 @@ export default function Rules() {
           </p>
         </Grid>
         <Grid item md={12} xs={12} style={{marginLeft:"-10%"}}> 
-         <LoginButtons/>
+         {/* <LoginButtons/> */}
         </Grid>
       </Grid>
     </>

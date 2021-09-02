@@ -20,6 +20,7 @@ export default function LoginButtons() {
                 .then((response) => {
                     localStorage.setItem("username", response.data.doc.githubId);
                     window.history.pushState({}, {}, "/");
+                    window.location.reload();
 
                 });
         }
