@@ -109,7 +109,7 @@ export default function SolutionSubmit(props) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "GitHub repository link doesn't exist",
+        errorMessage: "GitHub repository link is invalid or it already exists",
       }));
     } else {
       await handleSubmit(workplan, solution);
@@ -118,7 +118,7 @@ export default function SolutionSubmit(props) {
   const handleSubmit = async (workplanId, solution) => {
     setLoader(true);
     //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-    //check if solution link exists or not
+  
     return Promise.resolve()
       .then(async function () {
         return await solutionPosting(solution);
