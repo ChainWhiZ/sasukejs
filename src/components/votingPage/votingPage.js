@@ -33,7 +33,7 @@ export default function VotingPage(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch solutions",
+          errorMessage: "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
         }));
       });
   }, []);

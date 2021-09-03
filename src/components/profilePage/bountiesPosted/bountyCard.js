@@ -5,6 +5,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import BountySolutionCard from './bountySolutionCard';
 import {useStyles} from "../profilePageCss";
+import { Link } from 'react-router-dom';
 
 export default function BountyCard(props) {
   const classes = useStyles();
@@ -17,7 +18,9 @@ export default function BountyCard(props) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
+        <Link to={`/bounty/${props.questionDetails._id}`} className={classes.link}>
           <h4>{props.questionDetails.questionTitle}</h4>
+          </Link>
         </AccordionSummary>
         <AccordionDetails className={classes.accordian} >
           {props.questionDetails.workplanIds &&

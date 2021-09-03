@@ -6,11 +6,21 @@ import axios from "axios";
 import "../questionPage.css";
 import { port } from "../../../config/config";
 import CircularIndeterminate from "../../loader/loader";
+import eventBus from "../../EventBus";
 export default function QuestionSolutionCard(props) {
   const [applicants, setApplicants] = useState([]);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
-    axios
+    eventBus.on("solutionSubmitted", (data) =>
+      fetchWorkplan()
+    );
+    eventBus.remove("solutionSubmitted");
+    fetchWorkplan();
+  
+  }, [applicants._id, props.workplanId]);
+
+  const fetchWorkplan = () =>{
+  axios
       .post(port +"workplan/fetch", {
         _id: props.workplanId,
       })
@@ -22,8 +32,7 @@ export default function QuestionSolutionCard(props) {
         setLoader(false);
         alert(err);
       });
-  }, [applicants._id, props.workplanId]);
-
+ }
   return (
     <>
       {loader ? (

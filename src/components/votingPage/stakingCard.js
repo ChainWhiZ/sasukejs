@@ -32,6 +32,7 @@ export default function StakingCard(props) {
     severity: "error",
   });
   const [loader, setLoader] = useState(false);
+  const [disabled,setDisabled]= useState(false);
 
   useEffect(async () => {
     setLoader(true);
@@ -82,7 +83,8 @@ export default function StakingCard(props) {
   }, [walletAddress]);
 
   const handleStake = () => {
-    setLoader(true);
+    setDisabled(true);
+    //setLoader(true);
     return Promise.resolve()
       .then(async function () {
         if (!isVoter) {

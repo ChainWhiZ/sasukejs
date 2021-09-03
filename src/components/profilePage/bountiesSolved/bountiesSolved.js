@@ -32,7 +32,7 @@ export default function Bounties() {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Could'nt fetch solutions",
+          errorMessage: "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
         }));
         setLoader(false);
       });

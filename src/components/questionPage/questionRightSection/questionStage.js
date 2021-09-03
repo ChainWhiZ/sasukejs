@@ -107,7 +107,6 @@ export default function QuestionStage(props) {
           open={openSolveDialog}
           quesDetails={props.question}
           handleDialogClose={() => setOpenSolveDialog(false)}
-          handleFetch={() => props.handleFetch()}
         />
       ) : (
         ""

@@ -38,7 +38,7 @@ export default function Explore(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Could'nt fetch questions",
+          errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
         }));
       });
   }, [props.location.state.type]);
@@ -58,7 +58,7 @@ export default function Explore(props) {
           <Search />
         </Grid>
         <Grid item md={9} xs={12}>
-          <h2>Available Bounties</h2>
+          <h2>{data.length?"Available Bounties":"No Available Bounties"}</h2>
           <hr />
           {data.map((question) => (
             <>

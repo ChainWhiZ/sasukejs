@@ -1,8 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import Navbar from "../navbar/navbar";
+import { Redirect } from "react-router-dom";
 
 export default function AfterLogin() {
-  console.log("hi")
+  const [username] = useState(localStorage.getItem("username"));
+  if (!username) {
+    return (
+      <Redirect to="/" />
+    )
+  }
   return (
     <>
       <Navbar />

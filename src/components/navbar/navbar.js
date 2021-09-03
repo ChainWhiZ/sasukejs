@@ -39,7 +39,7 @@ export default function Navbar(props) {
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item md={3} xs={12}>
+            <Grid item md={2} xs={12}>
               <Link to="/post" className={classes.link}>
                 <Button
                   className={classes.button}
@@ -50,7 +50,7 @@ export default function Navbar(props) {
                 </Button>
               </Link>
             </Grid>
-            <Grid item md={3} xs={12}>
+            <Grid item md={2} xs={12}>
               <Link
                 to={{
                   pathname: "/explore",
@@ -69,7 +69,7 @@ export default function Navbar(props) {
                 </Button>
               </Link>
             </Grid>
-            <Grid item md={3} xs={12}>
+            <Grid item md={2} xs={12}>
               <Link
                 to={{
                   pathname: "/explore",
@@ -88,6 +88,25 @@ export default function Navbar(props) {
                 </Button>
               </Link>
             </Grid>
+             <Grid item md={3} xs={12}>
+              <Link
+                to={{
+                  pathname: "/explore",
+                  state: {
+                    type: "complete",
+                  },
+                }}
+                className={classes.link}
+              >
+                <Button
+                  className={classes.button}
+                  style={{ textTransform: "none" }}
+                  color="inherit"
+                >
+                  Completed Questions
+                </Button>
+              </Link>
+            </Grid>
               <>
                 <Grid
                   item
@@ -97,9 +116,9 @@ export default function Navbar(props) {
                   onMouseLeave={onLeave}
                 >
                   <p className={classes.username}>
-                    {hover && username && username.length > 11
+                    {hover && username && username.length > 18
                       ? username
-                      : username && username.length > 11
+                      : username && username.length > 18
                       ? usernameTruncated
                       : username}
                   </p>

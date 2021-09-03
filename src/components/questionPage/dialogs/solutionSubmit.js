@@ -19,6 +19,7 @@ import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
 import LinearIndeterminate from "../../loader/linearLoader";
 import { port } from "../../../config/config";
+import eventBus from "../../EventBus";
 
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
@@ -39,7 +40,6 @@ export default function SolutionSubmit(props) {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
-    props.handleFetch();
   }, []);
 
   const handleClose = () => {
@@ -97,14 +97,16 @@ export default function SolutionSubmit(props) {
         open: true,
         errorMessage: "GitHub Repository link field is empty",
       }));
-    } else if (!solution.match(reg)) {
+    } 
+    else if (!solution.match(reg)) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
         errorMessage: "Please enter valid GitHub repository link",
       }));
-    } else if (!(await handleGithubLinkValidation(solution))) {
+    }
+     else if (!(await handleGithubLinkValidation(solution))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
@@ -134,7 +136,7 @@ export default function SolutionSubmit(props) {
             questionId: props.quesDetails._id,
           })
           .then(async (response) => {
-            props.handleFetch();
+            eventBus.dispatch("solutionSubmitted", { message: "Solution submitted" });
             setOpen(false);
             setLoader(false);
             props.handleDialogClose(false);
@@ -150,6 +152,13 @@ export default function SolutionSubmit(props) {
         scroll={scroll}
         aria-describedby="scroll-dialog-description"
       >
+      {alert.open ?
+       (
+          <SimpleAlerts
+            severity={alert.severity}
+            message={alert.errorMessage}
+          />
+        ) : null}
         <p class="dialog-title">Submit Solution</p>
         <p class="solution-submit-title">
           Please paste your solution link directly beneath the work plan on top
@@ -185,7 +194,8 @@ export default function SolutionSubmit(props) {
                             variant="outlined"
                             size="small"
                             type={"text"}
-                            label="Paste you GitHub repository link"
+                            //label="Paste you GitHub repository link"
+                            placeholder="https://github.com/<github id>/<repo name>"
                             value={solutions[index]}
                             onChange={(e) =>
                               handleChange(e.target.value, index)
@@ -215,12 +225,6 @@ export default function SolutionSubmit(props) {
                         Submit
                       </Button>
                     </CardActions>
-                    {alert.open ? (
-                      <SimpleAlerts
-                        severity={alert.severity}
-                        message={alert.errorMessage}
-                      />
-                    ) : null}
                   </Card>
 
                   <br />

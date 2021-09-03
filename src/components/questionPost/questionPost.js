@@ -106,13 +106,15 @@ export default function QuestionPost() {
         open: true,
         errorMessage: "Please enter question title",
       }));
-    } else if (!githubLink.match(reg)) {
-      setAlert((prevState) => ({
-        ...prevState,
-        open: true,
-        errorMessage: "Please enter github issue link",
-      }));
-    } else if (!(await handleGithubIssueValidation())) {
+    }
+    //  else if (!githubLink.match(reg)) {
+    //   setAlert((prevState) => ({
+    //     ...prevState,
+    //     open: true,
+    //     errorMessage: "Please enter github issue link",
+    //   }));
+    //}
+     else if (!(await handleGithubIssueValidation())) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
@@ -305,6 +307,7 @@ export default function QuestionPost() {
               variant="outlined"
               type={"text"}
               value={githubLink}
+              placeholder="https://github.com/<github id>/<repo name>/issues/<issue number>"
               onChange={(e) => setGithubLink(e.target.value)}
             />
           </Grid>

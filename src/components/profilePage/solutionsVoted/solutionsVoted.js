@@ -37,7 +37,7 @@ export default function SolutionsVoted() {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Could'nt fetch voted solutions",
+          errorMessage: "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
         }));
       });
   }

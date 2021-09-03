@@ -32,7 +32,7 @@ export default function BountiesPosted() {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Could'nt fetch questions",
+          errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
         }));
         setLoader(false);
       });

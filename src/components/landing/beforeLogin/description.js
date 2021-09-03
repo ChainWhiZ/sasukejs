@@ -9,7 +9,6 @@ import "../landing.css";
 import LoginButtons from "./loginButtons";
 
 export default function Description() {
- 
   return (
     <>
       <Grid container >

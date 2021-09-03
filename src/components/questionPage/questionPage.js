@@ -32,6 +32,7 @@ export default function QuestionPage(props) {
         _id: props.match.params.id,
       })
       .then((response) => {
+        console.log(response.data);
         setData(response.data);
         setLoader(false);
       })
@@ -68,7 +69,6 @@ export default function QuestionPage(props) {
           <Grid item md={3} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
             <QuestionStage
               question={data}
-              handleFetch={() => fetchQuestion()}
             />
             <QuestionActivities />
           </Grid>
