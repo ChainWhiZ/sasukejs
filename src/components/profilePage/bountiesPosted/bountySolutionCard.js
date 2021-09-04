@@ -43,6 +43,7 @@ export default function BountySolutionCard(props) {
           response.data.solutionIds.length !== 0 &&
           response.data.solutionIds.map((solution) => {
             if (solution.escrowId) {
+              console.log(solution)
               setEscrowId(solution.escrowId);
             }
           });
@@ -50,7 +51,8 @@ export default function BountySolutionCard(props) {
       })
       .catch((err) => alert(err));
   };
-
+  console.log(props.questionDetails.questionTitle)
+console.log(escrowId)
   return (
     <>
       <Card className={classes.cardColor}>
@@ -107,7 +109,7 @@ export default function BountySolutionCard(props) {
                           >
                             View Escrow
                           </Button>
-                        ) : escrowId===solution.escrowId  ? (
+                        ) : escrowId ? (
                           <Button
                             variant="outlined"
                             size="small"
