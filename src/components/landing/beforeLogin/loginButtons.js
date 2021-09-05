@@ -6,7 +6,6 @@ import { port } from "../../../config/config";
 import Button from "@material-ui/core/Button";
 import "../landing.css";
 
-
 export default function LoginButtons() {
     useEffect(() => {
         const url = window.location.href;
@@ -29,7 +28,6 @@ export default function LoginButtons() {
     return (
         <>
             <Grid container
-                container
                 direction="row"
                 justifyContent="flex-start"
 
@@ -38,7 +36,7 @@ export default function LoginButtons() {
             >
 
                 <Grid item md={6} xs={6}  >
-                    <a href="https://github.com/login/oauth/authorize?client_id=2bcca90edadf4d1f3535">
+                    <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}`}>
 
                         <Button
 

@@ -12,10 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   accordianRoot: {
     width: '100%',
   },
-  accordian: {
-    display: "block",
-   
-  },
+ 
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
