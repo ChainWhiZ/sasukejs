@@ -36,7 +36,7 @@ export default function LoginButtons() {
             >
 
                 <Grid item md={6} xs={6}  >
-                    <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}`}>
+                    <a href="https://github.com/login/oauth/authorize?client_id=2bcca90edadf4d1f3535">
 
                         <Button
 
