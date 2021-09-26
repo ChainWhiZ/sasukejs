@@ -12,14 +12,11 @@ export default function Search() {
 
   return (
     <Card className={classes.searchCard}>
-      <CardContent>
+      {/* <CardContent> */}
         <SearchBar
-        // value={this.state.value}
-        // onChange={(newValue) => this.setState({ value: newValue })}
-        // onRequestSearch={() => doSomethingWith(this.state.value)}
         />
-      </CardContent>
-      <CardActions></CardActions>
+      {/* </CardContent> */}
+      {/* // <CardActions></CardActions> */}
     </Card>
   );
 }

@@ -9,10 +9,10 @@ import VotingPage from "./votingPage/votingPage";
 import ProfilePage from "./profilePage/profilePage";
 
 export default function RouterComponent() {
-  console.log = function() {}
+  // console.log = function() {}
   console.log(localStorage.getItem("username"))
   return (
-    <Router >
+    <Router>
       {localStorage.getItem("username") ? (
         <Route exact path="/" component={AfterLogin} />
       ) : ( 

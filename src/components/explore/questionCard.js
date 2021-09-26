@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import { Link } from 'react-router-dom';
 import { useStyles } from './exploreCss'
+import AccountImage from "../../assets/Account.png"
 
 export default function QuestionCard(props) {
   const classes = useStyles();
