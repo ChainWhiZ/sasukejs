@@ -21,7 +21,8 @@ export default function Explore(props) {
     errorMessage: "",
     severity: "error",
   });
-  useEffect(() => {
+  useEffect(async() => {
+    console.log(props)
     setLoader(true);
     axios
       .get(port + "question/fetchall")
