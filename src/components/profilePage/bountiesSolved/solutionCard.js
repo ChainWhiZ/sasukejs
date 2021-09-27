@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function SolutionCard(props) {
   const classes = useStyles();
   const [isEscrowDialogOpen, setIsEscrowDialogOpen] = useState(false);
@@ -38,26 +37,26 @@ export default function SolutionCard(props) {
     await fetchAccount(function (result) {
       setWalletAddress(result[0]);
     });
-  }, [])
+  }, []);
   return (
     <>
       <Card>
         <CardContent>
           <Grid container>
             <Grid item md={12}>
-              <a href="#">
-                {props.solutionDetails._id}
-              </a>
-              {props.solutionDetails.escrowId ?
-                (<Button onClick={() => setIsEscrowDialogOpen(true)}>View Escrow</Button>)
-                :
-                null}
+              <a href="#">{props.solutionDetails._id}</a>
+              {props.solutionDetails.escrowId ? (
+                <Button onClick={() => setIsEscrowDialogOpen(true)}>
+                  View Escrow
+                </Button>
+              ) : null}
             </Grid>
           </Grid>
         </CardContent>
       </Card>
       <br></br>
-      {isEscrowDialogOpen && walletAddress === props.solutionDetails.publicAddress ? (
+      {isEscrowDialogOpen &&
+      walletAddress === props.solutionDetails.publicAddress ? (
         <EscrowDialog
           open={isEscrowDialogOpen}
           handleDialogClose={() => setIsEscrowDialogOpen(false)}

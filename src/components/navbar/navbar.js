@@ -88,7 +88,7 @@ export default function Navbar(props) {
                 </Button>
               </Link>
             </Grid>
-             <Grid item md={3} xs={12}>
+            <Grid item md={3} xs={12}>
               <Link
                 to={{
                   pathname: "/explore",
@@ -107,28 +107,28 @@ export default function Navbar(props) {
                 </Button>
               </Link>
             </Grid>
-              <>
-                <Grid
-                  item
-                  md={2}
-                  xs={12}
-                  onMouseEnter={onHover}
-                  onMouseLeave={onLeave}
-                >
-                  <p className={classes.username}>
-                    {hover && username && username.length > 18
-                      ? username
-                      : username && username.length > 18
-                      ? usernameTruncated
-                      : username}
-                  </p>
-                </Grid>
-                <Grid item md={1} xs={12}>
-                  <Link to="/profile" className={classes.link}>
-                    <AccountCircle className={classes.accountIcon} />
-                  </Link>
-                </Grid>
-              </>
+            <>
+              <Grid
+                item
+                md={2}
+                xs={12}
+                onMouseEnter={onHover}
+                onMouseLeave={onLeave}
+              >
+                <p className={classes.username}>
+                  {hover && username && username.length > 18
+                    ? username
+                    : username && username.length > 18
+                    ? usernameTruncated
+                    : username}
+                </p>
+              </Grid>
+              <Grid item md={1} xs={12}>
+                <Link to="/profile" className={classes.link}>
+                  <AccountCircle className={classes.accountIcon} />
+                </Link>
+              </Grid>
+            </>
           </Grid>
         </Toolbar>
       </AppBar>

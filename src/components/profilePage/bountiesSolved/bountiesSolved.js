@@ -11,7 +11,7 @@ import SimpleAlerts from "../../alert/alert";
 export default function Bounties() {
   const classes = useStyles();
   const [data, setData] = useState([]);
-  const [username] = useState(localStorage.getItem('username'));
+  const [username] = useState(localStorage.getItem("username"));
   const [loader, setLoader] = useState(true);
   const [alert, setAlert] = useState({
     open: false,
@@ -22,7 +22,7 @@ export default function Bounties() {
   useEffect(() => {
     axios
       .post(port + "user/solutions", {
-        githubId: username
+        githubId: username,
       })
       .then((response) => {
         setLoader(false);
@@ -32,7 +32,8 @@ export default function Bounties() {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
+          errorMessage:
+            "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
         }));
         setLoader(false);
       });
@@ -43,23 +44,15 @@ export default function Bounties() {
       <br />
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          {data && data.length > 0 && data.map(solution =>
-            <SolutionCard solutionDetails={solution} />
-          )}
+          {data &&
+            data.length > 0 &&
+            data.map((solution) => <SolutionCard solutionDetails={solution} />)}
         </Grid>
-
       </Grid>
       {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-      {
-        loader ?
-          (<CircularIndeterminate />)
-          : (null)
-      }
+      {loader ? <CircularIndeterminate /> : null}
     </div>
   );
 }

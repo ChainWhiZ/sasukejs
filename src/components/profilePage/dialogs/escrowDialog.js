@@ -49,7 +49,7 @@ export default function EscrowDialog(props) {
             ...prevState,
             open: true,
             errorMessage: "Error fetching escrow",
-          }))
+          }));
         });
     }
   }, [open]);
@@ -188,7 +188,7 @@ export default function EscrowDialog(props) {
           <Button
             disabled={
               props.from === "bountyPosted" &&
-                escrow.escrowStatus === "Initiation"
+              escrow.escrowStatus === "Initiation"
                 ? false
                 : true
             }
@@ -204,7 +204,7 @@ export default function EscrowDialog(props) {
           <Button
             disabled={
               props.from === "bountySolved" &&
-                escrow.escrowStatus === "In-Process"
+              escrow.escrowStatus === "In-Process"
                 ? false
                 : true
             }

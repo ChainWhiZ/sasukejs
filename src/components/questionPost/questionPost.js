@@ -114,7 +114,7 @@ export default function QuestionPost() {
     //     errorMessage: "Please enter github issue link",
     //   }));
     //}
-     else if (!(await handleGithubIssueValidation())) {
+    else if (!(await handleGithubIssueValidation())) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,

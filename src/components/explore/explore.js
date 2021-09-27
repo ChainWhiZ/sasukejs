@@ -38,7 +38,8 @@ export default function Explore(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+          errorMessage:
+            "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
         }));
       });
   }, [props.location.state.type]);
@@ -51,14 +52,16 @@ export default function Explore(props) {
     <div className={classes.root}>
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          <Navbar  />
+          <Navbar />
           <br />
         </Grid>
         <Grid item md={3} xs={12}>
           <Search />
         </Grid>
         <Grid item md={9} xs={12}>
-          <h2>{data.length?"Available Bounties":"No Available Bounties"}</h2>
+          <h2>
+            {data.length ? "Available Bounties" : "No Available Bounties"}
+          </h2>
           <hr />
           {data.map((question) => (
             <>
@@ -70,10 +73,7 @@ export default function Explore(props) {
         </Grid>
       </Grid>
       {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
       {loader ? <CircularIndeterminate /> : null}
     </div>

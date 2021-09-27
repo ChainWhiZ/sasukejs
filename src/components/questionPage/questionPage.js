@@ -21,7 +21,7 @@ export default function QuestionPage(props) {
     errorMessage: "",
     severity: "error",
   });
-  const [username] = useState(localStorage.getItem('username'));
+  const [username] = useState(localStorage.getItem("username"));
 
   useEffect(() => {
     fetchQuestion();
@@ -46,9 +46,7 @@ export default function QuestionPage(props) {
       });
   };
   if (!username) {
-    return (
-      <Redirect to="/" />
-    )
+    return <Redirect to="/" />;
   }
   return (
     <>
@@ -67,9 +65,7 @@ export default function QuestionPage(props) {
             <QuestionApplicants {...data} />
           </Grid>
           <Grid item md={3} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
-            <QuestionStage
-              question={data}
-            />
+            <QuestionStage question={data} />
             <QuestionActivities />
           </Grid>
         </Grid>

@@ -9,7 +9,7 @@ export default function QuestionDescription(props) {
       <Grid item md={12}>
         <p class="heading">DESCRIPTION</p>
       </Grid>
-      <Grid item md={12} style={{paddingRight:"3%"}}>
+      <Grid item md={12} style={{ paddingRight: "3%" }}>
         <ReactMarkdown>{props.questionDescription}</ReactMarkdown>
       </Grid>
       <Grid item md={12}>
