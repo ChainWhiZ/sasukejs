@@ -15,7 +15,7 @@ export default function RouterComponent() {
     <Router>
       {/* {localStorage.getItem("username") ? (
         <Route exact path="/" component={AfterLogin} />
-      ) : ( 
+      ) : (
         <Route exact path="/" component={BeforeLogin} />
        )}  */}
       <Navbar />

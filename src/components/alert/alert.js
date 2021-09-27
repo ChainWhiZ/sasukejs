@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     width: "65%",
     marginTop: "5%",
     marginLeft: "2%",
-    marginBottom:"5%",
+    marginBottom: "5%",
     "& > * + *": {
       marginTop: theme.spacing(4),
     },

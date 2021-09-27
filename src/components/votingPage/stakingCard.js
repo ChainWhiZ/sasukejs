@@ -32,7 +32,7 @@ export default function StakingCard(props) {
     severity: "error",
   });
   const [loader, setLoader] = useState(false);
-  const [disabled,setDisabled]= useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(async () => {
     setLoader(true);

@@ -1,18 +1,18 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
 export const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
 
   flexRoot: {
     flexGrow: 1,
   },
   accordianRoot: {
-    width: '100%',
+    width: "100%",
   },
- 
+
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
@@ -27,13 +27,11 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: "7%",
     borderRadius: "0 4% 0 0",
     backgroundColor: "ghostwhite",
-
   },
   link: {
-    color: 'inherit',
-    textDecoration: 'inherit',
-    fontWeight: "700"
-
+    color: "inherit",
+    textDecoration: "inherit",
+    fontWeight: "700",
   },
   list: {
     "list-style-type": "none",
@@ -42,38 +40,36 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: "ghostwhite",
   },
   button: {
-    textTransform:"none",
-    '&:hover': {
+    textTransform: "none",
+    "&:hover": {
       background: "#1D1D1D",
-      color: "white"
-    }
+      color: "white",
+    },
   },
   escrowDialog: {
     width: "30%",
-    height: "40%"
+    height: "40%",
   },
   marginRight: {
-    marginRight: "5%"
+    marginRight: "5%",
   },
-  smallButton:{
-    width:"50%"
+  smallButton: {
+    width: "50%",
   },
-  center:{
-    alignItems:"center"
+  center: {
+    alignItems: "center",
   },
-  font:{
-    fontFamily: 'Poppins'
+  font: {
+    fontFamily: "Poppins",
   },
-  dialog:{
-    width:"35% ",
-    height:"70% ",
-    marginLeft:"30%"
-
+  dialog: {
+    width: "35% ",
+    height: "70% ",
+    marginLeft: "30%",
   },
-  listItem:{
-    fontFamily: 'Poppins'
+  listItem: {
+    fontFamily: "Poppins",
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
-
 }));

@@ -3,9 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
-import { Link } from 'react-router-dom';
-import { useStyles } from './exploreCss'
-import AccountImage from "../../assets/Account.png"
+import { Link } from "react-router-dom";
+import { useStyles } from "./exploreCss";
 
 export default function QuestionCard(props) {
   const classes = useStyles();
@@ -47,24 +46,28 @@ export default function QuestionCard(props) {
               </Box>
             </>
           ) : (
-            <Box p={1}
+            <Box
+              p={1}
               bgcolor="black"
               color="white"
               borderRadius={3}
               width="13%"
-              className={classes.bounty}>
+              className={classes.bounty}
+            >
               {props.bountyReward + " CW"}
             </Box>
           )}
         </Grid>
         <Grid item md={12} xs={12}>
           {props.questionCategories.map((category) => (
-            <Box component="span"
+            <Box
+              component="span"
               p={1}
               m={1}
               bgcolor="grey.300"
               borderRadius={4}
-              className={classes.category}>
+              className={classes.category}
+            >
               {category}
             </Box>
           ))}

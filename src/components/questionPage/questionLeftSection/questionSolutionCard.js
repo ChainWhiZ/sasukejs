@@ -11,17 +11,14 @@ export default function QuestionSolutionCard(props) {
   const [applicants, setApplicants] = useState([]);
   const [loader, setLoader] = useState(true);
   useEffect(() => {
-    eventBus.on("solutionSubmitted", (data) =>
-      fetchWorkplan()
-    );
+    eventBus.on("solutionSubmitted", (data) => fetchWorkplan());
     eventBus.remove("solutionSubmitted");
     fetchWorkplan();
-  
   }, [applicants._id, props.workplanId]);
 
-  const fetchWorkplan = () =>{
-  axios
-      .post(port +"workplan/fetch", {
+  const fetchWorkplan = () => {
+    axios
+      .post(port + "workplan/fetch", {
         _id: props.workplanId,
       })
       .then((response) => {
@@ -32,7 +29,7 @@ export default function QuestionSolutionCard(props) {
         setLoader(false);
         alert(err);
       });
- }
+  };
   return (
     <>
       {loader ? (

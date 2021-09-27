@@ -68,7 +68,7 @@ export default function SolutionSubmit(props) {
   };
   const handleGithubLinkValidation = async (solution) => {
     return axios
-      .post(port +"solution/validate", {
+      .post(port + "solution/validate", {
         githubLink: solution,
       })
       .then((response) => {
@@ -97,16 +97,14 @@ export default function SolutionSubmit(props) {
         open: true,
         errorMessage: "GitHub Repository link field is empty",
       }));
-    } 
-    else if (!solution.match(reg)) {
+    } else if (!solution.match(reg)) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
         errorMessage: "Please enter valid GitHub repository link",
       }));
-    }
-     else if (!(await handleGithubLinkValidation(solution))) {
+    } else if (!(await handleGithubLinkValidation(solution))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
@@ -120,7 +118,7 @@ export default function SolutionSubmit(props) {
   const handleSubmit = async (workplanId, solution) => {
     setLoader(true);
     //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-  
+
     return Promise.resolve()
       .then(async function () {
         return await solutionPosting(solution);
@@ -136,7 +134,9 @@ export default function SolutionSubmit(props) {
             questionId: props.quesDetails._id,
           })
           .then(async (response) => {
-            eventBus.dispatch("solutionSubmitted", { message: "Solution submitted" });
+            eventBus.dispatch("solutionSubmitted", {
+              message: "Solution submitted",
+            });
             setOpen(false);
             setLoader(false);
             props.handleDialogClose(false);
@@ -152,8 +152,7 @@ export default function SolutionSubmit(props) {
         scroll={scroll}
         aria-describedby="scroll-dialog-description"
       >
-      {alert.open ?
-       (
+        {alert.open ? (
           <SimpleAlerts
             severity={alert.severity}
             message={alert.errorMessage}
