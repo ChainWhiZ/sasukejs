@@ -10,7 +10,7 @@ import Search from "./search";
 import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
 import { Redirect } from "react-router-dom";
-import "./explore.css"
+import "./explore.css";
 export default function Explore(props) {
   // const classes = useStyles();
   const [data, setData] = useState([]);
@@ -22,7 +22,7 @@ export default function Explore(props) {
     severity: "error",
   });
   useEffect(async () => {
-    console.log(props)
+    console.log(props);
     setLoader(true);
     axios
       .get(port + "question/fetchall")
@@ -39,7 +39,8 @@ export default function Explore(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+          errorMessage:
+            "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
         }));
       });
   }, [props.location.state.type]);
@@ -55,34 +56,33 @@ export default function Explore(props) {
           <Navbar />
           <br />
         </Grid>
-        <Grid item md={3} xs={12} >
-        </Grid>
+        <Grid item md={3} xs={12}></Grid>
         <Grid item md={9} xs={12}>
-          <Grid container md={12} style={{  marginLeft:"auto" }}>
-          <Grid item md={6}>
-            <h2 style={{ display: "inline-block", }}>{data.length ? "Available Bounties" : "No Available Bounties"}</h2>
+          <Grid container md={12} style={{ marginLeft: "auto" }}>
+            <Grid item md={6}>
+              <h2 style={{ display: "inline-block" }}>
+                {data.length ? "Available Bounties" : "No Available Bounties"}
+              </h2>
             </Grid>
-            <Grid item md={4} style={{marginLeft:"auto"}}>
+            <Grid item md={4} style={{ marginLeft: "auto" }}>
               <Search />
             </Grid>
-           
           </Grid>
           <hr />
-          {data ? data.map((question) => (
-            <>
-              <QuestionCard {...question} />
+          {data
+            ? data.map((question) => (
+                <>
+                  <QuestionCard {...question} />
 
-              <br />
-              <hr />
-            </>
-          )) : "No question? Looks like world is going to end"}
+                  <br />
+                  <hr />
+                </>
+              ))
+            : "No question? Looks like world is going to end"}
         </Grid>
       </Grid>
       {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
       {loader ? <CircularIndeterminate /> : null}
     </div>

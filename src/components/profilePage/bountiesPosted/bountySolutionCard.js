@@ -24,7 +24,7 @@ export default function BountySolutionCard(props) {
   const [walletAddress, setWalletAddress] = useState("");
   const [solutionId, setSolutionId] = useState("");
   const [solverAddress, setSolverAddress] = useState("");
-  
+
   useEffect(async () => {
     await initiliaseWeb3();
     await fetchAccount(function (result) {
@@ -43,7 +43,7 @@ export default function BountySolutionCard(props) {
           response.data.solutionIds.length !== 0 &&
           response.data.solutionIds.map((solution) => {
             if (solution.escrowId) {
-              console.log(solution)
+              console.log(solution);
               setEscrowId(solution.escrowId);
             }
           });
@@ -51,8 +51,8 @@ export default function BountySolutionCard(props) {
       })
       .catch((err) => alert(err));
   };
-  console.log(props.questionDetails.questionTitle)
-console.log(escrowId)
+  console.log(props.questionDetails.questionTitle);
+  console.log(escrowId);
   return (
     <>
       <Card className={classes.cardColor}>
@@ -118,7 +118,6 @@ console.log(escrowId)
                               setIsEscrowDialogOpen(true);
                               setSolutionId(solution._id);
                               setSolverAddress(solution.publicAddress);
-                          
                             }}
                           >
                             View Escrow

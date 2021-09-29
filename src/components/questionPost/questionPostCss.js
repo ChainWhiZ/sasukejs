@@ -5,8 +5,8 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: "4%",
-    overflowX:"hidden",
-    overflowY:"hidden"
+    overflowX: "hidden",
+    overflowY: "hidden",
   },
   heading: {
     textAlign: "center",

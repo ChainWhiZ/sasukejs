@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import RouterComponent from "./components/router";
-import { StylesProvider } from "@material-ui/core/styles"
+import { StylesProvider } from "@material-ui/core/styles";
 ReactDOM.render(
   <StylesProvider injectFirst>
     <React.StrictMode>

@@ -20,7 +20,11 @@ export default function SolutionVotedCard(props) {
   const [walletAddress, setWalletAddress] = useState("");
   const [contract, setContract] = useState("");
   const [loader, setLoader] = useState(false);
-  const [alert, setAlert] = useState({ open: false, errorMessage: "", severity: "error" });
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
 
   useEffect(async () => {
     await initiliaseWeb3();
@@ -28,15 +32,21 @@ export default function SolutionVotedCard(props) {
       setWalletAddress(result[0]);
     });
     setContract(await initiliaseContract());
-  }, [])
+  }, []);
   const handleUnstake = () => {
     setLoader(true);
     return Promise.resolve()
       .then(async function () {
-        await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,
-          props.solutionVotedOn.questionDetails.githubIssueUrl,
-          props.solutionVotedOn.solutionId.publicAddress,
-          (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
+        await contract.methods
+          .unStake(
+            props.solutionVotedOn.questionDetails.publicAddress,
+            props.solutionVotedOn.questionDetails.githubIssueUrl,
+            props.solutionVotedOn.solutionId.publicAddress,
+            (
+              props.solutionVotedOn.amountToBeReturned * Math.pow(10, 18)
+            ).toString()
+          )
+          .send({ from: walletAddress });
       })
       .then(async function () {
         axios
@@ -45,48 +55,36 @@ export default function SolutionVotedCard(props) {
             solutionId: props.solutionVotedOn.solutionId._id,
           })
           .then((response) => {
-            console.log(response.status)
+            console.log(response.status);
             props.handleFetch();
             setLoader(false);
           })
           .catch((err) => {
-            setAlert(prevState => ({
+            setAlert((prevState) => ({
               ...prevState,
               open: true,
-              errorMessage: "Error while unstaking reward"
+              errorMessage: "Error while unstaking reward",
             }));
             setLoader(false);
           });
-      })
-
-  }
+      });
+  };
   return (
     <>
       <Card>
         <CardContent>
           <Grid container>
             <Grid item md={7}>
-              <a href={props.solutionVotedOn.solutionId.id} target="blank" className={classes.link}>
+              <a
+                href={props.solutionVotedOn.solutionId.id}
+                target="blank"
+                className={classes.link}
+              >
                 {props.solutionVotedOn.solutionId.id}
               </a>
             </Grid>
             <Grid item md={5}>
-              {props.solutionVotedOn.amountToBeReturned ?
-                (<>
-                  <span className={classes.marginRight}>
-                    {"Return-" + props.solutionVotedOn.amountToBeReturned}
-                  </span>
-                  <span className={classes.marginRight}>
-                    {"Staked-" + props.solutionVotedOn.amountStaked}
-                  </span>
-                  <Button variant="outlined"
-                    size="small"
-                    className={classes.button} onClick={handleUnstake}>Unstake</Button>
-
-
-                </>
-                )
-                :
+              {props.solutionVotedOn.amountToBeReturned ? (
                 <>
                   <span className={classes.marginRight}>
                     {"Return-" + props.solutionVotedOn.amountToBeReturned}
@@ -94,25 +92,34 @@ export default function SolutionVotedCard(props) {
                   <span className={classes.marginRight}>
                     {"Staked-" + props.solutionVotedOn.amountStaked}
                   </span>
-
-
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    className={classes.button}
+                    onClick={handleUnstake}
+                  >
+                    Unstake
+                  </Button>
                 </>
-              }
+              ) : (
+                <>
+                  <span className={classes.marginRight}>
+                    {"Return-" + props.solutionVotedOn.amountToBeReturned}
+                  </span>
+                  <span className={classes.marginRight}>
+                    {"Staked-" + props.solutionVotedOn.amountStaked}
+                  </span>
+                </>
+              )}
             </Grid>
           </Grid>
         </CardContent>
       </Card>
       <br></br>
-      {
-        loader ?
-          (<CircularIndeterminate />)
-          : (null)
-      }
-      {
-        alert.open ?
-          (<SimpleAlerts severity={alert.severity} message={alert.errorMessage} />)
-          : (null)
-      }
+      {loader ? <CircularIndeterminate /> : null}
+      {alert.open ? (
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+      ) : null}
     </>
   );
 }

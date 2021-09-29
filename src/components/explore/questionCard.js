@@ -68,15 +68,20 @@ export default function QuestionCard(props) {
 
         <Grid item md={12} xs={12} >
           {props.questionCategories.map((category) => (
-            <Box component="span"
+            <Box
+              component="span"
               p={1}
               m={2}
               bgcolor="#D7FF2E"
               color="black"
               borderRadius={4}
+<<<<<<< HEAD
               fontSize="10px"
               width="93px"
               style={{display:"flex", justifyContent:"center",}}
+=======
+              className={classes.category}
+>>>>>>> 414b603edd9309e00ef52d28ea1f400ecba36b15
             >
               {category}
             </Box>

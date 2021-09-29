@@ -26,7 +26,7 @@ export default function SolutionsVoted() {
   const fetchVoteDetails = () => {
     axios
       .post(port + "user/votedetails", {
-        githubId: username
+        githubId: username,
       })
       .then((response) => {
         setLoader(false);
@@ -37,33 +37,31 @@ export default function SolutionsVoted() {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
+          errorMessage:
+            "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
         }));
       });
-  }
+  };
   return (
     <div className={classes.flexRoot}>
       <br />
       <br />
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          {data && data.length > 0 && data.map(votedOn =>
-            <SolutionVotedCard solutionVotedOn={votedOn} handleFetch={() => fetchVoteDetails()} />
-          )}
+          {data &&
+            data.length > 0 &&
+            data.map((votedOn) => (
+              <SolutionVotedCard
+                solutionVotedOn={votedOn}
+                handleFetch={() => fetchVoteDetails()}
+              />
+            ))}
         </Grid>
-
       </Grid>
       {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-      {
-        loader ?
-          (<CircularIndeterminate />)
-          : (null)
-      }
+      {loader ? <CircularIndeterminate /> : null}
     </div>
   );
 }

@@ -5,15 +5,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import SearchBar from "material-ui-search-bar";
 // import { useStyles } from './exploreCss'
-import style from "./explore.css"
+import style from "./explore.css";
 
 export default function Search() {
   // const classes = useStyles();
 
   return (
-    <Card >
-        <SearchBar
-        />
+    <Card>
+      <SearchBar />
     </Card>
   );
 }
