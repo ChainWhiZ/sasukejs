@@ -75,13 +75,9 @@ export default function QuestionCard(props) {
               bgcolor="#D7FF2E"
               color="black"
               borderRadius={4}
-<<<<<<< HEAD
               fontSize="10px"
               width="93px"
               style={{display:"flex", justifyContent:"center",}}
-=======
-              className={classes.category}
->>>>>>> 414b603edd9309e00ef52d28ea1f400ecba36b15
             >
               {category}
             </Box>
