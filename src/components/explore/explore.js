@@ -73,9 +73,8 @@ export default function Explore(props) {
             ? data.map((question) => (
                 <>
                   <QuestionCard {...question} />
-
-                  <br />
                   <hr />
+            
                 </>
               ))
             : "No question? Looks like world is going to end"}
