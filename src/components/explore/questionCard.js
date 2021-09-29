@@ -22,7 +22,7 @@ export default function QuestionCard(props) {
         </Grid>
 
         {!props.isCommunityApprovedSolution ? (
-          <Grid container md={4} xs={12} direction="row"  style={{ justifyContent: "space-around", alignItems:"flex-end", marginLeft:"-118px"}}>
+          <Grid container md={4} xs={12} direction="row"  style={{ justifyContent: "space-around", alignItems:"flex-end", marginLeft:"-135px"}}>
             <Box
               component="span"
               p={0.5}
@@ -83,17 +83,19 @@ export default function QuestionCard(props) {
             </Box>
           ))}
         </Grid>
-        <Grid container display="flex" direction="row" className="timeAndAccount" style={{ justifyContent: "flex-end" }}>
+        <Grid container display="flex" direction="row" className="timeAndAccount" style={{ justifyContent: "flex-end", marginTop: "-35px" }}>
           <Grid item md={2}>
             <Box p={1} m={1}>
               <img src={time} alt="time" />
-              <p>3 Days</p>
+              <p style={{marginLeft:"10px"}}>3</p>
+              <p style={{marginLeft:"3px",fontSize:"12px",marginTop:"-10px"}}>days</p>
             </Box>
           </Grid>
           <Grid item md={2}>
             <Box p={1} m={1}>
               <img src={account} alt="account" />
-              <p>4 Solvers</p>
+              <p style={{marginLeft:"10px"}}>4</p>
+              <p style={{marginLeft:"-3px",fontSize:"12px",marginTop:"-10px"}}>solvers</p>
             </Box>
           </Grid>
         </Grid>

@@ -69,14 +69,15 @@ export default function Explore(props) {
            
           </Grid>
           <hr />
-          {data ? data.map((question) => (
-            <>
-              <QuestionCard {...question} />
-
-              <br />
-              <hr />
-            </>
-          )) : "No question? Looks like world is going to end"}
+          {data
+            ? data.map((question) => (
+                <>
+                  <QuestionCard {...question} />
+                  <hr />
+            
+                </>
+              ))
+            : "No question? Looks like world is going to end"}
         </Grid>
       </Grid>
       {alert.open ? (
