@@ -2,11 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import RouterComponent from "./components/router";
-
+import { StylesProvider } from "@material-ui/core/styles"
 ReactDOM.render(
-  <React.StrictMode>
-    <RouterComponent />
-  </React.StrictMode>,
+  <StylesProvider injectFirst>
+    <React.StrictMode>
+      <RouterComponent />
+    </React.StrictMode>
+  </StylesProvider>,
   document.getElementById("root")
 );
 

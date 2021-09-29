@@ -4,18 +4,16 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import SearchBar from "material-ui-search-bar";
-import { useStyles } from "./exploreCss";
+// import { useStyles } from './exploreCss'
+import style from "./explore.css"
 
 export default function Search() {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
-    <Card className={classes.searchCard}>
-      {/* <CardContent> */}
+    <Card >
         <SearchBar
         />
-      {/* </CardContent> */}
-      {/* // <CardActions></CardActions> */}
     </Card>
   );
 }
