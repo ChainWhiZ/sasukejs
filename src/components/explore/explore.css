@@ -1,0 +1,46 @@
+.root {
+    flex-grow: 1;
+    background-color:"black";
+    color: "white"
+};
+/* .paper {
+    padding: 2%;
+    text-align: "center";
+    color: theme.palette.text.secondary;
+}; */
+.bounty {
+    font-size: "11px";
+    overflow-x: "auto";
+    background-color:"#FFFFFF";
+    color: "#0F0F0F"
+};
+.category{
+    font-size: "10px";
+    background-color:"#D7FF2E";
+    color: "black"
+};
+.questionTitle{
+    font-size: "19px";
+    text-decoration: none !important ;
+    margin-left: 17px !important;
+};
+.searchCard {
+    min-width: 275;
+    min-height: "100%";
+    background-color: "#000000"
+};
+Link{
+    text-decoration: none;
+    color: white;
+}
+.link {
+    color: 'white' !important;
+    text-decoration: none !important 
+};
+.bountyGrid{
+    margin-top:"2%";
+};
+.text{
+    color:red !important;
+}
+

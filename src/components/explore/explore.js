@@ -6,13 +6,13 @@ import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader";
 import QuestionCard from "./questionCard";
 import Search from "./search";
-import { useStyles } from "./exploreCss";
+// import { useStyles } from "./exploreCss";
 import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
 import { Redirect } from "react-router-dom";
-
+import "./explore.css"
 export default function Explore(props) {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
   const [username] = useState(localStorage.getItem("username"));
@@ -21,7 +21,7 @@ export default function Explore(props) {
     errorMessage: "",
     severity: "error",
   });
-  useEffect(async() => {
+  useEffect(async () => {
     console.log(props)
     setLoader(true);
     axios
@@ -49,25 +49,33 @@ export default function Explore(props) {
   }
 
   return (
-    <div className={classes.root}>
+    <div className="root">
       <Grid container spacing={6}>
         <Grid item md={12} xs={12}>
-          <Navbar  />
+          <Navbar />
           <br />
         </Grid>
-        <Grid item md={3} xs={12}>
-          <Search />
+        <Grid item md={3} xs={12} >
         </Grid>
         <Grid item md={9} xs={12}>
-          <h2>{data.length?"Available Bounties":"No Available Bounties"}</h2>
+          <Grid container md={12} style={{  marginLeft:"auto" }}>
+          <Grid item md={6}>
+            <h2 style={{ display: "inline-block", }}>{data.length ? "Available Bounties" : "No Available Bounties"}</h2>
+            </Grid>
+            <Grid item md={4} style={{marginLeft:"auto"}}>
+              <Search />
+            </Grid>
+           
+          </Grid>
           <hr />
-          {data.map((question) => (
+          {data ? data.map((question) => (
             <>
               <QuestionCard {...question} />
+
               <br />
               <hr />
             </>
-          ))}
+          )) : "No question? Looks like world is going to end"}
         </Grid>
       </Grid>
       {alert.open ? (
