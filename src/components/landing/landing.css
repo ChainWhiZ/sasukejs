@@ -1,4 +1,4 @@
-.landing-heading{
+/* .landing-heading{
 width: 565px;
 height: 203px;
 font-family: Poppins;
@@ -74,4 +74,80 @@ color: #000000;
 .demo:hover{
     color: rgba(29, 29, 29, 1) ;
     background-color: white ;
+} */
+
+body{
+    background-color: black;
+  
+}
+
+p{
+    color: white;
+    font-family: Poppins;
+}
+
+.container{
+  margin-top:6%;
+  text-align: center;
+}
+
+.landing-heading{
+/* position: absolute; */
+
+height: 203px;
+
+font-style: normal;
+font-weight: bold;
+font-size: 55px;
+line-height: 55px;
+letter-spacing: 0.03em;
+
+}
+
+.landing-description{
+height: 251px;
+font-style: normal;
+font-weight: 500;
+font-size: 33px;
+line-height: 53px;
+letter-spacing: 0.05em;
+}
+
+
+
+.category-title{
+    height: 72px;
+font-style: normal;
+font-weight: bold;
+font-size: 30px;
+line-height: 35px;
+letter-spacing: 0.03em;
+}
+
+.category-description{
+    height: 92px;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 30px;
+letter-spacing: 0.03em;
+margin-top: -11%;
+}
+
+.description-grid{
+    margin-top: -6%;
+    padding-left: 13%;
+    padding-right: 13%;
+}
+
+.margin-top-3{
+    margin-top:-3%
+}
+
+.category-box{
+    padding: 1% 3% 1% 3%;
+    background: #131313;
+border-radius: 11px;
+width: 500px;
+height: 200px;
 }
