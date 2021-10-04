@@ -1,10 +1,17 @@
+.grid-body {
+
+  color: white;
+}
 .heading {
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0.02em;
-  color: #0000008f;
+
+  color:#D4FF1E;
+}
+
+.heading-box{ 
+background: #131313;
+border-radius: 11px;
+width: 10%;
+height: 20%;
 }
 
 .title {

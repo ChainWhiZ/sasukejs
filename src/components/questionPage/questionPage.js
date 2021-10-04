@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
-import QuestionHeading from "./questionLeftSection/questionHeading";
-import QuestionStage from "./questionRightSection/questionStage";
-import QuestionDescription from "./questionLeftSection/questionDescription";
-import QuestionApplicants from "./questionLeftSection/questionApplicants";
+import QuestionLeftHeading from "./questionHeading/questionLeftHeading";
+import QuestionRightHeading from "./questionHeading/questionRightHeading";
+import QuestionMiddleHeading from "./questionHeading/questionMiddleHeading";
+import QuestionStage from "./questionHeading/questionStage";
+import QuestionDescription from "./questionDescription";
+import QuestionApplicants from "./questionApplicants/questionApplicants";
 import QuestionActivities from "./questionRightSection/questionActivities";
 import CircularIndeterminate from "../loader/loader";
 import "./questionPage.css";
@@ -60,17 +62,26 @@ export default function QuestionPage(props) {
       {loader ? (
         <CircularIndeterminate />
       ) : (
-        <Grid container>
-          <Grid item md={9} xs={12}>
-            <QuestionHeading {...data} handleFetch={() => fetchQuestion()} />
-            <QuestionDescription {...data} />
-            <QuestionApplicants {...data} />
+        <Grid container className="grid-body" spacing={2} >
+          <Grid container >
+            <Grid item md={3} xs={12}>
+              <QuestionLeftHeading {...data} handleFetch={() => fetchQuestion()} />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <QuestionMiddleHeading {...data} />
+            </Grid>
+            <Grid item md={3} xs={12}>
+              <QuestionRightHeading {...data} />
+            </Grid>
           </Grid>
-          <Grid item md={3} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
-            <QuestionStage
-              question={data}
-            />
-            <QuestionActivities />
+          <Grid item md={12} xs={12}>
+            <QuestionDescription {...data} />
+
+          </Grid>
+          <Grid item md={12} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
+
+
+            <QuestionApplicants {...data} />
           </Grid>
         </Grid>
       )}
