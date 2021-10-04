@@ -5,14 +5,16 @@ import "./questionPage.css";
 
 export default function QuestionDescription(props) {
   return (
-    <Grid container className="description-box">
+    <Grid container spacing={1}>
       <Grid item md={12}>
-        <p class="heading color-neon">DESCRIPTION</p>
+        <p class="heading">DESCRIPTION</p>
       </Grid>
       <Grid item md={12} style={{paddingRight:"3%"}}>
-        <ReactMarkdown className="description">{props.questionDescription}</ReactMarkdown>
+        <ReactMarkdown>{props.questionDescription}</ReactMarkdown>
       </Grid>
-     
+      <Grid item md={12}>
+        <p class="heading">CATEGORIES</p>
+      </Grid>
 
     </Grid>
   );
