@@ -10,8 +10,8 @@ import Search from "./search";
 import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
 import { Redirect } from "react-router-dom";
-import "./explore.css"
-export default function Explore(props) {
+import "./explore.css";
+export default function NewExplore(props) {
   // const classes = useStyles();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -22,7 +22,7 @@ export default function Explore(props) {
     severity: "error",
   });
   useEffect(async () => {
-    console.log(props)
+    console.log(props);
     setLoader(true);
     axios
       .get(port + "question/fetchall")
@@ -52,36 +52,11 @@ export default function Explore(props) {
   return (
     <>
       <Grid container>
-        <Grid item md={4} xs={12}>
-          <MenuBar />
+        <Grid item md={6} style={{backgroundColor:"white"}}>
+          {/* <MenuBar /> */}
         </Grid>
-        <Grid item md={8} xs={12}>
-          <Grid container >
-            <Grid item md={6}>
-              <h2 style={{ display: "inline-block" }}>
-                {data.length ? "Active Bounties" : "No Available Bounties"}
-              </h2>
-            </Grid>
-            <Grid item md={4} style={{marginLeft:"auto"}}>
-              <Search />
-            </Grid>
-           
-          </Grid>
-          <hr />
-          {data
-            ? data.map((question) => (
-                <>
-                  <QuestionCard {...question} />
-                  <hr />
-                </>
-              ))
-            : "No question? Looks like world is going to end"}
-        </Grid>
+        <Grid item md={6} style={{backgroundColor:"white"}}></Grid>
       </Grid>
-      {alert.open ? (
-        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
-      ) : null}
-      {loader ? <CircularIndeterminate /> : null}
     </>
   );
 }
