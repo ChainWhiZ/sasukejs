@@ -26,7 +26,7 @@ export default function Login() {
         <>
             <a href="https://github.com/login/oauth/authorize?client_id=2bcca90edadf4d1f3535">
 
-            <p className="item ">Login</p>
+                <p className="item ">Login</p>
             </a>
         </>
     );
