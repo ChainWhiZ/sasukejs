@@ -11,14 +11,6 @@ import Login from "./login";
 import "./navbar.css";
 export default function Navbar() {
   let [username, setUsername] = useState(localStorage.getItem("username"));
-
-  // const [hover, setHover] = useState(false);
-  // const onHover = () => {
-  //   setHover(true);
-  // };
-  // const onLeave = () => {
-  //   setHover(false);
-  // };
   return (
     <AppBar>
       <Toolbar
@@ -66,20 +58,6 @@ export default function Navbar() {
               <p className="item">Vote on Solutions</p>
             </Link>
           </Grid>
-          {/* <Grid
-            item
-            md={2}
-            onMouseEnter={onHover}
-            onMouseLeave={onLeave}
-          > */}
-          {/* <p className={classes.username}>
-                    {hover && username && username.length > 18
-                      ? username
-                      : username && username.length > 18
-                      ? usernameTruncated
-                      : username}
-                  </p> */}
-          {/* </Grid> */}
           <Grid item md={1} xs={12} className="walletIcon">
             <img src={walletIcon} alt="walletIcon" />
           </Grid>
