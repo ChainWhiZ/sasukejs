@@ -7,18 +7,14 @@ import QuestionSolutionCard from "./questionSolutionCard";
 export default function QuestionApplicants(props) {
   return (
     <>
-      <hr />
       <Grid container spacing={1}>
-        <Grid item md={12}>
-          <p class="heading">WORKPLANS AND SOLUTIONS</p>
-        </Grid>
         <Grid item md={12}>
           {props.workplanIds && props.workplanIds.length !== 0 ? (
             <>
               {props.workplanIds &&
                 props.workplanIds.length &&
                 props.workplanIds.map((workplanId, index) => (
-                  <Grid item md={12}>
+                  <Grid item md={4}>
                     <QuestionSolutionCard
                       workplanId={workplanId}
                       isCommunityApprovedSolution={

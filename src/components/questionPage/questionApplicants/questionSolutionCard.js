@@ -2,26 +2,38 @@ import React, { useState, useEffect } from "react";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
+import CardHeader from '@material-ui/core/CardHeader';
 import axios from "axios";
 import "../questionPage.css";
 import { port } from "../../../config/config";
 import CircularIndeterminate from "../../loader/loader";
+import GithubIcon from "../../../assets/githubIcon.png"
+import IdeaIcon from "../../../assets/Idea.png"
 import eventBus from "../../EventBus";
+import Collapse from '@material-ui/core/Collapse';
 export default function QuestionSolutionCard(props) {
   const [applicants, setApplicants] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [expanded, setExpanded] = React.useState(false);
+  const [hover, setHover] = useState(false);
+  const onHover = () => {
+    setHover(true);
+  };
+  const onLeave = () => {
+    setHover(false);
+  };
   useEffect(() => {
     eventBus.on("solutionSubmitted", (data) =>
       fetchWorkplan()
     );
     eventBus.remove("solutionSubmitted");
     fetchWorkplan();
-  
+
   }, [applicants._id, props.workplanId]);
 
-  const fetchWorkplan = () =>{
-  axios
-      .post(port +"workplan/fetch", {
+  const fetchWorkplan = () => {
+    axios
+      .post(port + "workplan/fetch", {
         _id: props.workplanId,
       })
       .then((response) => {
@@ -32,75 +44,107 @@ export default function QuestionSolutionCard(props) {
         setLoader(false);
         alert(err);
       });
- }
+  }
+  console.log(expanded)
   return (
     <>
       {loader ? (
         <CircularIndeterminate />
       ) : (
-        <Card class="sol-card">
-          <CardContent>
-            <Grid container>
-              <Grid item md={12}>
-                {applicants.userId + " submitted "}
-                <span>
-                  {" "}
+        <Card class="sol-card center"
+          onMouseEnter={onHover}
+          onMouseLeave={onLeave}>
+          {hover ?
+            (
+              <CardContent className="card-hover-content" onClick={()=>setExpanded(true)}>
+                <p className="card-hover-content-text">View all Solutions</p>
+              </CardContent>
+            ) :
+            (
+              <>
+                <CardHeader
+                  className="card-header"
+                  title={<><img src={IdeaIcon} className="icon" alt="idea"/>
                   <a
                     href={`https://ipfs.io/ipfs/${applicants._id}`}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    workplan
-                  </a>
-                </span>
-              </Grid>
-              <Grid item md={12}>
-                {applicants.solutionIds &&
-                applicants.solutionIds.length !== 0 ? (
-                  <ul>
-                    {applicants.solutionIds &&
-                      applicants.solutionIds.length &&
-                      applicants.solutionIds.map((solution, index) => {
-                        return (
-                          <>
-                            {" "}
-                            <li>
-                              {solution.userId + " submitted "}
+                    Work plan by {applicants.userId}
+                  </a></>}
+                />
+                <CardContent className="card-content">
+                  <p className="number-solution">{(applicants.solutionIds ? applicants.solutionIds.length : 0) + " Solution(s)"}</p>
+
+                
+                  {/* {applicants.solutionIds &&
+                    applicants.solutionIds.length !== 0 ? (
+                    <ul>
+                      {applicants.solutionIds &&
+                        applicants.solutionIds.length &&
+                        applicants.solutionIds.map((solution, index) => {
+                          return (
+                            <>
+                              {" "}
+                              <li>
+                                {solution.userId + " submitted "}
+                                <span>
+                                  <a
+                                    href={solution._id}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    {" "}
+                                    {solution._id}
+                                  </a>
+                                </span>
+                              </li>
                               <span>
-                                <a
-                                  href={solution._id}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                >
-                                  {" "}
-                                  {solution._id}
-                                </a>
+                                {props.isCommunityApprovedSolution &&
+                                  props.quesStage === "complete" ? (
+                                  <>
+                                    <p class="voting">
+                                      <span class="voting-score-title">
+                                        {" "}
+                                        Voting Score :
+                                      </span>{" "}
+                                      {solution.weightage}
+                                    </p>
+                                  </>
+                                ) : null}
                               </span>
-                            </li>
-                            <span>
-                              {props.isCommunityApprovedSolution &&
-                              props.quesStage === "complete" ? (
-                                <>
-                                  <p class="voting">
-                                    <span class="voting-score-title">
-                                      {" "}
-                                      Voting Score :
-                                    </span>{" "}
-                                    {solution.weightage}
-                                  </p>
-                                </>
-                              ) : null}
-                            </span>
+                            </>
+                          );
+                        })}
+                    </ul>
+                  ) : (
+                    <p>No solution submitted yet!</p>
+                  )} */}
+                </CardContent>
+                  <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                    <Grid container>
+
+                      {applicants.solutionIds &&
+                        applicants.solutionIds.length &&
+                        applicants.solutionIds.map((solution, index) => {
+                          <>
+                          <Grid item md={9}>
+                         <p> {solution.userId + " submitted solution"}</p>
+                          </Grid>
+                          <Grid item md={3}>
+                          <img src={GithubIcon} alt="git"/>
+                          </Grid>
                           </>
-                        );
-                      })}
-                  </ul>
-                ) : (
-                  <p>No solution submitted yet!</p>
-                )}
-              </Grid>
-            </Grid>
-          </CardContent>
+                        })}
+                  </Grid>
+                    </CardContent>
+                  </Collapse>
+              </>
+
+
+            )}
+
         </Card>
       )}
     </>
