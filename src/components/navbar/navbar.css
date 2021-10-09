@@ -1,0 +1,38 @@
+
+  .link {
+    text-decoration: none;
+    color: white;
+  }
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  .navbar {
+    height: 16vh;
+  }
+  
+  .logo {
+    margin-top: 1vw;
+    margin-left: 1vw;
+    width: 18vw;
+  }
+  
+  .item {
+    font-size: 1.2vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 27px;
+    letter-spacing: 0.03em;
+    text-align: left;
+  }
+
+  
+  .accountIcon {
+    /* margin-left: -1% !important; */
+    margin-top: 2% !important;
+  }
+
+  .walletIcon {
+    margin-left: -6% !important;
+    margin-top: 2.5% !important;
+  }

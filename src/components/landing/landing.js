@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../navbar/navbar";
+import Footer from "../footer/footer";
 import Grid from "@material-ui/core/Grid";
 import "./landing.css";
 
@@ -7,6 +8,7 @@ export default function Landing() {
     return (
         <>
             <Navbar />
+            <hr className="horizontal-line" style={{ marginTop: "8%" }} />
             <Grid container direction="row"
                 justify="center"
                 alignItems="center"
@@ -28,7 +30,7 @@ export default function Landing() {
                     justify="space-evenly"
                     alignItems="center"
                     className="margin-top-3"
-                    
+
                 >
                     <Grid item md={4} xs={12} class="category-box">
                         <p className="category-title">Post a Bounty</p>
@@ -39,7 +41,7 @@ export default function Landing() {
                     </Grid>
                     <Grid item md={4} xs={12} class="category-box">
                         <p className="category-title">Solve a Bounty</p>
-                        <p  className="category-description">Start contributing on open-source projects
+                        <p className="category-description">Start contributing on open-source projects
                             by builidng out bounties listed on the platform.
                             In exchange earn high bounty rewards.</p>
                     </Grid>
@@ -53,6 +55,8 @@ export default function Landing() {
 
                 </Grid>
             </Grid>
+            <hr className="horizontal-line" />
+            <Footer />
         </>
     );
 }
