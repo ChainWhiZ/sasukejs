@@ -1,36 +1,39 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-
+import GithubIcon from "../../../assets/githubIcon.png"
 import "../questionPage.css";
 
 export default function QuestionMiddleHeading(props) {
   return (
     <>
-      <Grid container className="heading-box" >
+      <Grid container className="heading-box2" >
         <Grid item md={12}>
-          <p class="heading">Title</p>
-          <p >{props.questionTitle}</p>
+          <p class="heading color-neon">Title</p>
+          <p class="heading-text">{props.questionTitle}</p>
         </Grid>
         <Grid container direction="row"
           justifyContent="flex-start"
           alignItems="center" >
           <Grid item md={12}>
-            <p class="heading">Categories</p>
+            <p class="heading color-neon">Categories</p>
           </Grid>
           {props.questionCategories &&
             props.questionCategories.length &&
             props.questionCategories.map((category) => (
               <Grid item md={4}>
-                <p>{category}</p>
+                <p class="heading-text " style={{"marginTop":"1%"}}>{category}</p>
               </Grid>
             ))}
         </Grid>
         <Grid item md={12}>
-          <p class="heading">Resources/Links</p>
-          <a href={props.githubIssueUrl} target="_blank" rel="noreferrer">
+          <p class="heading color-neon">Resources/Links</p>
+          <span>
+           <img class="icon" src={GithubIcon} alt="git"/>
+          <a  class="link heading-text" href={props.githubIssueUrl} target="_blank" rel="noreferrer">
             Github Repo
           </a>
+          </span>
         </Grid>
       </Grid>
 

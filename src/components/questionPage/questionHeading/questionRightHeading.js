@@ -5,13 +5,15 @@ import "../questionPage.css";
 
 export default function QuestionRightHeading(props) {
   return (
-      <Grid container className="heading-box"  direction="column"
+      <Grid container className="heading-box center"  direction="column"
       justifyContent="center"
       alignItems="center">
     
             <Grid item md={12}>
-              <p class="heading">Bounty Amount</p>
-              <p >{props.bountyReward}</p>
+              <p class="heading color-neon">Bounty Amount</p>
+              <p class="time ">{props.bountyReward + " CWZ"}</p>
+              <p class="time margin-top-20">{props.bountyReward + " CWZ"}</p>
+              <p class="time margin-top-20">{props.bountyReward + " CWZ"}</p>
             </Grid>
             
       </Grid>

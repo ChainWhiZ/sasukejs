@@ -6,15 +6,15 @@ import "../questionPage.css";
 
 export default function QuestionLeftHeading(props) {
     console.log(props)
-    let hoursOrDaysOrMinutes = "DAYS";
+    let hoursOrDaysOrMinutes = "Days";
     let disabled = true;
     const seconds = Math.floor(new Date().getTime() / 1000);
     let timeLeft = (props.timeEnd - seconds) / (3600 * 24);
     if (timeLeft < 1) {
-        hoursOrDaysOrMinutes = "HOUR(S)";
+        hoursOrDaysOrMinutes = "Hour(s)";
         timeLeft = 24 * timeLeft;
         if (timeLeft < 1) {
-            hoursOrDaysOrMinutes = "MINUTE(S)";
+            hoursOrDaysOrMinutes = "Minute(s)";
             timeLeft = Math.floor(60 * timeLeft);
         } else {
             timeLeft = Math.floor(timeLeft);
@@ -28,24 +28,25 @@ export default function QuestionLeftHeading(props) {
 
     return (
         <>
-            <Grid container  className="heading-box" direction="column"
+            <Grid container  className="heading-box center margin-bottom2" direction="row"
                 justifyContent="center"
                 alignItems="center">
                 {props.timeEnd > seconds ? (
                     <Grid item md={12}>
-                        <p class="heading">Time Remaining({hoursOrDaysOrMinutes})</p>
-                        <p class="number time">{timeLeft}</p>
+                        <p class="heading color-neon" >Time Remaining</p>
+                        <p class="time" >{timeLeft + " "+hoursOrDaysOrMinutes}</p>
                     </Grid>
                 ) : (
                     <Grid item md={12}>
-                        <p class="heading">COMPLETED</p>
+                        <p class="heading color-neon">Time Remaining</p>
+                        <p class="time">0</p>
                     </Grid>
                 )}
                 <Grid item md={12}>
-                    <p >Applicants</p>
-                    <p>{props.workplanIds.length}</p>
+                    <p class="heading color-neon margin-top-3" >Applicants</p>
+                    <p class="time">{props.workplanIds.length}</p>
                 </Grid>
-                <Grid item md={12}>
+                <Grid item md={12} className="margin-top-10">
                     <Button class="button" onClick={() => setOpenWorkplanDialog(true)}>
                         Submit Work Plan
                     </Button>

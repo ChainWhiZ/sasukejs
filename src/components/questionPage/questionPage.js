@@ -62,8 +62,8 @@ export default function QuestionPage(props) {
       {loader ? (
         <CircularIndeterminate />
       ) : (
-        <Grid container className="grid-body" spacing={2} >
-          <Grid container >
+        <Grid container className="grid-body"  > 
+         
             <Grid item md={3} xs={12}>
               <QuestionLeftHeading {...data} handleFetch={() => fetchQuestion()} />
             </Grid>
@@ -73,12 +73,12 @@ export default function QuestionPage(props) {
             <Grid item md={3} xs={12}>
               <QuestionRightHeading {...data} />
             </Grid>
-          </Grid>
+         
           <Grid item md={12} xs={12}>
             <QuestionDescription {...data} />
 
           </Grid>
-          <Grid item md={12} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
+          <Grid item md={12} xs={12}>
 
 
             <QuestionApplicants {...data} />
