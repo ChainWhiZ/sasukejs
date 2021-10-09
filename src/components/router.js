@@ -4,7 +4,7 @@ import BeforeLogin from "./landing/beforeLogin/beforeLogin";
 import AfterLogin from "./landing/afterLogin";
 import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
-import NewExplore from "./explore/newExplore";
+import Explore from "./explore/explore";
 import VotingPage from "./votingPage/votingPage";
 import ProfilePage from "./profilePage/profilePage";
 
@@ -27,7 +27,7 @@ export default function RouterComponent() {
           return <QuestionPage {...props} />;
         }}
       />
-      <Route path="/explore" component={NewExplore} />
+      <Route path="/explore" component={Explore} />
       <Route path="/vote" component={VotingPage} />
       <Route path="/profile" component={ProfilePage} />
     </Router>

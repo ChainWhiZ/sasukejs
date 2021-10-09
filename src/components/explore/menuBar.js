@@ -36,9 +36,6 @@ export default function MenuBar() {
         <List>
           {sidebarItems.map((text, index) => (
             <ListItem button key={text.name}>
-              {/* <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon> */}
               <ListItemText primary={text.name} />
             </ListItem>
           ))}

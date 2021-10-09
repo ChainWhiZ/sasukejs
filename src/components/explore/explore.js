@@ -1,18 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import MenuBar from "./menuBar";
+import ActiveBounties from "./activeBounties";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader";
 import QuestionCard from "./questionCard";
 import Search from "./search";
-// import { useStyles } from "./exploreCss";
 import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
 import { Redirect } from "react-router-dom";
 import "./explore.css";
 export default function Explore(props) {
-  // const classes = useStyles();
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
   const [username] = useState(localStorage.getItem("username"));
@@ -56,25 +56,7 @@ export default function Explore(props) {
           <MenuBar />
         </Grid>
         <Grid item md={8} xs={12}>
-          <Grid container >
-            <Grid item md={6}>
-              <h2 style={{ display: "inline-block" }}>
-                {data.length ? "Active Bounties" : "No Available Bounties"}
-              </h2>
-            </Grid>
-            <Grid item md={4} style={{ marginLeft: "auto" }}>
-              <Search />
-            </Grid>
-          </Grid>
-          <hr />
-          {data
-            ? data.map((question) => (
-                <>
-                  <QuestionCard {...question} />
-                  <hr />
-                </>
-              ))
-            : "No question? Looks like world is going to end"}
+          <ActiveBounties {...props} />
         </Grid>
       </Grid>
       {alert.open ? (
