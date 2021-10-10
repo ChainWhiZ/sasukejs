@@ -6,7 +6,13 @@ export default function Section2() {
     <>
       <Grid container class="common-text-css">
         <Grid item md={12} xs={12}>
-          <p>Marketplace</p>
+          <a
+            href="https://www.app.chainwhiz.app/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p>Marketplace</p>
+          </a>
         </Grid>
         <Grid item md={12} xs={12}>
           <p>White Paper </p>
