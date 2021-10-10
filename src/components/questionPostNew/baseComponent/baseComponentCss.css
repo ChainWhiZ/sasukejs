@@ -1,0 +1,106 @@
+*{
+    margin:0;
+    padding: 0;
+    overflow:unset !important;
+    
+}
+.margin-top-20{
+    margin-top: 2% !important;
+}
+
+.right-side{
+background: #131313 !important;
+color: white !important;
+width: 100% !important;
+margin-top: 3% !important;
+height: 100% !important;
+margin: 0 !important;
+justify-content: center !important;
+
+}
+
+.message{
+    margin-top: 40% !important;
+}
+.message-title{
+    display: flex;
+    font-style: normal !important;
+font-weight: 600 !important;
+font-size: 35px !important;
+line-height: 50px !important;
+/* or 143% */
+align-items: center !important;
+justify-content: center !important;
+letter-spacing: 0.01em !important;
+padding: 7% !important;
+color: white !important;
+}
+
+.message-text{
+  
+    padding: 7% !important;
+    font-family: Poppins;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 25px;
+/* or 156% */
+
+letter-spacing: 0.04em;
+}
+
+.button{
+    background: #D4FF1F !important;
+    width: 7vw !important;
+}
+
+.button-parent{
+    margin-top: 24% !important;
+    padding: 7% !important;
+    
+    
+    /* display: flex !important;
+    justify-content:space-between !important; */
+   
+}
+.card-title{
+    font-family: Poppins !important;
+font-style: normal !important;
+font-weight: 500 !important;
+font-size: 18px !important;
+line-height: 25px !important;
+/* identical to box height, or 139% */
+color: #FFFFFF !important;
+letter-spacing: 0.04em !important;
+}
+.card-body{
+    font-family: Poppins !important;
+font-style: normal !important;
+font-weight: normal !important;
+font-size: 14px !important;
+line-height: 21px !important;
+letter-spacing: 0.01em !important;
+color: #FFFFFF !important;
+}
+
+.input-field-text{
+    font-family: Poppins;
+font-style: normal !important;
+font-weight: 600 !important;
+font-size: 100px !important;
+line-height: 150px !important;
+/* identical to box height */
+
+text-align: center !important;
+letter-spacing: 0.01em !important;
+
+color: #FFFFFF !important;
+}
+
+.left-title{
+    font-family: Poppins !important;
+font-style: normal !important;
+font-weight: 500 !important;
+font-size: 22px !important;
+color: #D4FF1E !important;
+}
