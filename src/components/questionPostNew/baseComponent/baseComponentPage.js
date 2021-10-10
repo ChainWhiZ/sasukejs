@@ -18,15 +18,18 @@ export default function BaseComponent(props) {
                 <Grid container >
                     <RightSideText {...props} />
                     <Grid item md={6} xs={6} >
-                        {props.pageState==1?(<InputComponent handleIssueTitle={props.handleIssueTitle} pageState={props.pageState}/>):(
-                            props.pageState==2?(<OptionComponent handleCategory={props.handleCategory}/>):(
-                                props.pageState==3?(<DaysInputComponent handleTime={props.handleTime}/>):(
-                                    props.pageState==4?(<InputComponent handleIssueURL={props.handleIssueURL} pageState={props.pageState}/>):(
-                                        null
+                        {props.pageState == 1 ? (<InputComponent handleIssueTitle={props.handleIssueTitle} pageState={props.pageState} />) : (
+                            props.pageState == 2 ? (<OptionComponent handleCategory={props.handleCategory} pageState={props.pageState} />) : (
+                                props.pageState == 3 ? (<DaysInputComponent handleTime={props.handleTime} pageState={props.pageState} />) : (
+                                    props.pageState == 4 ? (<InputComponent handleIssueURL={props.handleIssueURL} pageState={props.pageState} />) : (
+                                        props.pageState == 5 ? (<InputComponent handleReward={props.handleReward} pageState={props.pageState} />) : (
+                                            props.pageState == 6 ? (<OptionComponent handleCommunityChoice={props.handleCommunityChoice} pageState={props.pageState} />
+                                            ) :
+                                                (null)
+                                        )
                                     )
                                 )
-                            )
-                        )}
+                            ))}
                     </Grid>
 
                 </Grid>

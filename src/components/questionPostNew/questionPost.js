@@ -20,6 +20,16 @@ const text = {
         title: `Provide the Github issue link`,
         content: `The Issue title is the first thing that a 
         developer sees when he comes across your bounty. It’s best practise to keep the title to the point and closely related to the issue. Avoid vague words like Important, Amazing, Stunning etc.`
+    },
+    page5: {
+        title: `Provide the bounty amount`,
+        content: `The Issue title is the first thing that a 
+        developer sees when he comes across your bounty. It’s best practise to keep the title to the point and closely related to the issue. Avoid vague words like Important, Amazing, Stunning etc.`
+    },
+    page6: {
+        title: `Who can approve the solution`,
+        content: `The Issue title is the first thing that a 
+        developer sees when he comes across your bounty. It’s best practise to keep the title to the point and closely related to the issue. Avoid vague words like Important, Amazing, Stunning etc.`
     }
 }
 export default function QuestionPost() {
@@ -27,17 +37,20 @@ export default function QuestionPost() {
     const [time, setTime] = useState("")
     const [cateogy, setCategory] = useState([])
     const [issueURL, setIssueURL] = useState("")
+    const [reward, setReward] = useState("")
+    const [communityOption, setCommunityOption] = useState()
     const [activePage, setActivePage] = useState(1)
-    const [isValidIssueTitle, setIsValidIssueTitle]=useState(false)
-    const [isValidCateogy, setisValidCateogy]=useState(false)
-    const [isValidIssueURL, setisValidIssueURL]=useState(false)
-    const [isValidTime,setIsValidTime]=useState(false)
 
-    function handlePageChange(page){
+    const [isValidIssueTitle, setIsValidIssueTitle] = useState(false)
+    const [isValidCateogy, setisValidCateogy] = useState(false)
+    const [isValidIssueURL, setisValidIssueURL] = useState(false)
+    const [isValidTime, setIsValidTime] = useState(false)
+
+    function handlePageChange(page) {
         setActivePage(page)
     }
-    function handleValidIssueTitle(title){
-        
+    function handleValidIssueTitle(title) {
+
     }
     console.log(time)
     console.log(issueTitle)
@@ -45,13 +58,16 @@ export default function QuestionPost() {
     console.log(issueURL)
     return (
         <>
-            {activePage == 1 ? (<BaseComponent {...text["page1"]} handlePageChange={handlePageChange} pageState={activePage} handleIssueTitle={setIssueTitle}/>) :
-                (activePage == 2 ? (<BaseComponent {...text["page2"]} handlePageChange={handlePageChange} pageState={activePage} handleCategory ={setCategory} categoryState={cateogy}/>) : (
-                    activePage == 3 ? (<BaseComponent {...text["page3"]} handlePageChange={handlePageChange} pageState={activePage} handleTime = {setTime}/>) : (
-                        activePage == 4 ? (<BaseComponent {...text["page4"]} handlePageChange={handlePageChange} pageState={activePage} handleIssueURL = {setIssueURL}/>) :
-                            (null)
+            {activePage == 1 ? (<BaseComponent {...text["page1"]} handlePageChange={handlePageChange} pageState={activePage} handleIssueTitle={setIssueTitle} />) :
+                (activePage == 2 ? (<BaseComponent {...text["page2"]} handlePageChange={handlePageChange} pageState={activePage} handleCategory={setCategory} categoryState={cateogy} />) : (
+                    activePage == 3 ? (<BaseComponent {...text["page3"]} handlePageChange={handlePageChange} pageState={activePage} handleTime={setTime} />) : (
+                        activePage == 4 ? (<BaseComponent {...text["page4"]} handlePageChange={handlePageChange} pageState={activePage} handleIssueURL={setIssueURL} />) :
+                            (activePage == 5 ? (<BaseComponent {...text["page5"]} handlePageChange={handlePageChange} pageState={activePage} handleReward={setReward} />) :
+                                (activePage == 6 ? (<BaseComponent {...text["page6"]} handlePageChange={handlePageChange} pageState={activePage} handleCommunityChoice={setCommunityOption} />) : (null))
+                            )
                     )
-                ))
+                )
+                )
             }
 
         </>
