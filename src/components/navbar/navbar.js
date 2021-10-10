@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -23,7 +22,7 @@ export default function Navbar() {
             <img src={logo} alt="logo" className="logo" />
           </Grid>
         </Grid>
-        <Grid container spacing={8}>
+        <Grid container spacing={3} className="right-side">
           <Grid item md={3}>
             {" "}
             <Link to="/post" className="link">
@@ -44,7 +43,7 @@ export default function Navbar() {
               <p className="item ">Solve a Bounty</p>
             </Link>
           </Grid>
-          <Grid item md={4}>
+          <Grid item md={3}>
             {" "}
             <Link
               to={{
@@ -61,20 +60,19 @@ export default function Navbar() {
           <Grid item md={1} xs={12} className="walletIcon">
             <img src={walletIcon} alt="walletIcon" />
           </Grid>
-          {username ?
-            (<Grid item md={1} xs={12} className="accountIcon">
-              <Link to="/profile" className="link" >
+          {username ? (
+            <Grid item md={2} xs={12} className="accountIcon">
+              <Link to="/profile" className="link">
                 <img src={accountIcon} alt="accountIcon" />
               </Link>
-            </Grid>)
-            :
-            (
-              <Grid item md={1} xs={12}>
-                <Link to="/profile" className="link" >
-                  <Login />
-                </Link>
-              </Grid>
-            )}
+            </Grid>
+          ) : (
+            <Grid item md={2} xs={12}>
+              <Link to="/profile" className="link">
+                <Login />
+              </Link>
+            </Grid>
+          )}
         </Grid>
       </Toolbar>
     </AppBar>
