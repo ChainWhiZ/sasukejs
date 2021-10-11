@@ -1,14 +1,10 @@
 import React from "react";
-import Navbar from "../navbar/navbar";
 import Grid from "@material-ui/core/Grid";
-import Footer from "../footer/footer";
 import "./landing.css";
 
 export default function Landing() {
   return (
     <>
-      <Navbar />
-
       <Grid
         container
         direction="row"
@@ -61,7 +57,6 @@ export default function Landing() {
         </Grid>
       </Grid>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
-      <Footer />
     </>
   );
 }

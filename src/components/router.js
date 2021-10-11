@@ -1,37 +1,39 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-// import BeforeLogin from "./landing/beforeLogin/beforeLogin"
-// import AfterLogin from "./landing/afterLogin";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
 import Explore from "./explore/explore";
 import VotingPage from "./votingPage/votingPage";
 import ProfilePage from "./profilePage/profilePage";
 import Landing from "./landing/landing";
-
+import Navbar from "./navbar/navbar";
+import Footer from "./footer/footer";
 export default function RouterComponent() {
-  console.log = function() {}
-  console.log(localStorage.getItem("username"))
+  console.log = function () {};
+  console.log(localStorage.getItem("username"));
   return (
-    <Router >
+    <Router>
       {/* {localStorage.getItem("username") ? (
         <Route exact path="/" component={AfterLogin} />
       ) : ( 
         <Route exact path="/" component={BeforeLogin} />
        )}  */}
-
-      <Route path="/post" component={QuestionPost} />
-      <Route path="/landing" component={Landing} />
-      <Route
-        exact
-        path="/bounty/:id"
-        render={(props) => {
-          return <QuestionPage {...props} />;
-        }}
-      />
-      <Route path="/explore" component={Explore} />
-      <Route path="/vote" component={VotingPage} />
-      <Route path="/profile" component={ProfilePage} />
+      <Navbar />
+      <Switch>
+        <Route path="/landing" component={Landing} />
+        <Route path="/post" component={QuestionPost} />
+        <Route
+          exact
+          path="/bounty/:id"
+          render={(props) => {
+            return <QuestionPage {...props} />;
+          }}
+        />
+        <Route path="/explore" component={Explore} />
+        <Route path="/vote" component={VotingPage} />
+        <Route path="/profile" component={ProfilePage} />
+      </Switch>
+      <Footer />
     </Router>
   );
 }
