@@ -20,7 +20,7 @@ export default function RouterComponent() {
        )}  */}
       <Navbar />
       <Switch>
-        <Route path="/landing" component={Landing} />
+        <Route path="/" component={Landing} />
         <Route path="/post" component={QuestionPost} />
         <Route
           exact
