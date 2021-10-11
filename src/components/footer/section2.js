@@ -1,18 +1,15 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-// import "./footer.css";
+import { Link } from "react-router-dom";
+import "./footer.css";
 export default function Section2() {
   return (
     <>
       <Grid container class="common-text-css">
         <Grid item md={12} xs={12}>
-          <a
-            href="https://www.app.chainwhiz.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <Link to="/" className="link">
             <p>Marketplace</p>
-          </a>
+          </Link>
         </Grid>
         <Grid item md={12} xs={12}>
           <p>White Paper </p>
