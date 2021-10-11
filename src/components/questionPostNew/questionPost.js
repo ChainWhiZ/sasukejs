@@ -47,6 +47,7 @@ export default function QuestionPost() {
     const [isValidTime, setIsValidTime] = useState(false)
 
     function handlePageChange(page) {
+        console.log(page)
         setActivePage(page)
     }
     function handleValidIssueTitle(title) {
