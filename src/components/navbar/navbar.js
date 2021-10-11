@@ -19,7 +19,9 @@ export default function Navbar() {
         <Grid container>
           <Grid item md={12}>
             {" "}
-            <img src={logo} alt="logo" className="logo" />
+            <Link to="/" className="link">
+              <img src={logo} alt="logo" className="logo" />
+            </Link>
           </Grid>
         </Grid>
         <Grid container spacing={3} className="right-side">
