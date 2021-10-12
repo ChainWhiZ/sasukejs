@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "../questionPage.css";
 
 export default function QuestionLeftHeading(props) {
+<<<<<<< HEAD
   console.log(props);
   let hoursOrDaysOrMinutes = "Days";
   const seconds = Math.floor(new Date().getTime() / 1000);
@@ -19,6 +20,20 @@ export default function QuestionLeftHeading(props) {
   if (timeLeft < 1) {
     hoursOrDaysOrMinutes = "Hour(s)";
     timeLeft = 24 * timeLeft;
+=======
+    console.log(props)
+    let hoursOrDaysOrMinutes = "Days";
+    let disabled = true;
+    const seconds = Math.floor(new Date().getTime() / 1000);
+    let timeLeft = 0;
+    if (props.questionStage === "solve" && props.isCommunityApprovedSolution) {
+        timeLeft = (props.votingTimeBegin - seconds) / (3600 * 24);
+    }
+    else {
+        timeLeft = (props.timeEnd - seconds) / (3600 * 24);
+    }
+
+>>>>>>> 6917b60 (added conditions for questionn stage)
     if (timeLeft < 1) {
       hoursOrDaysOrMinutes = "Minute(s)";
       timeLeft = Math.floor(60 * timeLeft);
