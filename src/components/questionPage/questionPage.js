@@ -54,33 +54,31 @@ export default function QuestionPage(props) {
   }
   return (
     <>
-      <Navbar />
-      <br />
-      <br />
+
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+
       <br />
       <br />
       {loader ? (
         <CircularIndeterminate />
       ) : (
-        <Grid container className="grid-body"  > 
-         
-            <Grid item md={3} xs={12}>
-              <QuestionLeftHeading {...data} handleFetch={() => fetchQuestion()} />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <QuestionMiddleHeading {...data} />
-            </Grid>
-            <Grid item md={3} xs={12}>
-              <QuestionRightHeading {...data} />
-            </Grid>
-         
+        <Grid container className="grid-body"  >
+
+          <Grid item md={3} xs={12}>
+            <QuestionLeftHeading {...data} handleFetch={() => fetchQuestion()} />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <QuestionMiddleHeading {...data} />
+          </Grid>
+          <Grid item md={3} xs={12}>
+            <QuestionRightHeading {...data} />
+          </Grid>
+
           <Grid item md={12} xs={12}>
             <QuestionDescription {...data} />
 
           </Grid>
           <Grid item md={12} xs={12}>
-
-
             <QuestionApplicants {...data} />
           </Grid>
         </Grid>
@@ -88,6 +86,7 @@ export default function QuestionPage(props) {
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
+      <hr className="horizontal-line" />
     </>
   );
 }

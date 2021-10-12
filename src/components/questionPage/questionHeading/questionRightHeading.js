@@ -11,7 +11,7 @@ export default function QuestionRightHeading(props) {
     
             <Grid item md={12}>
               <p class="heading color-neon">Bounty Amount</p>
-              <p class="time ">{props.bountyReward + " CWZ"}</p>
+              <p class="time ">{props.questionStage==="vote"?props.communityReward:props.bountyReward + " CWZ"}</p>
               <p class="time margin-top-20">{props.bountyReward + " CWZ"}</p>
               <p class="time margin-top-20">{props.bountyReward + " CWZ"}</p>
             </Grid>
