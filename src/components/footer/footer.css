@@ -1,0 +1,44 @@
+.global-white-text {
+  color: #ffffff;
+  margin-bottom: 2vw;
+}
+
+.common-text-css {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.2vw;
+  line-height: 40px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  margin-top: 6vw;
+}
+
+.section1-text {
+  margin-left: 25%;
+}
+
+.text1 {
+  margin-top: -2%;
+}
+.footer-logo {
+  margin-top: 1vw;
+  margin-left: 3.5vw;
+  width: 18vw;
+}
+
+.footer {
+  margin-top: 16%;
+  margin-left: 29%;
+}
+
+.social-media-icon {
+  margin-top: -6vw !important;
+}
+
+.discord {
+  margin-left: -4vw;
+}
+
+.twitter {
+  margin-left: -8vw;
+}

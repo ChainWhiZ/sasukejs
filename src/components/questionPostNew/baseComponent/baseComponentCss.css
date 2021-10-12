@@ -104,3 +104,16 @@ font-weight: 500 !important;
 font-size: 22px !important;
 color: #D4FF1E !important;
 }
+
+.terms-text{
+    font-family: Poppins;
+font-style: normal !important;
+font-weight: normal !important;
+font-size: 14px !important;
+line-height: 21px !important;
+/* identical to box height */
+
+letter-spacing: 0.01em !important;
+
+color: #FFFFFF !important;
+}
