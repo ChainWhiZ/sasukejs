@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BaseComponent from "./baseComponent/baseComponentPage";
+import axios from "axios";
+import {port} from "../../config/config"
 const text = {
     page1: {
         title: `What should we call your Issue?`,
@@ -54,10 +56,78 @@ export default function QuestionPost() {
     const [isValidCateogy, setisValidCateogy] = useState(false)
     const [isValidIssueURL, setisValidIssueURL] = useState(false)
     const [isValidTime, setIsValidTime] = useState(false)
+    const [isValidReward, setIsValidReward] = useState(false)
+    const [isValidTerms, setIsValidTerms] = useState(false)
 
-    function handlePageChange(page) {
-        console.log(page)
-        setActivePage(page)
+
+    function handleGithubIssueValidation() {
+        return axios
+          .post(port + "question/validate", {
+            githubIssueUrl: issueURL,
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              return true;
+            }
+          })
+          .catch((err) => {
+            return false;
+          });
+      };
+
+    async function handlePageChange(page) {
+     //   console.log(page)
+        if(activePage === 1)
+        {
+            if (issueTitle === "") {
+                setIsValidIssueTitle(true);
+              }
+              else
+              {
+                setActivePage(page)
+              }
+        }
+        if(activePage === 4)
+        {
+            if (!(await handleGithubIssueValidation())) {
+                setisValidIssueURL(true);
+              }
+              else
+              {
+                setActivePage(page)
+              }
+        }
+        if(activePage === 5)
+        {
+            if (reward <= 0) {
+                setIsValidReward(true);
+              }
+              else
+              {
+                setActivePage(page)
+              }
+        }
+        if(activePage === 2)
+        {
+            if (cateogy === []) {
+                setisValidCateogy(true);
+              }
+              else
+              {
+                setActivePage(page)
+              }
+        }
+        if(activePage === 3)
+        {
+            if (time <= 0) {
+                setIsValidTime(true);
+              }
+              else
+              {
+                setActivePage(page)
+              }
+        }
+        
     }
     function handleValidIssueTitle(title) {
 
@@ -66,6 +136,10 @@ export default function QuestionPost() {
     console.log(issueTitle)
     console.log(cateogy)
     console.log(issueURL)
+    console.log(reward)
+    console.log(communityOption)
+    console.log(activePage)
+    console.log(terms)
     return (
         <>
             {activePage == 1 ? (<BaseComponent {...text["page1"]} handlePageChange={handlePageChange} pageState={activePage} handleIssueTitle={setIssueTitle} />) :
