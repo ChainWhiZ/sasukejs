@@ -34,6 +34,11 @@ const text = {
         developer sees when he comes across your bounty. It’s best practise to keep the title to the point and closely related to the issue. Avoid vague words like Important, Amazing, Stunning etc.`
     },
     page7: {
+        title: `Enter Community Reward`,
+        content: `The Issue title is the first thing that a 
+        developer sees when he comes across your bounty. It’s best practise to keep the title to the point and closely related to the issue. Avoid vague words like Important, Amazing, Stunning etc.`
+    },
+    page8: {
         title: `Confirm your Wallet Address`,
         content: `The Issue title is the first thing that a 
         developer sees when he comes across your bounty. It’s best practise to keep the title to the point and closely related to the issue. Avoid vague words like Important, Amazing, Stunning etc.`
@@ -50,7 +55,8 @@ export default function QuestionPost() {
     const [terms, setTerms] = useState({
         undertaking1: false,
         undertaking2: false,
-      })
+    })
+    const [communityReward, setCommunityReward] = useState("")
 
     const [isValidIssueTitle, setIsValidIssueTitle] = useState(false)
     const [isValidCateogy, setisValidCateogy] = useState(false)
@@ -148,7 +154,10 @@ export default function QuestionPost() {
                         activePage == 4 ? (<BaseComponent {...text["page4"]} handlePageChange={handlePageChange} pageState={activePage} handleIssueURL={setIssueURL} />) :
                             (activePage == 5 ? (<BaseComponent {...text["page5"]} handlePageChange={handlePageChange} pageState={activePage} handleReward={setReward} />) :
                                 (activePage == 6 ? (<BaseComponent {...text["page6"]} handlePageChange={handlePageChange} pageState={activePage} handleCommunityChoice={setCommunityOption} />) :
-                                    (activePage == 7 ? (<BaseComponent {...text["page7"]} handlePageChange={handlePageChange} pageState={activePage} handleTerms={setTerms} terms />) : (null))
+                                    (activePage == 7 ? (<BaseComponent {...text["page7"]} handlePageChange={handlePageChange} pageState={activePage} handleComunityReward={setCommunityReward} />) : (
+                                        activePage == 8 ? (<BaseComponent {...text["page8"]} handlePageChange={handlePageChange} pageState={activePage} handleTerms={setTerms} terms />
+                                        ) : (null))
+                                    )
                                 )
                             )
                     )

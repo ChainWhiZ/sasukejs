@@ -21,19 +21,19 @@ export default function RightSideText(props) {
                         <Grid container direction="row" container
                             justifyContent="space-between"
                             alignItems="center">
-                            {props.pageState > 0 && props.pageState < 7 ? (
+                            {props.pageState > 0 && props.pageState < 8 ? (
                                 <>
                                     <Grid item md={6} xs={6}>
-                                        <Button size="small" variant="contained" className="button" onClick={(e) => { e.preventDefault(); if (props.pageState > 0 && props.pageState < 7) { props.handlePageChange(props.pageState - 1) } }}>Previous</Button>
+                                        <Button size="small" variant="contained" className="button" onClick={(e) => { e.preventDefault(); if (props.pageState > 0 && props.pageState < 8) { props.handlePageChange(props.pageState - 1) } }}>Previous</Button>
                                     </Grid>
                                     <Grid item md={6} xs={6}>
-                                        <Button size="small" variant="contained" className="button" onClick={(e) => { e.preventDefault(); if (props.pageState > 0 && props.pageState < 7) { props.handlePageChange(props.pageState + 1) } }}>Next</Button>
+                                        <Button size="small" variant="contained" className="button" onClick={(e) => { e.preventDefault(); if (props.pageState > 0 && props.pageState < 8) { props.handlePageChange(props.pageState + 1) } }}>Next</Button>
                                     </Grid>
                                 </>
                             ) : (
                                 <>
                                 <Grid item md={6} xs={6}>
-                                        <Button size="small" variant="contained" className="button" onClick={(e) => { e.preventDefault(); if (props.pageState > 0 && props.pageState < 8) { props.handlePageChange(props.pageState - 1) } }}>Previous</Button>
+                                        <Button size="small" variant="contained" className="button" onClick={(e) => { e.preventDefault(); if (props.pageState > 0 && props.pageState < 9) { props.handlePageChange(props.pageState - 1) } }}>Previous</Button>
                                     </Grid>
                                  <Grid item md={6} xs={6}>
                                         <Button size="small" variant="contained" className="button" onClick={(e) => { e.preventDefault(); /**Call API */}}>Publish</Button>

@@ -16,6 +16,8 @@ export default function InputComponent(props) {
         if (props.pageState == 5)
             return "Enter reward amount"
         if (props.pageState==7)
+            return "Enter Community Reward"
+        if (props.pageState==8)
             return "Confirm Wallet Address"
     }
     function handleUndertakings (e) {
@@ -26,11 +28,11 @@ export default function InputComponent(props) {
         <>
             <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: "30%" }}>
                 <Grid item md={12} xs={12}>
-                    <p className="left-title">{props.pageState == 1 ? "Issue Title" : props.pageState == 4 ? "Github Issue Link" : props.pageState == 5? "Enter Your Reward":"Your Wallet Address"}</p>
+                    <p className="left-title">{props.pageState == 1 ? "Issue Title" : props.pageState == 4 ? "Github Issue Link" : props.pageState == 5? "Enter Your Reward": props.pageState == 7?"Enter Community Reward": "Your Wallet Address"}</p>
                 </Grid>
-                {props.pageState == 1 || props.pageState == 4 || props.pageState == 5 ? (
+                {props.pageState == 1 || props.pageState == 4 || props.pageState == 5 || props.pageState == 7? (
                     <Grid item md={8} xs={8} style={{ marginTop: "2%" }}>
-                        <Input placeholder={handlePlaceholder()} style={{ color: "white", width: "50vw" }} onChange={(e) => { props.pageState == 1 ? props.handleIssueTitle(e.target.value) : props.pageState == 4 ? props.handleIssueURL(e.target.value) : props.handleReward(e.target.value) }} />
+                        <Input placeholder={handlePlaceholder()} style={{ color: "white", width: "50vw" }} onChange={(e) => { props.pageState == 1 ? props.handleIssueTitle(e.target.value) : props.pageState == 4 ? props.handleIssueURL(e.target.value) : props.pageState==5? props.handleReward(e.target.value): props.handleCommunityReward(e.target.value) }} />
                     </Grid >
                 ) : (
                     <>

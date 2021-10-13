@@ -24,8 +24,10 @@ export default function BaseComponent(props) {
                                     props.pageState == 4 ? (<InputComponent handleIssueURL={props.handleIssueURL} pageState={props.pageState} />) : (
                                         props.pageState == 5 ? (<InputComponent handleReward={props.handleReward} pageState={props.pageState} />) : (
                                             props.pageState == 6 ? (<OptionComponent handleCommunityChoice={props.handleCommunityChoice} pageState={props.pageState} />) : (
-                                                props.pageState == 7 ? (<InputComponent handleTerms={props.handleTerms} pageState={props.pageState} terms={props.terms}/>) : (
-                                                    null
+                                                props.pageState == 7 ? (<InputComponent handleCommunityReward={props.handleCommunityReward} pageState={props.pageState} />) : (
+                                                    props.pageState == 8 ? (<InputComponent handleTerms={props.handleTerms} pageState={props.pageState} terms={props.terms} />):(
+                                                        null
+                                                    )
                                                 )
                                             )
                                         )
