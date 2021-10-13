@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { Input } from "@material-ui/core";
 export default function DaysInputComponent(props) {
     return (
-        <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: "16%", marginLeft: "10%" }}>
+        <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: "16%" }}>
             <Grid item md={12} xs={12}>
                 <h1 style={{color:"white"}}> Expected Time</h1>
             </Grid>

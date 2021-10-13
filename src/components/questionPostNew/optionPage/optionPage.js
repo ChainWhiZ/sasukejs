@@ -36,7 +36,7 @@ export default function OptionComponent(props) {
     console.log(props)
     return (
         <>
-            <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center" style={{ marginTop: "16%", marginLeft: "10%" }}>
+            <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center" style={{ marginTop: "16%", marginLeft: "5%" }}>
                 {props.pageState == 2 ? (
 
                     categoryText.map((item) => {
