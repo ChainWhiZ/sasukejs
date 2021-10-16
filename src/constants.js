@@ -30,3 +30,21 @@ export const drawerList = [
   "Bounties Solved",
   "Voting",
 ];
+export const sidebarItems = [
+  {
+    name: "Post a bounty",
+    url: "/bounty",
+  },
+  {
+    name: "Solve Bounties",
+    url: "/bounties",
+  },
+  {
+    name: "Vote on Solutions",
+    url: "/bounties",
+  },
+  {
+    name: "Your Profile",
+    url: "/profile",
+  },
+];
