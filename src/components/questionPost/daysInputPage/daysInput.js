@@ -1,0 +1,28 @@
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { Input } from "@material-ui/core";
+import SimpleAlerts from "../../alert/alert";
+export default function DaysInputComponent(props) {
+    return (
+        <>
+            <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: "33%",marginLeft: "20%"  }}>
+                <Grid item md={12} xs={12}>
+                    <p className="left-title" style={{ color: "white" }}> Expected Time</p>
+                </Grid>
+                <br></br>
+                <Grid item>
+                    <Input placeholder="Days" size="large"
+                        className="input-field-text"
+                        style={{ color: "white", width: "50vw", paddingLeft: "40%" }}
+                        type="number"
+                        min="1"
+                        value={props.time} onChange={(e) => { props.handleTime(e.target.value) }} />
+                </Grid>
+            </Grid>
+            {props.alert.isValid ? (
+                <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
+            ) : null}
+        </>
+    )
+
+}

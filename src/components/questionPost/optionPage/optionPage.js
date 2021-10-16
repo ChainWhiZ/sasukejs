@@ -1,48 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Typography } from "@material-ui/core";
-const categoryText = [
-    {
-        title: "Front End",
-        conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
-    },
-    {
-        title: "Back End",
-        conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
-    },
-    {
-        title: "Smart Contract",
-        conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
-    },
-    {
-        title: "Others",
-        conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
-    }
-]
+import SimpleAlerts from "../../alert/alert";
+import {communityText,categoryText} from "../../../constants";
+import "../questionPostCss.css"
 
-const communityText = [
-    {
-        title: "Community Approved",
-        conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
-    },
-    {
-        title: "Self Approved",
-        conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
-    },
-]
 export default function OptionComponent(props) {
     console.log(props)
+    // function handleBgColour(value) {
+    //     console.log(props.category)
+    //     if(props.pageState==2)
+    //     {
+    //         // if((props.category).find(value))
+    //         // {
+    //             document.getElementByClass("selectedCard").style.backgroundColor = "D4FF1F";
+    //        // }
+    //     }
+    //     if(props.pageState==6)
+    //     {
+    //         if(props.communityOption==value)
+    //         {
+    //             document.getElementByClass("selectedCard").style.backgroundColor = "D4FF1F";
+    //         }
+    //     }
+    // }
     return (
         <>
-            <Grid container spacing={2} direction="row" alignItems="center" justifyContent="center" style={{ marginTop: "16%", marginLeft: "5%" }}>
+            <Grid container  direction="row" alignItems="center" justifyContent="center" style={{ marginTop: "33%", marginLeft: "5%" }}>
                 {props.pageState == 2 ? (
 
                     categoryText.map((item) => {
                         return (
                             <Grid item md={6} xs={6} onClick={(e) => { e.preventDefault(); props.handleCategory(prevState => [...prevState, item.title]) }}>
-                                <Card sx={{ minWidth: "10vw" }} style={{ backgroundColor: "#131313", width: "25vw", height: "30vh" }}>
+                                <Card class="selectedCard" sx={{ minWidth: "10vw" }}  >
                                     <CardContent>
                                         <Typography sx={{ fontSize: 14 }} className="card-title" gutterBottom>
                                             {item.title}
@@ -62,7 +54,7 @@ export default function OptionComponent(props) {
                     communityText.map((item) => {
                         return (
                             <Grid item md={6} xs={6} onClick={(e) => { e.preventDefault(); props.handleCommunityChoice(item.title) }}>
-                                <Card sx={{ minWidth: "10vw" }} style={{ backgroundColor: "#131313", width: "25vw", height: "30vh" }}>
+                                <Card class="selectedCard" sx={{ minWidth: "10vw" }}  >
                                     <CardContent>
                                         <Typography sx={{ fontSize: 14 }} className="card-title" gutterBottom>
                                             {item.title}
@@ -81,6 +73,9 @@ export default function OptionComponent(props) {
                 ) : (null))}
 
             </Grid>
+            {props.alert.isValid ? (
+                <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
+            ) : null}
         </>
     )
 }

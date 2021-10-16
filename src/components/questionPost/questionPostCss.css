@@ -1,0 +1,10 @@
+.selectedCard {
+    background-color: "#131313" !important;
+     width: "20vw" !important;
+      height: "20vh" !important;
+      padding:"3%" !important;
+      margin-bottom:"10%" !important;
+}
+.color-white {
+    color: white;
+}

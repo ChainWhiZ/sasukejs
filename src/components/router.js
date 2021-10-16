@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import QuestionPost from "./questionPostNew/questionPost";
+import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
 import Explore from "./explore/explore";
 import VotingPage from "./votingPage/votingPage";
