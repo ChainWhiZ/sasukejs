@@ -42,10 +42,13 @@ export default function QuestionCard(props) {
             </Grid>
           </>
         ) : (
-          <Grid item md={4} xs={12} className="reward-grid">
-            {" "}
-            <Box className="reward-box">{props.bountyReward} CWZ</Box>
-          </Grid>
+          <>
+            <Grid item md={2} xs={12} className="reward-grid"></Grid>
+            <Grid item md={2} xs={12} className="reward-grid">
+              {" "}
+              <Box className="reward-box non-community">{props.bountyReward} CWZ</Box>
+            </Grid>
+          </>
         )}
       </Grid>
 

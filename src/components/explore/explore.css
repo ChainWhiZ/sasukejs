@@ -23,6 +23,8 @@
   line-height: 5vh;
   letter-spacing: 0.03em;
   text-align: left;
+  margin-top: -6.5vh;
+  margin-left: 4vw;
 }
 .menubar-items {
   font-size: 1.1vw;
@@ -157,4 +159,8 @@ a {
 
 .solver {
   margin-left: 10vh;
+}
+
+.non-community {
+  margin-left: -7vw;
 }
