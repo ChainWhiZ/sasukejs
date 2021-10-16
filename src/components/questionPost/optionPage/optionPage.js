@@ -28,12 +28,12 @@ export default function OptionComponent(props) {
     // }
     return (
         <>
-            <Grid container  direction="row" alignItems="center" justifyContent="center" style={{ marginTop: "33%", marginLeft: "5%" }}>
+            <Grid container  direction="row" alignItems="center" justifyContent="center" spacing={3} style={{ marginTop: "33%", marginLeft: "5%" }}>
                 {props.pageState == 2 ? (
 
                     categoryText.map((item) => {
                         return (
-                            <Grid item md={6} xs={6} onClick={(e) => { e.preventDefault(); props.handleCategory(prevState => [...prevState, item.title]) }}>
+                            <Grid item md={6} xs={6} onClick={(e) => { e.preventDefault(); props.category.includes(item.title)?props.handleCategory(props.category.filter(ele=>ele!= item.title)) :props.handleCategory((prevState) => [...prevState, item.title]); }} style={{background: props.category.includes(item.title)? "#D4FF1F":null,}}>
                                 <Card class="selectedCard" sx={{ minWidth: "10vw" }}  >
                                     <CardContent>
                                         <Typography sx={{ fontSize: 14 }} className="card-title" gutterBottom>
@@ -53,7 +53,7 @@ export default function OptionComponent(props) {
                 ) : (props.pageState == 6 ? (
                     communityText.map((item) => {
                         return (
-                            <Grid item md={6} xs={6} onClick={(e) => { e.preventDefault(); props.handleCommunityChoice(item.title) }}>
+                            <Grid item md={6} xs={6} onClick={(e) => { e.preventDefault(); props.handleCommunityChoice(item.title) }} style={{background: props.communityOption && props.communityOption.includes(item.title)? "#D4FF1F":"black"}}>
                                 <Card class="selectedCard" sx={{ minWidth: "10vw" }}  >
                                     <CardContent>
                                         <Typography sx={{ fontSize: 14 }} className="card-title" gutterBottom>

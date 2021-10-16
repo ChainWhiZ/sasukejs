@@ -89,3 +89,47 @@ letter-spacing: 0.01em !important;
 color: #FFFFFF !important;
 }
 
+.days-input-parent{
+    margin-top: 33% !important;
+    margin-left: 20% !important;
+}
+
+.input-field{
+    color: white !important;
+     width: 50vw !important;
+      padding-left: 40% !important
+}
+
+.input-field-parent{
+    margin-top: 33% !important;
+    margin-left: 20% !important;
+}
+
+.margin-top-2{
+    margin-top: 2% !important;
+}
+
+.margin-left-23{
+    margin-left: -23% !important;
+}
+
+.margin-left-8{
+    margin-left: 8% !important;
+}
+
+.input-field-style{
+    color: white !important; width: 50vw !important;
+
+}
+
+.option-page-margins{
+    margin-top: 33% !important;
+     margin-left: 5% I !important
+}
+
+
+.selectedCard:hover{
+    background-color: #637905 !important;
+    color:black I !important;
+
+}

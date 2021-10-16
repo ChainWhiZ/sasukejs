@@ -5,15 +5,14 @@ import SimpleAlerts from "../../alert/alert";
 export default function DaysInputComponent(props) {
     return (
         <>
-            <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: "33%",marginLeft: "20%"  }}>
+            <Grid container direction="column" alignItems="center" justifyContent="center" className="days-input-parent">
                 <Grid item md={12} xs={12}>
                     <p className="left-title" style={{ color: "white" }}> Expected Time</p>
                 </Grid>
                 <br></br>
                 <Grid item>
                     <Input placeholder="Days" size="large"
-                        className="input-field-text"
-                        style={{ color: "white", width: "50vw", paddingLeft: "40%" }}
+                        className="input-field-text input-field"
                         type="number"
                         min="1"
                         value={props.time} onChange={(e) => { props.handleTime(e.target.value) }} />
