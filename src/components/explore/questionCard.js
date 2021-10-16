@@ -55,7 +55,7 @@ export default function QuestionCard(props) {
       <Grid container>
         {props.questionCategories.map((category) => (
           <Grid item md>
-            <Box className="category-box">{category}</Box>
+            <Box className="ques-category-box">{category}</Box>
           </Grid>
         ))}
 
