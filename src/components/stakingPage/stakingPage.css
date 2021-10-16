@@ -1,0 +1,50 @@
+.staking-page-root{
+    margin-top: 10% !important;
+     color: white !important
+}
+
+.staking-card{
+    width: 30vw !important;
+     height: 25vh !important;
+      background: #131313 !important;
+    border-radius: 8px !important;
+}
+
+.staking-card-title{
+    font-family: Poppins !important;
+font-style: normal !important;
+font-weight: 500 !important;
+font-size: 14px !important;
+line-height: 60px !important;
+/* identical to box height, or 429% */
+
+text-align: center !important;
+letter-spacing: 0.01em !important;
+
+color: #D4FF1E !important;
+}
+
+.staking-card-detail{
+    text-align: center !important;
+     font-size: 64px !important;
+      margin-top: -2% !important;
+}
+
+.stake-input-parent{
+    margin-top: 4%;
+}
+
+.stake-input{
+    background: #282828 !important;
+     color: white !important;
+      margin-left: 5% !important
+}
+
+.staking-button{
+    background-color: #D4FF1F !important;
+    border-radius: 4px !important;
+     height: 5vh !important;
+      width: 7vw !important;
+       margin-left: 5% !important; 
+        margin-top: 2% !important;
+}

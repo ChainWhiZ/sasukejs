@@ -30,3 +30,9 @@ export const drawerList = [
   "Bounties Solved",
   "Voting",
 ];
+
+export const stakingCardTitles=[
+  "Minimum Staking Amount",
+  "Available Balance(Wallet)",
+  "Stake Now"
+]
