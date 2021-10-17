@@ -77,29 +77,29 @@ export const text = {
 export const categoryText = [
   {
       title: "Front End",
-      conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
   },
   {
       title: "Back End",
-      conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
   },
   {
       title: "Smart Contract",
-      conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
   },
   {
       title: "Others",
-      conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
   }
 ]
 
 export const communityText = [
   {
       title: "Community Approved",
-      conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
   },
   {
       title: "Self Approved",
-      conetnt: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
   },
 ]
