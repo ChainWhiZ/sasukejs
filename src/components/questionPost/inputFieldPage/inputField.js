@@ -86,7 +86,6 @@ export default function InputComponent(props) {
                     <Grid item md={8} xs={8} className="margin-top-2">
                         <Input disabled={props.pageState == 7 && props.communityOption == "Self Approved"}
                             type={(props.pageState === 5 || props.pageState === 7) ? "number" : "text"}
-                            min="1"
                             inputProps={{
                                 style: { textAlign: "center" },
                                 min:0
