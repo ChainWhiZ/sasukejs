@@ -1,0 +1,166 @@
+/* my css */
+
+.horizontal-line {
+  width: 100vw;
+  border: 4px solid rgba(212, 255, 30, 1);
+  margin-top: -1.3vw;
+}
+.menubar {
+  background: rgba(19, 19, 19, 1);
+  height: 100vh;
+  width: 23vw !important;
+  padding: 6%;
+}
+@media only screen and (max-width: 600px) {
+  .menubar {
+    display: none !important;
+  }
+}
+.menubar-username {
+  font-size: 1.2vw;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 5vh;
+  letter-spacing: 0.03em;
+  text-align: left;
+  margin-top: -5.6vh;
+  margin-left: 4vw;
+}
+.menubar-items {
+  font-size: 1.1vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 3vh;
+  letter-spacing: 0.03em;
+  text-align: left;
+  margin-top: -3.8vh;
+  margin-left: 4vw;
+}
+.grid-item {
+  margin-top: -4vw !important;
+  padding: 4% !important;
+}
+.grid-item:hover {
+  cursor: pointer;
+  background-color: rgba(215, 255, 46, 1) !important;
+  border-radius: 1vw;
+  height: 10vh !important;
+}
+
+.active {
+  cursor: pointer;
+  background-color: rgba(215, 255, 46, 1) !important;
+  border-radius: 1vw;
+  height: 10vh !important;
+  padding-top: 6% !important;
+  padding-left: 6% !important;
+}
+.p-active {
+  color: rgba(19, 19, 19, 1);
+}
+a {
+  text-decoration: none;
+  width: 23vw;
+}
+
+.input {
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: rgba(14, 14, 14, 1);
+  width: 12vw;
+  height: 4vh;
+}
+
+.questions-section {
+  margin-top: 7vh !important;
+}
+.questions-search {
+  margin-top: 3vh !important;
+}
+.bounty-heading {
+  font-size: 2vw;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1vh;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+.question-hr {
+  width: 58vw;
+  border: 1px solid #ffffff;
+  margin-left: 0vw;
+}
+
+.question-title {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5vw;
+  line-height: 4vh;
+}
+
+.reward-box {
+  background-color: rgba(255, 255, 255, 1);
+  width: 6vw;
+  height: 6vh;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.3vw;
+  line-height: 6vh;
+  padding: 3% 0% 3% 6%;
+  overflow: auto;
+}
+
+.reward-grid {
+  margin-top: 2vh !important;
+}
+.right-reward-box {
+  margin-left: -3vw !important;
+}
+
+.ques-category-box {
+  width: 7vw;
+  height: 3vh;
+  background-color: #d7ff2e;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.8vw;
+  line-height: 3vh;
+  color: #101010;
+}
+
+.ques-detail {
+  text-align: center !important;
+}
+
+.time {
+  margin-top: 2vw;
+  margin-left: 26vh;
+}
+
+.time-left {
+  margin-left: 26vh;
+}
+
+.time-unit {
+  margin-left: 26vh;
+}
+
+.account {
+  margin-top: 2vw;
+  margin-left: 10vh;
+}
+
+.no-of-solvers {
+  margin-left: 12vh;
+}
+
+.solver {
+  margin-left: 10vh;
+}
+
+.non-community {
+  margin-left: -7vw;
+}

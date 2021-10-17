@@ -31,6 +31,7 @@ export const drawerList = [
   "Voting",
 ];
 
+
 export const text = {
   page1: {
       title: `What should we call your Issue?`,
@@ -101,5 +102,24 @@ export const communityText = [
   {
       title: "Self Approved",
       content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+  },
+]
+
+export const sidebarItems = [
+  {
+    name: "Post a bounty",
+    url: "/bounty",
+  },
+  {
+    name: "Solve Bounties",
+    url: "/bounties",
+  },
+  {
+    name: "Vote on Solutions",
+    url: "/bounties",
+  },
+  {
+    name: "Your Profile",
+    url: "/profile",
   },
 ]

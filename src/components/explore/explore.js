@@ -1,18 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import MenuBar from "./menuBar";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader";
-import QuestionCard from "./questionCard";
-import Search from "./search";
-import { useStyles } from "./exploreCss";
+import Questions from "./questions";
 import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
 import { Redirect } from "react-router-dom";
+import "./explore.css";
 
-export default function Explore(props) {
-  const classes = useStyles();
+export default function NewExplore(props) {
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
   const [username] = useState(localStorage.getItem("username"));
@@ -21,7 +19,7 @@ export default function Explore(props) {
     errorMessage: "",
     severity: "error",
   });
-  useEffect(() => {
+  useEffect(async () => {
     setLoader(true);
     axios
       .get(port + "question/fetchall")
@@ -38,7 +36,8 @@ export default function Explore(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+          errorMessage:
+            "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
         }));
       });
   }, [props.location.state.type]);
@@ -48,34 +47,21 @@ export default function Explore(props) {
   }
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={6}>
-        <Grid item md={12} xs={12}>
-          <Navbar  />
-          <br />
+    <>
+      <hr className="horizontal-line" style={{ marginTop: "8vw" }} />
+      <Grid container>
+        <Grid item md={4} xs={12}>
+          <MenuBar type={props.location.state.type} />
         </Grid>
-        <Grid item md={3} xs={12}>
-          <Search />
-        </Grid>
-        <Grid item md={9} xs={12}>
-          <h2>{data.length?"Available Bounties":"No Available Bounties"}</h2>
-          <hr />
-          {data.map((question) => (
-            <>
-              <QuestionCard {...question} />
-              <br />
-              <hr />
-            </>
-          ))}
+        <Grid item md={8} xs={12}>
+          <Questions data={data} />
         </Grid>
       </Grid>
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
       {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
       {loader ? <CircularIndeterminate /> : null}
-    </div>
+    </>
   );
 }
