@@ -32,7 +32,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: "2%",
     textAlign: "center",
     borderRadius: "0 4% 4% 0",
-    height:"61.5%"
+    height:"58.5%"
   },
   innerDiv: {
     float: "left",

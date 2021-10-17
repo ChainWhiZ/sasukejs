@@ -3,7 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import StakingCard from './stakingCard'
 import { useStyles } from './votingPageCss'
-import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader"
 import { Redirect } from "react-router-dom";
 import { port } from "../../config/config";
@@ -48,12 +47,9 @@ export default function VotingPage(props) {
 
       <>
         <Grid container>
-          <Grid item md={12} xs={12}>
-            <Navbar />
-            <br />
-            <br />
-            <br />
-          </Grid>
+        <Grid item md={12} xs={12}>
+          <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+        </Grid>
           <Grid item md={12} xs={12}>
             <h1>Cast your vote by staking on solutions</h1>
           </Grid>
