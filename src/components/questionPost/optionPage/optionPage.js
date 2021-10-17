@@ -89,28 +89,31 @@ export default function OptionComponent(props) {
                   }}
                 >
                   <Card
-                    class="selectedCard"
-                    style={{
-                      backgroundColor:
-                        props.communityOption &&
-                        props.communityOption.includes(item.title)
-                          ? "#D4FF1F"
-                          : "#131313",
-                    }}
-                    sx={{ minWidth: "10vw" }}
+                    className={
+                      props.communityOption === item.title
+                        ? "selected-card"
+                        : "non-selected-card"
+                    }
                   >
                     <CardContent>
-                      <Typography
-                        sx={{ fontSize: 14 }}
-                        className="card-title"
-                        gutterBottom
+                      <p
+                        className={
+                          props.communityOption === item.title
+                            ? "card-title black-text"
+                            : "card-title"
+                        }
                       >
                         {item.title}
-                      </Typography>
-                      <br></br>
-                      <Typography variant="body2" className="card-body">
+                      </p>
+                      <p
+                        className={
+                          props.communityOption === item.title
+                            ? "card-body black-text"
+                            : "card-body"
+                        }
+                      >
                         {item.content}
-                      </Typography>
+                      </p>
                     </CardContent>
                   </Card>
                 </Grid>

@@ -39,6 +39,7 @@
 }
 
 .card-title {
+  font-family: Poppins !important;
   font-style: normal !important;
   font-weight: 500 !important;
   font-size: 1.3vw !important;
@@ -47,6 +48,7 @@
   letter-spacing: 0.04em !important;
 }
 .card-body {
+  font-family: Poppins !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-size: 1vw !important;
