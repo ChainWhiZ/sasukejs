@@ -2,7 +2,10 @@
 .right-side-card{
 background: #131313 !important;
 color: white !important;
-padding: 25% 7% 25% 7% !important;
+padding: 0% 7% 25% 7% !important;
+}
+.margin-top-8{
+    margin-top: 8%  !important;
 }
 
 .message{
@@ -10,21 +13,16 @@ padding: 25% 7% 25% 7% !important;
  
 }
 .message-title{
-
-    font-style: normal !important;
+font-style: normal !important;
 font-weight: 600 !important;
 font-size: 35px !important;
 line-height: 50px !important;
-/* or 143% */
-
-
 letter-spacing: 0.01em !important;
-
 color: white !important;
 }
 
 .message-text{
-    font-family: Poppins;
+font-family: Poppins ;
 font-style: normal;
 font-weight: normal;
 font-size: 16px;
@@ -45,7 +43,6 @@ font-style: normal !important;
 font-weight: 500 !important;
 font-size: 18px !important;
 line-height: 25px !important;
-/* identical to box height, or 139% */
 color: #FFFFFF !important;
 letter-spacing: 0.04em !important;
 }
@@ -59,15 +56,9 @@ letter-spacing: 0.01em !important;
 color: #FFFFFF !important;
 }
 
-.input-field-text{
-font-family: Poppins;
-font-style: normal !important;
+.input-field-number{
 font-weight: 600 !important;
 font-size: 100px !important;
-line-height: 150px !important;
-text-align: center !important;
-letter-spacing: 0.01em !important;
-color: #FFFFFF !important;
 }
 
 .left-title{
@@ -90,41 +81,34 @@ color: #FFFFFF !important;
 }
 
 .days-input-parent{
-    margin-top: 33% !important;
-    margin-left: 20% !important;
+    margin-left: 18% !important;
 }
 
-.input-field{
-    color: white !important;
-     width: 50vw !important;
-      padding-left: 40% !important
-}
-
-.input-field-parent{
-    margin-top: 33% !important;
-    margin-left: 20% !important;
-}
 
 .margin-top-2{
     margin-top: 2% !important;
 }
 
-.margin-left-23{
-    margin-left: -23% !important;
-}
 
-.margin-left-8{
-    margin-left: 8% !important;
+.margin-left-35{
+    margin-left: 35% !important;
 }
-
+.margin-left-30{
+    margin-left: 30% !important;
+}
 .input-field-style{
-    color: white !important; width: 50vw !important;
+    font-family: Poppins !important;
+    color: white !important;
+     width: 50vw !important;
+     font-style: normal !important;
+     line-height: 150px !important;
+    letter-spacing: 0.01em !important;
 
 }
 
 .option-page-margins{
-    margin-top: 33% !important;
-     margin-left: 5% I !important
+    margin: 0% 0% 0% 10%!important;
+    
 }
 
 
@@ -132,4 +116,10 @@ color: #FFFFFF !important;
     background-color: #637905 !important;
     color:black I !important;
 
+}
+.selectedCard {
+     width: 20vw !important;
+      height: 20vh !important;
+      padding:3% !important;
+      margin-bottom:10% !important;
 }

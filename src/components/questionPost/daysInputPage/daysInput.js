@@ -11,10 +11,13 @@ export default function DaysInputComponent(props) {
                 </Grid>
                 <br></br>
                 <Grid item>
-                    <Input placeholder="Days" size="large"
-                        className="input-field-text input-field"
+                    <Input placeholder="Days" 
+                        className="input-field-number input-field-style "
                         type="number"
-                        min="1"
+                        inputProps={{
+                            style: { textAlign: "center" },
+                            min: 0
+                          }}
                         value={props.time} onChange={(e) => { props.handleTime(e.target.value) }} />
                 </Grid>
             </Grid>

@@ -13,7 +13,7 @@ export default function QuestionPost() {
     const [issueURL, setIssueURL] = useState("")
     const [reward, setReward] = useState(0)
     const [communityOption, setCommunityOption] = useState()
-    const [activePage, setActivePage] = useState(2)
+    const [activePage, setActivePage] = useState(1)
     const [terms, setTerms] = useState({
         undertaking1: false,
         undertaking2: false,

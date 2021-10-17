@@ -59,30 +59,48 @@ export default function InputComponent(props) {
         if (props.pageState == 8)
             return "Your Wallet Address";
     }
+    function handleStyle(el="parent"){
+        if(el==="input")
+        {
+        if(props.pageState === 5 || props.pageState === 7)
+          return "input-field-style input-field-number";
+        return "input-field-style";
+        }
+        else
+        { if(props.pageState === 8)
+            return "margin-left-30";
+          return null;
+
+        }
+    }
 
     console.log(props)
-    console.log(props.pageState == 7 && props.communityOption == "Self Approved")
+
     return (
         <>
-            <Grid container direction="column" alignItems="center" justifyContent="center" className="input-field-parent">
-                <Grid item md={12} xs={12}>
-                    <p className="left-title">{handleLabel()}</p>
+            <Grid container direction="column" alignItems={props.pageState===8?"flex-start":"center"} justifyContent={props.pageState===8?"flex-start":"center"} className={handleStyle()}>
+                <Grid item md={12} xs={12} className="margin-left-35">
+                    <p className="left-title ">{handleLabel()}</p>
                 </Grid>
                 {props.pageState == 1 || props.pageState == 4 || props.pageState == 5 || props.pageState == 7 ? (
                     <Grid item md={8} xs={8} className="margin-top-2">
                         <Input disabled={props.pageState == 7 && props.communityOption == "Self Approved"}
                             type={(props.pageState === 5 || props.pageState === 7) ? "number" : "text"}
                             min="1"
+                            inputProps={{
+                                style: { textAlign: "center" },
+                                min:0
+                              }}
                             placeholder={handlePlaceholder()} value={handleValue()}
-                            className="input-field-style"
+                            className={handleStyle("input")}
                             onChange={(e) => { handleOnChange(e.target.value) }} />
                     </Grid >
                 ) : (
                     <>
-                        <Grid item md={8} xs={8} className="margin-top-2">
+                        <Grid item md={12} xs={12} >
                             <Input value={"WALLET_ADDRESS_WILL_BE_SET_HERE"} className="input-field-style" disabled={true} />
                         </Grid >
-                        <Grid item md={12} xs={12} className="margin-left-8">
+                        <Grid item md={12} xs={12} >
                             <FormControlLabel
                                 control={
                                     <Checkbox
@@ -97,7 +115,7 @@ export default function InputComponent(props) {
                             />
                             <span className="terms-text">I confirm that the address belongs to me and all transactions will be associated with the same.</span>
                         </Grid>
-                        <Grid item md={12} xs={12} className="margin-left-23">
+                        <Grid item md={12} xs={12} >
                             <FormControlLabel
                                 control={
                                     <Checkbox
