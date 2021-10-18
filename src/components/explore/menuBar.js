@@ -15,7 +15,7 @@ export default function MenuBar(props) {
   return (
     <>
       <Grid container className="menubar">
-        <Grid item md={12} >
+        <Grid item md={12} className="menubar-usergrid" >
           <img src={accountCircle} alt="account" />
           <p className="menubar-username">{localStorage.getItem("username")}</p>
         </Grid>

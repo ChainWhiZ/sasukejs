@@ -8,10 +8,14 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import SimpleAlerts from "../../alert/alert";
 
 export default function InputComponent(props) {
+  let currency=""
+  if(props.pageState === 5 || props.pageState === 7) {
+    currency="CWZ";
+  }
   function handlePlaceholder() {
     if (props.pageState === 1) return "Enter Issue Title";
     if (props.pageState === 4) return "Enter Github Issue URL";
-    if (props.pageState === 5) return "Enter reward amount";
+    if (props.pageState === 5) return "Enter Reward Amount";
     if (props.pageState === 7) return "Enter Community Reward";
     if (props.pageState === 8) return "Confirm Wallet Address";
   }
@@ -70,6 +74,7 @@ export default function InputComponent(props) {
         props.pageState === 4 ||
         props.pageState === 5 ||
         props.pageState === 7 ? (
+          <>
           <Grid item md={8} xs={8} className="margin-top-2">
             <Input
               disabled={
@@ -93,6 +98,10 @@ export default function InputComponent(props) {
               }}
             />
           </Grid>
+          <Grid item md={12} className="bounty-post-unit cwz">
+            <p>{currency}</p>
+          </Grid>
+          </>
         ) : (
           <>
             <Grid item md={12} xs={12}>

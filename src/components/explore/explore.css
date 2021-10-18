@@ -36,6 +36,10 @@
   margin-top: -3.8vh;
   margin-left: 4vw;
 }
+
+.menubar-usergrid {
+  margin-left: 0.5vw;
+}
 .grid-item {
   margin-top: -4vw !important;
   padding: 4% !important;
@@ -45,6 +49,7 @@
   background-color: rgba(215, 255, 46, 1) !important;
   border-radius: 1vw;
   height: 10vh !important;
+  
 }
 
 .active {

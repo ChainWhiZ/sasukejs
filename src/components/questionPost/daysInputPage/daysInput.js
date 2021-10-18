@@ -19,7 +19,7 @@ export default function DaysInputComponent(props) {
           </p>
         </Grid>
         <br></br>
-        <Grid item>
+        <Grid item md={12}>
           <Input
             placeholder="Days"
             className="input-field-number input-field-style "
@@ -33,6 +33,9 @@ export default function DaysInputComponent(props) {
               props.handleTime(e.target.value);
             }}
           />
+        </Grid>
+        <Grid item md={12} className="bounty-post-unit">
+          <p>Days</p>
         </Grid>
       </Grid>
       {props.alert.isValid ? (
