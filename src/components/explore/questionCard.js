@@ -9,7 +9,12 @@ import account from "../../assets/Account.png";
 export default function QuestionCard(props) {
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
-  let timeLeft = (props.timeEnd - seconds) / (3600 * 24);
+  let timeLeft = 0;
+  if (props.questionStage === "solve" && props.isCommunityApprovedSolution) {
+    timeLeft = (props.votingTimeBegin - seconds) / (3600 * 24);
+  } else {
+    timeLeft = (props.timeEnd - seconds) / (3600 * 24);
+  }
   if (timeLeft < 1) {
     hoursOrDaysOrMinutes = "hour(s)";
     timeLeft = 24 * timeLeft;
@@ -46,7 +51,9 @@ export default function QuestionCard(props) {
             <Grid item md={2} xs={12} className="reward-grid"></Grid>
             <Grid item md={2} xs={12} className="reward-grid">
               {" "}
-              <Box className="reward-box non-community">{props.bountyReward} CWZ</Box>
+              <Box className="reward-box non-community">
+                {props.bountyReward} CWZ
+              </Box>
             </Grid>
           </>
         )}

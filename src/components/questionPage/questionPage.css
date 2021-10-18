@@ -1,13 +1,11 @@
 .grid-body {
-
   color: white;
-  margin:2% 4% 2% 5%
+  margin: 2% 4% 2% 5%;
 }
 .color-neon {
-  color: #D4FF1E;
+  color: #d4ff1e;
 }
 .heading {
-
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -15,114 +13,115 @@
   letter-spacing: 0.01em;
 }
 
-
-.link{
+.link {
   text-decoration: none;
   color: white;
 }
 
 .heading-text {
-font-style: normal;
-font-weight: 600;
-font-size: 16px;
-letter-spacing: 0.01em;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.01em;
 }
 
-.margin-top-2{
+.margin-top-2 {
   margin-top: -2%;
 }
-.margin-top-10{
+.margin-top-10 {
   margin-top: -10% !important;
 }
-.center{
+.center {
   text-align: center;
 }
 
-.description{
+.description {
   font-style: normal;
-font-weight: normal;
-font-size: 16px;
-letter-spacing: 0.04em;
+  font-weight: normal;
+  font-size: 16px;
+  letter-spacing: 0.04em;
 }
-.time{
+.bounty-time {
   font-weight: 600;
-font-size: 40px;
-/* line-height: 60px; */
-margin-top: 2%;
-letter-spacing: 0.01em;
+  font-size: 40px;
+  /* line-height: 60px; */
+  margin-top: 2%;
+  letter-spacing: 0.01em;
 }
 
-.margin-top-3{
- margin-top: -3% !important;
+.margin-top-3 {
+  margin-top: -3% !important;
 }
-.margin-top-20{
-  margin-top: -20%;
- }
-.heading-box{ 
-background: #131313;
-border-radius: 11px;
-width: 19vw !important;
-/* height: 40vh; */
-margin: 1% 0% 5% -9%;
-padding: 3% 3% 6% 3%;
+.margin-top-20 {
+  margin-top: -4%;
 }
-.heading-box2{ 
+.heading-box {
+  background: #131313;
+  border-radius: 11px;
+  width: 19vw !important;
+  /* height: 40vh; */
+  margin: 1% 0% 5% -9%;
+  padding: 3% 3% 6% 3%;
+}
+.heading-box2 {
   background: #131313;
   border-radius: 11px;
   width: 47vw !important;
   /* height: 41vh; */
   margin: 1% 0% 5% -8%;
   padding: 3%;
-  }
-  .description-box{ 
-    background: #131313;
-    border-radius: 11px;
-    width: 93vw !important;
-    /* height: 40vh; */
-    padding: 3%;
-    margin:0% 0% 2% -2%;
-    }
+}
+.description-box {
+  background: #131313;
+  border-radius: 11px;
+  width: 93vw !important;
+  /* height: 40vh; */
+  padding: 3%;
+  margin: 0% 0% 2% -2%;
+}
 
-.card-header{
-  background-color: #D4FF1E;
+.card-header {
+  background-color: #d4ff1e;
   border-radius: 9px 9px 0 0;
   padding-bottom: -2% !important;
-  height:1vh !important
+  height: 1vh !important;
 }
 
-.card-content{
+.card-content {
   background: #131313;
-border-radius: 9px;
-
-
+  border-radius: 9px;
 }
-.icon{
+.icon {
   margin-right: 2%;
 }
-.card-hover-content{
-  background: #D4FF1F;
-border-radius: 9px;
-height:8.5vh;
+.card-hover-content {
+  background: #d4ff1f;
+  border-radius: 9px;
+  padding-left: 18% !important;
+  cursor: pointer;
 }
-.card-hover-content-text{
+.card-hover-content-text {
   font-style: normal;
-font-weight: 600;
-font-size: 32px;
-letter-spacing: 0.01em;
-color: #272727;
-margin-top:5%
+  font-weight: 600;
+  font-size: 1.5vw;
+  letter-spacing: 0.01em;
+  color: #272727;
+  margin-top: 5%;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
 }
 
-.sol-card{
-  width:19vw;
+.sol-card {
+  width: 25vw;
 }
 
-.number-solution{
+.number-solution {
   font-style: normal;
-font-weight: 500;
-font-size: 30px;
-margin:-1% 0% -3% 0%;
-letter-spacing: 0.01em;
+  font-weight: 500;
+  font-size: 30px;
+  margin: -1% 0% -3% 0%;
+  letter-spacing: 0.01em;
 }
 .title {
   font-size: 22px;
@@ -165,7 +164,7 @@ letter-spacing: 0.01em;
   margin-top: -7%;
 }
 
-.button {
+.bounty-button {
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
@@ -180,13 +179,13 @@ letter-spacing: 0.01em;
   box-sizing: border-box;
   border-radius: 9px;
   color: rgba(29, 29, 29, 1);
-  background-color:#D4FF1E;
-  text-transform: 'none';
+  background-color: #d4ff1e;
+  text-transform: "none";
 }
 .button:hover {
   color: rgba(255, 255, 255, 1);
   background-color: rgba(29, 29, 29, 1);
-  text-transform: 'none';
+  text-transform: "none";
 }
 button:disabled {
   background-color: #cccccc;
@@ -260,7 +259,7 @@ hr {
 .stage-button {
   background-color: rgba(196, 196, 196);
   color: rgba(29, 29, 29, 1);
-  text-transform: 'none';
+  text-transform: "none";
 
   font-size: 11px;
   font-style: normal;
@@ -281,13 +280,12 @@ span a {
   text-decoration: none;
 
   font-style: normal;
-font-weight: 600;
-font-size: 16px;
-letter-spacing: 0.01em;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.01em;
 
-color: #272727;
+  color: #272727;
 }
-
 
 /* .sol-card {
   height: 94px;
@@ -397,9 +395,13 @@ input {
   margin-left: -2%;
 }
 .MuiFormControlLabel-label {
-  font-family: 'Poppins' !important;
+  font-family: "Poppins" !important;
   font-size: 13px !important;
   letter-spacing: 0.01px;
   color: #1d1d1d;
   opacity: 0.68;
+}
+
+.bounty-right {
+  height: 47vh !important;
 }

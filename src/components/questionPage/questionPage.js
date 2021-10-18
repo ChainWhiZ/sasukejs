@@ -23,7 +23,7 @@ export default function QuestionPage(props) {
     errorMessage: "",
     severity: "error",
   });
-  const [username] = useState(localStorage.getItem('username'));
+  const [username] = useState(localStorage.getItem("username"));
 
   useEffect(() => {
     fetchQuestion();
@@ -48,13 +48,10 @@ export default function QuestionPage(props) {
       });
   };
   if (!username) {
-    return (
-      <Redirect to="/" />
-    )
+    return <Redirect to="/" />;
   }
   return (
     <>
-
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
 
       <br />
@@ -62,10 +59,12 @@ export default function QuestionPage(props) {
       {loader ? (
         <CircularIndeterminate />
       ) : (
-        <Grid container className="grid-body"  >
-
+        <Grid container className="grid-body">
           <Grid item md={3} xs={12}>
-            <QuestionLeftHeading {...data} handleFetch={() => fetchQuestion()} />
+            <QuestionLeftHeading
+              {...data}
+              handleFetch={() => fetchQuestion()}
+            />
           </Grid>
           <Grid item md={6} xs={12}>
             <QuestionMiddleHeading {...data} />
@@ -76,7 +75,6 @@ export default function QuestionPage(props) {
 
           <Grid item md={12} xs={12}>
             <QuestionDescription {...data} />
-
           </Grid>
           <Grid item md={12} xs={12}>
             <QuestionApplicants {...data} />
