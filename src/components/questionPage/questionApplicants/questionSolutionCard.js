@@ -1,16 +1,20 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
-import CardHeader from '@material-ui/core/CardHeader';
+import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
 import "../questionPage.css";
 import { port } from "../../../config/config";
 import CircularIndeterminate from "../../loader/loader";
-import GithubIcon from "../../../assets/githubIcon.png"
-import IdeaIcon from "../../../assets/Idea.png"
+import GithubIcon from "../../../assets/githubIcon.png";
+import IdeaIcon from "../../../assets/Idea.png";
 import eventBus from "../../EventBus";
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from "@material-ui/core/Collapse";
 export default function QuestionSolutionCard(props) {
   const [applicants, setApplicants] = useState([]);
   const [loader, setLoader] = useState(true);
@@ -23,12 +27,9 @@ export default function QuestionSolutionCard(props) {
     setHover(false);
   };
   useEffect(() => {
-    eventBus.on("solutionSubmitted", (data) =>
-      fetchWorkplan()
-    );
+    eventBus.on("solutionSubmitted", (data) => fetchWorkplan());
     eventBus.remove("solutionSubmitted");
     fetchWorkplan();
-
   }, [applicants._id, props.workplanId]);
 
   const fetchWorkplan = () => {
@@ -44,39 +45,71 @@ export default function QuestionSolutionCard(props) {
         setLoader(false);
         alert(err);
       });
-  }
-  console.log(expanded)
+  };
+  console.log(props);
   return (
     <>
       {loader ? (
         <CircularIndeterminate />
       ) : (
-        <Card class="sol-card center"
+        <Card
+          class="sol-card center"
           onMouseEnter={onHover}
-          onMouseLeave={onLeave}>
-          {hover ?
-            (
-              <CardContent className="card-hover-content" onClick={()=>setExpanded(true)}>
-                <p className="card-hover-content-text">View all Solutions</p>
-              </CardContent>
-            ) :
-            (
-              <>
-                <CardHeader
-                  className="card-header"
-                  title={<><img src={IdeaIcon} className="icon" alt="idea"/>
-                  <a
-                    href={`https://ipfs.io/ipfs/${applicants._id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Work plan by {applicants.userId}
-                  </a></>}
-                />
+          onMouseLeave={onLeave}
+        >
+          {hover && !expanded ? (
+            <CardContent className="card-hover-content">
+              <CardActions>
+                <button
+                  className="card-hover-content-text"
+                  onClick={() => setExpanded(true)}
+                >
+                  View all Solutions
+                </button>
+              </CardActions>
+            </CardContent>
+          ) : (
+            <>
+              <CardHeader
+                className="card-header"
+                title={
+                  <>
+                    <img src={IdeaIcon} className="icon" alt="idea" />
+                    <a
+                      href={`https://ipfs.io/ipfs/${applicants._id}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Work plan by {applicants.userId}
+                    </a>
+                  </>
+                }
+              />
+              {expanded ? (
+                <CardContent>
+                  {applicants.solutionIds &&
+                    applicants.solutionIds.length &&
+                    applicants.solutionIds.map((solution, index) => {
+                      <>
+                        <Grid container>
+                          <Grid item md={9}>
+                            <p> {solution.userId + " submitted solution"}</p>
+                          </Grid>
+                          <Grid item md={3}>
+                            <img src={GithubIcon} alt="git" />
+                          </Grid>
+                        </Grid>
+                      </>;
+                    })}
+                </CardContent>
+              ) : (
                 <CardContent className="card-content">
-                  <p className="number-solution">{(applicants.solutionIds ? applicants.solutionIds.length : 0) + " Solution(s)"}</p>
+                  <p className="number-solution">
+                    {(applicants.solutionIds
+                      ? applicants.solutionIds.length
+                      : 0) + " Solution(s)"}
+                  </p>
 
-                
                   {/* {applicants.solutionIds &&
                     applicants.solutionIds.length !== 0 ? (
                     <ul>
@@ -121,30 +154,27 @@ export default function QuestionSolutionCard(props) {
                     <p>No solution submitted yet!</p>
                   )} */}
                 </CardContent>
-                  <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                    <Grid container>
-
-                      {applicants.solutionIds &&
-                        applicants.solutionIds.length &&
-                        applicants.solutionIds.map((solution, index) => {
-                          <>
+              )}
+              {/* <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
+                <CardContent>
+                  <Grid container>
+                    {applicants.solutionIds &&
+                      applicants.solutionIds.length &&
+                      applicants.solutionIds.map((solution, index) => {
+                        <>
                           <Grid item md={9}>
-                         <p> {solution.userId + " submitted solution"}</p>
+                            <p> {solution.userId + " submitted solution"}</p>
                           </Grid>
                           <Grid item md={3}>
-                          <img src={GithubIcon} alt="git"/>
+                            <img src={GithubIcon} alt="git" />
                           </Grid>
-                          </>
-                        })}
+                        </>;
+                      })}
                   </Grid>
-                    </CardContent>
-                  </Collapse>
-              </>
-
-
-            )}
-
+                </CardContent>
+              </Collapse> */}
+            </>
+          )}
         </Card>
       )}
     </>
