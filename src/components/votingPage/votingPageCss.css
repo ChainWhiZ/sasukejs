@@ -1,0 +1,73 @@
+.staking-solution-div {
+    margin: 4% 0% 2% 23% !important;
+    float: left !important;
+    background-color:  #D4FF1F  !important;
+    padding: 4.1% 2% 0% 2%!important;
+  
+    border-radius: 4% 0 0 4% !important;
+    height: 72% !important;
+    text-align: center !important;
+  }
+
+  .staking-link {
+    color: inherit !important;
+    text-decoration: inherit !important;
+  }
+  .staking-stake-div {
+    margin-right: 2% !important;
+    margin-top: 4% !important;
+    
+    margin-bottom: 1.9% !important;
+    float: left !important;
+    background-color: #131313 !important;
+    padding: 6% 2% 2% 2% !important;
+    text-align: center !important;
+    border-radius: 0 4% 4% 0 !important;
+    height:58.5% !important
+  }
+
+  .staking-inner-div {
+    float: left !important;
+   
+    /* width: 55% */
+  }
+  .staking-stake-input {
+    width: 150px !important
+  }
+  .staking-icon {
+    width: 55px !important;
+    margin-bottom: 10% !important;
+  }
+  .staking-author {
+    clear: both !important
+  }
+  .staking-stake-button {
+   
+      background: #d4ff1f !important;
+      text-transform: none !important;
+     
+    
+  }
+  .staking-stake-button:hover {
+   
+    background: black !important;
+    color:white ;
+    text-transform: none !important;
+   
+  
+}
+.staking-solution-button {
+  text-transform: none !important;
+  height: 3.8vh;
+}
+.staking-solution-button:hover {
+   
+  background: black !important;
+  color:white ;
+  text-transform: none !important;
+ 
+
+}
+  .staking-solution-div  p{
+    color: black;
+  }

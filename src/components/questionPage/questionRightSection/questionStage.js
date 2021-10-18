@@ -25,19 +25,21 @@ export default function QuestionStage(props) {
         ) : (
           <Grid item md={12}>
             <p class="stage-title"> COMPLETED</p>
+            <br/>
+           
             <Link
-                      to={{
-                        pathname: "/vote",
-                        state: {
-                          questionDetails: props.question,
-                        },
-                      }}
-                    >
-                      <Button class="stage-button">
-                        {votingPhaseDetails.buttonLabel}
-                      </Button>
-                    </Link>
-          
+              to={{
+                pathname: "/vote",
+                state: {
+                  questionDetails: props.question,
+                },
+              }}
+            >
+              <Button class="stage-button">
+                {votingPhaseDetails.buttonLabel}
+              </Button>
+            </Link>
+
           </Grid>
         )}
         <Grid item md={12} class="card-grid">

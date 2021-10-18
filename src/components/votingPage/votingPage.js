@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import StakingCard from './stakingCard'
-import { useStyles } from './votingPageCss'
 import CircularIndeterminate from "../loader/loader"
 import { Redirect } from "react-router-dom";
 import { port } from "../../config/config";
-import SimpleAlerts from "../alert/alert";
+
 
 export default function VotingPage(props) {
-  const classes = useStyles();
   const [username] = useState(localStorage.getItem('username'));
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
@@ -43,12 +41,12 @@ export default function VotingPage(props) {
     )
   }
   return (
-    <div className={classes.root}>
+
 
       <>
         <Grid container>
         <Grid item md={12} xs={12}>
-          <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+          <hr className="horizontal-line" style={{ marginTop: "7.5%" }} />
         </Grid>
           <Grid item md={12} xs={12}>
             <h1>Cast your vote by staking on solutions</h1>
@@ -72,6 +70,6 @@ export default function VotingPage(props) {
         }
       </>
 
-    </div>
+    
   );
 }

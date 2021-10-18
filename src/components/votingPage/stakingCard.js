@@ -3,7 +3,6 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import githubIcon from "../../assets/Vector1.png";
 import workplanIcon from "../../assets/Vector.png";
-import { useStyles } from "./votingPageCss";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {
@@ -14,12 +13,9 @@ import {
 import SimpleAlerts from "../alert/alert";
 import CircularIndeterminate from "../loader/loader";
 import { port } from "../../config/config";
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import "./votingPageCss.css";
 
 export default function StakingCard(props) {
-  const classes = useStyles();
   const [stakedAmount, setStakedAmount] = useState("");
   const [balance, setBalance] = useState(null);
   const [solution, setSolution] = useState({});
@@ -155,54 +151,55 @@ export default function StakingCard(props) {
           <CircularIndeterminate />
         ) : (
           <>
-            <div className={classes.solutionDiv}>
-              <div className={classes.innerDiv} style={{ width: "55%" }}>
-                <img src={githubIcon} alt="github" className={classes.icon} />
+            <div className="staking-solution-div">
+              <div className="staking-inner-div" style={{ width: "55%" }}>
+                <img src={githubIcon} alt="github" className="staking-icon" />
                 <br />
                 <Link
                   to={{ pathname: props.solutionId }}
                   target="_blank"
-                  className={classes.link}
+                  className="staking-link"
                 >
-                  <Button size="small" variant="outlined">
+                  <Button size="small" variant="outlined" className="staking-solution-button">
                     Github Repo
                   </Button>
                 </Link>
               </div>
-              <div className={classes.innerDiv} style={{ marginTop: "1%" }}>
+              <div className="staking-inner-div" style={{ marginTop: "1.7%" }}>
                 <img
                   src={workplanIcon}
                   alt="wokplan"
-                  className={classes.icon}
+                  className="staking-icon"
                 />
                 <br />
                 <Link
                   to={{ pathname: `https://ipfs.io/ipfs/${props.workplan.id}` }}
                   target="_blank"
-                  className={classes.link}
+                  className="staking-link"
                 >
                   <Button
                     size="small"
                     variant="outlined"
                     style={{ marginTop: "2.5%" }}
+                    className="staking-solution-button"
                   >
                     Work Plan
                   </Button>
                 </Link>
               </div>
 
-              <div className={classes.author}>
+              <div className="staking-author">
                 <br />
-                <p style={{ marginTop: "6%" }}>
+                <p style={{ marginTop: "1%" }}>
                   Solution posted by {solution.userId}
                 </p>
               </div>
             </div>
-            <div className={classes.stakeDiv}>
+            <div className="staking-stake-div">
               <TextField
                 id="outlined-basic"
                 type={"number"}
-                className={classes.stakeInput}
+                className="staking-stake-input"
                 style={{ backgroundColor: "white", borderRadius: "8px" }}
                 variant="outlined"
                 size="small"
@@ -213,13 +210,14 @@ export default function StakingCard(props) {
               <br />
               <br />
               <Button
+              className="staking-stake-button"
                 variant="contained"
                 onClick={() => handleStake()}
-                style={{ color: "white", backgroundColor: "black" }}
               >
                 Stake Now
               </Button>
-              <p>Avbl. Balance- {balance / 1000000000000000000} CW</p>
+              <br />
+              <p >Avbl. Balance- {balance / 1000000000000000000} CW</p>
             </div>
           </>
         )}
