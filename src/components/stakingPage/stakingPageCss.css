@@ -1,0 +1,105 @@
+.staking-heading-box{
+    background: #131313;
+    border-radius: 6px;
+    padding: 1%;
+    text-align: center;
+    width: 20vw;
+}
+.staking-container{
+   margin: 2%;
+}
+.staking-left-card{    
+background: #131313;
+border-radius: 11px;
+margin:0% 2% 4% 0%;
+padding:8% 5% 5% 5%;
+}
+.staking-right-card{  
+    background: #131313;
+    border-radius: 11px;
+    margin:0% 2% 4% 3%;
+    padding:4% 5% 5% 5%;
+}
+.color-neon{
+    color: #D4FF1E;
+}
+.text-style{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+letter-spacing: 0.01em;
+width:10vw;
+
+}
+.staking-margin-left-10{
+    margin-left:10%;
+}
+.staking-margin-left-20{
+    margin-left:20%;
+}
+.staking-margin-left-90{
+    margin-left:90%;
+}
+.staking-workplan-card{
+    cursor: pointer;
+    padding:2%;
+    width: 30vw;
+}
+.staking-workplan-card:hover{
+    background-color: #D4FF1E;
+}
+
+.staking-selected-workplan-card{
+    background-color: #D4FF1E;
+    color: black !important;
+}
+.staking-workplan{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+
+letter-spacing: 0.01em;
+
+color: #FFFFFF;
+
+opacity: 0.69;
+}
+.staking-solution{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height */
+
+letter-spacing: 0.01em;
+}
+.staking-input{
+width: 7vw;
+background: #282828 ;
+border-radius: 5px;
+margin-right:5% !important;
+}
+.staking-button{
+    
+    background: #D4FF1F !important;
+    border-radius: 4px !important;
+    text-transform: none !important;
+  font-weight: 500 !important;
+  height: 4vh !important;
+  font-size: 1vw !important;
+  font-family: Poppins !important;
+}
+
+.staking-icon{
+    margin: 0% 5% -2% 0% ;
+}
+.staking-git-icon{
+    margin: 0% 4% -2% 5% ;
+}
+.staking-info-icon{
+    margin: 0% 2% -0.5% 0% ;
+}
+

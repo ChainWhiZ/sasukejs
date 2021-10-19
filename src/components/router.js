@@ -8,6 +8,7 @@ import Landing from "./landing/landing";
 import Navbar from "./navbar/navbar";
 import Footer from "./footer/footer";
 import NewExplore from "./explore/explore";
+import StakingPage from "./stakingPage/stakingPage";
 export default function RouterComponent() {
 
   console.log(localStorage.getItem("username"))
@@ -35,6 +36,7 @@ export default function RouterComponent() {
         />
         <Route path="/explore" component={NewExplore} />
         <Route path="/vote" component={VotingPage} />
+        <Route path="/stake" component={StakingPage} />
         <Route path="/profile" component={ProfilePage} />
       </Switch>
       <Footer />

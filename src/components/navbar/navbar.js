@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import logo from "../../assets/new-logo.svg";
-import walletIcon from "../../assets/wallet.png";
+import walletIcon from "../../assets/Wallet.png";
 import accountIcon from "../../assets/account-circle.png";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
