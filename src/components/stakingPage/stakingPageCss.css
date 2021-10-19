@@ -3,22 +3,23 @@
     border-radius: 6px;
     padding: 1%;
     text-align: center;
-    width: 20vw;
 }
 .staking-container{
-   margin: 2%;
+   margin: 3% 12% 3% 4%;
 }
 .staking-left-card{    
 background: #131313;
 border-radius: 11px;
 margin:0% 2% 4% 0%;
 padding:8% 5% 5% 5%;
+width: 25vw !important;
 }
 .staking-right-card{  
     background: #131313;
     border-radius: 11px;
     margin:0% 2% 4% 3%;
-    padding:4% 5% 5% 5%;
+    padding:4% 0% 5% 5%;
+    width: 44vw !important;
 }
 .color-neon{
     color: #D4FF1E;
@@ -32,14 +33,14 @@ letter-spacing: 0.01em;
 width:10vw;
 
 }
-.staking-margin-left-10{
-    margin-left:10%;
+.staking-margin-left-11{
+    margin-left:15%;
 }
 .staking-margin-left-20{
     margin-left:20%;
 }
-.staking-margin-left-90{
-    margin-left:90%;
+.staking-margin-left-60{
+    margin-left:60%;
 }
 .staking-workplan-card{
     cursor: pointer;
@@ -61,8 +62,8 @@ font-weight: 600;
 font-size: 16px;
 
 letter-spacing: 0.01em;
-
-color: #FFFFFF;
+/* 
+color: #FFFFFF; */
 
 opacity: 0.69;
 }
@@ -91,6 +92,7 @@ margin-right:5% !important;
   height: 4vh !important;
   font-size: 1vw !important;
   font-family: Poppins !important;
+  
 }
 
 .staking-icon{

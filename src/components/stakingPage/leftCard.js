@@ -26,7 +26,7 @@ export default function LeftCard(props) {
             alignItems="flex-start"
             className="staking-left-card">
             <Grid item md={12} xs={12} >
-                <p className="color-neon text-style staking-margin-left-90">All Workplans Submitted</p>
+                <p className="color-neon text-style staking-margin-left-60">All Workplans Submitted</p>
             </Grid>
 
             {props.workplans && props.workplans.length && props.workplans.map(workplan => (

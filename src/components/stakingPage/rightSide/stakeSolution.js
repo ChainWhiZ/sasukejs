@@ -50,7 +50,7 @@ export default function StakeSolution(props) {
 <>
          
                 <>
-                    <Grid item md={6} xs={12}>
+                    <Grid item md={7} xs={12}>
                         <p className="staking-solution">
                             <span >
                                 <img className="staking-icon" src={avatarIcon} alt="avatar"  />
@@ -61,7 +61,7 @@ export default function StakeSolution(props) {
                             </span>
                         </p>
                     </Grid>
-                    <Grid item md={6} xs={12} style={{ marginBottom: "1.5%" }}>
+                    <Grid item md={5} xs={12} style={{ marginBottom: "1.5%"}}>
                         <TextField
                             id="outlined-basic"
                             type={"number"}

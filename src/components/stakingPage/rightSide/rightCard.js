@@ -17,11 +17,11 @@ export default function RightCard(props) {
             alignItems="center"
             className="staking-right-card"
         >
-            <Grid item md={6} xs={12} >
+            <Grid item md={7} xs={12} >
                 <p className="color-neon text-style staking-margin-left-20">Solution Submitted</p>
             </Grid>
-            <Grid item md={6} xs={12} >
-                <p className="color-neon text-style staking-margin-left-10">Balance - 300 CWZ</p>
+            <Grid item md={5} xs={12} >
+                <p className="color-neon text-style staking-margin-left-15">Balance - 300 CWZ</p>
             </Grid>
 
 
