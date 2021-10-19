@@ -3,6 +3,8 @@
     border-radius: 6px;
     padding: 1%;
     text-align: center;
+    margin-right: 12% !important;
+    margin-left: 4% !important;
 }
 .staking-container{
    margin: 3% 12% 3% 4%;
