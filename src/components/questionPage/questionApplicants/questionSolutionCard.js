@@ -86,7 +86,7 @@ export default function QuestionSolutionCard(props) {
                 }
               />
               {expanded ? (
-                <CardContent>
+                <CardContent className="card-content">
                   {applicants.solutionIds &&
                     applicants.solutionIds.length &&
                     applicants.solutionIds.map((solution, index) => {
