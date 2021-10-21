@@ -83,13 +83,16 @@
 .card-header {
   background-color: #d4ff1e;
   border-radius: 9px 9px 0 0;
-  padding-bottom: -2% !important;
-  height: 1vh !important;
+  margin-bottom: 12vh !important;
+  height: 8vh !important;
+  text-align: center;
+  width: 26vw !important;
 }
 
 .card-content {
   background: #131313;
   border-radius: 9px;
+  height: 8vh !important;
 }
 .icon {
   margin-right: 2%;
@@ -97,7 +100,6 @@
 .card-hover-content {
   background: #d4ff1f;
   border-radius: 9px;
-  padding-left: 18% !important;
   cursor: pointer;
 }
 .card-hover-content-text {
@@ -110,6 +112,7 @@
   background-color: transparent;
   border-color: transparent;
   cursor: pointer;
+  padding: 11%;
 }
 
 .sol-card {
@@ -120,7 +123,7 @@
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
-  margin: -1% 0% -3% 0%;
+  margin: 1% 0% -3% 0%;
   letter-spacing: 0.01em;
 }
 .title {
@@ -404,4 +407,26 @@ input {
 
 .bounty-right {
   height: 47vh !important;
+}
+.bounty-workplan-detail {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1vw;
+  line-height: 5.6vh;
+  letter-spacing: 0.01em;
+  color: #272727;
+}
+
+.workplan-grid {
+  margin-top: -6.5vh !important;
+  margin-left: 2vw !important;
+}
+
+.workplan-icon {
+  margin-top: 2.2vh !important;
+  margin-left: 2vw !important;
+}
+
+.solution-lists{
+  height: 20vh !important;
 }

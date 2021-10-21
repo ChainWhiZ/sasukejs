@@ -2,6 +2,7 @@ import React from "react";
 import "../questionPage.css";
 import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
+import New from "./new";
 import QuestionSolutionCard from "./questionSolutionCard";
 
 export default function QuestionApplicants(props) {
@@ -14,7 +15,7 @@ export default function QuestionApplicants(props) {
               props.workplanIds.length &&
               props.workplanIds.map((workplanId, index) => (
                 <Grid item md={4}>
-                  <QuestionSolutionCard
+                  <New
                     workplanId={workplanId}
                     isCommunityApprovedSolution={
                       props.isCommunityApprovedSolution

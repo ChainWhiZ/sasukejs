@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
 import SolutionSubmit from "../dialogs/solutionSubmit";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 export default function QuestionRightHeading(props) {
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
@@ -28,13 +29,28 @@ export default function QuestionRightHeading(props) {
               ? props.communityReward
               : props.bountyReward + " CWZ"}
           </p>
-          <Button
-            class="bounty-button"
-            disabled={props.questionStage === "complete"}
-            onClick={() => setOpenSolveDialog(true)}
-          >
-            Submit Github link
-          </Button>
+          {props.questionStage === "solve" ? (
+            <Button
+              class="bounty-button"
+              disabled={props.questionStage === "complete"}
+              onClick={() => setOpenSolveDialog(true)}
+            >
+              Submit Github link
+            </Button>
+          ) : props.questionStage === "vote" ? (
+            <Link
+              to={{
+                pathname: "/vote",
+                state: {
+                  questionDetails: props.question,
+                },
+              }}
+            >
+              <Button class="bounty-button">Vote Now</Button>
+            </Link>
+          ) : (
+            <Button class="bounty-button">Completed</Button>
+          )}
         </Grid>
       </Grid>
       {openSolveDialog ? (

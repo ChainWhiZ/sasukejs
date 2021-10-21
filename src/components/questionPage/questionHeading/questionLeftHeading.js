@@ -67,13 +67,14 @@ export default function QuestionLeftHeading(props) {
             >
               <Button class="bounty-button">Vote Now</Button>
             </Link>
+          ) : props.questionStage === "complete" ? (
+            <Button class="bounty-button">Completed</Button>
           ) : (
             <Button
               class="bounty-button"
-              disabled={props.questionStage === "complete"}
               onClick={() => setOpenWorkplanDialog(true)}
             >
-              Submit Work Plan
+              Submit Workplan
             </Button>
           )}
         </Grid>
