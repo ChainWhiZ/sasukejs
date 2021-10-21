@@ -83,7 +83,7 @@
 .card-header {
   background-color: #d4ff1e;
   border-radius: 9px 9px 0 0;
-  margin-bottom: 12vh !important;
+  margin-bottom: 21vh !important;
   height: 8vh !important;
   text-align: center;
   width: 26vw !important;
@@ -427,6 +427,21 @@ input {
   margin-left: 2vw !important;
 }
 
-.solution-lists{
+.solution-lists {
   height: 20vh !important;
+  background: #131313;
+  overflow-y: auto;
 }
+.bounty-solution-list-p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.8vw;
+  line-height: 4vh;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+.bounty-solution-list-icons{
+  margin-top: 1.5vh !important;
+}
+
+

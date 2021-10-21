@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-import Navbar from "../navbar/navbar";
 import QuestionLeftHeading from "./questionHeading/questionLeftHeading";
 import QuestionRightHeading from "./questionHeading/questionRightHeading";
 import QuestionMiddleHeading from "./questionHeading/questionMiddleHeading";
-import QuestionStage from "./questionHeading/questionStage";
 import QuestionDescription from "./questionDescription";
 import QuestionApplicants from "./questionApplicants/questionApplicants";
-import QuestionActivities from "./questionRightSection/questionActivities";
 import CircularIndeterminate from "../loader/loader";
 import "./questionPage.css";
 import { Redirect } from "react-router-dom";

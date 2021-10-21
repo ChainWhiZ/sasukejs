@@ -11,6 +11,7 @@ import SimpleAlerts from "../alert/alert";
 import "./stakingPageCss.css";
 
 export default function StakingPage(props) {
+  console.log(props)
   const [username] = useState(localStorage.getItem("username"));
   const [data, setData] = useState([]);
   const [selectedWorkplan, setSelectedWorkplan] = useState(

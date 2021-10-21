@@ -40,9 +40,9 @@ export default function QuestionRightHeading(props) {
           ) : props.questionStage === "vote" ? (
             <Link
               to={{
-                pathname: "/vote",
+                pathname: "/stake",
                 state: {
-                  questionDetails: props.question,
+                  questionDetails: props,
                 },
               }}
             >
@@ -56,7 +56,7 @@ export default function QuestionRightHeading(props) {
       {openSolveDialog ? (
         <SolutionSubmit
           open={openSolveDialog}
-          quesDetails={props.question}
+          quesDetails={props}
           handleDialogClose={() => setOpenSolveDialog(false)}
         />
       ) : (

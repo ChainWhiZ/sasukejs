@@ -1,20 +1,16 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+import GithubIcon from "../../../assets/githubIcon.png";
 import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
 import "../questionPage.css";
 import { port } from "../../../config/config";
 import CircularIndeterminate from "../../loader/loader";
-import GithubIcon from "../../../assets/githubIcon.png";
-import IdeaIcon from "../../../assets/Idea.png";
+import IdeaIcon from "../../../assets/idea.png";
 import eventBus from "../../EventBus";
-import Collapse from "@material-ui/core/Collapse";
+
+import account from "../../../assets/account-circle.png"
 export default function QuestionSolutionCard(props) {
   const [applicants, setApplicants] = useState([]);
   const [loader, setLoader] = useState(true);
@@ -46,136 +42,93 @@ export default function QuestionSolutionCard(props) {
         alert(err);
       });
   };
-  console.log(props);
+  console.log(applicants);
   return (
     <>
       {loader ? (
         <CircularIndeterminate />
       ) : (
-        <Card
-          class="sol-card center"
+        <Grid
+          container
+          className="card-header"
           onMouseEnter={onHover}
           onMouseLeave={onLeave}
         >
           {hover && !expanded ? (
-            <CardContent className="card-hover-content">
-              <CardActions>
-                <button
-                  className="card-hover-content-text"
-                  onClick={() => setExpanded(true)}
-                >
-                  View all Solutions
-                </button>
-              </CardActions>
-            </CardContent>
+            <Grid item md={12} className="card-hover-content">
+              <button
+                className="card-hover-content-text"
+                onClick={() => setExpanded(true)}
+              >
+                View all Solutions
+              </button>
+            </Grid>
           ) : (
             <>
-              <CardHeader
-                className="card-header"
-                title={
-                  <>
-                    <img src={IdeaIcon} className="icon" alt="idea" />
-                    <a
-                      href={`https://ipfs.io/ipfs/${applicants._id}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Work plan by {applicants.userId}
-                    </a>
-                  </>
-                }
-              />
+              <Grid item md={2} className="workplan-icon">
+                <img src={IdeaIcon} className="icon" alt="idea" />
+              </Grid>
+              <Grid item md={10} className="workplan-grid">
+                <a
+                  href={`https://ipfs.io/ipfs/${applicants._id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <p className="bounty-workplan-detail">
+                    {" "}
+                    Work plan by {applicants.userId}
+                  </p>
+                </a>
+              </Grid>
               {expanded ? (
-                <CardContent className="card-content">
-                  {applicants.solutionIds &&
-                    applicants.solutionIds.length &&
-                    applicants.solutionIds.map((solution, index) => {
-                      <>
-                        <Grid container>
-                          <Grid item md={9}>
-                            <p> {solution.userId + " submitted solution"}</p>
+                applicants.solutionIds.length ? (
+                  <Grid container className="solution-lists ">
+                    {applicants.solutionIds &&
+                      applicants.solutionIds.length &&
+                      applicants.solutionIds.map((solution, index) => {
+                        return (
+                          <>
+                          <Grid item md={2} className="bounty-solution-list-icons">
+                          <img src={account}  alt="acc" />
                           </Grid>
-                          <Grid item md={3}>
-                            <img src={GithubIcon} alt="git" />
-                          </Grid>
-                        </Grid>
-                      </>;
-                    })}
-                </CardContent>
+                            <Grid item md={7}>
+                           
+                                <p className="bounty-solution-list-p">
+                                  {" "}
+                                  {solution.userId + " submitted solution"}
+                                </p>
+                              
+                            </Grid>
+                            <Grid item md={3} className="bounty-solution-list-icons">
+                              <a
+                                href={solution._id}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                <img src={GithubIcon} alt="git" />
+                              </a>
+                            </Grid>
+                          </>
+                        );
+                      })}
+                  </Grid>
+                ) : (
+                  <Grid item md={12} className="card-content">
+                  <p className="number-solution">No solutions</p>
+                  </Grid>
+                )
               ) : (
-                <CardContent className="card-content">
+                <Grid item md={12} className="card-content">
                   <p className="number-solution">
                     {(applicants.solutionIds
                       ? applicants.solutionIds.length
                       : 0) + " Solution(s)"}
                   </p>
-
-                  {/* {applicants.solutionIds &&
-                    applicants.solutionIds.length !== 0 ? (
-                    <ul>
-                      {applicants.solutionIds &&
-                        applicants.solutionIds.length &&
-                        applicants.solutionIds.map((solution, index) => {
-                          return (
-                            <>
-                              {" "}
-                              <li>
-                                {solution.userId + " submitted "}
-                                <span>
-                                  <a
-                                    href={solution._id}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                  >
-                                    {" "}
-                                    {solution._id}
-                                  </a>
-                                </span>
-                              </li>
-                              <span>
-                                {props.isCommunityApprovedSolution &&
-                                  props.quesStage === "complete" ? (
-                                  <>
-                                    <p class="voting">
-                                      <span class="voting-score-title">
-                                        {" "}
-                                        Voting Score :
-                                      </span>{" "}
-                                      {solution.weightage}
-                                    </p>
-                                  </>
-                                ) : null}
-                              </span>
-                            </>
-                          );
-                        })}
-                    </ul>
-                  ) : (
-                    <p>No solution submitted yet!</p>
-                  )} */}
-                </CardContent>
+                </Grid>
               )}
-              {/* <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
-                <CardContent>
-                  <Grid container>
-                    {applicants.solutionIds &&
-                      applicants.solutionIds.length &&
-                      applicants.solutionIds.map((solution, index) => {
-                        <>
-                          <Grid item md={9}>
-                            <p> {solution.userId + " submitted solution"}</p>
-                          </Grid>
-                          <Grid item md={3}>
-                            <img src={GithubIcon} alt="git" />
-                          </Grid>
-                        </>;
-                      })}
-                  </Grid>
-                </CardContent>
-              </Collapse> */}
             </>
           )}
-        </Card>
+        </Grid>
       )}
     </>
   );
