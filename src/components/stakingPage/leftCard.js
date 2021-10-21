@@ -6,13 +6,6 @@ import "./stakingPageCss.css";
 
 export default function LeftCard(props) {
   console.log(props);
-  const [hover, setHover] = useState(false);
-  const onHover = () => {
-    setHover(true);
-  };
-  const onLeave = () => {
-    setHover(false);
-  };
   const handleSelectedStyle = (value) => {
     if (props.selectedWorkplan === value) {
       return "staking-workplan-card staking-selected-workplan-card";
@@ -22,15 +15,9 @@ export default function LeftCard(props) {
   };
 
   return (
-    <Grid
-      container
-     
-      className="staking-left-card"
-    >
+    <Grid container className="staking-left-card">
       <Grid item md={12} xs={12}>
-        <p className="staking-workplan-heading">
-          All Workplans Posted
-        </p>
+        <p className="staking-workplan-heading">All Workplans Posted</p>
       </Grid>
 
       {props.workplans &&
@@ -42,8 +29,6 @@ export default function LeftCard(props) {
             xs={12}
             className={handleSelectedStyle(workplan)}
             onClick={() => props.handleSelect(workplan)}
-            onMouseEnter={onHover}
-            onMouseLeave={onLeave}
           >
             <p
               className={
@@ -56,7 +41,7 @@ export default function LeftCard(props) {
                 <img
                   className="staking-icon"
                   src={
-                    props.selectedWorkplan === workplan || hover
+                    props.selectedWorkplan === workplan
                       ? ideaIconBlack
                       : ideaIcon
                   }
