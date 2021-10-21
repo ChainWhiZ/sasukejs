@@ -21,7 +21,7 @@
 .heading-text {
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1vw;
   letter-spacing: 0.01em;
 }
 
@@ -38,7 +38,7 @@
 .description {
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 1vw;
   letter-spacing: 0.04em;
 }
 .bounty-time {
@@ -278,17 +278,17 @@ hr {
   margin-left: 2%;
   margin-bottom: 7%;
 }
-
+/* 
 span a {
   text-decoration: none;
 
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 1vw;
   letter-spacing: 0.01em;
 
   color: #272727;
-}
+} */
 
 /* .sol-card {
   height: 94px;
@@ -445,3 +445,7 @@ input {
 }
 
 
+.bounty-middle-github{
+  margin-top: -3vh !important;
+  margin-left: 2vw !important;
+}

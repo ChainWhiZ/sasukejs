@@ -32,8 +32,11 @@ export default function QuestionMiddleHeading(props) {
         </Grid>
         <Grid item md={12}>
           <p class="heading color-neon">Resources/Links</p>
-
+        </Grid>
+        <Grid item md={2}>
           <img class="icon" src={GithubIcon} alt="git" />
+        </Grid>
+        <Grid item md={10} className="bounty-middle-github">
           <a
             class="link heading-text"
             href={props.githubIssueUrl}
