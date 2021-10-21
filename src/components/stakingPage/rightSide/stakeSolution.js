@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -9,11 +11,8 @@ import { port } from "../../../config/config";
 import SimpleAlerts from "../../alert/alert";
 import "../stakingPageCss.css";
 
-
 export default function StakeSolution(props) {
-
-  console.log(props)
-  const [username] = useState(localStorage.getItem("username"));
+  console.log(props);
   const [solution, setSolution] = useState({});
   const [alert, setAlert] = useState({
     open: false,
@@ -21,7 +20,6 @@ export default function StakeSolution(props) {
     severity: "error",
   });
 
- 
   useEffect(async () => {
     axios
       .post(port + "solution/fetch", {
@@ -30,7 +28,6 @@ export default function StakeSolution(props) {
       .then((response) => {
         props.handleLoader(false);
         setSolution(response.data);
-        
       })
       .catch((err) => {
         setAlert((prevState) => ({
@@ -39,34 +36,35 @@ export default function StakeSolution(props) {
           errorMessage:
             "Solution can't be loaded! Server-side issue. Sorry for the inconvenience",
         }));
-
       });
-  },[]);
+  }, []);
 
   const handleChange = (value) => {
     props.handleSetStakeDetails({
       solutionId: props.solutionId,
       solverPublicAddress: solution.publicAddress,
-      stakeAmount: value
-    })
-  }
+      stakeAmount: value,
+    });
+  };
 
   return (
     <>
-
       <>
-        <Grid item md={7} xs={12}>
+        <Grid item md={1} xs={12}>
+          <img className="staking-icon" src={avatarIcon} alt="avatar" />
+        </Grid>
+        <Grid item md={5} xs={12}>
           <p className="staking-solution">
-            <span >
-              <img className="staking-icon" src={avatarIcon} alt="avatar" />
-            </span>
             {solution.userId} submitted a solution
-            <span>
-              <img className="staking-git-icon" src={githubIcon} alt="github" />
-            </span>
           </p>
         </Grid>
-        <Grid item md={5} xs={12} style={{ marginBottom: "1.5%" }}>
+        <Grid item md={1} xs={12}>
+          <a href={props.solutionId} target="_blank" rel="noreferrer">
+            <img className="staking-git-icon" src={githubIcon} alt="github" />
+          </a>
+        </Grid>
+
+        <Grid item md={3} xs={12} style={{ marginBottom: "1.5%" }}>
           <TextField
             id="outlined-basic"
             type={"number"}
@@ -74,16 +72,20 @@ export default function StakeSolution(props) {
             size="small"
             className="staking-input"
             InputProps={{ inputProps: { min: 0, max: 10000 } }}
-            value={props.solutionId === props.stakeDetails.solutionId ? props.stakeDetails.stakeAmount : 0}
+            value={
+              props.solutionId === props.stakeDetails.solutionId
+                ? props.stakeDetails.stakeAmount
+                : 0
+            }
             onChange={(e) => handleChange(e.target.value)}
           />
-
+        </Grid>
+        <Grid item md={2} className="staking-button-grid">
           <Button
             variant="contained"
             className="staking-button"
             onClick={() => props.handleStake()}
             disabled={props.disable}
-
           >
             Stake
           </Button>
@@ -93,8 +95,5 @@ export default function StakeSolution(props) {
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
     </>
-
-
-
   );
 }

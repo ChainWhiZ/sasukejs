@@ -10,19 +10,20 @@ import CircularIndeterminate from "../loader/loader";
 import SimpleAlerts from "../alert/alert";
 import "./stakingPageCss.css";
 
-
 export default function StakingPage(props) {
-  const [username] = useState(localStorage.getItem('username'));
+  const [username] = useState(localStorage.getItem("username"));
   const [data, setData] = useState([]);
-  const [selectedWorkplan, setSelectedWorkplan] = useState(props.location.state.questionDetails.workplanIds[0]);
+  const [selectedWorkplan, setSelectedWorkplan] = useState(
+    props.location.state.questionDetails.workplanIds[0]
+  );
   const [selectedSolutions, setSelectedSolutions] = useState([]);
   const [isVoter, setIsVoter] = useState(false);
   const [loader, setLoader] = useState(true);
   const [stakeDetails, setStakeDetails] = useState({
-    solutionId: '',
-    solverPublicAddress: '',
-    stakeAmount: 0
-  })
+    solutionId: "",
+    solverPublicAddress: "",
+    stakeAmount: 0,
+  });
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -30,16 +31,13 @@ export default function StakingPage(props) {
   });
   const [disable, setDisable] = useState(false);
 
-
-
   useEffect(() => {
     axios
       .post(port + "workplan/fetchall", {
-        _id: props.location.state.questionDetails._id
+        _id: props.location.state.questionDetails._id,
       })
       .then((response) => {
-
-         setLoader(false)
+        setLoader(false);
         setData(response.data);
         setSelectedSolutions(response.data[0].solutionIds);
       })
@@ -47,7 +45,8 @@ export default function StakingPage(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
+          errorMessage:
+            "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
         }));
       });
 
@@ -56,21 +55,20 @@ export default function StakingPage(props) {
         userId: username,
       })
       .then((response) => {
-         setLoader(false);
+        setLoader(false);
         setIsVoter(response.data);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   }, []);
 
   const handleSelect = (workplan) => {
     let i = props.location.state.questionDetails.workplanIds.indexOf(workplan);
     setSelectedWorkplan(workplan);
     setSelectedSolutions(data[i].solutionIds);
-  }
-
+  };
 
   const handleStake = () => {
-    console.log(stakeDetails)
+    console.log(stakeDetails);
     console.log("in handle stake");
     setDisable(true);
     setLoader(true);
@@ -133,62 +131,68 @@ export default function StakingPage(props) {
     //     })
     //     .catch((err) => console.error(err));
     // });
-  }
+  };
 
   if (!username) {
-    return (
-      <Redirect to="/" />
-    )
+    return <Redirect to="/" />;
   }
   return (
-
-
     <>
       <hr className="horizontal-line" style={{ marginTop: "7.5%" }} />
-      {
-        loader ?
-          (<CircularIndeterminate />)
-          :
-
-
-          (
-            <>
-              <Grid container direction="row"
-                justifyContent="center"
-                alignItems="center"
-                className="staking-container">
-
-                <Grid item md={12} xs={12} className="staking-heading-box">
-                  <p>
-                    <span>
-                      <img className="staking-info-icon" src={infoIcon} alt="icon" />
-                    </span>
-                    The minimum amount needed to stake and vote on a solution is 40 CWZ. Please connect to Matic Testnet for staking and voting.
-                  </p>
-                </Grid>
-                <Grid container direction="row"
-                  justifyContent="space-evenly"
-                  alignItems="flex-start"
-                  className="staking-container">
-                  <Grid item md={4} xs={12}>
-                    <LeftCard workplans={props.location.state.questionDetails.workplanIds} handleSelect={(workplan) => handleSelect(workplan)} selectedWorkplan={selectedWorkplan} />
-                  </Grid>
-                  <Grid item md={8} xs={12}>
-
-
-                    <RightCard solutions={selectedSolutions} handleStake={handleStake} handleSetStakeDetails={setStakeDetails} stakeDetails={stakeDetails} disable={disable} />
-
-                  </Grid>
-                </Grid>
+      {loader ? (
+        <CircularIndeterminate />
+      ) : (
+        <>
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            className="staking-container"
+          >
+            <Grid item md={12} xs={12} className="staking-heading-box">
+              <p>
+                <span>
+                  <img
+                    className="staking-info-icon"
+                    src={infoIcon}
+                    alt="icon"
+                  />
+                </span>
+                The minimum amount needed to stake and vote on a solution is 40
+                CWZ. Please connect to Matic Testnet for staking and voting.
+              </p>
+            </Grid>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-evenly"
+              alignItems="flex-start"
+              className="staking-container"
+            >
+              <Grid item md={4} xs={12}>
+                <LeftCard
+                  workplans={props.location.state.questionDetails.workplanIds}
+                  handleSelect={(workplan) => handleSelect(workplan)}
+                  selectedWorkplan={selectedWorkplan}
+                />
               </Grid>
-            </>
-          )}
+              <Grid item md={8} xs={12}>
+                <RightCard
+                  solutions={selectedSolutions}
+                  handleStake={handleStake}
+                  handleSetStakeDetails={setStakeDetails}
+                  stakeDetails={stakeDetails}
+                  disable={disable}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </>
+      )}
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-
     </>
-
-
   );
 }
