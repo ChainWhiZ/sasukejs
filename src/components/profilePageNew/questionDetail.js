@@ -1,0 +1,50 @@
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import "./profilePageCss.css"
+
+export default function QuestionDetail(props) {
+  return (
+    <>
+      <Grid container className="profile-question-detail-grid">
+        <Grid item md={12}>
+          <p >Title</p>
+          <p >{props.questionTitle}</p>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+        >
+          <Grid item md={12}>
+            <p >Categories</p>
+          </Grid>
+          {props.questionCategories &&
+            props.questionCategories.length &&
+            props.questionCategories.map((category) => (
+              <Grid item md={4}>
+                <p style={{ marginTop: "1%" }}>
+                  {category}
+                </p>
+              </Grid>
+            ))}
+        </Grid>
+        <Grid item md={12}>
+          <p >Resources/Links</p>
+        </Grid>
+        <Grid item md={2}>
+          {/* <img class="icon" src={GithubIcon} alt="git" /> */}
+        </Grid>
+        <Grid item md={10}>
+          <a
+            href={props.githubIssueUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Github Repo
+          </a>
+        </Grid>
+      </Grid>
+    </>
+  );
+}

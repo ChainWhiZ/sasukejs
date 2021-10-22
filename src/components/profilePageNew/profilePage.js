@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { Redirect } from "react-router-dom";
 import MenuBar from "../explore/menuBar";
 import Heading from "./heading";
+import ProfileTabs from "./tabs";
 import "./profilePageCss.css"
 
 
@@ -16,7 +17,7 @@ export default function ProfilePage(props) {
     
     return (
 
-            <Grid container direction="column">
+            <Grid container >
                 <Grid item md={12} xs={12}>
                    <hr className="horizontal-line" style={{ marginTop: "8vw" }} />
                 </Grid>
@@ -25,10 +26,14 @@ export default function ProfilePage(props) {
                    <MenuBar/>
                 </Grid>
                
-                <Grid item md={8} xs={12} className="profile-right-grid">
+                <Grid item md={8} xs={12}>
                 
                 <Grid item md={12} xs={12}>
                     <Heading/>
+              
+                </Grid>
+                <Grid item md={12} xs={12}>
+                    <ProfileTabs/>
               
                 </Grid>
                 </Grid>

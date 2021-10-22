@@ -8,6 +8,32 @@ border-radius: 11px;
  margin-top:15%;   
 }
 
-.profile-right-grid{
+/* .profile-right-grid{
     margin:2% 0% 2% 1% !important;
+} */
+
+.profile-tab-heading{
+    font-family: Poppins !important;
+font-style: normal !important;
+font-weight: normal !important;
+font-size: 18px !important;
+color: #FFFFFF !important;
+text-transform: none !important;
+opacity: 0.68;
+}
+.profile-question-detail-grid{
+    background: #131313 ;
+border-radius: 11px ;
+}
+.profile-question-stage-grid{
+    background: #131313;
+border-radius: 11px;
+}
+.profile-button{
+    background: #D4FF1F !important;
+border-radius: 6px !important;
+font-family: Poppins !important;
+font-style: normal !important;
+font-weight: 600 !important;
+text-transform: none !important;
 }
