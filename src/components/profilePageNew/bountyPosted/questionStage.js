@@ -48,7 +48,7 @@ export default function QuestionStage(props) {
           </>
         ) : null}
       </Grid>
-      <Grid item md={12} style={{marginLeft:"4vw"}}>
+      <Grid item md={12} style={{ textAlign:"center"}}>
         {props.isCommunityApprovedSolution ? (
           props.questionStage === "complete" ? (
             <Button className="profile-button">View Results</Button>

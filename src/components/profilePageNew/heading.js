@@ -21,7 +21,7 @@ export default function Heading(props) {
         md={12}
         xs={12}
         className="profile-content-style profile-sub-info"
-        style={{ fontSize: "1.3vw" }}
+       
       >
         <p>{localStorage.getItem("username")}</p>
       </Grid>

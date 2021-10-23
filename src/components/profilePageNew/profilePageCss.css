@@ -35,7 +35,7 @@
   background: #131313;
   border-radius: 11px;
   width: 44vw !important;
-  height: 40vh !important;
+  height: 43vh !important;
   margin: 6% 2% 2% 2%;
   padding: 4% 4% 4% 5%;
 }
@@ -45,7 +45,7 @@
   width: 17vw !important;
   margin: 9% 2% 2% 8%;
   padding: 6% 4% 8% 4%;
-  height: 39.5vh;
+  height: 42vh;
   margin-left:9vw ;
 }
 .profile-button {
@@ -55,7 +55,7 @@
   font-style: normal !important;
   font-weight: 600 !important;
   text-transform: none !important;
-  width: 75%;
+  font-size: 1vw !important;
   
 }
 .profile-content-style {
@@ -75,7 +75,7 @@
 }
 
 .PrivateTabIndicator-colorSecondary-7 {
-  background-color: transparent !important;
+  background-color: black !important;
 }
 .profile-pae-github{
     margin-left: -4vw !important;
@@ -83,4 +83,5 @@
 
 .profile-sub-info{
     margin-left: 1vw !important;
+    font-size: 1.3vw  !important;
 }
