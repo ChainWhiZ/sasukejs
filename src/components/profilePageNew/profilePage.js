@@ -26,7 +26,7 @@ export default function ProfilePage(props) {
                    <MenuBar type={'profile'}/>
                 </Grid>
                
-                <Grid item md={8} xs={12} style={{marginLeft:"-6%"}}>
+                <Grid container item md={8} xs={12} style={{marginLeft:"-6%", marginTop:"2%"}}>
                 
                 <Grid item md={12} xs={12}>
                     <Heading/>
