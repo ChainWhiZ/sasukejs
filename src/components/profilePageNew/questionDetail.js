@@ -7,8 +7,8 @@ export default function QuestionDetail(props) {
     <>
       <Grid container className="profile-question-detail-grid">
         <Grid item md={12}>
-          <p >Title</p>
-          <p >{props.questionTitle}</p>
+          <p className="profile-text-style">Title</p>
+          <p className="profile-content-style">{props.questionTitle}</p>
         </Grid>
         <Grid
           container
@@ -17,20 +17,20 @@ export default function QuestionDetail(props) {
           alignItems="center"
         >
           <Grid item md={12}>
-            <p >Categories</p>
+            <p className="profile-text-style">Categories</p>
           </Grid>
           {props.questionCategories &&
             props.questionCategories.length &&
             props.questionCategories.map((category) => (
               <Grid item md={4}>
-                <p style={{ marginTop: "1%" }}>
+                <p className="profile-content-style">
                   {category}
                 </p>
               </Grid>
             ))}
         </Grid>
         <Grid item md={12}>
-          <p >Resources/Links</p>
+          <p className="profile-text-style">Resources/Links</p>
         </Grid>
         <Grid item md={2}>
           {/* <img class="icon" src={GithubIcon} alt="git" /> */}
@@ -40,6 +40,7 @@ export default function QuestionDetail(props) {
             href={props.githubIssueUrl}
             target="_blank"
             rel="noreferrer"
+            className="profile-content-style"
           >
             Github Repo
           </a>

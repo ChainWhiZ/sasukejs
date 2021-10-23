@@ -17,12 +17,12 @@ export default function QuestionStage(props) {
             className="profile-question-stage-grid"
         >
             <Grid item md={12}>
-                <p>Bounty Amount</p>
-                <p>{props.bountyReward}</p>
+                <p className="profile-text-style">Bounty Amount</p>
+                <p className="profile-content-style">{props.bountyReward}</p>
             </Grid>
             <Grid item md={12}>
-                <p>Winning Solution</p>
-                <p>mishramonalisha76</p>
+                <p className="profile-text-style">Winning Solution</p>
+                <p className="profile-content-style">mishramonalisha76</p>
             </Grid>
             <Grid item md={12} >
 

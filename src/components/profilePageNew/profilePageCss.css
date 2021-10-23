@@ -11,7 +11,15 @@ border-radius: 11px;
 /* .profile-right-grid{
     margin:2% 0% 2% 1% !important;
 } */
+.profile-text-style{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+letter-spacing: 0.01em;
 
+color: #D4FF1E;
+}
 .profile-tab-heading{
     font-family: Poppins !important;
 font-style: normal !important;
@@ -36,4 +44,11 @@ font-family: Poppins !important;
 font-style: normal !important;
 font-weight: 600 !important;
 text-transform: none !important;
+}
+.profile-content-style{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+letter-spacing: 0.01em;
 }
