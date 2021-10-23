@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import QuestionPost from "./questionPost/questionPost";
 import QuestionPage from "./questionPage/questionPage";
-import VotingPage from "./votingPage/votingPage";
+
 import ProfilePage from "./profilePageNew/profilePage";
 import Landing from "./landing/landing";
 import Navbar from "./navbar/navbar";

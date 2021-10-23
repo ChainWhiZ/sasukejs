@@ -1,11 +1,11 @@
 .profile-heading-grid{
  
 background: #131313;
-border-radius: 11px;   
+border-radius: 11px; 
 }
 
 .profile-account-icon{
- margin-top:15%;   
+ margin-top:20%;   
 }
 
 /* .profile-right-grid{
@@ -28,14 +28,23 @@ font-size: 18px !important;
 color: #FFFFFF !important;
 text-transform: none !important;
 opacity: 0.68;
+margin-right: 3% !important;
 }
 .profile-question-detail-grid{
     background: #131313 ;
 border-radius: 11px ;
+background: #131313;
+border-radius: 11px;
+width: 38vw!important;
+margin: 6% 2% 2% 2%  ;
+padding: 4% 4% 4% 5%;
 }
 .profile-question-stage-grid{
     background: #131313;
 border-radius: 11px;
+width: 17vw!important;
+margin: 9% 2% 2% 8% ;
+padding: 6% 4% 8% 4%;
 }
 .profile-button{
     background: #D4FF1F !important;
@@ -51,4 +60,7 @@ font-style: normal;
 font-weight: 600;
 font-size: 16px;
 letter-spacing: 0.01em;
+}
+.profile-text-center{
+    text-align: center;
 }

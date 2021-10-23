@@ -6,7 +6,8 @@ import accountCircle from "../../assets/account-circle.png";
 import postBounty from "../../assets/post_bounty.png";
 import solveBounty from "../../assets/solve_bounty.png";
 import voteBounty from "../../assets/vote_bounty.png";
-import profile from "../../assets/profile.png";
+import whiteProfile from "../../assets/profile.png";
+import blackProfile from "../../assets/black_profile.png";
 import whiteSolveBounty from "../../assets/white_solve_bounty.png";
 import blackVoteBounty from "../../assets/black_vote_bounty.png";
 
@@ -85,9 +86,20 @@ export default function MenuBar(props) {
           </Grid>
         </Link>
         <Link to="/profile">
-          <Grid item md={12} className="grid-item">
-            <img src={profile} alt="profile" />
-            <p className="menubar-items">Your Profile</p>
+          <Grid
+            item md={12}
+            className={
+              props.type === "profile" ? "grid-item active" : "grid-item"
+            }>
+            <img
+              src={props.type === "profile" ? blackProfile : whiteProfile}
+              alt="profile"
+            />
+            <p
+              className={
+                props.type === "profile"
+                  ? "menubar-items p-active"
+                  : "menubar-items"}>Your Profile</p>
           </Grid>
         </Link>
       </Grid>

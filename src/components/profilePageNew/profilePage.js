@@ -22,16 +22,17 @@ export default function ProfilePage(props) {
                    <hr className="horizontal-line" style={{ marginTop: "8vw" }} />
                 </Grid>
                
-                <Grid item md={4} xs={12}>
-                   <MenuBar/>
+                <Grid item md={4} xs={12} >
+                   <MenuBar type={'profile'}/>
                 </Grid>
                
-                <Grid item md={8} xs={12}>
+                <Grid item md={8} xs={12} style={{marginLeft:"-6%"}}>
                 
                 <Grid item md={12} xs={12}>
                     <Heading/>
               
                 </Grid>
+                <br/>
                 <Grid item md={12} xs={12}>
                     <ProfileTabs/>
               

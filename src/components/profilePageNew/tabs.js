@@ -52,7 +52,7 @@ export default function ProfileTabs() {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab  className="profile-tab-heading" label="Bounties Posted" {...a11yProps(0)} />
           <Tab  className="profile-tab-heading" label="Bounties Solved" {...a11yProps(1)} />
-          <Tab  className="profile-tab-heading" label="Voting" {...a11yProps(2)} />
+          <Tab  className="profile-tab-heading" style={{marginLeft:"-3%"}} label="Voting" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

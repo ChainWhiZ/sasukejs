@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import GithubIcon from "../../assets/githubIcon.png";
 import "./profilePageCss.css"
 
 export default function QuestionDetail(props) {
@@ -23,7 +24,7 @@ export default function QuestionDetail(props) {
             props.questionCategories.length &&
             props.questionCategories.map((category) => (
               <Grid item md={4}>
-                <p className="profile-content-style">
+                <p className="profile-content-style" style={{ marginTop: "1%" }}>
                   {category}
                 </p>
               </Grid>
@@ -33,7 +34,7 @@ export default function QuestionDetail(props) {
           <p className="profile-text-style">Resources/Links</p>
         </Grid>
         <Grid item md={2}>
-          {/* <img class="icon" src={GithubIcon} alt="git" /> */}
+          <img class="icon" src={GithubIcon} alt="git" />
         </Grid>
         <Grid item md={10}>
           <a
@@ -41,6 +42,7 @@ export default function QuestionDetail(props) {
             target="_blank"
             rel="noreferrer"
             className="profile-content-style"
+            style={{marginLeft:"-12%"}}
           >
             Github Repo
           </a>

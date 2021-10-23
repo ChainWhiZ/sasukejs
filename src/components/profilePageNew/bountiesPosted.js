@@ -32,7 +32,7 @@ export default function BountyPosted(props) {
     console.log(data)
     return (
 
-        <Grid container  >
+        <Grid container style={{marginLeft:"-1%"}} >
             {data.map(question =>
                 <>
                     <Grid item md={7} xs={12} >
