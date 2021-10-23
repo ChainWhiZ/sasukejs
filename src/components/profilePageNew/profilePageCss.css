@@ -83,5 +83,10 @@
 
 .profile-sub-info{
     margin-left: 1vw !important;
-    font-size: 1vw  !important;
+    
+}
+
+
+.profile-bounty-username{
+  font-size: 1.3vw !important;
 }

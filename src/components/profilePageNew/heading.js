@@ -20,7 +20,7 @@ export default function Heading(props) {
         item
         md={12}
         xs={12}
-        className="profile-content-style profile-sub-info"
+        className="profile-content-style profile-sub-info profile-bounty-username"
        
       >
         <p>{localStorage.getItem("username")}</p>
