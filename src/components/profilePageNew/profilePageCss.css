@@ -1,66 +1,86 @@
-.profile-heading-grid{
- 
-background: #131313;
-border-radius: 11px; 
+.profile-heading-grid {
+  background: #131313 !important;
+  border-radius: 11px !important;
+  height: 39vh !important;
 }
 
-.profile-account-icon{
- margin-top:20%;   
+.profile-account-icon {
+  margin-top: -6%;
+  margin-left: 2%;
 }
 
 /* .profile-right-grid{
     margin:2% 0% 2% 1% !important;
 } */
-.profile-text-style{
-    font-family: Poppins;
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-letter-spacing: 0.01em;
+.profile-text-style {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.01em;
 
-color: #D4FF1E;
+  color: #d4ff1e;
 }
-.profile-tab-heading{
-    font-family: Poppins !important;
-font-style: normal !important;
-font-weight: normal !important;
-font-size: 18px !important;
-color: #FFFFFF !important;
-text-transform: none !important;
-opacity: 0.68;
-margin-right: 3% !important;
+.profile-tab-heading {
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 18px !important;
+  color: #ffffff !important;
+  text-transform: none !important;
+  opacity: 0.68;
+  margin-right: 3% !important;
 }
-.profile-question-detail-grid{
-    background: #131313 ;
-border-radius: 11px ;
-background: #131313;
-border-radius: 11px;
-width: 38vw!important;
-margin: 6% 2% 2% 2%  ;
-padding: 4% 4% 4% 5%;
+.profile-question-detail-grid {
+  background: #131313;
+  border-radius: 11px;
+  width: 44vw !important;
+  height: 40vh !important;
+  margin: 6% 2% 2% 2%;
+  padding: 4% 4% 4% 5%;
 }
-.profile-question-stage-grid{
-    background: #131313;
-border-radius: 11px;
-width: 17vw!important;
-margin: 9% 2% 2% 8% ;
-padding: 6% 4% 8% 4%;
+.profile-question-stage-grid {
+  background: #131313;
+  border-radius: 11px;
+  width: 17vw !important;
+  margin: 9% 2% 2% 8%;
+  padding: 6% 4% 8% 4%;
+  height: 39.5vh;
+  margin-left:9vw ;
 }
-.profile-button{
-    background: #D4FF1F !important;
-border-radius: 6px !important;
-font-family: Poppins !important;
-font-style: normal !important;
-font-weight: 600 !important;
-text-transform: none !important;
+.profile-button {
+  background: #d4ff1f !important;
+  border-radius: 6px !important;
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  width: 75%;
+  
 }
-.profile-content-style{
-    font-family: Poppins;
-font-style: normal;
-font-weight: 600;
-font-size: 16px;
-letter-spacing: 0.01em;
+.profile-content-style {
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 1vw !important;
+  letter-spacing: 0.01em !important;
+  margin-left: 0vw !important;
+  line-height: 3vh !important;
 }
-.profile-text-center{
-    text-align: center;
+.profile-text-center {
+  text-align: center;
+  
+}
+.profile-bounty-reward{
+    font-size: 2vw !important;
+}
+
+.PrivateTabIndicator-colorSecondary-7 {
+  background-color: transparent !important;
+}
+.profile-pae-github{
+    margin-left: -4vw !important;
+}
+
+.profile-sub-info{
+    margin-left: 1vw !important;
 }

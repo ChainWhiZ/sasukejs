@@ -35,7 +35,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -47,14 +47,35 @@ export default function ProfileTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab  className="profile-tab-heading" label="Bounties Posted" {...a11yProps(0)} />
-          <Tab  className="profile-tab-heading" label="Bounties Solved" {...a11yProps(1)} />
-          <Tab  className="profile-tab-heading" style={{marginLeft:"-3%"}} label="Voting" {...a11yProps(2)} />
+    <Box>
+      <Box>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab
+            className="profile-tab-heading"
+            label="Bounties Posted"
+            {...a11yProps(0)}
+          />
+          <Tab
+            className="profile-tab-heading"
+            label="Bounties Solved"
+            {...a11yProps(1)}
+          />
+          <Tab
+            className="profile-tab-heading"
+            style={{ marginLeft: "-3%" }}
+            label="Voting"
+            {...a11yProps(2)}
+          />
         </Tabs>
       </Box>
+      <hr
+        className="question-hr"
+        style={{ marginTop: "1vh", marginLeft: "0.6vw" , width:"100%"}}
+      />
       <TabPanel value={value} index={0}>
         <BountyPosted />
       </TabPanel>
