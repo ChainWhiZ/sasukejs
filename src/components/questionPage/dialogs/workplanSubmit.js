@@ -8,11 +8,13 @@ import SimpleAlerts from "../../alert/alert";
 import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
 import { port } from "../../../config/config";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../../recoil/atoms";
 
 export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [buffer, setBuffer] = useState("");
-  const [username] = localStorage.getItem("username");
+  const username = useRecoilValue(usernameAtom);
   const [loader, setLoader] = useState(false);
   const [alert, setAlert] = useState({
     open: false,
@@ -52,7 +54,7 @@ export default function WorkplanSubmit(props) {
     });
     axios
       .post(port + "workplan/save", {
-        githubId: localStorage.getItem("username"),
+        githubId: username,
         workplan: uploadedFile.hash,
         questionId: props.questionId,
       })
