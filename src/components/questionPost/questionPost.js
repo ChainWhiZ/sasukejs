@@ -6,6 +6,7 @@ import { port } from "../../config/config";
 import { text } from "../../constants";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom} from "../../recoil/atoms";
+import { Redirect } from "react-router-dom";
 import { walletAddress as walletAddressAtom} from "../../recoil/atoms";
 
 export default function QuestionPost() {
@@ -198,6 +199,10 @@ export default function QuestionPost() {
         })
         .then(function () {});
     }
+  }
+
+  if (!username) {
+    return <Redirect to="/" />;
   }
 
   return (
