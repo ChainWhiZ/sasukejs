@@ -11,6 +11,8 @@ import "./questionPage.css";
 import { Redirect } from "react-router-dom";
 import SimpleAlerts from "../alert/alert";
 import { port } from "../../config/config";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../recoil/atoms";
 
 export default function QuestionPage(props) {
   const [data, setData] = useState({});
@@ -20,8 +22,7 @@ export default function QuestionPage(props) {
     errorMessage: "",
     severity: "error",
   });
-  const [username] = useState(localStorage.getItem("username"));
-
+  const username = useRecoilValue(usernameAtom);
   useEffect(() => {
     fetchQuestion();
   }, [data._id]);

@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import RouterComponent from "./components/router";
+import { RecoilRoot } from "recoil";
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterComponent />
+    <RecoilRoot>
+      <RouterComponent />
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root")
 );

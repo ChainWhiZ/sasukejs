@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import logo from "../../assets/new-logo.svg";
-import walletIcon from "../../assets/wallet.png";
 import accountIcon from "../../assets/account-circle.png";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import Login from "./login";
 import "./navbar.css";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../recoil/atoms";
+import ConnectWallet from "./connectWallet";
 export default function Navbar() {
-  let [username, setUsername] = useState(localStorage.getItem("username"));
+  const username = useRecoilValue(usernameAtom);
   return (
     <AppBar>
       <Toolbar
@@ -60,7 +62,7 @@ export default function Navbar() {
             </Link>
           </Grid>
           <Grid item md={1} xs={12} className="walletIcon">
-            <img src={walletIcon} alt="walletIcon" />
+            <ConnectWallet/>
           </Grid>
           {username ? (
             <Grid item md={2} xs={12} className="accountIcon">

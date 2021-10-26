@@ -4,6 +4,9 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { port } from "../../config/config";
 import { text } from "../../constants";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom} from "../../recoil/atoms";
 
 export default function QuestionPost() {
   let history = useHistory();
@@ -19,12 +22,12 @@ export default function QuestionPost() {
     undertaking2: false,
   });
   const [communityReward, setCommunityReward] = useState(0);
-
+ const walletAddress = useRecoilValue(walletAddressAtom);
   const [alert, setAlert] = useState({
     isValid: false,
     errorMessage: "",
   });
-  const [username, setUsername] = useState(localStorage.getItem("username"));
+  const username = useRecoilValue(usernameAtom);
 
   function handleGithubIssueValidation() {
     return axios
@@ -171,7 +174,7 @@ export default function QuestionPost() {
           return axios
             .post(port + "question/save", {
               githubId: username,
-              // publicAddress: walletAddress,
+              publicAddress: walletAddress,
               questionTitle: issueTitle,
               githubIssueUrl: issueURL,
               timeEnd: timeEnd,

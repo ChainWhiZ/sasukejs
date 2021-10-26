@@ -8,12 +8,16 @@ import RightCard from "./rightSide/rightCard";
 import infoIcon from "../../assets/info.png";
 import CircularIndeterminate from "../loader/loader";
 import SimpleAlerts from "../alert/alert";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom} from "../../recoil/atoms";
 import "./stakingPageCss.css";
 
 export default function StakingPage(props) {
   console.log(props)
-  const [username] = useState(localStorage.getItem("username"));
+  const username = useRecoilValue(usernameAtom);
   const [data, setData] = useState([]);
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [selectedWorkplan, setSelectedWorkplan] = useState(
     props.location.state.questionDetails.workplanIds[0]
   );

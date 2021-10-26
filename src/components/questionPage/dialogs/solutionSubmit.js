@@ -21,14 +21,18 @@ import SimpleAlerts from "../../alert/alert";
 import LinearIndeterminate from "../../loader/linearLoader";
 import { port } from "../../../config/config";
 import eventBus from "../../EventBus";
-import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../../recoil/atoms";
+import { walletAddress as walletAddressAtom} from "../../../recoil/atoms";
+
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [scroll] = useState("paper");
-  const [walletAddress, setWalletAddress] = useState("");
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [solutions, setSolution] = useState([]);
   const [contract, setContract] = useState("");
   const [loader, setLoader] = useState(false);
+  const username = useRecoilValue(usernameAtom);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -37,9 +41,6 @@ export default function SolutionSubmit(props) {
   const reg = /https?:\/\/github\.com\/(?:[^\\/\s]+\/)\/(?:[^\\/\s]+\/)/;
   useEffect(async () => {
     await initiliaseWeb3();
-    await fetchAccount(function (result) {
-      setWalletAddress(result[0]);
-    });
     setContract(await initiliaseContract());
   }, []);
 
@@ -130,7 +131,7 @@ export default function SolutionSubmit(props) {
       .then(async function () {
         return await axios
           .post(port + "solution/save", {
-            githubId: localStorage.getItem("username"),
+            githubId: username,
             address: walletAddress,
             githubLink: solution,
             _id: workplanId,
