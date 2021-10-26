@@ -15,9 +15,7 @@ export default function ConnectWallet() {
     const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
     const [connectWallet, setConnectWallet] = useState(false);
     const [open, setOpen] = useState(false);
-
-
-
+   
     const handleConnectWalletClick = async () => {
         setConnectWallet(false);
         await initiliaseWeb3();
