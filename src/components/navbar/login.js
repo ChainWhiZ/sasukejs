@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { port } from "../../config/config";
+import { useRecoilState } from "recoil";
+import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function Login() {
-    localStorage.setItem("username", "mishramonalisha76");
+  const [username, setUsername] = useRecoilState(usernameAtom);
   useEffect(() => {
     const url = window.location.href;
     const hasCode = url.includes("?code=");
@@ -14,7 +16,7 @@ export default function Login() {
       axios
         .post(port + "authenticate/user", { code: token })
         .then((response) => {
-          localStorage.setItem("username", response.data.doc.githubId);
+          setUsername(response.data.doc.githubId)
           window.history.pushState({}, {}, "/");
           window.location.reload();
         });

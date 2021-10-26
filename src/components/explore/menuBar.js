@@ -9,15 +9,18 @@ import voteBounty from "../../assets/vote_bounty.png";
 import profile from "../../assets/profile.png";
 import whiteSolveBounty from "../../assets/white_solve_bounty.png";
 import blackVoteBounty from "../../assets/black_vote_bounty.png";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../recoil/atoms";
 
 export default function MenuBar(props) {
+  const username = useRecoilValue(usernameAtom);
   console.log(props);
   return (
     <>
       <Grid container className="menubar">
         <Grid item md={12} className="menubar-usergrid" >
           <img src={accountCircle} alt="account" />
-          <p className="menubar-username">{localStorage.getItem("username")}</p>
+          <p className="menubar-username">{username}</p>
         </Grid>
 
         <Link to="/post">
