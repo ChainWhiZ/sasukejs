@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import QuestionDetail from "./questionDetail";
+import QuestionDetail from "../questionDetail";
 import axios from "axios";
-import { port } from "../../config/config";
+import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
-import "./profilePageCss.css"
+import "../profilePageCss.css"
 
 
 
