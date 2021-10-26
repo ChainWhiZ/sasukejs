@@ -3,21 +3,23 @@ import Grid from "@material-ui/core/Grid";
 import QuestionDetail from "../questionDetail";
 import axios from "axios";
 import { port } from "../../../config/config";
-import QuestionStage from "./questionStage";
+import QuestionStage from "../bountyPosted/questionStage";
 import "../profilePageCss.css"
+import StakeSolution from "../../stakingPage/rightSide/stakeSolution";
 
 
 
-export default function BountyPosted(props) {
+export default function BountySolved(props) {
     const [username] = useState(localStorage.getItem('username'));
     const [data, setData] = useState([]);
     useEffect(() => {
         axios
-            .post(port + "user/questions", {
+            .post(port + "user/solutions", {
                 githubId: username
             })
             .then((response) => {
                 // setLoader(false);
+                console.log(response)
                 setData(response.data);
             })
             .catch((err) => {
@@ -29,16 +31,17 @@ export default function BountyPosted(props) {
                 // setLoader(false);
             });
     }, []);
+    console.log(data)
     return (
 
         <Grid container style={{marginLeft:"-1%"}} >
-            {data.map(question =>
+            {data.map(solution =>
                 <>
                     <Grid item md={7} xs={12} >
-                        <QuestionDetail {...question} />
+                        <QuestionDetail {...solution.questionId} />
                     </Grid>
                     <Grid item md={5} xs={12}  >
-                        <QuestionStage {...question}/>
+                        <QuestionStage {...solution.questionId}/>
                     </Grid>
                 </>
             )}

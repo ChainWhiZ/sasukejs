@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import BountyPosted from "./bountyPosted/bountiesPosted";
+import BountySolved from './bountySolved/bountySolved';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,6 +53,7 @@ export default function ProfileTabs() {
         <Tabs
           value={value}
           onChange={handleChange}
+          style={{marginLeft:"2%"}}
           aria-label="basic tabs example"
         >
           <Tab
@@ -80,7 +82,7 @@ export default function ProfileTabs() {
         <BountyPosted />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <BountySolved />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
