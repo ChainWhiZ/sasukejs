@@ -8,15 +8,6 @@ export default function QuestionStage(props) {
 
   return (
     <Grid container  className="profile-question-stage-grid">
-      <Grid item md={12} style={{ textAlign: "center" }}>
-        <p className="profile-text-style">Bounty Amount</p>
-        <p
-          className="profile-content-style profile-text-center profile-bounty-reward"
-          style={{ marginTop: "1%" }}
-        >
-          {props.bountyReward} MATIC
-        </p>
-      </Grid>
       <Grid item md={12}>
       <p
               className="profile-text-style profile-text-center"
