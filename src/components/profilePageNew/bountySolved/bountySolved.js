@@ -3,9 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import QuestionDetail from "../questionDetail";
 import axios from "axios";
 import { port } from "../../../config/config";
-import QuestionStage from "../bountyPosted/questionStage";
+import QuestionStage from "./questionStage";
 import "../profilePageCss.css"
-import StakeSolution from "../../stakingPage/rightSide/stakeSolution";
 
 
 
@@ -41,7 +40,7 @@ export default function BountySolved(props) {
                         <QuestionDetail {...solution.questionId} />
                     </Grid>
                     <Grid item md={5} xs={12}  >
-                        <QuestionStage {...solution.questionId}/>
+                        <QuestionStage {...solution}/>
                     </Grid>
                 </>
             )}

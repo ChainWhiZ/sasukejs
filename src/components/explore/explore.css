@@ -17,13 +17,14 @@
   }
 }
 .menubar-username {
+  color: white;
   font-size: 1.2vw;
   font-style: normal;
   font-weight: 500;
   line-height: 5vh;
   letter-spacing: 0.03em;
   text-align: left;
-  margin-top: -5.6vh;
+  margin-top: -5.1vh;
   margin-left: 4vw;
 }
 .menubar-items {
