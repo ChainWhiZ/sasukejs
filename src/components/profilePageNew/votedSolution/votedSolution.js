@@ -6,10 +6,11 @@ import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import "../profilePageCss.css"
+import { propTypes } from "react-markdown";
 
 
 
-export default function BountySolved(props) {
+export default function VotedSolution() {
     const [username] = useState(localStorage.getItem('username'));
     const [data, setData] = useState([]);
     const [alert, setAlert] = useState({
@@ -17,42 +18,39 @@ export default function BountySolved(props) {
         errorMessage: "",
         severity: "error",
     });
+   
     useEffect(() => {
-      fetchSolutions();
+       fetchVotedSolutions();
     }, []);
-    console.log(data)
-    
-    const fetchSolutions = () =>{
-        console.log("hiiii")
+    const fetchVotedSolutions =() =>{
         axios
-        .post(port + "user/solutions", {
+        .post(port + "user/votedetails", {
             githubId: username
         })
         .then((response) => {
             // setLoader(false);
-            console.log(response)
+            console.log(response.data)
             setData(response.data);
         })
         .catch((err) => {
-            setAlert((prevState) => ({
-                ...prevState,
-                open: true,
-                errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
-            }));
             // setLoader(false);
+            // setAlert((prevState) => ({
+            //   ...prevState,
+            //   open: true,
+            //   errorMessage: "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
+            // }));
         });
     }
-
     return (
         <>
             <Grid container style={{ marginLeft: "-1%" }} >
-                {data.map(solution =>
+                {data.map(votedOn =>
                     <>
                         <Grid item md={7} xs={12} >
-                            <QuestionDetail {...solution.questionId} />
+                            <QuestionDetail {...votedOn.questionDetails} />
                         </Grid>
                         <Grid item md={5} xs={12}  >
-                            <QuestionStage {...solution} fetchSolutions={fetchSolutions} />
+                            <QuestionStage {...votedOn} fetchVotedSolutions={fetchVotedSolutions}/>
                         </Grid>
                     </>
                 )}

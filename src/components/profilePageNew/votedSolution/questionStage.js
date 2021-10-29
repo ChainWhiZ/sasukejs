@@ -34,45 +34,37 @@ export default function QuestionStage(props) {
     }
   }, []);
 
-  const handleComplete = () => {
+  const handleUnstake = () => {
     // setLoader(true);
     // return Promise.resolve()
     //   .then(async function () {
-    //     await contract.methods
-    //       .transferMoney(props.questionId.publisherAddress, props.questionId.questionUrl)
-    //       .send({ from: walletAddress })
-    //       .on("error", function () {
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error",
-    //         }));
-    //       });
+    //     await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,
+    //       props.solutionVotedOn.questionDetails.githubIssueUrl,
+    //       props.solutionVotedOn.solutionId.publicAddress,
+    //       (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
     //   })
     //   .then(async function () {
     //     axios
-    //       .post(port + "escrow/complete", {
-    //         _id: props.escrowId,
+    //       .post(port + "vote/updatereward", {
+    //         voterId: props.solutionVotedOn.voterId,
+    //         solutionId: props.solutionVotedOn.solutionId._id,
     //       })
     //       .then((response) => {
-    //         props.fetchSolutions();
-    //         console.log(response.status);
+    //         console.log(response.status)
+    //         props.fetchVotedSolutions();
     //         setLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
     //       })
     //       .catch((err) => {
-    //         setAlert((prevState) => ({
+    //         setAlert(prevState => ({
     //           ...prevState,
     //           open: true,
-    //           errorMessage: "Error",
+    //           errorMessage: "Error while unstaking reward"
     //         }));
     //         setLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
     //       });
-    //   });
-  };
+    //   })
+
+  }
 
   return (
     <>
@@ -83,64 +75,36 @@ export default function QuestionStage(props) {
           >
             Status
           </p>
-          {props.questionId.questionStage === "solve" ? (
-            <>
-
-              <p className="profile-content-style profile-text-center">
-                Solving Phase In Progress
-              </p>
-            </>
-          ) : props.questionId.questionStage === "vote" ? (
+          {props.questionDetails.questionStage === "vote" ? (
             <>
 
               <p className="profile-content-style profile-text-center">
                 Voting Phase In Progress
               </p>
             </>
-          ) : props.questionId.questionStage === "complete" ? (
+          ):(
             <>
 
               <p className="profile-content-style profile-text-center">
                 Completed
               </p>
             </>
-          ) : null}
+          )}
         </Grid>
-        <Grid item md={6}>
-          <p  className="profile-text-style profile-text-center">Your Solution</p>
-          <a
-            href={props._id}
-            target="_blank"
-            rel="noreferrer"
-            className="profile-content-style"
-          >
-
-            <img class="icon" src={GithubIcon} alt="git" style={{ marginTop: "-2%" }} />
-          </a>
+        <Grid item md={6} >
+          <p className="profile-text-style profile-text-center">Amount Staked</p>
+           <p className="profile-content-style profile-text-center">{props.amountStaked}</p>
         </Grid>
-        <Grid item md={6}  >
+        <Grid item md={6} >
 
-          <p className="profile-text-style profile-text-center">Winning Solution</p>
-          {props.questionId.selectedSolutionId ?
-            (<a
-              href={props.questionId.selectedSolutionId}
-              target="_blank"
-              rel="noreferrer"
-              className="profile-content-style"
-            >
-
-              <img class="icon" src={GithubIcon} alt="git" style={{ marginTop: "-2%" }} />
-            </a>)
-            :
-            (<p className="profile-content-style" style={{ marginTop: "-3%" }}>NA</p>)
-          }
+        <p className="profile-text-style profile-text-center">Unstake Amount</p>
+           <p className="profile-content-style profile-text-center">{props.amountToBeReturned}</p>
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
           {
-            props.escrowId && escrow.escrowStatus !== "Complete" ? (
-              <Button className="profile-button" onClick={handleComplete}
-              disabled={props.escrowStatus === "Initiation" ? true : false}>
-                {props.escrowStatus === "Initiation" ? "Escrow Initiated" : "Recieved Reward"}
+            props.amountToBeReturned? (
+              <Button className="profile-button" onClick={handleUnstake}>
+                Unstake
               </Button>
             ) : (
               <Link to={`/bounty/${props._id}`}>
