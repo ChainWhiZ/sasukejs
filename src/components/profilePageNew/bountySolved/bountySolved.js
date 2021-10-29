@@ -23,7 +23,6 @@ export default function BountySolved(props) {
     console.log(data)
     
     const fetchSolutions = () =>{
-        console.log("hiiii")
         axios
         .post(port + "user/solutions", {
             githubId: username
