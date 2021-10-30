@@ -11,6 +11,7 @@ import SimpleAlerts from "../alert/alert";
 import { useRecoilValue } from "recoil";
 import { walletAddress as walletAddressAtom,contract as contractAtom,username as usernameAtom } from "../../recoil/atoms";
 import "./stakingPageCss.css";
+import { FlashOnRounded } from "@material-ui/icons";
 
 export default function StakingPage(props) {
   console.log(props)
