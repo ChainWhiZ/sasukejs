@@ -5,9 +5,9 @@ import { useHistory } from "react-router-dom";
 import { port } from "../../config/config";
 import { text } from "../../constants";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../recoil/atoms";
+import { username as usernameAtom } from "../../recoil/atoms";
 import { Redirect } from "react-router-dom";
-import { walletAddress as walletAddressAtom} from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
 
 export default function QuestionPost() {
   let history = useHistory();
@@ -23,7 +23,7 @@ export default function QuestionPost() {
     undertaking2: false,
   });
   const [communityReward, setCommunityReward] = useState(0);
- const walletAddress = useRecoilValue(walletAddressAtom);
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [alert, setAlert] = useState({
     isValid: false,
     errorMessage: "",
@@ -142,63 +142,71 @@ export default function QuestionPost() {
   }
 
   function handleSubmit() {
-    console.log(time);
-    console.log(issueTitle);
-    console.log(category);
-    console.log(issueURL);
-    console.log(reward);
-    console.log(communityOption);
-    console.log(communityReward);
-    console.log(terms);
-    if (terms.undertaking1 === false || terms.undertaking2 === false) {
-      setAlert((prevState) => ({
-        ...prevState,
-        isValid: true,
-        errorMessage: "Please accept the terms",
-      }));
-    } else {
-      setAlert((prevState) => ({
-        ...prevState,
-        isValid: false,
-        errorMessage: "",
-      }));
-      const timeBegin = Math.floor(new Date().getTime() / 1000);
-      let timeEnd = timeBegin + time * 24 * 60 * 60;
-      return Promise.resolve()
-        .then(async function () {
-          //return await questionPosting();
-        })
-        .then(async function () {
-          //return setSuccessStatus(true);
-        })
-        .then(async function () {
-          return axios
-            .post(port + "question/save", {
-              githubId: username,
-              publicAddress: walletAddress,
-              questionTitle: issueTitle,
-              githubIssueUrl: issueURL,
-              timeEnd: timeEnd,
-              solvingTimeBegin: timeBegin,
-              votingTimeBegin:
-                communityOption == "Community Approved"
-                  ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-                  : 0,
-              bountyReward: reward,
-              communityReward: communityReward,
-              isCommunityApprovedSolution:
-                communityOption == "Community Approved" ? true : false,
-              questionCategories: category,
-            })
-            .then((response) => {
-              history.push({
-                pathname: `/bounty/${response.data}`,
-                state: { id: response.data },
-              });
-            });
-        })
-        .then(function () {});
-    }
+    // console.log(time);
+    // console.log(issueTitle);
+    // console.log(category);
+    // console.log(issueURL);
+    // console.log(reward);
+    // console.log(communityOption);
+    // console.log(communityReward);
+    // console.log(terms);
+    // if (terms.undertaking1 === false || terms.undertaking2 === false) {
+    //   setAlert((prevState) => ({
+    //     ...prevState,
+    //     isValid: true,
+    //     errorMessage: "Please accept the terms",
+    //   }));
+    // } else if (!walletAddress) {
+    //   setAlert((prevState) => ({
+    //     ...prevState,
+    //     isValid: true,
+    //     errorMessage: "Please connect wallet",
+    //   }));
+    // }
+    // else {
+    //   setAlert((prevState) => ({
+    //     ...prevState,
+    //     isValid: false,
+    //     errorMessage: "",
+    //   }));
+    //   const timeBegin = Math.floor(new Date().getTime() / 1000);
+    //   let timeEnd = timeBegin + time * 24 * 60 * 60;
+    //   return Promise.resolve()
+    //     .then(async function () {
+    //       //return await questionPosting();
+    //     })
+    //     .then(async function () {
+    //       //return setSuccessStatus(true);
+    //     })
+    //     .then(async function () {
+    //       return axios
+    //         .post(port + "question/save", {
+    //           githubId: username,
+    //           publicAddress: walletAddress,
+    //           questionTitle: issueTitle,
+    //           githubIssueUrl: issueURL,
+    //           timeEnd: timeEnd,
+    //           solvingTimeBegin: timeBegin,
+    //           votingTimeBegin:
+    //             communityOption == "Community Approved"
+    //               ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+    //               : 0,
+    //           bountyReward: reward,
+    //           communityReward: communityReward,
+    //           isCommunityApprovedSolution:
+    //             communityOption == "Community Approved" ? true : false,
+    //           questionCategories: category,
+    //         })
+    //         .then((response) => {
+    //           history.push({
+    //             pathname: `/bounty/${response.data}`,
+    //             state: { id: response.data },
+    //           });
+    //         });
+    //     })
+    //     .then(function () { });
+    // }
+
   }
 
   if (!username) {
@@ -279,6 +287,7 @@ export default function QuestionPost() {
           handleTerms={setTerms}
           terms={terms}
           alert={alert}
+          walletAddress={walletAddress}
           handleSubmit={handleSubmit}
         />
       ) : null}
