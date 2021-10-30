@@ -9,9 +9,10 @@ import infoIcon from "../../assets/info.png";
 import CircularIndeterminate from "../loader/loader";
 import SimpleAlerts from "../alert/alert";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../recoil/atoms";
-import { walletAddress as walletAddressAtom} from "../../recoil/atoms";
+import { username as usernameAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
 import "./stakingPageCss.css";
+import { FlashOnRounded } from "@material-ui/icons";
 
 export default function StakingPage(props) {
   console.log(props)
@@ -63,7 +64,7 @@ export default function StakingPage(props) {
         setLoader(false);
         setIsVoter(response.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }, []);
 
   const handleSelect = (workplan) => {
@@ -75,67 +76,83 @@ export default function StakingPage(props) {
   const handleStake = () => {
     console.log(stakeDetails);
     console.log("in handle stake");
-    setDisable(true);
-    setLoader(true);
-    // return Promise.resolve()
-    // .then(async function () {
-    //   if (!isVoter) {
-    //     return await contract.methods
-    //       .registerVoter()
-    //       .send({ from: walletAddress });
-    //   } else {
-    //     return;
-    //   }
-    // })
-    // .then(async function () {
-    //   if (!isVoter) {
-    //     return await axios
-    //       .post(port + "vote/voterdetails", {
-    //         githubId: username,
-    //       })
-    //       .then((response) => {
-    //         console.log(response);
-    //         setLoader(false);
-    //       })
-    //       .catch((err) => {
-    //         console.error(err);
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error while staking",
-    //         }));
-    //         setLoader(false);
-    //       });
-    //   } else {
-    //     return;
-    //   }
-    // })
-    // .then(async function () {
-    //   return contract.methods
-    //     .stakeVote(
-    //       (stakedAmount * Math.pow(10, 18)).toString(),
-    //       props.questionDetails.githubIssueUrl.toString(),
-    //       props.questionDetails.publicAddress.toString(),
-    //       solution.publicAddress.toString()
-    //     )
-    //     .send({ from: walletAddress.toString() });
-    // })
-    // .then(async function () {
-    //   return await axios
-    //     .post(port + "vote/save", {
-    //       publicAddress: walletAddress,
-    //       amountStaked: stakedAmount,
-    //       timestamp: Date.now() / 1000,
-    //       solutionId: solution._id,
-    //       githubId: username,
-    //     })
-    //     .then((response) => {
-    //       setStakedAmount(0);
-    //       setLoader(false);
-    //       console.log(response);
-    //     })
-    //     .catch((err) => console.error(err));
-    // });
+    if (!walletAddress) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage:
+          "Please connect wallet",
+      }));
+    }
+    else {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: false,
+        errorMessage:
+          "",
+      }));
+      setDisable(true);
+      setLoader(true);
+      // return Promise.resolve()
+      // .then(async function () {
+      //   if (!isVoter) {
+      //     return await contract.methods
+      //       .registerVoter()
+      //       .send({ from: walletAddress });
+      //   } else {
+      //     return;
+      //   }
+      // })
+      // .then(async function () {
+      //   if (!isVoter) {
+      //     return await axios
+      //       .post(port + "vote/voterdetails", {
+      //         githubId: username,
+      //       })
+      //       .then((response) => {
+      //         console.log(response);
+      //         setLoader(false);
+      //       })
+      //       .catch((err) => {
+      //         console.error(err);
+      //         setAlert((prevState) => ({
+      //           ...prevState,
+      //           open: true,
+      //           errorMessage: "Error while staking",
+      //         }));
+      //         setLoader(false);
+      //       });
+      //   } else {
+      //     return;
+      //   }
+      // })
+      // .then(async function () {
+      //   return contract.methods
+      //     .stakeVote(
+      //       (stakedAmount * Math.pow(10, 18)).toString(),
+      //       props.questionDetails.githubIssueUrl.toString(),
+      //       props.questionDetails.publicAddress.toString(),
+      //       solution.publicAddress.toString()
+      //     )
+      //     .send({ from: walletAddress.toString() });
+      // })
+      // .then(async function () {
+      //   return await axios
+      //     .post(port + "vote/save", {
+      //       publicAddress: walletAddress,
+      //       amountStaked: stakedAmount,
+      //       timestamp: Date.now() / 1000,
+      //       solutionId: solution._id,
+      //       githubId: username,
+      //     })
+      //     .then((response) => {
+      //       setStakedAmount(0);
+      //       setLoader(false);
+      //       console.log(response);
+      //     })
+      //     .catch((err) => console.error(err));
+      // });
+    }
   };
 
   if (!username) {

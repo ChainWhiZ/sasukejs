@@ -104,12 +104,15 @@ export default function InputComponent(props) {
           </>
         ) : (
           <>
-            <Grid item md={12} xs={12}>
+            <Grid item md={12} xs={12} style={{marginLeft:"25%"}}>
               <Input
-                value={"WALLET_ADDRESS_WILL_BE_SET_HERE"}
+                value={props.walletAddress?props.walletAddress:"Not Connected"}
                 className="input-field-style"
                 disabled={true}
               />
+              <br/>
+              <br/>
+              <br/>
             </Grid>
             <Grid item md={12} xs={12}>
               <FormControlLabel

@@ -71,6 +71,7 @@ export default function BaseComponent(props) {
               handleTerms={props.handleTerms}
               pageState={props.pageState}
               terms={props.terms}
+              walletAddress = {props.walletAddress}
               alert={props.alert}
             />
           ) : null}
