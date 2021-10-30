@@ -50,14 +50,7 @@ export default function QuestionRightHeading(props) {
               <Button class="bounty-button">Vote Now</Button>
             </Link>
           ) : (
-            // <Button class="bounty-button">Completed</Button>
-            <Button
-            class="bounty-button"
-            // disabled={props.questionStage === "complete"}
-            onClick={() => setOpenSolveDialog(true)}
-          >
-            Submit Github link
-          </Button>
+            <Button class="bounty-button">Completed</Button>
           )}
         </Grid>
       </Grid>

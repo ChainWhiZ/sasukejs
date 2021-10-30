@@ -73,13 +73,7 @@ export default function QuestionLeftHeading(props) {
               <Button class="bounty-button">Vote Now</Button>
             </Link>
           ) : props.questionStage === "complete" ? (
-            // <Button class="bounty-button">Completed</Button>
-            <Button
-            class="bounty-button"
-            onClick={() => setOpenWorkplanDialog(true)}
-          >
-            Submit Workplan
-          </Button>
+            <Button class="bounty-button">Completed</Button>
           ) : (
             <Button
               class="bounty-button"

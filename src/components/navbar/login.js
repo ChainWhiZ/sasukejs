@@ -3,7 +3,6 @@ import axios from "axios";
 import { port } from "../../config/config";
 
 export default function Login() {
-    localStorage.setItem("username", "mishramonalisha76");
   useEffect(() => {
     const url = window.location.href;
     const hasCode = url.includes("?code=");
