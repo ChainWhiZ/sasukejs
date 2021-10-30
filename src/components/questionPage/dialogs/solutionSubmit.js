@@ -69,7 +69,7 @@ export default function SolutionSubmit(props) {
   };
   const handleGithubLinkValidation = async (solution) => {
     return axios
-      .post(port +"solution/validate", {
+      .post(port + "solution/validate", {
         githubLink: solution,
       })
       .then((response) => {
@@ -98,7 +98,7 @@ export default function SolutionSubmit(props) {
         open: true,
         errorMessage: "GitHub Repository link field is empty",
       }));
-    } 
+    }
     else if (!solution.match(reg)) {
       setSolution([]);
       setAlert((prevState) => ({
@@ -107,7 +107,7 @@ export default function SolutionSubmit(props) {
         errorMessage: "Please enter valid GitHub repository link",
       }));
     }
-     else if (!(await handleGithubLinkValidation(solution))) {
+    else if (!(await handleGithubLinkValidation(solution))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
@@ -121,7 +121,7 @@ export default function SolutionSubmit(props) {
   const handleSubmit = async (workplanId, solution) => {
     setLoader(true);
     //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-  
+
     return Promise.resolve()
       .then(async function () {
         return await solutionPosting(solution);
@@ -149,42 +149,46 @@ export default function SolutionSubmit(props) {
     <>
       <Dialog
         aria-labelledby="simple-dialog-title"
+        maxWidth="lg"
         open={open}
         scroll={scroll}
         aria-describedby="scroll-dialog-description"
+        className="solution-dialog"
       >
-      {alert.open ?
-       (
-          <SimpleAlerts
-            severity={alert.severity}
-            message={alert.errorMessage}
-          />
-        ) : null}
-        <p class="dialog-title">Submit Solution</p>
+        {alert.open ?
+          (
+            <SimpleAlerts
+              severity={alert.severity}
+              message={alert.errorMessage}
+            />
+          ) : null}
+        <p className="dialog-title" style={{ marginTop: "8%" }}>Submit Solution</p>
         <p class="solution-submit-title">
           Please paste your solution link directly beneath the work plan on top
           of which it has been built
         </p>
-        <DialogContent dividers={scroll === "paper"}>
+        <DialogContent dividers={scroll === "paper"} style={{ marginTop: "-8%" }}>
           <DialogContentText id="scroll-dialog-description">
             {props.quesDetails.workplanIds &&
-            props.quesDetails.workplanIds.length ? (
+              props.quesDetails.workplanIds.length ? (
               props.quesDetails.workplanIds &&
               props.quesDetails.workplanIds.length &&
               props.quesDetails.workplanIds.map((workplanId, index) => (
                 <>
-                  <Card>
+                  <Card className="solution-dialog-card">
                     <CardContent>
-                      <Grid container>
+                      <Grid container direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center">
                         <Grid item md={2}>
-                          <p class="workplan-title">Workplan:</p>
+                          <p class="solution-dialog-workplan-title">Workplan:</p>
                         </Grid>
-                        <Grid item md={10}>
+                        <Grid item md={10} style={{marginLeft:"-7%"}}>
                           <a
                             href={`https://ipfs.io/ipfs/${workplanId}`}
                             target="_blank"
                             rel="noreferrer"
-                            class="dialog-workplan"
+                            class="solution-dialog-workplan"
                           >
                             {workplanId}
                           </a>
@@ -196,6 +200,7 @@ export default function SolutionSubmit(props) {
                             size="small"
                             type={"text"}
                             //label="Paste you GitHub repository link"
+                            className="solution-dialog-textfield"
                             placeholder="https://github.com/<github id>/<repo name>"
                             value={solutions[index]}
                             onChange={(e) =>
@@ -204,10 +209,11 @@ export default function SolutionSubmit(props) {
                           />
                         </Grid>
                         <Grid item xs={12}>
-                          <p class="wallet-title">Your wallet address:</p>
+                          <p class="solution-dialog-wallet-title">Your wallet address:</p>
                           <TextField
                             size="small"
                             type={"text"}
+                            className="solution-dialog-textfield"
                             fullWidth
                             variant="outlined"
                             value={walletAddress}
@@ -219,6 +225,7 @@ export default function SolutionSubmit(props) {
                     <CardActions>
                       <Button
                         class="dialog-button"
+                        style={{marginLeft:"2%"}}
                         onClick={async () =>
                           await handleValidation(workplanId, solutions[index])
                         }
@@ -238,7 +245,7 @@ export default function SolutionSubmit(props) {
               </p>
             )}
 
-            <Button class="dialog-button" onClick={handleClose}>
+            <Button class="dialog-button solution-dialog-close-button" onClick={handleClose}>
               Close
             </Button>
           </DialogContentText>

@@ -57,7 +57,7 @@ export default function QuestionLeftHeading(props) {
           </Grid>
         )}
         <Grid item md={12}>
-          <p class="heading color-neon margin-top-3">Applicants</p>
+          <p class="heading color-neon margin-top-10">Applicants</p>
           <p class="bounty-time">{props.workplanIds.length}</p>
         </Grid>
         <Grid item md={12} className="margin-top-10">
@@ -73,7 +73,13 @@ export default function QuestionLeftHeading(props) {
               <Button class="bounty-button">Vote Now</Button>
             </Link>
           ) : props.questionStage === "complete" ? (
-            <Button class="bounty-button">Completed</Button>
+            // <Button class="bounty-button">Completed</Button>
+            <Button
+            class="bounty-button"
+            onClick={() => setOpenWorkplanDialog(true)}
+          >
+            Submit Workplan
+          </Button>
           ) : (
             <Button
               class="bounty-button"

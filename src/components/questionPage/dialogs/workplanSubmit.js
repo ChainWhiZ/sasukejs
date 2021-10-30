@@ -4,8 +4,8 @@ import Button from "@material-ui/core/Button";
 import fleekStorage from "@fleekhq/fleek-storage-js";
 import axios from "axios";
 import CircularIndeterminate from "../../loader/loader";
-import LinearIndeterminate from "../../loader/linearLoader";
 import SimpleAlerts from "../../alert/alert";
+import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
 import { port } from "../../../config/config";
 
@@ -76,17 +76,23 @@ export default function WorkplanSubmit(props) {
 
   return (
     <>
-      <Dialog aria-labelledby="simple-dialog-title" open={open}>
+      <Dialog aria-labelledby="simple-dialog-title" maxWidth="md" className="workplan-dialog" open={open}>
         <p class="dialog-title">Submit Workplan</p>
         <input type="file" onChange={(e) => captureFile(e)} />
-        <Button class="dialog-button" onClick={handleSubmit}>
-          Submit
-        </Button>
-        <span>
-          <Button class="dialog-button" onClick={handleClose}>
-            Close
-          </Button>
-        </span>
+        <Grid container className="workplan-dialog-button-grid "
+        >
+          <Grid item md={6}>
+            <Button class="dialog-button" onClick={handleSubmit}>
+              Submit
+            </Button>
+          </Grid>
+          <Grid item md={6}>
+            <Button class="dialog-button" onClick={handleClose}>
+              Close
+            </Button>
+          </Grid>
+        </Grid>
+
         {alert.open ? (
           <SimpleAlerts
             severity={alert.severity}
