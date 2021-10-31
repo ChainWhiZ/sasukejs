@@ -106,7 +106,7 @@ export default function QuestionStage(props) {
             </>
           ) : null}
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={6} className="profile-text-center">
           <p  className="profile-text-style profile-text-center">Your Solution</p>
           <a
             href={props._id}
@@ -118,7 +118,7 @@ export default function QuestionStage(props) {
             <img class="icon" src={GithubIcon} alt="git" style={{ marginTop: "-2%" }} />
           </a>
         </Grid>
-        <Grid item md={6}  >
+        <Grid item md={6} className="profile-text-center" >
 
           <p className="profile-text-style profile-text-center">Winning Solution</p>
           {props.questionId.selectedSolutionId ?
