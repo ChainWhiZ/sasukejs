@@ -46,7 +46,7 @@
   margin: 9% 2% 2% 8%;
   padding: 6% 4% 8% 4%;
   height: 42vh;
-  margin-left:9vw ;
+  margin-left: 9vw;
 }
 .profile-button {
   background: #d4ff1f !important;
@@ -56,7 +56,6 @@
   font-weight: 600 !important;
   text-transform: none !important;
   font-size: 1vw !important;
-  
 }
 .profile-content-style {
   font-family: Poppins !important;
@@ -70,132 +69,137 @@
 }
 .profile-text-center {
   text-align: center;
-  
 }
-.profile-bounty-reward{
-    font-size: 2vw !important;
+.profile-bounty-reward {
+  font-size: 2vw !important;
 }
 
 .PrivateTabIndicator-colorSecondary-7 {
   background-color: rgba(14, 14, 14, 1) !important;
 }
-.profile-pae-github{
-    margin-left: -4vw !important;
+.profile-pae-github {
+  margin-left: -4vw !important;
 }
 
-.profile-sub-info{
-    margin-left: 1vw !important;
-    
+.profile-sub-info {
+  margin-left: 1vw !important;
 }
 
-
-.profile-bounty-username{
+.profile-bounty-username {
   font-size: 1.3vw !important;
 }
-.results-dialog .MuiDialog-paper{
-   width:80vw;
-   height: 80vh;
-   background-color: black;
-   border: 1px solid #d4ff1e;
-   overflow: hidden;
+.results-dialog .MuiDialog-paper {
+  width: 80vw;
+  height: 80vh;
+  background-color: black;
+  border: 1px solid #d4ff1e;
+  overflow: hidden;
 }
 
-.results-dialog-left-grid{
-  background-color:#131313 ;
+.results-dialog-left-grid {
+  background-color: #131313;
   margin: 0%;
   padding: 15% 10% 10% 5%;
   height: 100% !important;
-  max-height: 69vh!important;
+  max-height: 69vh !important;
   overflow-y: auto !important;
-
 }
 
-.results-dialog-left-grid-heading{
+.results-dialog-left-grid-heading {
   text-align: center;
   margin: 2% 0% 8% 0% !important;
 }
 
-.results-dialog-heading{
+.results-dialog-heading {
   font-family: Poppins;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-letter-spacing: 0.01em;
-color: #D4FF1E;
-
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+  color: #d4ff1e;
 }
 
-.results-dialog-left-grid-solution{
-  padding:0.1% 0.1% 0.1% 8%;
+.results-dialog-left-grid-solution {
+  padding: 0.1% 0.1% 0.1% 8%;
   cursor: pointer;
 }
-.results-dialog-left-grid-solution p{
+.results-dialog-left-grid-solution p {
   font-family: Poppins;
-font-style: normal;
-font-weight: 600;
-font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
 
-letter-spacing: 0.01em;
-color: #FFFFFF;
-opacity: 0.69;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  opacity: 0.69;
 }
-.results-dialog-left-grid-solution img{
+.results-dialog-left-grid-solution img {
   margin: 0% 6% 0% 0%;
 }
 
-.results-dialog-left-grid-selected-solution{
+.results-dialog-left-grid-selected-solution {
   background-color: #d4ff1e;
   border-radius: 10px;
 }
-.results-dialog-left-grid-selected-solution p{
- color: black;
+.results-dialog-left-grid-selected-solution p {
+  color: black;
 }
-.results-dialog-right-grid-warning{
-  background: #D7FF2E;
-border-radius: 8px;
-margin-right: 19% !important;
-padding-left: 6%;
+.results-dialog-right-grid-warning {
+  background: #d7ff2e;
+  border-radius: 8px;
+  margin-right: 19% !important;
+  padding-left: 6%;
 }
-.results-dialog-right-grid-content{
+.results-dialog-right-grid-content {
   background: #131313;
-border-radius: 8px;
-margin:7% 0% 7% 0%;
-padding: 4% 4% 4% 6% ;
-width:36vw !important;
-
+  border-radius: 8px;
+  margin: 7% 0% 7% 0%;
+  padding: 4% 4% 4% 6%;
+  width: 36vw !important;
 }
-.results-dialog-right-grid-warning p{
+.results-dialog-right-grid-warning p {
   font-family: Poppins;
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
 
   letter-spacing: 0.01em;
-  
-  color: #0E0E0E;
-}
-.results-dialog-right-grid-warning img{
-margin-right:2% ;
-}
-.results-dialog-right-grid{
-  margin:10%;
 
+  color: #0e0e0e;
 }
-.results-dialog-right-grid-button{
+.results-dialog-right-grid-warning img {
+  margin-right: 2%;
+}
+.results-dialog-right-grid {
+  margin: 10%;
+}
+.results-dialog-right-grid-button {
   font-weight: 600 !important;
   font-size: 1.1vw !important;
   width: 11vw;
   height: 5vh;
   margin-left: 30% !important;
 }
-.results-dialog-right-grid-content-value{
-font-weight: 500;
-font-size: 20px;
-letter-spacing: 0.01em;
-
+.results-dialog-right-grid-content-value {
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 0.01em;
 }
-.results-dialog-right-grid-content-score{
+.results-dialog-right-grid-content-score {
   font-weight: 600;
-font-size: 64px;
-margin: -7% -2% 0% 3%;
+  font-size: 64px;
+  margin: -7% -2% 0% 3%;
+}
+
+.results-dialog-right-grid-github-icon {
+  margin-top: -7vh !important;
+  margin-left: 14vw !important;
+}
+
+.results-dialog-right-grid-workplan {
+  margin-top: -9.3vh !important;
+  margin-left: 16vw !important;
+}
+.results-dialog-right-grid-info{
+  margin-top:2.3vh !important ;
 }
