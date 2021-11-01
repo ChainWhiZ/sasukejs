@@ -9,7 +9,7 @@ import SimpleAlerts from "../../alert/alert";
 import "../profilePageCss.css"
 
 export default function QuestionStage(props) {
-  const [escrow, setEscrow] = useState("");
+  const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -74,6 +74,7 @@ export default function QuestionStage(props) {
     //   });
   };
 
+  
   return (
     <>
       <Grid container className="profile-question-stage-grid">
@@ -139,8 +140,8 @@ export default function QuestionStage(props) {
           {
             props.escrowId && escrow.escrowStatus !== "Complete" ? (
               <Button className="profile-button" onClick={handleComplete}
-              disabled={props.escrowStatus === "Initiation" ? true : false}>
-                {props.escrowStatus === "Initiation" ? "Escrow Initiated" : "Recieved Reward"}
+              disabled={escrow.escrowStatus === "In-Process" ? false : true}>
+                {escrow.escrowStatus === "Initiation" ? "Escrow Initiated" : "Confirm Reward"}
               </Button>
             ) : (
               <Link to={`/bounty/${props._id}`}>

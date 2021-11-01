@@ -92,3 +92,110 @@
 .profile-bounty-username{
   font-size: 1.3vw !important;
 }
+.results-dialog .MuiDialog-paper{
+   width:80vw;
+   height: 80vh;
+   background-color: black;
+   border: 1px solid #d4ff1e;
+   overflow: hidden;
+}
+
+.results-dialog-left-grid{
+  background-color:#131313 ;
+  margin: 0%;
+  padding: 15% 10% 10% 5%;
+  height: 100% !important;
+  max-height: 69vh!important;
+  overflow-y: auto !important;
+
+}
+
+.results-dialog-left-grid-heading{
+  text-align: center;
+  margin: 2% 0% 8% 0% !important;
+}
+
+.results-dialog-heading{
+  font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+letter-spacing: 0.01em;
+color: #D4FF1E;
+
+}
+
+.results-dialog-left-grid-solution{
+  padding:0.1% 0.1% 0.1% 8%;
+  cursor: pointer;
+}
+.results-dialog-left-grid-solution p{
+  font-family: Poppins;
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+
+letter-spacing: 0.01em;
+color: #FFFFFF;
+opacity: 0.69;
+}
+.results-dialog-left-grid-solution img{
+  margin: 0% 6% 0% 0%;
+}
+
+.results-dialog-left-grid-selected-solution{
+  background-color: #d4ff1e;
+  border-radius: 10px;
+}
+.results-dialog-left-grid-selected-solution p{
+ color: black;
+}
+.results-dialog-right-grid-warning{
+  background: #D7FF2E;
+border-radius: 8px;
+margin-right: 19% !important;
+padding-left: 6%;
+}
+.results-dialog-right-grid-content{
+  background: #131313;
+border-radius: 8px;
+margin:7% 0% 7% 0%;
+padding: 4% 4% 4% 6% ;
+width:36vw !important;
+
+}
+.results-dialog-right-grid-warning p{
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+
+  letter-spacing: 0.01em;
+  
+  color: #0E0E0E;
+}
+.results-dialog-right-grid-warning img{
+margin-right:2% ;
+}
+.results-dialog-right-grid{
+  margin:10%;
+
+}
+.results-dialog-right-grid-button{
+  font-weight: 600 !important;
+  font-size: 1.1vw !important;
+  width: 11vw;
+  height: 5vh;
+  margin-left: 30% !important;
+}
+.results-dialog-right-grid-content-value{
+font-weight: 500;
+font-size: 20px;
+letter-spacing: 0.01em;
+
+}
+.results-dialog-right-grid-content-score{
+  font-weight: 600;
+font-size: 64px;
+margin: -7% -2% 0% 3%;
+}

@@ -18,12 +18,14 @@ export default function BountyPosted(props) {
         severity: "error",
     });
     useEffect(() => {
+        console.log("hiii")
         axios
             .post(port + "user/questions", {
                 githubId: username
             })
             .then((response) => {
                 // setLoader(false);
+                console.log(response.data)
                 setData(response.data);
             })
             .catch((err) => {
@@ -34,7 +36,7 @@ export default function BountyPosted(props) {
                 }));
                 // setLoader(false);
             });
-    }, []);
+    },[]);
     return (
         <>
             <Grid container style={{ marginLeft: "-1%" }} >
