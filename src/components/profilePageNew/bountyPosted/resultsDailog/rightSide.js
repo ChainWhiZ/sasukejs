@@ -43,7 +43,7 @@ export default function RightSide(props) {
     return false;
   };
   const handleEscrowLabel = () => {
-    if (escrow.escrowStatus === "Initiation") return "Ownership Recieved";
+    if (escrow.escrowStatus === "Initiation") return "Ownership Received";
     if (escrow.escrowStatus === "In-Process") return "Reward Transfer";
     if (escrow.escrowStatus === "Complete") return "Escrow Completed";
     return "Initiate Escrow";
@@ -74,24 +74,40 @@ export default function RightSide(props) {
             </p>
           </Grid>
           {props.isCommunityApprovedSolution ? (
+            <>
             <Grid item md={6}>
               <p className="results-dialog-heading">Voting Score</p>
               <p className="results-dialog-right-grid-content-score">
                 {props.selectedSoltuionDetails.votingScore}
               </p>
             </Grid>
-          ) : null}
-          <Grid item md={6}>
-            <p className="results-dialog-heading">Workplan</p>
+             <Grid item md={6}>
+             <p className="results-dialog-heading">Workplan</p>
+           </Grid>
+           <Grid item md={2} className="results-dialog-right-grid-github-icon">
+             <img src={IdeaIcon} alt="idea" />
+           </Grid>
+           <Grid item md={4} className="results-dialog-right-grid-workplan">
+             <p className="results-dialog-right-grid-content-value">
+               {props.selectedSoltuionDetails.workplan}
+             </p>
+           </Grid>
+           </>
+          ) : 
+          <>
+          <Grid item md={12}>
+          <p className="results-dialog-heading">Workplan</p>
           </Grid>
-          <Grid item md={2} className="results-dialog-right-grid-github-icon">
-            <img src={IdeaIcon} alt="idea" />
+          <Grid item md={1}>
+          <img src={IdeaIcon} alt="idea" />
           </Grid>
-          <Grid item md={4} className="results-dialog-right-grid-workplan">
-            <p className="results-dialog-right-grid-content-value">
-              {props.selectedSoltuionDetails.workplan}
-            </p>
+          <Grid item md={11} className="results-dialog-right-grid-content-value-non-community">
+          <p className="results-dialog-right-grid-content-value">
+               {props.selectedSoltuionDetails.workplan}
+             </p>
           </Grid>
+          </>}
+         
         </Grid>
         <Grid item md={12} xs={12}>
           <Button

@@ -200,6 +200,9 @@
   margin-top: -9.3vh !important;
   margin-left: 16vw !important;
 }
-.results-dialog-right-grid-info{
-  margin-top:2.3vh !important ;
+.results-dialog-right-grid-info {
+  margin-top: 2.3vh !important ;
+}
+.results-dialog-right-grid-content-value-non-community {
+  margin-top: -2.3vh  !important;
 }
