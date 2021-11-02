@@ -21,7 +21,7 @@ import SimpleAlerts from "../../alert/alert";
 import LinearIndeterminate from "../../loader/linearLoader";
 import { port } from "../../../config/config";
 import eventBus from "../../EventBus";
-
+import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [scroll] = useState("paper");
@@ -154,7 +154,24 @@ export default function SolutionSubmit(props) {
         scroll={scroll}
         aria-describedby="scroll-dialog-description"
         className="solution-dialog"
+        BackdropProps={{
+          classes: {
+            root: "dialog-blur",
+          },
+        }}
+        onBackdropClick={handleClose}
       >
+        <ClearRoundedIcon
+          style={{
+            marginLeft: "64vw",
+            marginTop: "2vh",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            handleClose();
+          }}
+        />
+      
         {alert.open ?
           (
             <SimpleAlerts
@@ -239,15 +256,13 @@ export default function SolutionSubmit(props) {
                 </>
               ))
             ) : (
-              <p>
+              <p className="dialog-no-sol-sub">
                 No workplans have been submitted yet. You must submit a workplan
                 before submitting a solution
               </p>
             )}
 
-            <Button class="dialog-button solution-dialog-close-button" onClick={handleClose}>
-              Close
-            </Button>
+           
           </DialogContentText>
         </DialogContent>
       </Dialog>

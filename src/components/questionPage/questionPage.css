@@ -345,7 +345,9 @@ input {
   border-radius: 10px !important;
 }
 .workplan-dialog-button-grid {
-  margin: 10% 0% 0% 17%;
+  /* margin: 9% 0% 0% 36%; */
+  margin-top: 6%;
+  text-align: center;
 }
 .solution-submit-title {
   text-decoration: none;
@@ -450,7 +452,7 @@ input {
 
 .workplan-dialog .MuiDialog-paper{
  background-color: #000000; 
- border: 1px solid #d4ff1e;
+ 
  color: #ffffff;
  height: 40vh;
  overflow: hidden;
@@ -458,7 +460,6 @@ input {
 }
 .solution-dialog .MuiDialog-paper{
   background-color: #000000; 
-  border: 1px solid #d4ff1e;
   color: #ffffff;
   height: 80vh;
   overflow: hidden;
@@ -484,4 +485,10 @@ input {
   margin: 0% 0% 0% 84%;
   width: 8vw;
   height: 5vh;
+ }
+ .dialog-no-sol-sub{
+  font-weight: 600;
+  text-align: center;
+  font-size: 1vw;
+  color:  #d4ff1e !important;
  }

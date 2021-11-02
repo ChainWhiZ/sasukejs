@@ -8,7 +8,7 @@ import SimpleAlerts from "../../alert/alert";
 import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
 import { port } from "../../../config/config";
-
+import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [buffer, setBuffer] = useState("");
@@ -76,19 +76,35 @@ export default function WorkplanSubmit(props) {
 
   return (
     <>
-      <Dialog aria-labelledby="simple-dialog-title" maxWidth="md" className="workplan-dialog" open={open}>
+      <Dialog
+        aria-labelledby="simple-dialog-title"
+        maxWidth="md"
+        className="workplan-dialog"
+        open={open}
+        BackdropProps={{
+          classes: {
+            root: "dialog-blur",
+          },
+        }}
+        onBackdropClick={handleClose}
+      >
+        <ClearRoundedIcon
+          style={{
+            marginLeft: "32vw",
+            marginTop: "2vh",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            handleClose();
+          }}
+        />
+
         <p class="dialog-title">Submit Workplan</p>
         <input type="file" onChange={(e) => captureFile(e)} />
-        <Grid container className="workplan-dialog-button-grid "
-        >
-          <Grid item md={6}>
+        <Grid container className="workplan-dialog-button-grid ">
+          <Grid item md={12}>
             <Button class="dialog-button" onClick={handleSubmit}>
               Submit
-            </Button>
-          </Grid>
-          <Grid item md={6}>
-            <Button class="dialog-button" onClick={handleClose}>
-              Close
             </Button>
           </Grid>
         </Grid>

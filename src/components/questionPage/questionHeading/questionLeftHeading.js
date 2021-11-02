@@ -8,32 +8,25 @@ import "../questionPage.css";
 export default function QuestionLeftHeading(props) {
   console.log(props);
   const [openWorkplanDialog, setOpenWorkplanDialog] = useState(false);
-  let hoursOrDaysOrMinutes = "Days";
+  let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
   if (props.questionStage === "solve" && props.isCommunityApprovedSolution) {
-    timeLeft = Math.floor((props.votingTimeBegin - seconds) / (3600 * 24));
+    timeLeft = (props.votingTimeBegin - seconds) / (3600 * 24);
   } else {
-    timeLeft = Math.floor((props.timeEnd - seconds) / (3600 * 24));
+    timeLeft = (props.timeEnd - seconds) / (3600 * 24);
   }
-
   if (timeLeft < 1) {
-    hoursOrDaysOrMinutes = "Hour(s)";
-    timeLeft = Math.floor(24 * timeLeft);
-
+    hoursOrDaysOrMinutes = "hour(s)";
+    timeLeft = 24 * timeLeft;
     if (timeLeft < 1) {
-      hoursOrDaysOrMinutes = "Hour(s)";
-      timeLeft = Math.floor(24 * timeLeft);
-
-      if (timeLeft < 1) {
-        hoursOrDaysOrMinutes = "Minute(s)";
-        timeLeft = Math.floor(60 * timeLeft);
-      } else {
-        timeLeft = Math.floor(timeLeft);
-      }
+      hoursOrDaysOrMinutes = "minute(s)";
+      timeLeft = Math.floor(60 * timeLeft);
     } else {
       timeLeft = Math.floor(timeLeft);
     }
+  } else {
+    timeLeft = Math.floor(timeLeft);
   }
 
   return (
