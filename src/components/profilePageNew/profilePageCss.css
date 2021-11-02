@@ -5,8 +5,8 @@
 }
 
 .profile-account-icon {
-  margin-top: -6%;
-  margin-left: 2%;
+  margin-top: -27%;
+  margin-left: 9%;
 }
 
 /* .profile-right-grid{
@@ -211,4 +211,28 @@
 .dialog-blur {
   backdrop-filter: blur(6px);
   background-color: rgba(0, 0, 30, 0.4);
+}
+
+.profile-details-bounty {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 2vw;
+  line-height: 2vh;
+  /* identical to box height */
+
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+.profile-details-bounty-heading {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1vw;
+  line-height: 1vh;
+  /* identical to box height */
+
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+.profile-details-bounty-heading-grid {
+  margin-top: -7vw !important;
 }

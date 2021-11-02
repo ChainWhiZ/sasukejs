@@ -6,33 +6,15 @@ import axios from "axios";
 import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
-import "../profilePageCss.css"
+import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
-  const [escrow, setEscrow] = useState("");
+  console.log(props);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
-  useEffect(async () => {
-    if (props.escrowId) {
-      axios
-        .post(port + "escrow/fetch", {
-          _id: props.escrowId,
-        })
-        .then((response) => {
-          setEscrow(response.data);
-        })
-        .catch((err) => {
-          setAlert((prevState) => ({
-            ...prevState,
-            open: true,
-            errorMessage: "Error fetching escrow",
-          }))
-        });
-    }
-  }, []);
 
   const handleUnstake = () => {
     // setLoader(true);
@@ -63,61 +45,59 @@ export default function QuestionStage(props) {
     //         setLoader(false);
     //       });
     //   })
-
-  }
+  };
 
   return (
     <>
       <Grid container className="profile-question-stage-grid">
         <Grid item md={12}>
-          <p
-            className="profile-text-style profile-text-center"
-          >
-            Status
-          </p>
+          <p className="profile-text-style profile-text-center">Status</p>
           {props.questionDetails.questionStage === "vote" ? (
             <>
-
               <p className="profile-content-style profile-text-center">
                 Voting Phase In Progress
               </p>
             </>
-          ):(
-            <>
-
-              <p className="profile-content-style profile-text-center">
-                Completed
-              </p>
-            </>
+          ) : props.claimed ? (
+            <p className="profile-content-style profile-text-center">
+              Bounty Completed
+            </p>
+          ) : (
+            <p className="profile-content-style profile-text-center">
+              Voting Phase Completed
+            </p>
           )}
         </Grid>
-        <Grid item md={6} >
-          <p className="profile-text-style profile-text-center">Amount Staked</p>
-           <p className="profile-content-style profile-text-center">{props.amountStaked}</p>
+        <Grid item md={6}>
+          <p className="profile-text-style profile-text-center">
+            Voted On
+          </p>
+          <p className="profile-content-style profile-text-center">
+            {props.amountStaked}
+          </p>
         </Grid>
-        <Grid item md={6} >
-
-        <p className="profile-text-style profile-text-center">Unstake Amount</p>
-           <p className="profile-content-style profile-text-center">{props.amountToBeReturned}</p>
+        <Grid item md={6}>
+          <p className="profile-text-style profile-text-center">
+            Unstake Amount
+          </p>
+          <p className="profile-content-style profile-text-center">
+            {props.amountToBeReturned}
+          </p>
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {
-            props.amountToBeReturned? (
-              <Button className="profile-button" onClick={handleUnstake}>
-                Unstake
-              </Button>
-            ) : (
-              <Link to={`/bounty/${props._id}`}>
-                <Button className="profile-button">Go to Bounty Page</Button>
-              </Link>
-            )}
+          {props.amountToBeReturned ? (
+            <Button className="profile-button" onClick={handleUnstake}>
+              Unstake
+            </Button>
+          ) : (
+            <Link to={`/bounty/${props._id}`}>
+              <Button className="profile-button">Go to Bounty Page</Button>
+            </Link>
+          )}
         </Grid>
       </Grid>
       {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
     </>
   );
