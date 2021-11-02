@@ -10,11 +10,6 @@ import Card from "@material-ui/core/Card";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import axios from "axios";
-import {
-  initiliaseWeb3,
-  fetchAccount,
-  initiliaseContract,
-} from "../../../web3js/web3";
 import "../questionPage.css";
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
@@ -22,15 +17,13 @@ import LinearIndeterminate from "../../loader/linearLoader";
 import { port } from "../../../config/config";
 import eventBus from "../../EventBus";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../../recoil/atoms";
-import { walletAddress as walletAddressAtom} from "../../../recoil/atoms";
+import { username as usernameAtom,walletAddress as walletAddressAtom, contract as contractAtom} from "../../../recoil/atoms";
 
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [scroll] = useState("paper");
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [solutions, setSolution] = useState([]);
-  const [contract, setContract] = useState("");
   const [loader, setLoader] = useState(false);
   const username = useRecoilValue(usernameAtom);
   const [alert, setAlert] = useState({
@@ -38,11 +31,13 @@ export default function SolutionSubmit(props) {
     errorMessage: "",
     severity: "error",
   });
+  const contractPromise = useRecoilValue(contractAtom);
+  let contract;
+  var promise = Promise.resolve(contract);
+  promise.then(function (v) {
+    contract = v;
+  });
   const reg = /https?:\/\/github\.com\/(?:[^\\/\s]+\/)\/(?:[^\\/\s]+\/)/;
-  useEffect(async () => {
-    await initiliaseWeb3();
-    setContract(await initiliaseContract());
-  }, []);
 
   const handleClose = () => {
     setOpen(false);

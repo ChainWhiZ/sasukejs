@@ -9,8 +9,7 @@ import infoIcon from "../../assets/info.png";
 import CircularIndeterminate from "../loader/loader";
 import SimpleAlerts from "../alert/alert";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../recoil/atoms";
-import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom,contract as contractAtom,username as usernameAtom } from "../../recoil/atoms";
 import "./stakingPageCss.css";
 
 export default function StakingPage(props) {
@@ -35,7 +34,12 @@ export default function StakingPage(props) {
     severity: "error",
   });
   const [disable, setDisable] = useState(false);
-
+  const contractPromise = useRecoilValue(contractAtom);
+  let contract;
+  var promise = Promise.resolve(contract);
+  promise.then(function (v) {
+    contract = v;
+  });
   useEffect(() => {
     axios
       .post(port + "workplan/fetchall", {

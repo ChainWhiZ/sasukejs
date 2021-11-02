@@ -24,15 +24,10 @@ export default function ConnectWallet() {
         await fetchAccount(function (result) {
             setWalletAddress(result[0]);
         });
-        console.log(await initiliaseContract())
         setContract(async (old) => {
             let _test = await initiliaseContract();
-            console.log(_test)
             return _test;
           });
-          console.log(contract)
-      //  setContract(await initiliaseContract())
-
      
     }
     const handleTooltipClose = () => {

@@ -7,7 +7,7 @@ import { text } from "../../constants";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
 import { Redirect } from "react-router-dom";
-import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom, contract as contractAtom } from "../../recoil/atoms";
 
 export default function QuestionPost() {
   let history = useHistory();
@@ -29,6 +29,12 @@ export default function QuestionPost() {
     errorMessage: "",
   });
   const username = useRecoilValue(usernameAtom);
+  const contractPromise = useRecoilValue(contractAtom);
+  let contract;
+  var promise = Promise.resolve(contract);
+  promise.then(function (v) {
+    contract = v;
+  });
 
   function handleGithubIssueValidation() {
     return axios
@@ -141,6 +147,20 @@ export default function QuestionPost() {
     }
   }
 
+  // async function questionPosting() {
+  //   return await contract.methods
+  //     .questionPosting(
+  //       issueURL,
+  //       time.toString(),
+  //       (communityReward * Math.pow(10, 18)).toString(),
+  //       (reward * Math.pow(10, 18)).toString()
+  //     )
+  //     .send({ from: walletAddress }, function (error, transactionHash) {
+  //       if (transactionHash) {
+  //         return true;
+  //       }
+  //     });
+  // };
   function handleSubmit() {
     // console.log(time);
     // console.log(issueTitle);
