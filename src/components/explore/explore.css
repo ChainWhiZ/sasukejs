@@ -42,24 +42,19 @@
   margin-left: 0.5vw  !important;
 }
 .grid-item {
-  margin-top: -4vw !important;
-  padding: 4% !important;
+  margin-top: -6vw !important;
+  padding: 7% 0% 2% 4% !important;
 }
 .grid-item:hover {
   cursor: pointer;
   background-color: rgba(215, 255, 46, 1) !important;
   border-radius: 1vw;
-  height: 10vh !important;
-  
 }
 
 .active {
   cursor: pointer;
   background-color: rgba(215, 255, 46, 1) !important;
   border-radius: 1vw;
-  height: 10vh !important;
-  padding-top: 6% !important;
-  padding-left: 6% !important;
 }
 .p-active {
   color: rgba(19, 19, 19, 1);

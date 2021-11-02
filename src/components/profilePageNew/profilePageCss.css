@@ -92,13 +92,13 @@
   width: 80vw;
   height: 80vh;
   background-color: black;
-  border: 1px solid #d4ff1e;
+  /* border: 1px solid #d4ff1e; */
   overflow: hidden;
 }
 
 .results-dialog-left-grid {
   background-color: #131313;
-  margin: 0%;
+  margin-top: -12%;
   padding: 15% 10% 10% 5%;
   height: 100% !important;
   max-height: 69vh !important;
@@ -204,5 +204,11 @@
   margin-top: 2.3vh !important ;
 }
 .results-dialog-right-grid-content-value-non-community {
-  margin-top: -2.3vh  !important;
+  margin-top: -2.3vh !important;
+  margin-left: -1vw !important;
+}
+
+.dialog-blur {
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 30, 0.4);
 }

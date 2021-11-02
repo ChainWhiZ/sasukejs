@@ -17,10 +17,10 @@ export default function RightSide(props) {
   });
   console.log(props);
   useEffect(async () => {
-    if (props.selectedSoltuionDetails.escrowId) {
+    if (props.selectedSolution.escrowId) {
       //   axios
       //     .post(port + "escrow/fetch", {
-      //       _id: props.escrowId,
+      //       _id: props.selectedSolution.escrowId,
       //     })
       //     .then((response) => {
       //       setEscrow(response.data);
@@ -52,7 +52,7 @@ export default function RightSide(props) {
 
   const handleEscrowClick = (val) => {
     if (val === "Initiate Escrow") props.handleEscrowInitiation();
-    if (val === "Ownership Recieved") props.handleEscrowOwnership();
+    if (val === "Ownership Received") props.handleEscrowOwnership();
   };
 
   return (
@@ -69,54 +69,89 @@ export default function RightSide(props) {
         <Grid container className="results-dialog-right-grid-content">
           <Grid item md={12}>
             <p className="results-dialog-heading">Github Repo</p>
-            <p className="results-dialog-right-grid-content-value">
-              {props.selectedSoltuionDetails.githubUrl}
-            </p>
+            <a
+              href={props.selectedSolution.githubLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <p className="results-dialog-right-grid-content-value">
+                {props.selectedSolution.githubLink}
+              </p>
+            </a>
           </Grid>
           {props.isCommunityApprovedSolution ? (
             <>
-            <Grid item md={6}>
-              <p className="results-dialog-heading">Voting Score</p>
-              <p className="results-dialog-right-grid-content-score">
-                {props.selectedSoltuionDetails.votingScore}
-              </p>
-            </Grid>
-             <Grid item md={6}>
-             <p className="results-dialog-heading">Workplan</p>
-           </Grid>
-           <Grid item md={2} className="results-dialog-right-grid-github-icon">
-             <img src={IdeaIcon} alt="idea" />
-           </Grid>
-           <Grid item md={4} className="results-dialog-right-grid-workplan">
-             <p className="results-dialog-right-grid-content-value">
-               {props.selectedSoltuionDetails.workplan}
-             </p>
-           </Grid>
-           </>
-          ) : 
-          <>
-          <Grid item md={12}>
-          <p className="results-dialog-heading">Workplan</p>
-          </Grid>
-          <Grid item md={1}>
-          <img src={IdeaIcon} alt="idea" />
-          </Grid>
-          <Grid item md={11} className="results-dialog-right-grid-content-value-non-community">
-          <p className="results-dialog-right-grid-content-value">
-               {props.selectedSoltuionDetails.workplan}
-             </p>
-          </Grid>
-          </>}
-         
+              <Grid item md={6}>
+                <p className="results-dialog-heading">Voting Score</p>
+                <p className="results-dialog-right-grid-content-score">
+                  {props.selectedSolution.finalVoteScore}
+                </p>
+              </Grid>
+              <Grid item md={6}>
+                <p className="results-dialog-heading">Workplan</p>
+              </Grid>
+              <Grid
+                item
+                md={2}
+                className="results-dialog-right-grid-github-icon"
+              >
+                <a
+                  href={`https://ipfs.io/ipfs/${props.selectedSolution.workplan}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={IdeaIcon} alt="idea" />
+                </a>
+              </Grid>
+              <Grid item md={4} className="results-dialog-right-grid-workplan">
+                <p className="results-dialog-right-grid-content-value">
+                  {props.selectedSolution.workplanGithubId}
+                </p>
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item md={12}>
+                <p className="results-dialog-heading">Workplan</p>
+              </Grid>
+              <Grid item md={1}>
+                <a
+                  href={`https://ipfs.io/ipfs/${props.selectedSolution.workplan}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={IdeaIcon} alt="idea" />
+                </a>
+              </Grid>
+              <Grid
+                item
+                md={11}
+                className="results-dialog-right-grid-content-value-non-community"
+              >
+                <p className="results-dialog-right-grid-content-value">
+                  {props.selectedSolution.workplanGithubId}
+                </p>
+              </Grid>
+            </>
+          )}
         </Grid>
         <Grid item md={12} xs={12}>
-          <Button
-            className="profile-button results-dialog-right-grid-button"
-            disabled={handleEscrowDisable()}
-            onClick={(e) => handleEscrowClick(e.target.innerText)}
-          >
-            {handleEscrowLabel()}
-          </Button>
+          {props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (
+            <Button
+              className="profile-button results-dialog-right-grid-button"
+              style={{ opacity: "13%" }}
+            >
+              Initiate Escrow
+            </Button>
+          ) : (
+            <Button
+              className="profile-button results-dialog-right-grid-button"
+              disabled={handleEscrowDisable()}
+              onClick={(e) => handleEscrowClick(e.target.innerText)}
+            >
+              {handleEscrowLabel()}
+            </Button>
+          )}
         </Grid>
       </Grid>
       {alert.open ? (

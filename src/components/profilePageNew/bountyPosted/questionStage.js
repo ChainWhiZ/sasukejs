@@ -96,7 +96,7 @@ export default function QuestionStage(props) {
         <ResultsDialog
           open={openResultsDialog}
           handleDialogClose={() => setOpenResultsDialog(false)}
-          githubIssueUrl={props.githubIssueUrl}
+          _id={props._id}
           isCommunityApprovedSolution = {props.isCommunityApprovedSolution}
         />
       ) : (
