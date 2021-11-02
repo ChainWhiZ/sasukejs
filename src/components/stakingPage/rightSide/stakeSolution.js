@@ -71,7 +71,7 @@ export default function StakeSolution(props) {
             variant="outlined"
             size="small"
             className="staking-input"
-            InputProps={{ inputProps: { min: 0, max: 10000 } }}
+            InputProps={{ inputProps: { min: 5, max: 40 } }}
             value={
               props.solutionId === props.stakeDetails.solutionId
                 ? props.stakeDetails.stakeAmount
@@ -84,7 +84,7 @@ export default function StakeSolution(props) {
           <Button
             variant="contained"
             className="staking-button"
-            onClick={() => props.handleStake()}
+            onClick={() => props.handleStakeValidation()}
             disabled={props.disable}
           >
             Stake

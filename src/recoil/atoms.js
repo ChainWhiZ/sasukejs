@@ -9,3 +9,8 @@ export const walletAddress = atom({
   key: "walletAddress",
   default:"",
 });
+
+export const contract = atom({
+  key: "contract",
+  default:{},
+});

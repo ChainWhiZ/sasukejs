@@ -37,7 +37,7 @@ export default function RightCard(props) {
             props.solutions.map((solution) => (
               <StakeSolution
                 solutionId={solution}
-                handleStake={props.handleStake}
+                handleStakeValidation={props.handleStakeValidation}
                 handleLoader={setLoader}
                 handleSetStakeDetails={props.handleSetStakeDetails}
                 stakeDetails={props.stakeDetails}

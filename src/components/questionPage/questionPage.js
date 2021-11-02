@@ -60,7 +60,7 @@ export default function QuestionPage(props) {
         <Grid container className="grid-body">
           <Grid item md={3} xs={12}>
             <QuestionLeftHeading
-              {...data}
+              questionDetails={data}
               handleFetch={() => fetchQuestion()}
             />
           </Grid>

@@ -69,3 +69,17 @@ p {
   border: 4px solid rgba(212, 255, 30, 1);
   margin-top: -1.3vw;
 }
+.landing-warning{
+  color: white;
+		padding: 10px;
+		display: inline-block;
+		border-radius: 5px;
+		animation: blinkingBackground 3s infinite;
+}
+@keyframes blinkingBackground{
+  0%		{ background-color: #09d36e;}
+  25%		{ background-color: rgb(255, 131, 30);}
+  50%		{ background-color: #47d3e6;}
+  75%		{ background-color: #254878;}
+  100%	{ background-color: #d50404;}
+}

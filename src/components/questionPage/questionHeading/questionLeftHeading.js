@@ -11,10 +11,10 @@ export default function QuestionLeftHeading(props) {
   let hoursOrDaysOrMinutes = "Days";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
-  if (props.questionStage === "solve" && props.isCommunityApprovedSolution) {
-    timeLeft = Math.floor((props.votingTimeBegin - seconds) / (3600 * 24));
+  if (props.questionDetails.questionStage === "solve" && props.questionDetails.isCommunityApprovedSolution) {
+    timeLeft = Math.floor((props.questionDetails.votingTimeBegin - seconds) / (3600 * 24));
   } else {
-    timeLeft = Math.floor((props.timeEnd - seconds) / (3600 * 24));
+    timeLeft = Math.floor((props.questionDetails.timeEnd - seconds) / (3600 * 24));
   }
 
   if (timeLeft < 1) {
@@ -45,7 +45,7 @@ export default function QuestionLeftHeading(props) {
         justifyContent="center"
         alignItems="center"
       >
-        {props.timeEnd > seconds ? (
+        {props.questionDetails.timeEnd > seconds ? (
           <Grid item md={12}>
             <p class="heading color-neon">Time Remaining</p>
             <p class="bounty-time">{timeLeft + " " + hoursOrDaysOrMinutes}</p>
@@ -58,21 +58,21 @@ export default function QuestionLeftHeading(props) {
         )}
         <Grid item md={12}>
           <p class="heading color-neon margin-top-10">Applicants</p>
-          <p class="bounty-time">{props.workplanIds.length}</p>
+          <p class="bounty-time">{props.questionDetails.workplanIds.length}</p>
         </Grid>
         <Grid item md={12} className="margin-top-10">
-          {props.questionStage === "vote" ? (
+          {props.questionDetails.questionStage === "vote" ? (
             <Link
               to={{
                 pathname: "/stake",
                 state: {
-                  questionDetails: props,
+                  questionDetails: props.questionDetails,
                 },
               }}
             >
               <Button class="bounty-button">Vote Now</Button>
             </Link>
-          ) : props.questionStage === "complete" ? (
+          ) : props.questionDetails.questionStage === "complete" ? (
             <Button class="bounty-button">Completed</Button>
           ) : (
             <Button
@@ -89,7 +89,7 @@ export default function QuestionLeftHeading(props) {
         <WorkplanSubmit
           open={openWorkplanDialog}
           handleDialogClose={() => setOpenWorkplanDialog(false)}
-          questionId={props._id}
+          questionId={props.questionDetails._id}
           handleFetch={() => props.handleFetch()}
         />
       ) : (
