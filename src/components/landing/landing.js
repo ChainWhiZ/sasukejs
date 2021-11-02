@@ -15,6 +15,9 @@ export default function Landing() {
         <Grid item md={12} xs={12}>
           <hr className="horizontal-line" style={{ marginTop: "2%" }} />
         </Grid>
+        <Grid item md={12} xs={12}>
+          <p className="landing-warning">Our Contract is not audited. Use at your own risk</p>
+        </Grid>
         <Grid item md={12} xs={12} className="margin-top-4">
           <p className="landing-heading">Welcome to Chainwhiz</p>
         </Grid>

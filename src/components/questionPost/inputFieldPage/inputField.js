@@ -88,7 +88,7 @@ export default function InputComponent(props) {
               }
               inputProps={{
                 style: { textAlign: "center" },
-                min: 0,
+                min: (props.pageState===5)?10:5,
               }}
               placeholder={handlePlaceholder()}
               value={handleValue()}

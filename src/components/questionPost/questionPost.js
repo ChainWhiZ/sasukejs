@@ -81,7 +81,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 5) {
-        if (reward <= 0) {
+        if (reward <= 10) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -114,7 +114,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
-        if (communityReward <= 0 && communityOption == "Community Approved") {
+        if (communityReward <= 5 && communityOption == "Community Approved") {
           console.log(typeof communityReward);
           setAlert((prevState) => ({
             ...prevState,

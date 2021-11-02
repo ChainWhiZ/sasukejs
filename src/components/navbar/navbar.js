@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import Login from "./login";
 import "./navbar.css";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../recoil/atoms";
+import { username as usernameAtom,contract as contractAtom} from "../../recoil/atoms";
 import ConnectWallet from "./connectWallet";
 export default function Navbar() {
   const username = useRecoilValue(usernameAtom);
+  const contract = useRecoilValue(contractAtom);
+  console.log(contract)
   return (
     <AppBar>
       <Toolbar

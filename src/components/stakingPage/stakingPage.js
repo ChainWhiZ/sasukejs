@@ -12,7 +12,6 @@ import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
 import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
 import "./stakingPageCss.css";
-import { FlashOnRounded } from "@material-ui/icons";
 
 export default function StakingPage(props) {
   console.log(props)
@@ -73,6 +72,25 @@ export default function StakingPage(props) {
     setSelectedSolutions(data[i].solutionIds);
   };
 
+  const handleStakeValidation = () => {
+    if (stakeDetails.stakeAmount < 5 || stakeDetails.stakeAmount > 40) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage:
+          "Please enter stake amount between 5 to 40 matic",
+      }));
+    }
+    else {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: false,
+        errorMessage:
+          "",
+      }));
+      handleStake();
+    }
+  }
   const handleStake = () => {
     console.log(stakeDetails);
     console.log("in handle stake");
@@ -129,10 +147,10 @@ export default function StakingPage(props) {
       // .then(async function () {
       //   return contract.methods
       //     .stakeVote(
-      //       (stakedAmount * Math.pow(10, 18)).toString(),
-      //       props.questionDetails.githubIssueUrl.toString(),
-      //       props.questionDetails.publicAddress.toString(),
-      //       solution.publicAddress.toString()
+      //       (stakeDetails.stakedAmount * Math.pow(10, 18)).toString(),
+      //       props.location.state.questionDetails.githubIssueUrl.toString(),
+      //       props.location.state.questionDetails.publicAddress.toString(),
+      //       stakedDetails.solverPublicAddress.toString()
       //     )
       //     .send({ from: walletAddress.toString() });
       // })
@@ -140,13 +158,16 @@ export default function StakingPage(props) {
       //   return await axios
       //     .post(port + "vote/save", {
       //       publicAddress: walletAddress,
-      //       amountStaked: stakedAmount,
+      //       amountStaked: stakeDetails.stakedAmount,
       //       timestamp: Date.now() / 1000,
-      //       solutionId: solution._id,
+      //       solutionId: stakeDetails.solutionId,
       //       githubId: username,
       //     })
       //     .then((response) => {
-      //       setStakedAmount(0);
+      // setStakeDetails((prevState) => ({
+      //   ...prevState,
+      //   stakeAmount: 0,
+      // }));
       //       setLoader(false);
       //       console.log(response);
       //     })
@@ -202,7 +223,7 @@ export default function StakingPage(props) {
               <Grid item md={8} xs={12}>
                 <RightCard
                   solutions={selectedSolutions}
-                  handleStake={handleStake}
+                  handleStakeValidation={handleStakeValidation}
                   handleSetStakeDetails={setStakeDetails}
                   stakeDetails={stakeDetails}
                   disable={disable}

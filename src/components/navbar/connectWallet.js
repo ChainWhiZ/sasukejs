@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import { useRecoilState } from "recoil";
-import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom ,contract as contractAtom} from "../../recoil/atoms";
 import walletIcon from "../../assets/wallet.png";
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from "@material-ui/core/Button";
@@ -9,10 +9,12 @@ import "./navbar.css";
 import {
     initiliaseWeb3,
     fetchAccount,
+    initiliaseContract,
 } from "../../web3js/web3";
 
 export default function ConnectWallet() {
     const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
+    const [contract, setContract] = useRecoilState(contractAtom);
     const [connectWallet, setConnectWallet] = useState(false);
     const [open, setOpen] = useState(false);
    
@@ -22,7 +24,16 @@ export default function ConnectWallet() {
         await fetchAccount(function (result) {
             setWalletAddress(result[0]);
         });
+        console.log(await initiliaseContract())
+        setContract(async (old) => {
+            let _test = await initiliaseContract();
+            console.log(_test)
+            return _test;
+          });
+          console.log(contract)
+      //  setContract(await initiliaseContract())
 
+     
     }
     const handleTooltipClose = () => {
         setOpen(false);
