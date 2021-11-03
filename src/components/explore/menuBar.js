@@ -12,7 +12,6 @@ import whiteSolveBounty from "../../assets/white_solve_bounty.png";
 import blackVoteBounty from "../../assets/black_vote_bounty.png";
 
 export default function MenuBar(props) {
-  console.log(props);
   return (
     <>
       <Grid container className="menubar">

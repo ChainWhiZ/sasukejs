@@ -6,9 +6,10 @@ import axios from "axios";
 import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
-import "../profilePageCss.css"
+import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
+  let address = "0xe19c4b204a76db09697ea54c9182eba2195542aD";
   const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
     open: false,
@@ -29,7 +30,7 @@ export default function QuestionStage(props) {
             ...prevState,
             open: true,
             errorMessage: "Error fetching escrow",
-          }))
+          }));
         });
     }
   }, []);
@@ -74,33 +75,25 @@ export default function QuestionStage(props) {
     //   });
   };
 
-  
   return (
     <>
       <Grid container className="profile-question-stage-grid">
         <Grid item md={12}>
-          <p
-            className="profile-text-style profile-text-center"
-          >
-            Status
-          </p>
+          <p className="profile-text-style profile-text-center">Status</p>
           {props.questionId.questionStage === "solve" ? (
             <>
-
               <p className="profile-content-style profile-text-center">
                 Solving Phase In Progress
               </p>
             </>
           ) : props.questionId.questionStage === "vote" ? (
             <>
-
               <p className="profile-content-style profile-text-center">
                 Voting Phase In Progress
               </p>
             </>
           ) : props.questionId.questionStage === "complete" ? (
             <>
-
               <p className="profile-content-style profile-text-center">
                 Completed
               </p>
@@ -108,53 +101,69 @@ export default function QuestionStage(props) {
           ) : null}
         </Grid>
         <Grid item md={6} className="profile-text-center">
-          <p  className="profile-text-style profile-text-center">Your Solution</p>
+          <p className="profile-text-style profile-text-center">
+            Your Solution
+          </p>
           <a
             href={props._id}
             target="_blank"
             rel="noreferrer"
             className="profile-content-style"
           >
-
-            <img class="icon" src={GithubIcon} alt="git" style={{ marginTop: "-2%" }} />
+            <img
+              class="icon"
+              src={GithubIcon}
+              alt="git"
+              style={{ marginTop: "-2%" }}
+            />
           </a>
         </Grid>
-        <Grid item md={6} className="profile-text-center" >
-
-          <p className="profile-text-style profile-text-center">Winning Solution</p>
-          {props.questionId.selectedSolutionId ?
-            (<a
+        <Grid item md={6} className="profile-text-center">
+          <p className="profile-text-style profile-text-center">
+            Winning Solution
+          </p>
+          {props.questionId.selectedSolutionId ? (
+            <a
               href={props.questionId.selectedSolutionId}
               target="_blank"
               rel="noreferrer"
               className="profile-content-style"
             >
-
-              <img class="icon" src={GithubIcon} alt="git" style={{ marginTop: "-2%" }} />
-            </a>)
-            :
-            (<p className="profile-content-style" style={{ marginTop: "-3%" }}>NA</p>)
-          }
+              <img
+                class="icon"
+                src={GithubIcon}
+                alt="git"
+                style={{ marginTop: "-2%" }}
+              />
+            </a>
+          ) : (
+            <p className="profile-content-style" style={{ marginTop: "-3%" }}>
+              NA
+            </p>
+          )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {
+          {props.publicAddress === address ? (
             props.escrowId && escrow.escrowStatus !== "Complete" ? (
-              <Button className="profile-button" onClick={handleComplete}
-              disabled={escrow.escrowStatus === "In-Process" ? false : true}>
-                {escrow.escrowStatus === "Initiation" ? "Escrow Initiated" : "Confirm Reward"}
+              <Button className="profile-button">
+                {escrow.escrowStatus === "Initiation"
+                  ? "Escrow Initiated"
+                  : "Confirm Reward"}
               </Button>
             ) : (
               <Link to={`/bounty/${props._id}`}>
                 <Button className="profile-button">Go to Bounty Page</Button>
               </Link>
-            )}
+            )
+          ) : (
+            <Button className="profile-button" style={{ opacity: "13%" }}>
+              Change your wallet address
+            </Button>
+          )}
         </Grid>
       </Grid>
       {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
     </>
   );

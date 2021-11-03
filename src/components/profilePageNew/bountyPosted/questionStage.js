@@ -98,6 +98,7 @@ export default function QuestionStage(props) {
           handleDialogClose={() => setOpenResultsDialog(false)}
           _id={props._id}
           isCommunityApprovedSolution = {props.isCommunityApprovedSolution}
+          publicAddress={props.publicAddress}
         />
       ) : (
         ""

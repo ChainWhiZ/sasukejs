@@ -9,6 +9,7 @@ import SimpleAlerts from "../../alert/alert";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
+  let address = "0x99dA37B49DB304a7823724b61c9D16481ce36D3e";
   console.log(props);
   const [alert, setAlert] = useState({
     open: false,
@@ -68,31 +69,67 @@ export default function QuestionStage(props) {
             </p>
           )}
         </Grid>
-        <Grid item md={6}>
-          <p className="profile-text-style profile-text-center">
-            Voted On
-          </p>
-          <p className="profile-content-style profile-text-center">
-            {props.amountStaked}
-          </p>
+        <Grid item md={6} style={{ textAlign: "center" }}>
+          <p className="profile-text-style profile-text-center">Voted On</p>
+          <a href={props.solutionId._id} target="_blank" rel="noreferrer">
+            <img src={GithubIcon} alt="git" style={{ marginTop: "-2%" }} />
+          </a>
         </Grid>
         <Grid item md={6}>
-          <p className="profile-text-style profile-text-center">
-            Unstake Amount
-          </p>
-          <p className="profile-content-style profile-text-center">
-            {props.amountToBeReturned}
-          </p>
+          {props.questionDetails.questionStage === "vote" ? (
+            <>
+              <p className="profile-text-style profile-text-center">Staked</p>
+              <p className="profile-content-style profile-text-center">
+                {props.amountStaked}
+              </p>
+            </>
+          ) : props.claimed ? (
+            props.amountToBeReturned > props.amountStaked ? (
+              <>
+                <p className="profile-text-style profile-text-center">Earned</p>
+                <p className="profile-content-style profile-text-center">
+                  {props.amountToBeReturned - props.amountStaked}
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="profile-text-style profile-text-center">
+                  Slashed
+                </p>
+                <p className="profile-content-style profile-text-center">
+                  {props.amountStaked - props.amountToBeReturned}
+                </p>
+                :
+              </>
+            )
+          ) : (
+            <>
+              {" "}
+              <p className="profile-text-style profile-text-center">
+                To be Unstaked
+              </p>
+              <p className="profile-content-style profile-text-center">
+                {props.amountToBeReturned}
+              </p>
+            </>
+          )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {props.amountToBeReturned ? (
-            <Button className="profile-button" onClick={handleUnstake}>
-              Unstake
-            </Button>
+          {props.publicAddress === address ? (
+            !props.claimed &&
+            props.questionDetails.questionStage === "complete" ? (
+              <Button className="profile-button" onClick={handleUnstake}>
+                Unstake Now
+              </Button>
+            ) : (
+              <Link to={`/bounty/${props._id}`}>
+                <Button className="profile-button">Go to Bounty Page</Button>
+              </Link>
+            )
           ) : (
-            <Link to={`/bounty/${props._id}`}>
-              <Button className="profile-button">Go to Bounty Page</Button>
-            </Link>
+            <Button className="profile-button " style={{ opacity: "13%" }}>
+              Change your wallet address
+            </Button>
           )}
         </Grid>
       </Grid>

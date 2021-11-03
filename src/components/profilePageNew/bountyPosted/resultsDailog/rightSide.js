@@ -9,13 +9,14 @@ import BlackInfoIcon from "../../../../assets/black_info.png";
 import IdeaIcon from "../../../../assets/white_idea.png";
 
 export default function RightSide(props) {
+  let address = "0xe0C95D0121f21740ef88Ba6a0117ebC9c31C5297";
   const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
-  console.log(props);
+  console.log(props.hasEscrowInitiated);
   useEffect(async () => {
     if (props.selectedSolution.escrowId) {
       //   axios
@@ -136,20 +137,29 @@ export default function RightSide(props) {
           )}
         </Grid>
         <Grid item md={12} xs={12}>
-          {props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (
+          {props.publicAddress === address ? (
+            props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (
+              <Button
+                className="profile-button results-dialog-right-grid-button"
+                style={{ opacity: "13%" }}
+              >
+                Escrow already initiated for other solution
+              </Button>
+            ) : (
+              <Button
+                className="profile-button results-dialog-right-grid-button"
+                disabled={handleEscrowDisable()}
+                onClick={(e) => handleEscrowClick(e.target.innerText)}
+              >
+                {handleEscrowLabel()}
+              </Button>
+            )
+          ) : (
             <Button
               className="profile-button results-dialog-right-grid-button"
               style={{ opacity: "13%" }}
             >
-              Initiate Escrow
-            </Button>
-          ) : (
-            <Button
-              className="profile-button results-dialog-right-grid-button"
-              disabled={handleEscrowDisable()}
-              onClick={(e) => handleEscrowClick(e.target.innerText)}
-            >
-              {handleEscrowLabel()}
+             Change your wallet address
             </Button>
           )}
         </Grid>

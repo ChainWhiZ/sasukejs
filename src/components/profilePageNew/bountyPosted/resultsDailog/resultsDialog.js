@@ -108,6 +108,7 @@ export default function ResultsDialog(props) {
     setSelectedSolutionIndex(index);
     console.log(selectedSolutionIndex);
   };
+  console.log(props.publicAddress)
   const handleEscrowInitiation = () => {
     // setLoader(true);
     // return Promise.resolve()
@@ -213,6 +214,7 @@ export default function ResultsDialog(props) {
               handleEscrowOwnership={handleEscrowOwnership}
               isCommunityApprovedSolution={props.isCommunityApprovedSolution}
               hasEscrowInitiated={hasEscrowInitiated}
+              publicAddress={props.publicAddress}
             />
           </Grid>
         </Grid>
