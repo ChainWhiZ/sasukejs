@@ -21,7 +21,6 @@ export default function WorkplanSubmit(props) {
     errorMessage: "",
     severity: "error",
   });
-
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
