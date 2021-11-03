@@ -78,6 +78,7 @@ export default function QuestionLeftHeading(props) {
             <Button
               class="bounty-button"
               onClick={() => setOpenWorkplanDialog(true)}
+              handleFetch={props.handleFetch()}
             >
               Submit Workplan
             </Button>
