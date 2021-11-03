@@ -22,22 +22,32 @@ export default function QuestionRightHeading(props) {
           <p class="bounty-time ">
             {props.questionStage === "vote"
               ? props.communityReward
-              : props.bountyReward + " CWZ"}
+              : props.bountyReward + " MATIC"}
           </p>
           <p class="bounty-time margin-top-20">
             {" "}
             {props.questionStage === "vote"
               ? props.communityReward
-              : props.bountyReward + " CWZ"}
+              : props.bountyReward + " MATIC"}
           </p>
           {props.questionStage === "solve" ? (
-            <Button
-              class="bounty-button"
-              disabled={props.questionStage === "complete"}
-              onClick={() => setOpenSolveDialog(true)}
-            >
-              Submit Github link
-            </Button>
+            // <Button
+            //   class="bounty-button"
+            //   disabled={props.questionStage === "complete"}
+            //   onClick={() => setOpenSolveDialog(true)}
+            // >
+            //   Submit Github link
+            // </Button>
+            <Link
+            to={{
+              pathname: "/stake",
+              state: {
+                questionDetails: props,
+              },
+            }}
+          >
+            <Button class="bounty-button">Vote Now</Button>
+          </Link>
           ) : props.questionStage === "vote" ? (
             <Link
               to={{

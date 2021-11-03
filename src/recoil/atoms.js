@@ -14,3 +14,8 @@ export const contract = atom({
   key: "contract",
   default:{},
 });
+
+export const balance = atom({
+  key: "balance",
+  default:0,
+});

@@ -40,10 +40,10 @@ export default function QuestionCard(props) {
         {props.isCommunityApprovedSolution ? (
           <>
             <Grid item md={2} xs={12} className="reward-grid">
-              <Box className="reward-box">{props.bountyReward} CWZ</Box>
+              <Box className="reward-box">{props.bountyReward} MATIC</Box>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-              <Box className="reward-box">{props.communityReward} CWZ</Box>
+              <Box className="reward-box">{props.communityReward} MATIC</Box>
             </Grid>
           </>
         ) : (
@@ -52,7 +52,7 @@ export default function QuestionCard(props) {
             <Grid item md={2} xs={12} className="reward-grid">
               {" "}
               <Box className="reward-box non-community">
-                {props.bountyReward} CWZ
+                {props.bountyReward} MATIC
               </Box>
             </Grid>
           </>

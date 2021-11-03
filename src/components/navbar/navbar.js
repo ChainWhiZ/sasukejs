@@ -12,7 +12,6 @@ import { username as usernameAtom} from "../../recoil/atoms";
 import ConnectWallet from "./connectWallet";
 export default function Navbar() {
   const username = useRecoilValue(usernameAtom);
- 
   return (
     <AppBar>
       <Toolbar
@@ -73,9 +72,7 @@ export default function Navbar() {
             </Grid>
           ) : (
             <Grid item md={2} xs={12}>
-              <Link to="/profile" className="link">
                 <Login />
-              </Link>
             </Grid>
           )}
         </Grid>
