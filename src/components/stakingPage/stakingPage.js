@@ -9,9 +9,8 @@ import infoIcon from "../../assets/info.png";
 import CircularIndeterminate from "../loader/loader";
 import SimpleAlerts from "../alert/alert";
 import { useRecoilValue } from "recoil";
-import { walletAddress as walletAddressAtom,contract as contractAtom,username as usernameAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom,contract as contractAtom,username as usernameAtom } from "../../recoil/atoms"
 import "./stakingPageCss.css";
-import { FlashOnRounded } from "@material-ui/icons";
 
 export default function StakingPage(props) {
   console.log(props)
@@ -41,6 +40,7 @@ export default function StakingPage(props) {
   promise.then(function (v) {
     contract = v;
   });
+  console.log(walletAddress)
   useEffect(() => {
     axios
       .post(port + "workplan/fetchall", {
@@ -207,8 +207,8 @@ export default function StakingPage(props) {
                     alt="icon"
                   />
                 </span>
-                The minimum amount needed to stake and vote on a solution is 40
-                CWZ. Please connect to Matic Testnet for staking and voting.
+                The minimum amount needed to stake and vote on a solution is 5
+                MATIC. Please connect to Matic Mainnet for staking and voting.
               </p>
             </Grid>
             <Grid

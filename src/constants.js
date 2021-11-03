@@ -1,7 +1,7 @@
 export const votingPhaseDetails = {
   heading: "Voting on Solutions is live",
   description:
-    "Stake your favorite CWZ tokens and vote on winning solutions to earn attractive incentives.",
+    "Stake your favorite MATIC tokens and vote on winning solutions to earn attractive incentives.",
   buttonLabel: "Vote Now",
 };
 

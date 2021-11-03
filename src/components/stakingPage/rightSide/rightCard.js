@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import StakeSolution from "./stakeSolution";
 import CircularIndeterminate from "../../loader/loader";
+import { useRecoilValue } from "recoil";
+import { balance as balanceAtom } from "../../../recoil/atoms";
 import "../stakingPageCss.css";
 
 export default function RightCard(props) {
   console.log(props);
 
   const [loader, setLoader] = useState(false);
+  const balance = useRecoilValue(balanceAtom);
   console.log(loader);
   return (
     <Grid
@@ -24,7 +27,7 @@ export default function RightCard(props) {
       </Grid>
       <Grid item md={5} xs={12}>
         <p className="staking-color-neon staking-text-style staking-margin-left-15">
-          Balance - 300 CWZ
+          {balance + " MATIC"}
         </p>
       </Grid>
 

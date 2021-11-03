@@ -10,7 +10,7 @@ import SimpleAlerts from "../../alert/alert";
 export default function InputComponent(props) {
   let currency=""
   if(props.pageState === 5 || props.pageState === 7) {
-    currency="CWZ";
+    currency="MATIC";
   }
   function handlePlaceholder() {
     if (props.pageState === 1) return "Enter Issue Title";

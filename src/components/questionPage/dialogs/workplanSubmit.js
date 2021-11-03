@@ -47,8 +47,8 @@ export default function WorkplanSubmit(props) {
       setLoader(false);
     }
     const uploadedFile = await fleekStorage.upload({
-      apiKey: "U3QGDwCkWltjBLGG1hATUg==",
-      apiSecret: "GMFzg7TFJC2fjhwoz9slkfnncmV/TAHK/4WVeI0qpYY=",
+      apiKey: process.env.REACT_APP_API_KEY,
+      apiSecret: process.env.REACT_APP_API_SECRET,
       key: username + timestamp,
       data: buffer,
     });
