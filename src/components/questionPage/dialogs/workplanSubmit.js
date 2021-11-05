@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
 import { port } from "../../../config/config";
 import { useRecoilValue } from "recoil";
+import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { username as usernameAtom} from "../../../recoil/atoms";
 
 export default function WorkplanSubmit(props) {

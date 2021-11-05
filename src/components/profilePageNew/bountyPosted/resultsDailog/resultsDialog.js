@@ -7,10 +7,18 @@ import LeftSide from "./leftSide";
 import RightSide from "./rightSide";
 import "../../profilePageCss.css";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
+import { useRecoilValue } from "recoil";
+import { contract as contractAtom,walletAddress as walletAddressAtom} from "../../../../recoil/atoms";
 export default function ResultsDialog(props) {
   const [open, setOpen] = useState(props.open);
   // const [solutions, setSolutions] = useState([]);
-  const [username] = localStorage.getItem("username");
+  const contractPromise = useRecoilValue(contractAtom);
+  let contract;
+  var promise = Promise.resolve(contractPromise);
+  promise.then(function (v) {
+    contract = v;
+  });
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [hasEscrowInitiated, setHasEscrowInitiated] = useState(false);
   const solutions = [
     {

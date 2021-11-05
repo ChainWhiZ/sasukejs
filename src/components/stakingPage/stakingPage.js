@@ -36,7 +36,7 @@ export default function StakingPage(props) {
   const [disable, setDisable] = useState(false);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
-  var promise = Promise.resolve(contract);
+  var promise = Promise.resolve(contractPromise);
   promise.then(function (v) {
     contract = v;
   });

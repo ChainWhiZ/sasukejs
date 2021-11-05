@@ -5,13 +5,15 @@ import axios from "axios";
 import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom} from "../../../recoil/atoms";
 import "../profilePageCss.css"
 import { propTypes } from "react-markdown";
 
 
 
 export default function VotedSolution() {
-    const [username] = useState(localStorage.getItem('username'));
+    const username = useRecoilValue(usernameAtom);
     const [data, setData] = useState([]);
     const [alert, setAlert] = useState({
         open: false,

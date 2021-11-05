@@ -6,31 +6,39 @@ import axios from "axios";
 import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
+import { useRecoilValue } from "recoil";
+import { contract as contractAtom,walletAddress as walletAddressAtom} from "../../../recoil/atoms";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
-  let address = "0x99dA37B49DB304a7823724b61c9D16481ce36D3e";
   console.log(props);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
+  const contractPromise = useRecoilValue(contractAtom);
+  let contract;
+  var promise = Promise.resolve(contractPromise);
+  promise.then(function (v) {
+    contract = v;
+  });
+  const walletAddress = useRecoilValue(walletAddressAtom);
 
   const handleUnstake = () => {
     // setLoader(true);
     // return Promise.resolve()
     //   .then(async function () {
-    //     await contract.methods.unStake(props.solutionVotedOn.questionDetails.publicAddress,
-    //       props.solutionVotedOn.questionDetails.githubIssueUrl,
-    //       props.solutionVotedOn.solutionId.publicAddress,
-    //       (props.solutionVotedOn.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
+    //     await contract.methods.unStake(props.questionDetails.publicAddress,
+    //       props.questionDetails.githubIssueUrl,
+    //       props.solutionId.publicAddress,
+    //       (props.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
     //   })
     //   .then(async function () {
     //     axios
     //       .post(port + "vote/updatereward", {
-    //         voterId: props.solutionVotedOn.voterId,
-    //         solutionId: props.solutionVotedOn.solutionId._id,
+    //         voterId: props.voterId,
+    //         solutionId: props.solutionId._id,
     //       })
     //       .then((response) => {
     //         console.log(response.status)
@@ -115,7 +123,7 @@ export default function QuestionStage(props) {
           )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {props.publicAddress === address ? (
+          {props.publicAddress === walletAddress ? (
             !props.claimed &&
             props.questionDetails.questionStage === "complete" ? (
               <Button className="profile-button" onClick={handleUnstake}>

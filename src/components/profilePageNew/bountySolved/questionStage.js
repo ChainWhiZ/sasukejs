@@ -6,34 +6,46 @@ import axios from "axios";
 import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
+import { useRecoilValue } from "recoil";
+import { contract as contractAtom,walletAddress as walletAddressAtom} from "../../../recoil/atoms";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
-  let address = "0xe19c4b204a76db09697ea54c9182eba2195542aD";
   const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
+  const contractPromise = useRecoilValue(contractAtom);
+  let contract;
+  var promise = Promise.resolve(contractPromise);
+  promise.then(function (v) {
+    contract = v;
+  });
+  const walletAddress = useRecoilValue(walletAddressAtom);
   useEffect(async () => {
     if (props.escrowId) {
-      axios
-        .post(port + "escrow/fetch", {
-          _id: props.escrowId,
-        })
-        .then((response) => {
-          setEscrow(response.data);
-        })
-        .catch((err) => {
-          setAlert((prevState) => ({
-            ...prevState,
-            open: true,
-            errorMessage: "Error fetching escrow",
-          }));
-        });
+     fetchEscrow();
     }
   }, []);
+
+  const fetchEscrow = () =>{
+    axios
+    .post(port + "escrow/fetch", {
+      _id: props.escrowId,
+    })
+    .then((response) => {
+      setEscrow(response.data);
+    })
+    .catch((err) => {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Error fetching escrow",
+      }));
+    });
+  }
 
   const handleComplete = () => {
     // setLoader(true);
@@ -56,11 +68,11 @@ export default function QuestionStage(props) {
     //         _id: props.escrowId,
     //       })
     //       .then((response) => {
-    //         props.fetchSolutions();
     //         console.log(response.status);
     //         setLoader(false);
     //         setOpen(false);
     //         props.handleDialogClose(false);
+    //         fetchEscrow();
     //       })
     //       .catch((err) => {
     //         setAlert((prevState) => ({
@@ -143,7 +155,7 @@ export default function QuestionStage(props) {
           )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {props.publicAddress === address ? (
+          {props.publicAddress === walletAddress ? (
             props.escrowId && escrow.escrowStatus !== "Complete" ? (
               <Button className="profile-button">
                 {escrow.escrowStatus === "Initiation"

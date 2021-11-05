@@ -7,10 +7,12 @@ import SimpleAlerts from "../../../alert/alert";
 import "../../profilePageCss.css";
 import BlackInfoIcon from "../../../../assets/black_info.png";
 import IdeaIcon from "../../../../assets/white_idea.png";
+import { useRecoilValue } from "recoil";
+import { walletAddress as walletAddressAtom} from "../../../../recoil/atoms";
 
 export default function RightSide(props) {
-  let address = "0xe0C95D0121f21740ef88Ba6a0117ebC9c31C5297";
   const [escrow, setEscrow] = useState({});
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -137,7 +139,7 @@ export default function RightSide(props) {
           )}
         </Grid>
         <Grid item md={12} xs={12}>
-          {props.publicAddress === address ? (
+          {props.publicAddress === walletAddress ? (
             props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (
               <Button
                 className="profile-button results-dialog-right-grid-button"

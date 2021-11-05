@@ -14,6 +14,7 @@ import "../questionPage.css";
 import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
 import LinearIndeterminate from "../../loader/linearLoader";
+import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { port } from "../../../config/config";
 import eventBus from "../../EventBus";
 import { useRecoilValue } from "recoil";
@@ -33,7 +34,7 @@ export default function SolutionSubmit(props) {
   });
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
-  var promise = Promise.resolve(contract);
+  var promise = Promise.resolve(contractPromise);
   promise.then(function (v) {
     contract = v;
   });

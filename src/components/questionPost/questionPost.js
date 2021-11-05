@@ -31,7 +31,7 @@ export default function QuestionPost() {
   const username = useRecoilValue(usernameAtom);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
-  var promise = Promise.resolve(contract);
+  var promise = Promise.resolve(contractPromise);
   promise.then(function (v) {
     contract = v;
   });
