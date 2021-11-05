@@ -233,10 +233,6 @@ export default function QuestionPost() {
     return <Redirect to="/" />;
   }
 
-  if (!username) {
-    return <Redirect to="/" />;
-  }
-
   return (
     <>
       {activePage === 1 ? (
