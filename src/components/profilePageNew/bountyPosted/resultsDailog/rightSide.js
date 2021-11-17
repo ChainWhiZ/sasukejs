@@ -8,11 +8,17 @@ import "../../profilePageCss.css";
 import BlackInfoIcon from "../../../../assets/black_info.png";
 import IdeaIcon from "../../../../assets/white_idea.png";
 import { useRecoilValue } from "recoil";
-import { walletAddress as walletAddressAtom} from "../../../../recoil/atoms";
+import { Tooltip } from "@material-ui/core";
+import { walletAddress as walletAddressAtom } from "../../../../recoil/atoms";
+import Checkbox from "@material-ui/core/Checkbox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 export default function RightSide(props) {
   const [escrow, setEscrow] = useState({});
   const walletAddress = useRecoilValue(walletAddressAtom);
+  const [ cloneconfirmation, setCloneconfirmation] = useState(false);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -39,25 +45,16 @@ export default function RightSide(props) {
   }, []);
   const handleEscrowDisable = () => {
     if (
-      escrow.escrowStatus === "In-Process" ||
-      escrow.escrowStatus === "Complete"
+      escrow.escrowStatus === "Acknowledged" || props.disable || !cloneconfirmation 
     )
       return true;
     return false;
   };
   const handleEscrowLabel = () => {
-    if (escrow.escrowStatus === "Initiation") return "Ownership Received";
-    if (escrow.escrowStatus === "In-Process") return "Reward Transfer";
-    if (escrow.escrowStatus === "Complete") return "Escrow Completed";
+    if (escrow.escrowStatus === "TransactionCompleted") return "Confirm reward";
     return "Initiate Escrow";
   };
   console.log(handleEscrowLabel());
-
-  const handleEscrowClick = (val) => {
-    if (val === "Initiate Escrow") props.handleEscrowInitiation();
-    if (val === "Ownership Received") props.handleEscrowOwnership();
-  };
-
   return (
     <>
       <Grid container className="results-dialog-right-grid">
@@ -138,31 +135,53 @@ export default function RightSide(props) {
             </>
           )}
         </Grid>
+        <Grid item md={12} xs={12} style={{margin:"-4% 0% 2% 12%"}}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                    checkedIcon={<CheckBoxIcon fontSize="small" />}
+                    name="cloneconfirmation"
+                    checked={cloneconfirmation}
+                    onChange={(e)=>setCloneconfirmation(e.target.checked)}
+                    style={{ color: "white" }}
+                  />
+                }
+              />
+              <span className="terms-text">
+              I have already taken a clone of the solution github link.
+              </span>
+            </Grid>
         <Grid item md={12} xs={12}>
           {props.publicAddress === walletAddress ? (
             props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (
-              <Button
-                className="profile-button results-dialog-right-grid-button"
-                style={{ opacity: "13%" }}
-              >
-                Escrow already initiated for other solution
-              </Button>
+              <Tooltip title="Escrow already initiated for other solution">
+                <Button
+                  className="profile-button results-dialog-right-grid-button"
+                  style={{ opacity: "25%" }}
+                >
+                  Initiate Escrow
+                </Button>
+              </Tooltip>
             ) : (
               <Button
                 className="profile-button results-dialog-right-grid-button"
-                disabled={handleEscrowDisable()}
-                onClick={(e) => handleEscrowClick(e.target.innerText)}
+                onClick={(e) => !handleEscrowDisable() ? props.handleEscrowInitiation() : null}
+                style={handleEscrowDisable()? { opacity: "25%" } : null}
               >
                 {handleEscrowLabel()}
               </Button>
             )
           ) : (
-            <Button
-              className="profile-button results-dialog-right-grid-button"
-              style={{ opacity: "13%" }}
-            >
-             Change your wallet address
-            </Button>
+            <Tooltip title="Change your wallet address">
+              <Button
+                className="profile-button results-dialog-right-grid-button"
+                style={{ opacity: "25%" }}
+              >
+                {handleEscrowLabel()}
+              </Button>
+
+            </Tooltip>
           )}
         </Grid>
       </Grid>

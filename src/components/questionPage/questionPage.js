@@ -12,7 +12,7 @@ import { Redirect } from "react-router-dom";
 import SimpleAlerts from "../alert/alert";
 import { port } from "../../config/config";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../recoil/atoms";
+import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function QuestionPage(props) {
   const [data, setData] = useState({});
@@ -56,32 +56,35 @@ export default function QuestionPage(props) {
       <br />
       {loader ? (
         <CircularIndeterminate />
-      ) : (
-        <Grid container className="grid-body">
-          <Grid item md={3} xs={12}>
-            <QuestionLeftHeading
-              questionDetails={data}
-              handleFetch={() => fetchQuestion()}
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <QuestionMiddleHeading {...data} />
-          </Grid>
-          <Grid item md={3} xs={12}>
-            <QuestionRightHeading {...data} />
-          </Grid>
+      ) :
+        alert.open ? (
+          <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+        ) :
 
-          <Grid item md={12} xs={12}>
-            <QuestionDescription {...data} />
-          </Grid>
-          <Grid item md={12} xs={12}>
-            <QuestionApplicants {...data} />
-          </Grid>
-        </Grid>
-      )}
-      {alert.open ? (
-        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
-      ) : null}
+          (
+            <Grid container className="grid-body">
+              <Grid item md={3} xs={12}>
+                <QuestionLeftHeading
+                  questionDetails={data}
+                  handleFetch={() => fetchQuestion()}
+                />
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <QuestionMiddleHeading {...data} />
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <QuestionRightHeading {...data} />
+              </Grid>
+
+              <Grid item md={12} xs={12}>
+                <QuestionDescription {...data} />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <QuestionApplicants {...data} />
+              </Grid>
+            </Grid>
+          )}
+
       <hr className="horizontal-line" />
     </>
   );

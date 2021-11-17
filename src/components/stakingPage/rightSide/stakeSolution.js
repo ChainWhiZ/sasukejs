@@ -44,6 +44,7 @@ export default function StakeSolution(props) {
       solutionId: props.solutionId,
       solverPublicAddress: solution.publicAddress,
       stakeAmount: value,
+      solverGithubId: solution.userId,
     });
   };
 
@@ -84,8 +85,8 @@ export default function StakeSolution(props) {
           <Button
             variant="contained"
             className="staking-button"
-            onClick={() => props.handleStakeValidation()}
-            disabled={props.disable}
+            onClick={() => !props.disabled? props.handleStakeValidation():null}
+            style={{ opacity: props.disabled?"13%":"100%" }}
           >
             Stake
           </Button>

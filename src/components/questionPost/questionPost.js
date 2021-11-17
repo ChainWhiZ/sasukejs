@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
 import { Redirect } from "react-router-dom";
 import { walletAddress as walletAddressAtom, contract as contractAtom } from "../../recoil/atoms";
+import CircularIndeterminate from "../loader/loader";
 
 export default function QuestionPost() {
   let history = useHistory();
@@ -18,6 +19,7 @@ export default function QuestionPost() {
   const [reward, setReward] = useState(0);
   const [communityOption, setCommunityOption] = useState();
   const [activePage, setActivePage] = useState(1);
+  const [loader, setLoader] = useState(false);
   const [terms, setTerms] = useState({
     undertaking1: false,
     undertaking2: false,
@@ -146,14 +148,18 @@ export default function QuestionPost() {
       handlePageChange(page);
     }
   }
-
-  // async function questionPosting() {
+ 
+  // async function questionPosting(timeEnd,votingTimeBegin) {
   //   return await contract.methods
-  //     .questionPosting(
+  //     .postIssue(
+  //       username,
   //       issueURL,
-  //       time.toString(),
-  //       (communityReward * Math.pow(10, 18)).toString(),
-  //       (reward * Math.pow(10, 18)).toString()
+   //       (reward * Math.pow(10, 18)).toString()
+    //       (communityReward * Math.pow(10, 18)).toString(),
+  //       (votingTimeBegin-1).toString(),
+  //       votingTimeBegin.toString(),
+ //        timeEnd.toString(),
+ //        communityOption == "Community Approved" ? true : false
   //     )
   //     .send({ from: walletAddress }, function (error, transactionHash) {
   //       if (transactionHash) {
@@ -170,6 +176,7 @@ export default function QuestionPost() {
     // console.log(communityOption);
     // console.log(communityReward);
     // console.log(terms);
+    // setLoader(true);
     // if (terms.undertaking1 === false || terms.undertaking2 === false) {
     //   setAlert((prevState) => ({
     //     ...prevState,
@@ -191,9 +198,12 @@ export default function QuestionPost() {
     //   }));
     //   const timeBegin = Math.floor(new Date().getTime() / 1000);
     //   let timeEnd = timeBegin + time * 24 * 60 * 60;
+    //   let votingTimeBegin =  communityOption == "Community Approved"
+    //               ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+    //              : 0
     //   return Promise.resolve()
     //     .then(async function () {
-    //       //return await questionPosting();
+    //       //return await questionPosting(timeEnd,votingTimeBegin);
     //     })
     //     .then(async function () {
     //       //return setSuccessStatus(true);
@@ -207,10 +217,7 @@ export default function QuestionPost() {
     //           githubIssueUrl: issueURL,
     //           timeEnd: timeEnd,
     //           solvingTimeBegin: timeBegin,
-    //           votingTimeBegin:
-    //             communityOption == "Community Approved"
-    //               ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-    //               : 0,
+    //           votingTimeBegin:votingTimeBegin,
     //           bountyReward: reward,
     //           communityReward: communityReward,
     //           isCommunityApprovedSolution:
@@ -218,6 +225,7 @@ export default function QuestionPost() {
     //           questionCategories: category,
     //         })
     //         .then((response) => {
+    //          setLoader(false);
     //           history.push({
     //             pathname: `/bounty/${response.data}`,
     //             state: { id: response.data },
@@ -235,82 +243,88 @@ export default function QuestionPost() {
 
   return (
     <>
-      {activePage === 1 ? (
-        <BaseComponent
-          {...text["page1"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleIssueTitle={setIssueTitle}
-          issueTitle={issueTitle}
-          alert={alert}
-        />
-      ) : activePage === 2 ? (
-        <BaseComponent
-          {...text["page2"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleCategory={setCategory}
-          category={category}
-          alert={alert}
-        />
-      ) : activePage === 3 ? (
-        <BaseComponent
-          {...text["page3"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleTime={setTime}
-          time={time}
-          alert={alert}
-        />
-      ) : activePage === 4 ? (
-        <BaseComponent
-          {...text["page4"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleIssueURL={setIssueURL}
-          issueURL={issueURL}
-          alert={alert}
-        />
-      ) : activePage === 5 ? (
-        <BaseComponent
-          {...text["page5"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleReward={setReward}
-          reward={reward}
-          alert={alert}
-        />
-      ) : activePage === 6 ? (
-        <BaseComponent
-          {...text["page6"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleCommunityChoice={setCommunityOption}
-          communityOption={communityOption}
-          alert={alert}
-        />
-      ) : activePage === 7 ? (
-        <BaseComponent
-          {...text["page7"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleCommunityReward={setCommunityReward}
-          communityOption={communityOption}
-          communityReward={communityReward}
-          alert={alert}
-        />
-      ) : activePage === 8 ? (
-        <BaseComponent
-          {...text["page8"]}
-          handleValidation={handleValidation}
-          pageState={activePage}
-          handleTerms={setTerms}
-          terms={terms}
-          alert={alert}
-          walletAddress={walletAddress}
-          handleSubmit={handleSubmit}
-        />
-      ) : null}
+      {loader ?
+        <CircularIndeterminate />
+        :
+        <>
+          {activePage === 1 ? (
+            <BaseComponent
+              {...text["page1"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleIssueTitle={setIssueTitle}
+              issueTitle={issueTitle}
+              alert={alert}
+            />
+          ) : activePage === 2 ? (
+            <BaseComponent
+              {...text["page2"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleCategory={setCategory}
+              category={category}
+              alert={alert}
+            />
+          ) : activePage === 3 ? (
+            <BaseComponent
+              {...text["page3"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleTime={setTime}
+              time={time}
+              alert={alert}
+            />
+          ) : activePage === 4 ? (
+            <BaseComponent
+              {...text["page4"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleIssueURL={setIssueURL}
+              issueURL={issueURL}
+              alert={alert}
+            />
+          ) : activePage === 5 ? (
+            <BaseComponent
+              {...text["page5"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleReward={setReward}
+              reward={reward}
+              alert={alert}
+            />
+          ) : activePage === 6 ? (
+            <BaseComponent
+              {...text["page6"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleCommunityChoice={setCommunityOption}
+              communityOption={communityOption}
+              alert={alert}
+            />
+          ) : activePage === 7 ? (
+            <BaseComponent
+              {...text["page7"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleCommunityReward={setCommunityReward}
+              communityOption={communityOption}
+              communityReward={communityReward}
+              alert={alert}
+            />
+          ) : activePage === 8 ? (
+            <BaseComponent
+              {...text["page8"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleTerms={setTerms}
+              terms={terms}
+              alert={alert}
+              walletAddress={walletAddress}
+              handleSubmit={handleSubmit}
+            />
+          ) : null}
+        </>
+      }
     </>
   );
 }

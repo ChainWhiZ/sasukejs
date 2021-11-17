@@ -5,6 +5,7 @@ import axios from "axios";
 import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
+import CircularIndeterminate from "../../loader/loader";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom} from "../../../recoil/atoms";
 import "../profilePageCss.css"
@@ -14,19 +15,20 @@ import "../profilePageCss.css"
 export default function BountyPosted(props) {
     const username = useRecoilValue(usernameAtom);
     const [data, setData] = useState([]);
+    const [loader,setLoader] = useState(true);
     const [alert, setAlert] = useState({
         open: false,
         errorMessage: "",
         severity: "error",
     });
     useEffect(() => {
-        console.log("hiii")
+        
         axios
             .post(port + "user/questions", {
                 githubId: username
             })
             .then((response) => {
-                // setLoader(false);
+                 setLoader(false);
                 console.log(response.data)
                 setData(response.data);
             })
@@ -36,7 +38,7 @@ export default function BountyPosted(props) {
                     open: true,
                     errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
                 }));
-                // setLoader(false);
+                 setLoader(false);
             });
     },[]);
     return (
@@ -48,7 +50,7 @@ export default function BountyPosted(props) {
                             <QuestionDetail {...question} />
                         </Grid>
                         <Grid item md={5} xs={12}  >
-                            <QuestionStage {...question} />
+                            <QuestionStage {...question}/>
                         </Grid>
                     </>
                 )}
@@ -59,6 +61,7 @@ export default function BountyPosted(props) {
                     message={alert.errorMessage}
                 />
             ) : null}
+              {loader ? <CircularIndeterminate /> : null}
         </>
     );
 }

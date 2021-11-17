@@ -11,21 +11,19 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import axios from "axios";
 import "../questionPage.css";
-import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
-import LinearIndeterminate from "../../loader/linearLoader";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { port } from "../../../config/config";
 import eventBus from "../../EventBus";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom,walletAddress as walletAddressAtom, contract as contractAtom} from "../../../recoil/atoms";
+import { username as usernameAtom, walletAddress as walletAddressAtom, contract as contractAtom } from "../../../recoil/atoms";
 
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [scroll] = useState("paper");
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [solutions, setSolution] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [disable, setDisable] = useState(false);
   const username = useRecoilValue(usernameAtom);
   const [alert, setAlert] = useState({
     open: false,
@@ -54,9 +52,12 @@ export default function SolutionSubmit(props) {
   const solutionPosting = async (solution) => {
     return await contract.methods
       .solutionPosting(
-        props.quesDetails.publicAddress,
+        username,
+        solution,
         props.quesDetails.githubIssueUrl,
-        solution
+        props.quesDetails.publicAddress,
+        //github id of publisher
+        
       )
       .send({ from: walletAddress }, async function (error, transactionHash) {
         if (transactionHash) {
@@ -112,34 +113,52 @@ export default function SolutionSubmit(props) {
         errorMessage: "GitHub repository link is invalid or it already exists",
       }));
     } else {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: false,
+        errorMessage: "",
+      }));
       await handleSubmit(workplan, solution);
     }
   };
   const handleSubmit = async (workplanId, solution) => {
-    setLoader(true);
+    setDisable(true);
     //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
+    if (!walletAddress) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please connect wallet",
+      }));
+    }
+    else {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: false,
+        errorMessage: "",
+      }));
+      return Promise.resolve()
+        .then(async function () {
+          return await solutionPosting(solution);
+        })
 
-    return Promise.resolve()
-      .then(async function () {
-        return await solutionPosting(solution);
-      })
-
-      .then(async function () {
-        return await axios
-          .post(port + "solution/save", {
-            githubId: username,
-            address: walletAddress,
-            githubLink: solution,
-            _id: workplanId,
-            questionId: props.quesDetails._id,
-          })
-          .then(async (response) => {
-            eventBus.dispatch("solutionSubmitted", { message: "Solution submitted" });
-            setOpen(false);
-            setLoader(false);
-            props.handleDialogClose(false);
-          });
-      });
+        .then(async function () {
+          return await axios
+            .post(port + "solution/save", {
+              githubId: username,
+              address: walletAddress,
+              githubLink: solution,
+              _id: workplanId,
+              questionId: props.quesDetails._id,
+            })
+            .then(async (response) => {
+              eventBus.dispatch("solutionSubmitted", { message: "Solution submitted" });
+              setOpen(false);
+              setDisable(false);
+              props.handleDialogClose(false);
+            });
+        });
+    }
   };
 
   return (
@@ -168,7 +187,7 @@ export default function SolutionSubmit(props) {
             handleClose();
           }}
         />
-      
+
         {alert.open ?
           (
             <SimpleAlerts
@@ -197,7 +216,7 @@ export default function SolutionSubmit(props) {
                         <Grid item md={2}>
                           <p class="solution-dialog-workplan-title">Workplan:</p>
                         </Grid>
-                        <Grid item md={10} style={{marginLeft:"-7%"}}>
+                        <Grid item md={10} style={{ marginLeft: "-7%" }}>
                           <a
                             href={`https://ipfs.io/ipfs/${workplanId}`}
                             target="_blank"
@@ -239,9 +258,9 @@ export default function SolutionSubmit(props) {
                     <CardActions>
                       <Button
                         class="dialog-button"
-                        style={{marginLeft:"2%"}}
+                        style={{ marginLeft: "2%",opacity: disable?"25%":"100%" }}
                         onClick={async () =>
-                          await handleValidation(workplanId, solutions[index])
+                          !disable?await handleValidation(workplanId, solutions[index]):null
                         }
                       >
                         Submit
@@ -259,11 +278,10 @@ export default function SolutionSubmit(props) {
               </p>
             )}
 
-           
+
           </DialogContentText>
         </DialogContent>
       </Dialog>
-      {/* {loader ? <LinearIndeterminate /> : null} */}
     </>
   );
 }

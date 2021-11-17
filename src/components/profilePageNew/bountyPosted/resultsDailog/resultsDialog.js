@@ -12,6 +12,7 @@ import { contract as contractAtom,walletAddress as walletAddressAtom} from "../.
 export default function ResultsDialog(props) {
   const [open, setOpen] = useState(props.open);
   // const [solutions, setSolutions] = useState([]);
+  const [ disable,setDisable] = useState(false);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
   var promise = Promise.resolve(contractPromise);
@@ -117,24 +118,25 @@ export default function ResultsDialog(props) {
     console.log(selectedSolutionIndex);
   };
   console.log(props.publicAddress)
+  //change selected solver github id
   const handleEscrowInitiation = () => {
-    // setLoader(true);
+    // setDisable(true);
     // return Promise.resolve()
     //   .then(async function () {
     //     return await contract.methods
-    //       .initEscrow(props.questionUrl, props.solverAddress)
+    //       .initEscrow(walletAddress,props.questionUrl,solutions[selectedSolutionIndex].solverGithubId) 
     //       .send({ from: walletAddress }); //questionhash and solver address from props
     //   })
     //   .then(async function () {
     //     return axios
     //       .post(port + "escrow/init", {
-    //         _id: props.solutionId,
+    //         _id: solutions[selectedSolutionIndex].githubLink,
+    //         _id:props._id,
+    //         userId:solutions[selectedSolutionIndex].solverGithubId
     //       })
     //       .then((response) => {
     //         console.log(response.status);
-    //         props.handleFetch();
-    //         setLoader(false);
-    //         setOpen(false);
+    //         handleClose(false);
     //         props.handleDialogClose(false);
     //       })
     //       .catch((err) => {
@@ -143,44 +145,12 @@ export default function ResultsDialog(props) {
     //           open: true,
     //           errorMessage: "Error",
     //         }));
-    //         setLoader(false);
-    //         setOpen(false);
+    //         handleClose(false);
     //         props.handleDialogClose(false);
     //       });
     //   });
   };
-  const handleEscrowOwnership = () => {
-    // setLoader(true);
-    // return Promise.resolve()
-    //   .then(async function () {
-    //     return await contract.methods
-    //       .transferOwnership(props.solverAddress, props.questionUrl)
-    //       .send({ from: walletAddress }); //solver address and questionhash
-    //   })
-    //   .then(async function () {
-    //     axios
-    //       .post(port + "escrow/inprocess", {
-    //         _id: props.escrowId,
-    //       })
-    //       .then((response) => {
-    //         console.log(response.status);
-    //         setLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
-    //       })
-    //       .catch((err) => {
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error",
-    //         }));
-    //         setLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
-    //       });
-    //   });
-  };
-
+ 
   return (
     <>
       <Dialog
@@ -219,15 +189,14 @@ export default function ResultsDialog(props) {
             <RightSide
               selectedSolution={solutions[selectedSolutionIndex]}
               handleEscrowInitiation={handleEscrowInitiation}
-              handleEscrowOwnership={handleEscrowOwnership}
               isCommunityApprovedSolution={props.isCommunityApprovedSolution}
               hasEscrowInitiated={hasEscrowInitiated}
               publicAddress={props.publicAddress}
+              disable = {disable}
             />
           </Grid>
         </Grid>
       </Dialog>
-      {/* {loader ? <LinearIndeterminate /> : null}  */}
     </>
   );
 }

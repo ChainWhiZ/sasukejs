@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./landing.css";
+// import WaitlistForm from "../form/waitlistForm";
+import { Button } from "@material-ui/core";
+import { createPopup } from '@typeform/embed'
+import '@typeform/embed/build/css/popup.css'
 
 export default function Landing() {
+  //const [waitlistDialog,setWaitlistDialog] = useState(false);
+  const handleClick = () => {
+    const { toggle } = createPopup("UNzTJS5Q")
+    document.getElementById('waitlist-button').onclick = toggle
+  }
   return (
     <>
       <Grid
@@ -16,10 +25,13 @@ export default function Landing() {
           <hr className="horizontal-line" style={{ marginTop: "2%" }} />
         </Grid>
         <Grid item md={12} xs={12}>
-          <p className="landing-warning">Our Contract is not audited. Use at your own risk</p>
+          <p className="landing-warning">Our Contract is not audited. Please mail us your feedback if you face any bugs</p>
         </Grid>
         <Grid item md={12} xs={12} className="margin-top-4">
           <p className="landing-heading">Welcome to Chainwhiz</p>
+        </Grid>
+        <Grid item md={12} xs={12} className="margin-top-4">
+          <Button id="waitlist-button" className="landing-waitlist-button" onClick={() => handleClick()}>Join Waitlist</Button>
         </Grid>
         <Grid item md={10} xs={12} class="description-grid">
           <p className="landing-description">
@@ -60,6 +72,8 @@ export default function Landing() {
         </Grid>
       </Grid>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+      {/* {waitlistDialog?
+      (<WaitlistForm open={waitlistDialog} handleDialogClose={(flag)=>setWaitlistDialog(flag)}/>):null} */}
     </>
   );
 }

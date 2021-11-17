@@ -83,3 +83,13 @@ p {
   75%		{ background-color: #254878;}
   100%	{ background-color: #d50404;}
 }
+
+.landing-waitlist-button{
+  background: #d4ff1f !important;
+  border-radius: 6px !important;
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 1vw !important;
+}

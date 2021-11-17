@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import "./explore.css";
 import search from "../../assets/Search.png";
 import QuestionCard from "./questionCard";
 
 export default function Questions(props) {
+const[searchValue,setSearchValue] = useState("");
   return (
     <>
       <Grid container className="questions-section">
@@ -14,10 +15,10 @@ export default function Questions(props) {
           </p>
         </Grid>
         <Grid item md={4} className="questions-search">
-          <input type="search" className="input" />
+          <input type="search" className="input" value={searchValue} onChange={(e)=>setSearchValue(e.target.value)}/>
         </Grid>
         <Grid item md={2} className="questions-search">
-          <img src={search} alt="search" />
+          <img src={search} alt="search" onClick={()=>props.filterQuestions(searchValue)} />
         </Grid>
         <hr className="question-hr" />
       </Grid>
@@ -25,7 +26,7 @@ export default function Questions(props) {
         {props.data.length ? (
           props.data.map((question) => (
             <>
-              <QuestionCard {...question} />
+              <QuestionCard {...question} type={props.type} />
               <hr className="question-hr" />
             </>
           ))

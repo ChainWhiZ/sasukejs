@@ -21,19 +21,19 @@ export default function StakingPage(props) {
     props.location.state.questionDetails.workplanIds[0]
   );
   const [selectedSolutions, setSelectedSolutions] = useState([]);
-  const [isVoter, setIsVoter] = useState(false);
+  const [voterdetails, setVoterDetails] = useState({});
   const [loader, setLoader] = useState(true);
   const [stakeDetails, setStakeDetails] = useState({
     solutionId: "",
     solverPublicAddress: "",
     stakeAmount: 0,
+    solverGithubId: "",
   });
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
-  const [disable, setDisable] = useState(false);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
   var promise = Promise.resolve(contractPromise);
@@ -59,17 +59,22 @@ export default function StakingPage(props) {
             "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
         }));
       });
-
-    axios
-      .post(port + "user/isvoter", {
-        userId: username,
-      })
-      .then((response) => {
-        setLoader(false);
-        setIsVoter(response.data);
-      })
-      .catch((err) => { });
+  fetchVoterDetails();
+  
   }, []);
+
+  const fetchVoterDetails = () => {
+    axios
+    .post(port + "user/isvoter", {
+      userId: username,
+      questionId: props.location.state.questionDetails._id,
+    })
+    .then((response) => {
+      setLoader(false);
+      setVoterDetails(response.data);
+    })
+    .catch((err) => { });
+  }
 
   const handleSelect = (workplan) => {
     let i = props.location.state.questionDetails.workplanIds.indexOf(workplan);
@@ -114,48 +119,19 @@ export default function StakingPage(props) {
         errorMessage:
           "",
       }));
-      setDisable(true);
       setLoader(true);
       // return Promise.resolve()
       // .then(async function () {
-      //   if (!isVoter) {
-      //     return await contract.methods
-      //       .registerVoter()
-      //       .send({ from: walletAddress });
-      //   } else {
-      //     return;
-      //   }
-      // })
-      // .then(async function () {
-      //   if (!isVoter) {
-      //     return await axios
-      //       .post(port + "vote/voterdetails", {
-      //         githubId: username,
-      //       })
-      //       .then((response) => {
-      //         console.log(response);
-      //         setLoader(false);
-      //       })
-      //       .catch((err) => {
-      //         console.error(err);
-      //         setAlert((prevState) => ({
-      //           ...prevState,
-      //           open: true,
-      //           errorMessage: "Error while staking",
-      //         }));
-      //         setLoader(false);
-      //       });
-      //   } else {
-      //     return;
-      //   }
-      // })
-      // .then(async function () {
       //   return contract.methods
       //     .stakeVote(
-      //       (stakeDetails.stakedAmount * Math.pow(10, 18)).toString(),
+   
       //       props.location.state.questionDetails.githubIssueUrl.toString(),
       //       props.location.state.questionDetails.publicAddress.toString(),
+      //       stakeDetails.solverGithubId,
       //       stakedDetails.solverPublicAddress.toString()
+      //       stakeDetails.solutionId
+       //       (stakeDetails.stakedAmount * Math.pow(10, 18)).toString(),
+       //       username
       //     )
       //     .send({ from: walletAddress.toString() });
       // })
@@ -169,6 +145,7 @@ export default function StakingPage(props) {
       //       githubId: username,
       //     })
       //     .then((response) => {
+      //   fetchVoterDetails();
       // setStakeDetails((prevState) => ({
       //   ...prevState,
       //   stakeAmount: 0,
@@ -231,7 +208,7 @@ export default function StakingPage(props) {
                   handleStakeValidation={handleStakeValidation}
                   handleSetStakeDetails={setStakeDetails}
                   stakeDetails={stakeDetails}
-                  disable={disable}
+                  disable={voterdetails.hasVoted}
                 />
               </Grid>
             </Grid>

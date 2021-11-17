@@ -3,7 +3,6 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import fleekStorage from "@fleekhq/fleek-storage-js";
 import axios from "axios";
-import CircularIndeterminate from "../../loader/loader";
 import SimpleAlerts from "../../alert/alert";
 import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
@@ -16,7 +15,7 @@ export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [buffer, setBuffer] = useState("");
   const username = useRecoilValue(usernameAtom);
-  const [loader, setLoader] = useState(false);
+  const [disable, setDisable] = useState(true);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -36,7 +35,7 @@ export default function WorkplanSubmit(props) {
   };
 
   const handleSubmit = async () => {
-    setLoader(true);
+    setDisable(true);
     const timestamp = new Date().getTime();
     if (!buffer) {
       setAlert((prevState) => ({
@@ -44,7 +43,7 @@ export default function WorkplanSubmit(props) {
         open: true,
         errorMessage: "No file selected",
       }));
-      setLoader(false);
+      setDisable(false);
     }
     const uploadedFile = await fleekStorage.upload({
       apiKey: process.env.REACT_APP_API_KEY,
@@ -62,7 +61,7 @@ export default function WorkplanSubmit(props) {
         if (response.status === 201) {
           props.handleFetch();
           setOpen(false);
-          setLoader(false);
+          setDisable(false);
           props.handleDialogClose(false);
         }
       })
@@ -72,7 +71,7 @@ export default function WorkplanSubmit(props) {
           open: true,
           errorMessage: "Workplan already exists. Submit a different workplan",
         }));
-        setLoader(false);
+        setDisable(false);
       });
   };
 
@@ -105,7 +104,7 @@ export default function WorkplanSubmit(props) {
         <input type="file" onChange={(e) => captureFile(e)} />
         <Grid container className="workplan-dialog-button-grid ">
           <Grid item md={12}>
-            <Button class="dialog-button" onClick={handleSubmit}>
+            <Button class="dialog-button" onClick={!disable?handleSubmit:null} style={{ opacity: disable?"25%":"100%" }}>
               Submit
             </Button>
           </Grid>
@@ -118,7 +117,7 @@ export default function WorkplanSubmit(props) {
           />
         ) : null}
       </Dialog>
-      {/* {loader ? <LinearIndeterminate /> : null}  */}
+      
     </>
   );
 }

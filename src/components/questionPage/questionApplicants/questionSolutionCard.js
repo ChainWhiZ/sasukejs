@@ -9,6 +9,7 @@ import { port } from "../../../config/config";
 import CircularIndeterminate from "../../loader/loader";
 import IdeaIcon from "../../../assets/idea.png";
 import eventBus from "../../EventBus";
+import { Tooltip } from "@material-ui/core";
 
 import account from "../../../assets/account-circle.png"
 export default function QuestionSolutionCard(props) {
@@ -88,25 +89,38 @@ export default function QuestionSolutionCard(props) {
                       applicants.solutionIds.map((solution, index) => {
                         return (
                           <>
-                          <Grid item md={2} className="bounty-solution-list-icons">
-                          <img src={account}  alt="acc" />
-                          </Grid>
+                            <Grid item md={2} className="bounty-solution-list-icons">
+                              <img src={account} alt="acc" />
+                            </Grid>
                             <Grid item md={7}>
-                           
-                                <p className="bounty-solution-list-p">
-                                  {" "}
-                                  {solution.userId + " submitted solution"}
-                                </p>
-                              
+
+                              <p className="bounty-solution-list-p">
+                                {" "}
+                                {solution.userId + " submitted solution"}
+                              </p>
+
                             </Grid>
                             <Grid item md={3} className="bounty-solution-list-icons">
-                              <a
-                                href={solution._id}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                <img src={GithubIcon} alt="git" />
-                              </a>
+                              {props.isCommunityApprovedSolution &&
+                                props.quesStage === "complete" ? (
+                                <Tooltip title={solution.weightage}>
+                                  <a
+                                    href={solution._id}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    <img src={GithubIcon} alt="git" />
+                                  </a>
+                                </Tooltip>
+                              ) :
+
+                                <a
+                                  href={solution._id}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  <img src={GithubIcon} alt="git" />
+                                </a>}
                             </Grid>
                           </>
                         );
@@ -114,7 +128,7 @@ export default function QuestionSolutionCard(props) {
                   </Grid>
                 ) : (
                   <Grid item md={12} className="card-content">
-                  <p className="number-solution">No solutions</p>
+                    <p className="number-solution">No solutions</p>
                   </Grid>
                 )
               ) : (

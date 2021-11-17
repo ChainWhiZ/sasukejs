@@ -9,18 +9,20 @@ import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
 import { Redirect } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../recoil/atoms";
+import { username as usernameAtom } from "../../recoil/atoms";
 import "./explore.css";
 
 export default function NewExplore(props) {
   const [data, setData] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [allQuestions, setAllQuestions] = useState([]);
+  const [loader, setLoader] = useState(true);
   const username = useRecoilValue(usernameAtom);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
+
   useEffect(async () => {
     setLoader(true);
     axios
@@ -32,6 +34,7 @@ export default function NewExplore(props) {
         );
         setLoader(false);
         setData(response.data);
+        setAllQuestions(response.data);
       })
       .catch((err) => {
         setLoader(false);
@@ -44,6 +47,17 @@ export default function NewExplore(props) {
       });
   }, [props.location.state.type]);
 
+  const filterQuestions = (key) => {
+    if (key === "") {
+      setData(allQuestions);
+    }
+    else {
+      const filteredQuestions = allQuestions.filter(question => question.questionTitle.includes(key));
+      console.log(filteredQuestions);
+      setData(filteredQuestions);
+    }
+
+  }
   if (!username) {
     return <Redirect to="/" />;
   }
@@ -51,19 +65,21 @@ export default function NewExplore(props) {
   return (
     <>
       <hr className="horizontal-line" style={{ marginTop: "8vw" }} />
-      <Grid container>
-        <Grid item md={4} xs={12}>
-          <MenuBar type={props.location.state.type} />
+      {loader ? <CircularIndeterminate /> :
+        <Grid container>
+          <Grid item md={4} xs={12}>
+            <MenuBar type={props.location.state.type} />
+          </Grid>
+          <Grid item md={8} xs={12}>
+            <Questions data={data} type={props.location.state.type} filterQuestions={(key) => filterQuestions(key)} />
+          </Grid>
         </Grid>
-        <Grid item md={8} xs={12}>
-          <Questions data={data} />
-        </Grid>
-      </Grid>
+      }
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-      {loader ? <CircularIndeterminate /> : null}
+
     </>
   );
 }

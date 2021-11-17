@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import "./explore.css";
 import time from "../../assets/Time.png";
 import account from "../../assets/Account.png";
+import { maticusd as maticusdAtom } from "../../recoil/atoms";
+import { useRecoilValue } from "recoil";
 
 export default function QuestionCard(props) {
+  const maticusd = useRecoilValue(maticusdAtom);
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
@@ -40,10 +43,10 @@ export default function QuestionCard(props) {
         {props.isCommunityApprovedSolution ? (
           <>
             <Grid item md={2} xs={12} className="reward-grid">
-              <Box className="reward-box">{props.bountyReward} MATIC</Box>
+              <Box className="reward-box">{props.type==="solve"?props.bountyReward:props.communityReward} MATIC</Box>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-              <Box className="reward-box">{props.communityReward} MATIC</Box>
+              <Box className="reward-box">{props.type==="solve"?props.bountyReward * maticusd:props.communityReward * maticusd} USD</Box>
             </Grid>
           </>
         ) : (

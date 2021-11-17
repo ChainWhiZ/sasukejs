@@ -8,6 +8,7 @@ import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import { contract as contractAtom,walletAddress as walletAddressAtom} from "../../../recoil/atoms";
+import Tooltip from '@material-ui/core/Tooltip';
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
@@ -26,13 +27,18 @@ export default function QuestionStage(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
 
   const handleUnstake = () => {
-    // setLoader(true);
+    // props.handleLoader(true);
     // return Promise.resolve()
+      // .then(async function () {
+      //   return contract.methods
+      //     .setApproval(
+       //     props.amountToBeReturned * (Math.pow(10, 18))).toString(),
+      //     )
+      //     .send({ from: walletAddress.toString() });
+      // })
     //   .then(async function () {
-    //     await contract.methods.unStake(props.questionDetails.publicAddress,
-    //       props.questionDetails.githubIssueUrl,
-    //       props.solutionId.publicAddress,
-    //       (props.amountToBeReturned * (Math.pow(10, 18))).toString()).send({ from: walletAddress })
+    //     await contract.methods.unStake(props.solutionId._id)
+      //     .send({ from: walletAddress.toString() });
     //   })
     //   .then(async function () {
     //     axios
@@ -43,7 +49,7 @@ export default function QuestionStage(props) {
     //       .then((response) => {
     //         console.log(response.status)
     //         props.fetchVotedSolutions();
-    //         setLoader(false);
+    //         props.handleLoader(false);
     //       })
     //       .catch((err) => {
     //         setAlert(prevState => ({
@@ -51,7 +57,7 @@ export default function QuestionStage(props) {
     //           open: true,
     //           errorMessage: "Error while unstaking reward"
     //         }));
-    //         setLoader(false);
+    //         props.handleLoader(false);
     //       });
     //   })
   };
@@ -135,9 +141,11 @@ export default function QuestionStage(props) {
               </Link>
             )
           ) : (
-            <Button className="profile-button " style={{ opacity: "13%" }}>
-              Change your wallet address
-            </Button>
+              <Tooltip title="Change your wallet address">
+                <Button className="profile-button " style={{ opacity: "25%" }}>
+                  Go to Bounty Page
+                </Button>
+              </Tooltip>
           )}
         </Grid>
       </Grid>

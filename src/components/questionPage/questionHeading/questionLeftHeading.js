@@ -3,10 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import WorkplanSubmit from "../dialogs/workplanSubmit";
 import { Link } from "react-router-dom";
+import { walletAddress, walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import "../questionPage.css";
+import { useRecoilValue } from "recoil";
 
 export default function QuestionLeftHeading(props) {
   console.log(props);
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [openWorkplanDialog, setOpenWorkplanDialog] = useState(false);
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
@@ -62,16 +65,19 @@ export default function QuestionLeftHeading(props) {
                   questionDetails: props.questionDetails,
                 },
               }}
+              style={walletAddress === props.publicAddress ? { pointerEvents: "none" } : null}
             >
-              <Button class="bounty-button">Vote Now</Button>
+              <Button class="bounty-button"
+                style={walletAddress === props.publicAddress ? { opacity: "25%" } : null}>Vote Now</Button>
             </Link>
           ) : props.questionDetails.questionStage === "complete" ? (
             <Button class="bounty-button">Completed</Button>
           ) : (
             <Button
               class="bounty-button"
-              onClick={() => setOpenWorkplanDialog(true)}
+              onClick={() => walletAddress !== props.questionDetails.publicAddress ? setOpenWorkplanDialog(true) : null}
               handleFetch={props.handleFetch()}
+              style={{ opacity: walletAddress === props.questionDetails.publicAddress ? "25%" : "100%" }}
             >
               Submit Workplan
             </Button>

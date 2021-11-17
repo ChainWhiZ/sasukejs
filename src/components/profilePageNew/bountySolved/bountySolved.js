@@ -7,6 +7,7 @@ import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom} from "../../../recoil/atoms";
+import CircularIndeterminate from "../../loader/loader";
 import "../profilePageCss.css"
 
 
@@ -14,6 +15,7 @@ import "../profilePageCss.css"
 export default function BountySolved(props) {
     const username = useRecoilValue(usernameAtom);
     const [data, setData] = useState([]);
+    const [loader,setLoader] = useState(true);
     const [alert, setAlert] = useState({
         open: false,
         errorMessage: "",
@@ -30,7 +32,7 @@ export default function BountySolved(props) {
             githubId: username
         })
         .then((response) => {
-            // setLoader(false);
+             setLoader(false);
             console.log(response)
             setData(response.data);
         })
@@ -40,7 +42,7 @@ export default function BountySolved(props) {
                 open: true,
                 errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
             }));
-            // setLoader(false);
+             setLoader(false);
         });
     }
 
@@ -53,7 +55,7 @@ export default function BountySolved(props) {
                             <QuestionDetail {...solution.questionId} />
                         </Grid>
                         <Grid item md={5} xs={12}  >
-                            <QuestionStage {...solution} fetchSolutions={fetchSolutions} />
+                            <QuestionStage {...solution} fetchSolutions={fetchSolutions}  handleLoader={(flag)=>setLoader(flag)} />
                         </Grid>
                     </>
                 )}
@@ -64,6 +66,7 @@ export default function BountySolved(props) {
                     message={alert.errorMessage}
                 />
             ) : null}
+            {loader ? <CircularIndeterminate /> : null}
         </>
     );
 }

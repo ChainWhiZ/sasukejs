@@ -7,14 +7,13 @@ import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom} from "../../../recoil/atoms";
-import "../profilePageCss.css"
-import { propTypes } from "react-markdown";
-
-
+import CircularIndeterminate from "../../loader/loader";
+import "../profilePageCss.css";
 
 export default function VotedSolution() {
     const username = useRecoilValue(usernameAtom);
     const [data, setData] = useState([]);
+    const [loader,setLoader] = useState(true);
     const [alert, setAlert] = useState({
         open: false,
         errorMessage: "",
@@ -30,17 +29,17 @@ export default function VotedSolution() {
             githubId: username
         })
         .then((response) => {
-            // setLoader(false);
+             setLoader(false);
             console.log(response.data)
             setData(response.data);
         })
         .catch((err) => {
-            // setLoader(false);
-            // setAlert((prevState) => ({
-            //   ...prevState,
-            //   open: true,
-            //   errorMessage: "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
-            // }));
+            setLoader(false);
+            setAlert((prevState) => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
+            }));
         });
     }
     return (
@@ -52,7 +51,7 @@ export default function VotedSolution() {
                             <QuestionDetail {...votedOn.questionDetails} />
                         </Grid>
                         <Grid item md={5} xs={12}  >
-                            <QuestionStage {...votedOn} fetchVotedSolutions={fetchVotedSolutions}/>
+                            <QuestionStage {...votedOn} fetchVotedSolutions={fetchVotedSolutions} handleLoader={(flag)=>setLoader(flag)}/>
                         </Grid>
                     </>
                 )}
@@ -63,6 +62,7 @@ export default function VotedSolution() {
                     message={alert.errorMessage}
                 />
             ) : null}
+            {loader? <CircularIndeterminate /> :null}
         </>
     );
 }

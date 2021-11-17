@@ -19,3 +19,9 @@ export const balance = atom({
   key: "balance",
   default:0,
 });
+
+export const maticusd = atom({
+  key: "maticusd",
+  default:0,
+});
+

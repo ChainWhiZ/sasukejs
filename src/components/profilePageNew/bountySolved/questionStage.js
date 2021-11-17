@@ -7,7 +7,8 @@ import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { contract as contractAtom,walletAddress as walletAddressAtom} from "../../../recoil/atoms";
+import { Tooltip } from "@material-ui/core";
+import { contract as contractAtom, walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
@@ -26,33 +27,36 @@ export default function QuestionStage(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
   useEffect(async () => {
     if (props.escrowId) {
-     fetchEscrow();
+      props.handleLoader(true);
+      fetchEscrow();
     }
   }, []);
 
-  const fetchEscrow = () =>{
+  const fetchEscrow = () => {
     axios
-    .post(port + "escrow/fetch", {
-      _id: props.escrowId,
-    })
-    .then((response) => {
-      setEscrow(response.data);
-    })
-    .catch((err) => {
-      setAlert((prevState) => ({
-        ...prevState,
-        open: true,
-        errorMessage: "Error fetching escrow",
-      }));
-    });
+      .post(port + "escrow/fetch", {
+        _id: props.escrowId,
+      })
+      .then((response) => {
+        props.handleLoader(false);
+        setEscrow(response.data);
+      })
+      .catch((err) => {
+        props.handleLoader(false);
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Error fetching escrow",
+        }));
+      });
   }
 
   const handleComplete = () => {
-    // setLoader(true);
+    // props.handleLoader(true);
     // return Promise.resolve()
     //   .then(async function () {
     //     await contract.methods
-    //       .transferMoney(props.questionId.publisherAddress, props.questionId.questionUrl)
+    //       .transferRewardAmount(props.questionId.publisherAddress, props.questionId.questionUrl)
     //       .send({ from: walletAddress })
     //       .on("error", function () {
     //         setAlert((prevState) => ({
@@ -69,7 +73,7 @@ export default function QuestionStage(props) {
     //       })
     //       .then((response) => {
     //         console.log(response.status);
-    //         setLoader(false);
+    //         props.handleLoader(false);
     //         setOpen(false);
     //         props.handleDialogClose(false);
     //         fetchEscrow();
@@ -80,7 +84,7 @@ export default function QuestionStage(props) {
     //           open: true,
     //           errorMessage: "Error",
     //         }));
-    //         setLoader(false);
+    //         props.handleLoader(false);
     //         setOpen(false);
     //         props.handleDialogClose(false);
     //       });
@@ -156,11 +160,9 @@ export default function QuestionStage(props) {
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
-            props.escrowId && escrow.escrowStatus !== "Complete" ? (
-              <Button className="profile-button">
-                {escrow.escrowStatus === "Initiation"
-                  ? "Escrow Initiated"
-                  : "Confirm Reward"}
+            props.escrowId && escrow.escrowStatus !== "Acknowledged" ? (
+              <Button className="profile-button" onClick={()=>handleComplete()}>
+                Reward Recieved
               </Button>
             ) : (
               <Link to={`/bounty/${props._id}`}>
@@ -168,9 +170,11 @@ export default function QuestionStage(props) {
               </Link>
             )
           ) : (
-            <Button className="profile-button" style={{ opacity: "13%" }}>
-              Change your wallet address
-            </Button>
+            <Tooltip title="Change your wallet address">
+              <Button className="profile-button" style={{ opacity: "25%" }}>
+                Go to Bounty Page
+              </Button>
+            </Tooltip>
           )}
         </Grid>
       </Grid>

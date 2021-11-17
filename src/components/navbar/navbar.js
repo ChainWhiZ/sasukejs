@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Login from "./login";
 import "./navbar.css";
 import { useRecoilValue } from "recoil";
+import { Tooltip } from "@material-ui/core";
 import { username as usernameAtom} from "../../recoil/atoms";
 import ConnectWallet from "./connectWallet";
 export default function Navbar() {
@@ -66,9 +67,11 @@ export default function Navbar() {
           </Grid>
           {username ? (
             <Grid item md={2} xs={12} className="accountIcon">
+              <Tooltip title={username}>
               <Link to="/profile" className="link">
                 <img src={accountIcon} alt="accountIcon" />
               </Link>
+              </Tooltip>
             </Grid>
           ) : (
             <Grid item md={2} xs={12}>
