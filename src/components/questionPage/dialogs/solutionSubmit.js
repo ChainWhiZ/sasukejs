@@ -56,7 +56,7 @@ export default function SolutionSubmit(props) {
         solution,
         props.quesDetails.githubIssueUrl,
         props.quesDetails.publicAddress,
-        //github id of publisher
+        props.quesDetails.publisherGithubId,
         
       )
       .send({ from: walletAddress }, async function (error, transactionHash) {

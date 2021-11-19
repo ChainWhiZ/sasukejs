@@ -4,11 +4,12 @@ import "../questionPage.css";
 import SolutionSubmit from "../dialogs/solutionSubmit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { maticusd as maticusdAtom, walletAddress as walletAddressAtom } from "../../../recoil/atoms";
+import { maticusd as maticusdAtom, walletAddress as walletAddressAtom ,username as usernameAtom} from "../../../recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 export default function QuestionRightHeading(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
+  const username = useRecoilValue(usernameAtom)
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const maticusd = useRecoilValue(maticusdAtom);
   return (
@@ -37,8 +38,8 @@ export default function QuestionRightHeading(props) {
           {props.questionStage === "solve" ? (
             <Button
               class="bounty-button"
-              onClick={() => walletAddress !== props.publicAddress ? setOpenSolveDialog(true) : null}
-              style={{ opacity: walletAddress === props.publicAddress ? "25%" : "100%" }}
+              onClick={() => walletAddress !== props.publicAddress || username === props.publisherGithubId ? setOpenSolveDialog(true) : null}
+              style={{ opacity: walletAddress === props.publicAddress || username === props.publisherGithubId ? "25%" : "100%" }}
 
             >
               Submit Github link
@@ -52,10 +53,10 @@ export default function QuestionRightHeading(props) {
                   questionDetails: props,
                 },
               }}
-              style={walletAddress === props.publicAddress ? { pointerEvents: "none" } : null}
+              style={walletAddress === props.publicAddress || username === props.publisherGithubId ? { pointerEvents: "none" } : null}
             >
               <Button class="bounty-button"
-                style={walletAddress === props.publicAddress ? { opacity: "25%" } : null}
+                style={walletAddress === props.publicAddress|| username === props.publisherGithubId ? { opacity: "25%" } : null}
               >Vote Now</Button>
             </Link>
           ) : (

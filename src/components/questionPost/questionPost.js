@@ -39,18 +39,20 @@ export default function QuestionPost() {
   });
 
   function handleGithubIssueValidation() {
-    return axios
-      .post(port + "question/validate", {
-        githubIssueUrl: issueURL,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          return true;
-        }
-      })
-      .catch((err) => {
-        return false;
-      });
+    console.log("in here");
+    // return axios
+    //   .post(port + "question/validate", {
+    //     githubIssueUrl: issueURL,
+    //   })
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       return true;
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     return false;
+    //   });
+    return true;
   }
 
   function handlePageChange(page) {
@@ -89,7 +91,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 5) {
-        if (reward <= 10) {
+        if (reward <= 0.000001) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -122,7 +124,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
-        if (communityReward <= 5 && communityOption == "Community Approved") {
+        if (communityReward <= 0.00000001 && communityOption == "Community Approved") {
           console.log(typeof communityReward);
           setAlert((prevState) => ({
             ...prevState,
@@ -149,91 +151,90 @@ export default function QuestionPost() {
     }
   }
  
-  // async function questionPosting(timeEnd,votingTimeBegin) {
-  //   return await contract.methods
-  //     .postIssue(
-  //       username,
-  //       issueURL,
-   //       (reward * Math.pow(10, 18)).toString()
-    //       (communityReward * Math.pow(10, 18)).toString(),
-  //       (votingTimeBegin-1).toString(),
-  //       votingTimeBegin.toString(),
- //        timeEnd.toString(),
- //        communityOption == "Community Approved" ? true : false
-  //     )
-  //     .send({ from: walletAddress }, function (error, transactionHash) {
-  //       if (transactionHash) {
-  //         return true;
-  //       }
-  //     });
-  // };
+  async function questionPosting(timeEnd,votingTimeBegin) {
+    return await contract.methods
+      .postIssue(
+        issueURL,
+         (reward * Math.pow(10, 18)).toString(),
+          (communityReward * Math.pow(10, 18)).toString(),
+        (votingTimeBegin-1).toString(),
+        votingTimeBegin.toString(),
+        timeEnd.toString(),
+        communityOption == "Community Approved" ? true : false
+      )
+      .send({ from: walletAddress.toString() }, function (error, transactionHash) {
+        if (transactionHash) {
+          return true;
+        }
+      });
+  };
   function handleSubmit() {
-    // console.log(time);
-    // console.log(issueTitle);
-    // console.log(category);
-    // console.log(issueURL);
-    // console.log(reward);
-    // console.log(communityOption);
-    // console.log(communityReward);
-    // console.log(terms);
-    // setLoader(true);
-    // if (terms.undertaking1 === false || terms.undertaking2 === false) {
-    //   setAlert((prevState) => ({
-    //     ...prevState,
-    //     isValid: true,
-    //     errorMessage: "Please accept the terms",
-    //   }));
-    // } else if (!walletAddress) {
-    //   setAlert((prevState) => ({
-    //     ...prevState,
-    //     isValid: true,
-    //     errorMessage: "Please connect wallet",
-    //   }));
-    // }
-    // else {
-    //   setAlert((prevState) => ({
-    //     ...prevState,
-    //     isValid: false,
-    //     errorMessage: "",
-    //   }));
-    //   const timeBegin = Math.floor(new Date().getTime() / 1000);
-    //   let timeEnd = timeBegin + time * 24 * 60 * 60;
-    //   let votingTimeBegin =  communityOption == "Community Approved"
-    //               ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-    //              : 0
-    //   return Promise.resolve()
-    //     .then(async function () {
-    //       //return await questionPosting(timeEnd,votingTimeBegin);
-    //     })
-    //     .then(async function () {
-    //       //return setSuccessStatus(true);
-    //     })
-    //     .then(async function () {
-    //       return axios
-    //         .post(port + "question/save", {
-    //           githubId: username,
-    //           publicAddress: walletAddress,
-    //           questionTitle: issueTitle,
-    //           githubIssueUrl: issueURL,
-    //           timeEnd: timeEnd,
-    //           solvingTimeBegin: timeBegin,
-    //           votingTimeBegin:votingTimeBegin,
-    //           bountyReward: reward,
-    //           communityReward: communityReward,
-    //           isCommunityApprovedSolution:
-    //             communityOption == "Community Approved" ? true : false,
-    //           questionCategories: category,
-    //         })
-    //         .then((response) => {
-    //          setLoader(false);
-    //           history.push({
-    //             pathname: `/bounty/${response.data}`,
-    //             state: { id: response.data },
-    //           });
-    //         });
-    //     })
-    //     .then(function () { });
-    // }
+    console.log(time);
+    console.log(issueTitle);
+    console.log(category);
+    console.log(issueURL);
+    console.log(reward);
+    console.log(communityOption);
+    console.log(communityReward);
+    console.log(terms);
+    setLoader(true);
+    if (terms.undertaking1 === false || terms.undertaking2 === false) {
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Please accept the terms",
+      }));
+    } else if (!walletAddress) {
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Please connect wallet",
+      }));
+    }
+    else {
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: false,
+        errorMessage: "",
+      }));
+      const timeBegin = Math.floor(new Date().getTime() / 1000);
+      let timeEnd = timeBegin + time * 24 * 60 * 60;
+      let votingTimeBegin =  communityOption == "Community Approved"
+                  ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+                 : 0
+      return Promise.resolve()
+        .then(async function () {
+          return await questionPosting(timeEnd,votingTimeBegin);
+        })
+        .then(async function () {
+          //return setSuccessStatus(true);
+        })
+        .then(async function () {
+          return axios
+            .post(port + "question/save", {
+              githubId: username,
+              publicAddress: walletAddress,
+              questionTitle: issueTitle,
+              githubIssueUrl: issueURL,
+              timeEnd: timeEnd,
+              solvingTimeBegin: timeBegin,
+              votingTimeBegin:votingTimeBegin,
+              bountyReward: reward,
+              communityReward: communityReward,
+              isCommunityApprovedSolution:
+                communityOption == "Community Approved" ? true : false,
+              questionCategories: category,
+            })
+            .then((response) => {
+             setLoader(false);
+              history.push({
+                pathname: `/bounty/${response.data}`,
+                state: { id: response.data },
+              });
+            });
+        })
+        .then(function () { });
+    }
 
   }
 

@@ -3,13 +3,14 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import WorkplanSubmit from "../dialogs/workplanSubmit";
 import { Link } from "react-router-dom";
-import { walletAddress, walletAddress as walletAddressAtom } from "../../../recoil/atoms";
+import {  walletAddress as walletAddressAtom ,username as usernameAtom} from "../../../recoil/atoms";
 import "../questionPage.css";
 import { useRecoilValue } from "recoil";
 
 export default function QuestionLeftHeading(props) {
   console.log(props);
   const walletAddress = useRecoilValue(walletAddressAtom);
+  const username = useRecoilValue(usernameAtom);
   const [openWorkplanDialog, setOpenWorkplanDialog] = useState(false);
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
@@ -65,19 +66,19 @@ export default function QuestionLeftHeading(props) {
                   questionDetails: props.questionDetails,
                 },
               }}
-              style={walletAddress === props.publicAddress ? { pointerEvents: "none" } : null}
+              style={walletAddress === props.publicAddress || username === props.questionDetails.publisherGithubId ? { pointerEvents: "none" } : null}
             >
               <Button class="bounty-button"
-                style={walletAddress === props.publicAddress ? { opacity: "25%" } : null}>Vote Now</Button>
+                style={walletAddress === props.publicAddress|| username === props.questionDetails.publisherGithubId ? { opacity: "25%" } : null}>Vote Now</Button>
             </Link>
           ) : props.questionDetails.questionStage === "complete" ? (
             <Button class="bounty-button">Completed</Button>
           ) : (
             <Button
               class="bounty-button"
-              onClick={() => walletAddress !== props.questionDetails.publicAddress ? setOpenWorkplanDialog(true) : null}
+              onClick={() => walletAddress !== props.questionDetails.publicAddress || username !== props.questionDetails.publisherGithubId  ? setOpenWorkplanDialog(true) : null}
               handleFetch={props.handleFetch()}
-              style={{ opacity: walletAddress === props.questionDetails.publicAddress ? "25%" : "100%" }}
+              style={{ opacity: walletAddress === props.questionDetails.publicAddress || username === props.questionDetails.publisherGithubId ? "25%" : "100%" }}
             >
               Submit Workplan
             </Button>

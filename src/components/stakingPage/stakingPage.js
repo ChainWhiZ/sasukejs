@@ -125,7 +125,8 @@ export default function StakingPage(props) {
       //   return contract.methods
       //     .stakeVote(
    
-      //       props.location.state.questionDetails.githubIssueUrl.toString(),
+      //       props.location.state.questionDetails.githubIssueUrl,
+      //       props.location.state.questionsDetails.publisherGithubId,
       //       props.location.state.questionDetails.publicAddress.toString(),
       //       stakeDetails.solverGithubId,
       //       stakedDetails.solverPublicAddress.toString()
