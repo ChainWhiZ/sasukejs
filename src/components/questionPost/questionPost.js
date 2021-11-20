@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseComponent from "./baseComponent/baseComponentPage";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -30,6 +30,11 @@ export default function QuestionPost() {
     isValid: false,
     errorMessage: "",
   });
+  const [success, setSuccess] = useState({
+    success: false,
+    message: ""
+  })
+  // const [contract,setContract]=useState(null)
   const username = useRecoilValue(usernameAtom);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
@@ -37,6 +42,7 @@ export default function QuestionPost() {
   promise.then(function (v) {
     contract = v;
   });
+
 
   function handleGithubIssueValidation() {
     console.log("in here");
@@ -54,6 +60,7 @@ export default function QuestionPost() {
     //   });
     return true;
   }
+
 
   function handlePageChange(page) {
     setAlert((prevState) => ({
@@ -150,23 +157,41 @@ export default function QuestionPost() {
       handlePageChange(page);
     }
   }
- 
-  async function questionPosting(timeEnd,votingTimeBegin) {
-    return await contract.methods
-      .postIssue(
-        issueURL,
-         (reward * Math.pow(10, 18)).toString(),
-          (communityReward * Math.pow(10, 18)).toString(),
-        (votingTimeBegin-1).toString(),
-        votingTimeBegin.toString(),
-        timeEnd.toString(),
-        communityOption == "Community Approved" ? true : false
-      )
-      .send({ from: walletAddress.toString() }, function (error, transactionHash) {
-        if (transactionHash) {
-          return true;
-        }
-      });
+
+  async function questionPosting(timeEnd, votingTimeBegin) {
+    return await new Promise((resolve, reject) => {
+      try {
+        const trxObj = contract.methods
+          .postIssue(
+            username,
+            issueURL,
+            (reward * Math.pow(10, 18)).toString(),
+            (communityReward * Math.pow(10, 18)).toString(),
+            communityOption == "Community Approved" ? (votingTimeBegin - 1).toString() : timeEnd.toString(),
+            communityOption == "Community Approved" ? votingTimeBegin.toString() : "0",
+            communityOption == "Community Approved" ? timeEnd.toString() : "0",
+          )
+          .send({ from: walletAddress.toString() });
+
+        trxObj.on('receipt', function (receipt) {
+          console.log("Successfully done")
+          resolve(receipt)
+        })
+
+        trxObj.on('error', function (error, receipt) {
+          setLoader(false)
+          console.log(Object.keys(error))
+          window.alert(`An error occured at trx hash:${error["receipt"].transactionHash}`)
+          reject(error)
+        });
+
+      } catch (error) {
+        console.log(error)
+        window.alert(error)
+        reject(error)
+      }
+    })
+
   };
   function handleSubmit() {
     console.log(time);
@@ -179,12 +204,14 @@ export default function QuestionPost() {
     console.log(terms);
     setLoader(true);
     if (terms.undertaking1 === false || terms.undertaking2 === false) {
+
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Please accept the terms",
       }));
     } else if (!walletAddress) {
+
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
@@ -192,48 +219,67 @@ export default function QuestionPost() {
       }));
     }
     else {
+
       setAlert((prevState) => ({
         ...prevState,
         isValid: false,
         errorMessage: "",
       }));
+      console.log("hereeeeee")
       const timeBegin = Math.floor(new Date().getTime() / 1000);
       let timeEnd = timeBegin + time * 24 * 60 * 60;
-      let votingTimeBegin =  communityOption == "Community Approved"
-                  ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-                 : 0
-      return Promise.resolve()
-        .then(async function () {
-          return await questionPosting(timeEnd,votingTimeBegin);
-        })
-        .then(async function () {
-          //return setSuccessStatus(true);
-        })
-        .then(async function () {
-          return axios
-            .post(port + "question/save", {
-              githubId: username,
-              publicAddress: walletAddress,
-              questionTitle: issueTitle,
-              githubIssueUrl: issueURL,
-              timeEnd: timeEnd,
-              solvingTimeBegin: timeBegin,
-              votingTimeBegin:votingTimeBegin,
-              bountyReward: reward,
-              communityReward: communityReward,
-              isCommunityApprovedSolution:
-                communityOption == "Community Approved" ? true : false,
-              questionCategories: category,
-            })
-            .then((response) => {
-             setLoader(false);
-              history.push({
-                pathname: `/bounty/${response.data}`,
-                state: { id: response.data },
+      let votingTimeBegin = communityOption == "Community Approved"
+        ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+        : 0
+      try {
+        return Promise.resolve()
+          .then(async function () {
+            try {
+              return await questionPosting(timeEnd, votingTimeBegin);
+            } catch (error) {
+              console.log(error)
+              return;
+            }
+          })
+          .then(async function () {
+            //return setSuccessStatus(true);
+          })
+          .then(async function () {
+            return axios
+              .post(port + "question/save", {
+                githubId: username,
+                publicAddress: walletAddress,
+                questionTitle: issueTitle,
+                githubIssueUrl: issueURL,
+                timeEnd: timeEnd,
+                solvingTimeBegin: timeBegin,
+                votingTimeBegin: votingTimeBegin,
+                bountyReward: reward,
+                communityReward: communityReward,
+                isCommunityApprovedSolution:
+                  communityOption == "Community Approved" ? true : false,
+                questionCategories: category,
+              })
+              .then((response) => {
+                setLoader(false);
+                history.push({
+                  pathname: `/bounty/${response.data}`,
+                  state: { id: response.data },
+                });
               });
-            });
-        })
-        .then(function () { });
+          })
+          .then(function () { });
+
+      } catch (error) {
+        console.log(error)
+        setAlert((prevState) => ({
+          ...prevState,
+          isValid: true,
+          errorMessage: "Something went wrong while posting!",
+        }));
+
+      }
+
     }
 
   }
@@ -325,7 +371,9 @@ export default function QuestionPost() {
             />
           ) : null}
         </>
+
       }
+      {success.success ? alert(success.message) : null}
     </>
   );
 }

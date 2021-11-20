@@ -22,9 +22,11 @@ export const initiliaseWeb3 = async () => {
       "Non-Ethereum browser detected. You should consider trying MetaMask!"
     );
   }
+  // web3.eth.handleRevert = true
 };
 
 export const fetchAccount = async (callback) => {
+  // web3.eth.handleRevert = true
   web3.eth.getAccounts((error, result) => {
     if (error) {
       alert("Can't fetch account");
@@ -35,6 +37,7 @@ export const fetchAccount = async (callback) => {
 };
 
 export const initiliaseContract = async () => {
+  // web3.eth.handleRevert = true
   let contract = new web3.eth.Contract(
     chainwhiz,
     // "0xbdc46E2543bACf67D0F14553348e354E7ed05052"
