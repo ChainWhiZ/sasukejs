@@ -45,7 +45,8 @@ export const initiliaseContract = async () => {
     // "0xc46Dbf7F0E2d4d5e1DfC050c40a92702dd67EE50" // "had escrow issue"
     // "0x5C83d26Be0122F1abEEB9009F91BA065f1809E0a" //"still some issues"
     //"0x1600b56844e733d5469ff5eecbf26d3552248b49"//old
-    "0x8Ca862bE7C505E7369E5a0F1D788eCd173fAA491"
+    // "0x8Ca862bE7C505E7369E5a0F1D788eCd173fAA491"
+    "0x0858421E69bA63621f382Ea9E2Ba299E0B8Ce5D7"
   );
   return contract;
 };

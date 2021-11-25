@@ -160,40 +160,46 @@ export default function QuestionPost() {
 
   async function questionPosting(timeEnd, votingTimeBegin) {
     return await new Promise((resolve, reject) => {
+      const rewardAmount = reward * Math.pow(10, 18);
+      const communityRewardAmount = communityReward* Math.pow(10, 18)
+      const totalAmount = rewardAmount+communityRewardAmount
+      console.log("total %s comm %s sol %s",totalAmount, communityRewardAmount, rewardAmount)
       try {
         const trxObj = contract.methods
           .postIssue(
             username,
             issueURL,
-            (reward * Math.pow(10, 18)).toString(),
-            (communityReward * Math.pow(10, 18)).toString(),
+            rewardAmount,
+            communityRewardAmount,
             communityOption == "Community Approved" ? (votingTimeBegin - 1).toString() : timeEnd.toString(),
             communityOption == "Community Approved" ? votingTimeBegin.toString() : "0",
             communityOption == "Community Approved" ? timeEnd.toString() : "0",
           )
-          .send({ from: walletAddress.toString() });
+          .send({ from: walletAddress.toString(), value:totalAmount });
 
         trxObj.on('receipt', function (receipt) {
           console.log("Successfully done")
+          window.alert("Suuccessfulyy posted")
           resolve(receipt)
         })
 
         trxObj.on('error', function (error, receipt) {
           setLoader(false)
-          console.log(Object.keys(error))
-          window.alert(`An error occured at trx hash:${error["receipt"].transactionHash}`)
-          reject(error)
+          console.log(error)
+          if (error)
+            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+          reject(error.message)
         });
 
       } catch (error) {
         console.log(error)
-        window.alert(error)
+        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
         reject(error)
       }
     })
 
   };
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log(time);
     console.log(issueTitle);
     console.log(category);
@@ -231,21 +237,20 @@ export default function QuestionPost() {
       let votingTimeBegin = communityOption == "Community Approved"
         ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
         : 0
+      let valid = true;
+      let axiosResponse;
       try {
-        return Promise.resolve()
-          .then(async function () {
-            try {
-              return await questionPosting(timeEnd, votingTimeBegin);
-            } catch (error) {
-              console.log(error)
-              return;
-            }
-          })
-          .then(async function () {
-            //return setSuccessStatus(true);
-          })
-          .then(async function () {
-            return axios
+        try {
+          const questionResponse = await questionPosting(timeEnd, votingTimeBegin);
+        }
+        catch (error) {
+          console.log(error)
+          valid = false
+        }
+
+        if (valid) {
+          try {
+            axiosResponse = await axios
               .post(port + "question/save", {
                 githubId: username,
                 publicAddress: walletAddress,
@@ -260,15 +265,20 @@ export default function QuestionPost() {
                   communityOption == "Community Approved" ? true : false,
                 questionCategories: category,
               })
-              .then((response) => {
-                setLoader(false);
-                history.push({
-                  pathname: `/bounty/${response.data}`,
-                  state: { id: response.data },
-                });
-              });
-          })
-          .then(function () { });
+          } catch (error) {
+            console.log(error)
+            valid = false;
+          }
+        }
+
+        if (valid) {
+          setLoader(false);
+          history.push({
+            pathname: `/bounty/${axiosResponse.data}`,
+            state: { id: axiosResponse.data },
+          });
+        }
+
 
       } catch (error) {
         console.log(error)
