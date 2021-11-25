@@ -27,39 +27,39 @@ export default function QuestionStage(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
 
   const handleUnstake = () => {
-    // props.handleLoader(true);
-    // return Promise.resolve()
-      // .then(async function () {
-      //   return contract.methods
-      //     .setApproval(
-       //     props.amountToBeReturned * (Math.pow(10, 18))).toString(),
-      //     )
-      //     .send({ from: walletAddress.toString() });
-      // })
-    //   .then(async function () {
-    //     await contract.methods.unStake(props.solutionId._id)
-      //     .send({ from: walletAddress.toString() });
-    //   })
-    //   .then(async function () {
-    //     axios
-    //       .post(port + "vote/updatereward", {
-    //         voterId: props.voterId,
-    //         solutionId: props.solutionId._id,
-    //       })
-    //       .then((response) => {
-    //         console.log(response.status)
-    //         props.fetchVotedSolutions();
-    //         props.handleLoader(false);
-    //       })
-    //       .catch((err) => {
-    //         setAlert(prevState => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error while unstaking reward"
-    //         }));
-    //         props.handleLoader(false);
-    //       });
-    //   })
+    props.handleLoader(true);
+    return Promise.resolve()
+      .then(async function () {
+        return contract.methods
+          .setApproval(
+           props.amountToBeReturned * (Math.pow(10, 18))).toString(),
+          )
+          .send({ from: walletAddress.toString() });
+      })
+      .then(async function () {
+        await contract.methods.unStake(props.solutionId._id)
+          .send({ from: walletAddress.toString() });
+      })
+      .then(async function () {
+        axios
+          .post(port + "vote/updatereward", {
+            voterId: props.voterId,
+            solutionId: props.solutionId._id,
+          })
+          .then((response) => {
+            console.log(response.status)
+            props.fetchVotedSolutions();
+            props.handleLoader(false);
+          })
+          .catch((err) => {
+            setAlert(prevState => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Error while unstaking reward"
+            }));
+            props.handleLoader(false);
+          });
+      })
   };
 
   return (

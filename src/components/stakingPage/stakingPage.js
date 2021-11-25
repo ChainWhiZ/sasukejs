@@ -9,7 +9,7 @@ import infoIcon from "../../assets/info.png";
 import CircularIndeterminate from "../loader/loader";
 import SimpleAlerts from "../alert/alert";
 import { useRecoilValue } from "recoil";
-import { walletAddress as walletAddressAtom,contract as contractAtom,username as usernameAtom } from "../../recoil/atoms"
+import { walletAddress as walletAddressAtom, contract as contractAtom, username as usernameAtom } from "../../recoil/atoms"
 import "./stakingPageCss.css";
 
 export default function StakingPage(props) {
@@ -59,21 +59,21 @@ export default function StakingPage(props) {
             "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
         }));
       });
-  fetchVoterDetails();
-  
+    fetchVoterDetails();
+
   }, []);
 
   const fetchVoterDetails = () => {
     axios
-    .post(port + "user/isvoter", {
-      userId: username,
-      questionId: props.location.state.questionDetails._id,
-    })
-    .then((response) => {
-      setLoader(false);
-      setVoterDetails(response.data);
-    })
-    .catch((err) => { });
+      .post(port + "user/isvoter", {
+        userId: username,
+        questionId: props.location.state.questionDetails._id,
+      })
+      .then((response) => {
+        setLoader(false);
+        setVoterDetails(response.data);
+      })
+      .catch((err) => { });
   }
 
   const handleSelect = (workplan) => {
@@ -101,6 +101,42 @@ export default function StakingPage(props) {
       handleStake();
     }
   }
+  const stakePosting = async () => {
+    return await new Promise((resolve, reject) => {
+      try {
+        const trxObj = await contract.methods
+          .stakeVote(
+
+            props.location.state.questionDetails.githubIssueUrl,
+            props.location.state.questionsDetails.publisherGithubId,
+            props.location.state.questionDetails.publicAddress.toString(),
+            stakeDetails.solverGithubId,
+            stakeDetails.solverPublicAddress.toString(),
+            stakeDetails.solutionId
+              (stakeDetails.stakedAmount * Math.pow(10, 18)).toString(),
+            username
+          )
+          .send({ from: walletAddress.toString() });
+        trxObj.on('receipt', function (receipt) {
+          console.log("Successfully done")
+          window.alert("Suuccessfulyy voted")
+          resolve(receipt)
+        })
+
+        trxObj.on('error', function (error, receipt) {
+          console.log(error)
+          if (error)
+            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+          reject(error.message)
+        });
+
+      } catch (error) {
+        console.log(error)
+        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+        reject(error)
+      }
+    });
+  };
   const handleStake = () => {
     console.log(stakeDetails);
     console.log("in handle stake");
@@ -120,42 +156,48 @@ export default function StakingPage(props) {
           "",
       }));
       setLoader(true);
-      // return Promise.resolve()
-      // .then(async function () {
-      //   return contract.methods
-      //     .stakeVote(
-   
-      //       props.location.state.questionDetails.githubIssueUrl,
-      //       props.location.state.questionsDetails.publisherGithubId,
-      //       props.location.state.questionDetails.publicAddress.toString(),
-      //       stakeDetails.solverGithubId,
-      //       stakedDetails.solverPublicAddress.toString()
-      //       stakeDetails.solutionId
-       //       (stakeDetails.stakedAmount * Math.pow(10, 18)).toString(),
-       //       username
-      //     )
-      //     .send({ from: walletAddress.toString() });
-      // })
-      // .then(async function () {
-      //   return await axios
-      //     .post(port + "vote/save", {
-      //       publicAddress: walletAddress,
-      //       amountStaked: stakeDetails.stakedAmount,
-      //       timestamp: Date.now() / 1000,
-      //       solutionId: stakeDetails.solutionId,
-      //       githubId: username,
-      //     })
-      //     .then((response) => {
-      //   fetchVoterDetails();
-      // setStakeDetails((prevState) => ({
-      //   ...prevState,
-      //   stakeAmount: 0,
-      // }));
-      //       setLoader(false);
-      //       console.log(response);
-      //     })
-      //     .catch((err) => console.error(err));
-      // });
+      try {
+        try {
+          const stakeResponse = await stakePosting();
+        } catch (error) {
+          console.log(error)
+          valid = false
+        }
+
+        if (valid) {
+          try {
+            const axiosResponse = axios
+              .post(port + "vote/save", {
+                publicAddress: walletAddress,
+                amountStaked: stakeDetails.stakedAmount,
+                timestamp: Date.now() / 1000,
+                solutionId: stakeDetails.solutionId,
+                githubId: username,
+              })
+
+          } catch (error) {
+            console.log(error)
+            valid = false
+          }
+        }
+        if (valid) {
+          fetchVoterDetails();
+          setStakeDetails((prevState) => ({
+            ...prevState,
+            stakeAmount: 0,
+          }));
+          setLoader(false);
+        }
+
+      } catch (error) {
+        console.log(error)
+        setAlert((prevState) => ({
+          ...prevState,
+          isValid: true,
+          errorMessage: "Something went wrong while staking!",
+        }));
+
+      }
     }
   };
 
