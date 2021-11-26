@@ -50,45 +50,88 @@ export default function QuestionStage(props) {
         }));
       });
   }
+  const completeCall = async () => {
+    return await new Promise((resolve, reject) => {
+      try {
+        const trxObj = await contract.methods
+        .transferRewardAmount(props.questionId.publisherAddress, props.questionId.questionUrl)
+        .send({ from: walletAddress });
+        trxObj.on('receipt', function (receipt) {
+          console.log("Successfully done")
+          window.alert("Suuccessfuly acknowledged")
+          resolve(receipt)
+        })
+
+        trxObj.on('error', function (error, receipt) {
+          console.log(error)
+          if (error)
+            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+          reject(error.message)
+        });
+
+      } catch (error) {
+        console.log(error)
+        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+        reject(error)
+      }
+    });
+  };
 
   const handleComplete = () => {
-    // props.handleLoader(true);
-    // return Promise.resolve()
-    //   .then(async function () {
-    //     await contract.methods
-    //       .transferRewardAmount(props.questionId.publisherAddress, props.questionId.questionUrl)
-    //       .send({ from: walletAddress })
-    //       .on("error", function () {
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error",
-    //         }));
-    //       });
-    //   })
-    //   .then(async function () {
-    //     axios
-    //       .post(port + "escrow/complete", {
-    //         _id: props.escrowId,
-    //       })
-    //       .then((response) => {
-    //         console.log(response.status);
-    //         props.handleLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
-    //         fetchEscrow();
-    //       })
-    //       .catch((err) => {
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error",
-    //         }));
-    //         props.handleLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
-    //       });
-    //   });
+    props.handleLoader(true);
+  
+    try {
+
+      try {
+        const completeResponse = await completeCall();
+      } catch (error) {
+        console.log(error)
+        valid = false
+      }
+
+
+      if (valid) {
+        try {
+          const axiosResponse = await axios
+          .post(port + "escrow/complete", {
+            _id: props.escrowId,
+          })
+
+          
+        }
+        catch (error) {
+          console.log(error)
+          valid = false
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            errorMessage: "Error",
+          }));
+          props.handleLoader(false);
+          setOpen(false);
+          props.handleDialogClose(false);
+
+        }
+      }
+
+      if (valid) {
+        props.handleLoader(false);
+        setOpen(false);
+        props.handleDialogClose(false);
+        fetchEscrow();
+      }
+
+    } catch (error) {
+      console.log(error)
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Something went wrong while acknowledging reward!",
+      }));
+
+
+    }
+   
   };
 
   return (

@@ -8,11 +8,11 @@ import RightSide from "./rightSide";
 import "../../profilePageCss.css";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { useRecoilValue } from "recoil";
-import { contract as contractAtom,walletAddress as walletAddressAtom} from "../../../../recoil/atoms";
+import { contract as contractAtom, walletAddress as walletAddressAtom } from "../../../../recoil/atoms";
 export default function ResultsDialog(props) {
   const [open, setOpen] = useState(props.open);
   // const [solutions, setSolutions] = useState([]);
-  const [ disable,setDisable] = useState(false);
+  const [disable, setDisable] = useState(false);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
   var promise = Promise.resolve(contractPromise);
@@ -119,38 +119,85 @@ export default function ResultsDialog(props) {
   };
   console.log(props.publicAddress)
   //change selected solver github id
-  const handleEscrowInitiation = () => {
-    // setDisable(true);
-    // return Promise.resolve()
-    //   .then(async function () {
-    //     return await contract.methods
-    //       .initEscrow(walletAddress,props.questionUrl,solutions[selectedSolutionIndex].solverGithubId) 
-    //       .send({ from: walletAddress }); //questionhash and solver address from props
-    //   })
-    //   .then(async function () {
-    //     return axios
-    //       .post(port + "escrow/init", {
-    //         _id: solutions[selectedSolutionIndex].githubLink,
-    //         _id:props._id,
-    //         userId:solutions[selectedSolutionIndex].solverGithubId
-    //       })
-    //       .then((response) => {
-    //         console.log(response.status);
-    //         handleClose(false);
-    //         props.handleDialogClose(false);
-    //       })
-    //       .catch((err) => {
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error",
-    //         }));
-    //         handleClose(false);
-    //         props.handleDialogClose(false);
-    //       });
-    //   });
+  const escrowInitiationCall = async () => {
+    return await new Promise((resolve, reject) => {
+      try {
+        const trxObj = await contract.methods
+          .initEscrow(walletAddress, props.questionUrl, solutions[selectedSolutionIndex].solverGithubId)
+          .send({ from: walletAddress });
+        trxObj.on('receipt', function (receipt) {
+          console.log("Successfully done")
+          window.alert("Suuccessfuly initiated")
+          resolve(receipt)
+        })
+
+        trxObj.on('error', function (error, receipt) {
+          console.log(error)
+          if (error)
+            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+          reject(error.message)
+        });
+
+      } catch (error) {
+        console.log(error)
+        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+        reject(error)
+      }
+    });
   };
- 
+  const handleEscrowInitiation = () => {
+    setDisable(true);
+    try {
+
+      try {
+        const escrowInitiationResponse = await escrowInitiationCall();
+      } catch (error) {
+        console.log(error)
+        valid = false
+      }
+
+      if (valid) {
+        try {
+          const axiosResponse = await axios
+            .post(port + "escrow/init", {
+              _id: solutions[selectedSolutionIndex].githubLink,
+              _id: props._id,
+              userId: solutions[selectedSolutionIndex].solverGithubId
+            })
+
+
+        }
+        catch (error) {
+          console.log(error)
+          valid = false
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            errorMessage: "Error",
+          }));
+          handleClose(false);
+          props.handleDialogClose(false);
+        }
+      }
+
+      if (valid) {
+        handleClose(false);
+        props.handleDialogClose(false);
+      }
+
+    } catch (error) {
+      console.log(error)
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Something went wrong while acknowledging reward!",
+      }));
+
+
+    }
+
+  };
+
   return (
     <>
       <Dialog
@@ -192,7 +239,7 @@ export default function ResultsDialog(props) {
               isCommunityApprovedSolution={props.isCommunityApprovedSolution}
               hasEscrowInitiated={hasEscrowInitiated}
               publicAddress={props.publicAddress}
-              disable = {disable}
+              disable={disable}
             />
           </Grid>
         </Grid>
