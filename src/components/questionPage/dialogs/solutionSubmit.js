@@ -50,20 +50,37 @@ export default function SolutionSubmit(props) {
   };
 
   const solutionPosting = async (solution) => {
-    return await contract.methods
-      .solutionPosting(
-        username,
-        solution,
-        props.quesDetails.githubIssueUrl,
-        props.quesDetails.publicAddress,
-        props.quesDetails.publisherGithubId,
-        
-      )
-      .send({ from: walletAddress }, async function (error, transactionHash) {
-        if (transactionHash) {
-          return true;
-        }
-      });
+    return await new Promise((resolve, reject) => {
+      try {
+        const trxObj = await contract.methods
+          .solutionPosting(
+            username,
+            solution,
+            props.quesDetails.githubIssueUrl,
+            props.quesDetails.publicAddress,
+            props.quesDetails.publisherGithubId,
+
+          )
+          .send({ from: walletAddress });
+        trxObj.on('receipt', function (receipt) {
+          console.log("Successfully done")
+          window.alert("Suuccessfulyy submitted")
+          resolve(receipt)
+        })
+
+        trxObj.on('error', function (error, receipt) {
+          console.log(error)
+          if (error)
+            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+          reject(error.message)
+        });
+
+      } catch (error) {
+        console.log(error)
+        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+        reject(error)
+      }
+    });
   };
   const handleGithubLinkValidation = async (solution) => {
     return axios
@@ -137,27 +154,51 @@ export default function SolutionSubmit(props) {
         open: false,
         errorMessage: "",
       }));
-      return Promise.resolve()
-        .then(async function () {
-          return await solutionPosting(solution);
-        })
+      let valid = true;
+      try {
 
-        .then(async function () {
-          return await axios
-            .post(port + "solution/save", {
-              githubId: username,
-              address: walletAddress,
-              githubLink: solution,
-              _id: workplanId,
-              questionId: props.quesDetails._id,
-            })
-            .then(async (response) => {
-              eventBus.dispatch("solutionSubmitted", { message: "Solution submitted" });
-              setOpen(false);
-              setDisable(false);
-              props.handleDialogClose(false);
-            });
-        });
+        try {
+          const solutionResponse = await solutionPosting(solution);
+        } catch (error) {
+          console.log(error)
+          valid = false
+        }
+
+
+        if (valid) {
+          try {
+            const axiosResponse = await axios
+              .post(port + "solution/save", {
+                githubId: username,
+                address: walletAddress,
+                githubLink: solution,
+                _id: workplanId,
+                questionId: props.quesDetails._id,
+              })
+          }
+          catch (error) {
+            console.log(error)
+            valid = false
+          }
+        }
+
+        if (valid) {
+          eventBus.dispatch("solutionSubmitted", { message: "Solution submitted" });
+          setOpen(false);
+          setDisable(false);
+          props.handleDialogClose(false);
+        }
+
+      } catch (error) {
+        console.log(error)
+        setAlert((prevState) => ({
+          ...prevState,
+          isValid: true,
+          errorMessage: "Something went wrong while submitting!",
+        }));
+
+
+      }
     }
   };
 
@@ -258,9 +299,9 @@ export default function SolutionSubmit(props) {
                     <CardActions>
                       <Button
                         class="dialog-button"
-                        style={{ marginLeft: "2%",opacity: disable?"25%":"100%" }}
+                        style={{ marginLeft: "2%", opacity: disable ? "25%" : "100%" }}
                         onClick={async () =>
-                          !disable?await handleValidation(workplanId, solutions[index]):null
+                          !disable ? await handleValidation(workplanId, solutions[index]) : null
                         }
                       >
                         Submit
