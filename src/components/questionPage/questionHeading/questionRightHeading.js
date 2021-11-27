@@ -8,6 +8,7 @@ import { maticusd as maticusdAtom, walletAddress as walletAddressAtom ,username 
 import { useRecoilValue } from "recoil";
 
 export default function QuestionRightHeading(props) {
+  console.log(props)
   const walletAddress = useRecoilValue(walletAddressAtom);
   const username = useRecoilValue(usernameAtom)
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
@@ -38,7 +39,7 @@ export default function QuestionRightHeading(props) {
           {props.questionStage === "solve" ? (
             <Button
               class="bounty-button"
-              onClick={() => walletAddress !== props.publicAddress || username === props.publisherGithubId ? setOpenSolveDialog(true) : null}
+              onClick={() => username !== props.publisherGithubId ? setOpenSolveDialog(true) : null}
               style={{ opacity: walletAddress === props.publicAddress || username === props.publisherGithubId ? "25%" : "100%" }}
 
             >

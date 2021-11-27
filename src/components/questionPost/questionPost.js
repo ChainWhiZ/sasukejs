@@ -46,19 +46,19 @@ export default function QuestionPost() {
 
   function handleGithubIssueValidation() {
     console.log("in here");
-    // return axios
-    //   .post(port + "question/validate", {
-    //     githubIssueUrl: issueURL,
-    //   })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       return true;
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     return false;
-    //   });
-    return true;
+    return axios
+      .post(port + "question/validate", {
+        githubIssueUrl: issueURL,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          return true;
+        }
+      })
+      .catch((err) => {
+        return false;
+      });
+    // return true;
   }
 
 

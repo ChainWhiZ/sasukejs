@@ -55,7 +55,7 @@ export default function QuestionLeftHeading(props) {
         )}
         <Grid item md={12}>
           <p class="heading color-neon margin-top-10">Applicants</p>
-          <p class="bounty-time">{props.questionDetails.workplanIds.length}</p>
+          <p class="bounty-time">{props.questionDetails.workplanIds? props.questionDetails.workplanIds.length:0}</p>
         </Grid>
         <Grid item md={12} className="margin-top-10">
           {props.questionDetails.questionStage === "vote" ? (
@@ -76,7 +76,7 @@ export default function QuestionLeftHeading(props) {
           ) : (
             <Button
               class="bounty-button"
-              onClick={() => walletAddress !== props.questionDetails.publicAddress || username !== props.questionDetails.publisherGithubId  ? setOpenWorkplanDialog(true) : null}
+              onClick={() => username !== props.questionDetails.publisherGithubId  ? setOpenWorkplanDialog(true) : null}
               handleFetch={props.handleFetch()}
               style={{ opacity: walletAddress === props.questionDetails.publicAddress || username === props.questionDetails.publisherGithubId ? "25%" : "100%" }}
             >
