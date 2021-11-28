@@ -169,8 +169,8 @@ export default function QuestionPost() {
           .postIssue(
             username,
             issueURL,
-            rewardAmount,
-            communityRewardAmount,
+            rewardAmount.toString(),
+            communityRewardAmount.toString(),
             communityOption == "Community Approved" ? (votingTimeBegin - 1).toString() : timeEnd.toString(),
             communityOption == "Community Approved" ? votingTimeBegin.toString() : "0",
             communityOption == "Community Approved" ? timeEnd.toString() : "0",
