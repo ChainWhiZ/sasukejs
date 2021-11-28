@@ -9,13 +9,13 @@ import "../questionPage.css";
 import { port } from "../../../config/config";
 import { useRecoilValue } from "recoil";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
-import { username as usernameAtom} from "../../../recoil/atoms";
+import { username as usernameAtom } from "../../../recoil/atoms";
 
 export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [buffer, setBuffer] = useState("");
   const username = useRecoilValue(usernameAtom);
-  const [disable, setDisable] = useState(true);
+  const [disable, setDisable] = useState(false);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -46,8 +46,10 @@ export default function WorkplanSubmit(props) {
       setDisable(false);
     }
     const uploadedFile = await fleekStorage.upload({
-      apiKey: process.env.REACT_APP_API_KEY,
-      apiSecret: process.env.REACT_APP_API_SECRET,
+      apiKey: "U3QGDwCkWltjBLGG1hATUg==",
+      apiSecret: "GMFzg7TFJC2fjhwoz9slkfnncmV/TAHK/4WVeI0qpYY=",
+      // apiKey: process.env.REACT_APP_API_KEY,
+      // apiSecret: process.env.REACT_APP_API_SECRET,
       key: username + timestamp,
       data: buffer,
     });
@@ -104,7 +106,11 @@ export default function WorkplanSubmit(props) {
         <input type="file" onChange={(e) => captureFile(e)} />
         <Grid container className="workplan-dialog-button-grid ">
           <Grid item md={12}>
-            <Button class="dialog-button" onClick={!disable?handleSubmit:null} style={{ opacity: disable?"25%":"100%" }}>
+            <Button
+              class="dialog-button"
+              onClick={!disable ? handleSubmit : null}
+              style={{ opacity: disable ? "25%" : "100%" }}
+            >
               Submit
             </Button>
           </Grid>
@@ -117,7 +123,6 @@ export default function WorkplanSubmit(props) {
           />
         ) : null}
       </Dialog>
-      
     </>
   );
 }

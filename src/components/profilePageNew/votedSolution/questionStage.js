@@ -7,8 +7,11 @@ import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { contract as contractAtom, walletAddress as walletAddressAtom } from "../../../recoil/atoms";
-import Tooltip from '@material-ui/core/Tooltip';
+import {
+  contract as contractAtom,
+  walletAddress as walletAddressAtom,
+} from "../../../recoil/atoms";
+import Tooltip from "@material-ui/core/Tooltip";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
@@ -26,45 +29,48 @@ export default function QuestionStage(props) {
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
   const unstakeCall = async () => {
-    return await new Promise((resolve, reject) => {
+    return await new Promise(async (resolve, reject) => {
       try {
         const trxObj = await contract.methods
-          .setApproval(
-            props.amountToBeReturned * (Math.pow(10, 18)).toString(),
-          )
+          .setApproval(props.amountToBeReturned * Math.pow(10, 18).toString())
           .send({ from: walletAddress.toString() });
-        trxObj.on('receipt', function (receipt) {
-          console.log("Successfully done")
-          window.alert("Suuccessfulyy unstaked")
-          resolve(receipt)
-        })
-
-        trxObj.on('error', function (error, receipt) {
-          console.log(error)
-          if (error)
-            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-          reject(error.message)
+        trxObj.on("receipt", function (receipt) {
+          console.log("Successfully done");
+          window.alert("Successfulyy unstaked");
+          resolve(receipt);
         });
 
+        trxObj.on("error", function (error, receipt) {
+          console.log(error);
+          if (error)
+            window.alert(
+              error.transactionHash
+                ? `Went wrong in trc hash :${error.transactionHash}`
+                : error.message
+            );
+          reject(error.message);
+        });
       } catch (error) {
-        console.log(error)
-        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-        reject(error)
+        console.log(error);
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        reject(error);
       }
     });
   };
-  const handleUnstake = () => {
-    props.handleLoader(true);
-    let valid = true;
+  const handleUnstake = async () => {
     try {
-
+      props.handleLoader(true);
+      let valid = true;
       try {
         const unstakeResponse = await unstakeCall();
       } catch (error) {
-        console.log(error)
-        valid = false
+        console.log(error);
+        valid = false;
       }
-
 
       if (valid) {
         try {
@@ -74,20 +80,16 @@ export default function QuestionStage(props) {
               solutionId: props.solutionId._id,
             })
 
-            .catch((err) => {
-
-            });
-        }
-        catch (error) {
-          console.log(error)
-          valid = false
-          setAlert(prevState => ({
+            .catch((err) => { });
+        } catch (error) {
+          console.log(error);
+          valid = false;
+          setAlert((prevState) => ({
             ...prevState,
             open: true,
-            errorMessage: "Error while unstaking reward"
+            errorMessage: "Error while unstaking reward",
           }));
           props.handleLoader(false);
-
         }
       }
 
@@ -95,16 +97,14 @@ export default function QuestionStage(props) {
         props.fetchVotedSolutions();
         props.handleLoader(false);
       }
-
-    } catch (error) {
-      console.log(error)
+    }
+    catch (error) {
+      console.log(error);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Something went wrong while unstaking reward!",
       }));
-
-
     }
   };
 

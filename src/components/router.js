@@ -30,11 +30,7 @@ export default function RouterComponent() {
 
   return (
     <Router>
-      {/* {localStorage.getItem("username") ? (
-        <Route exact path="/" component={AfterLogin} />
-      ) : ( 
-        <Route exact path="/" component={BeforeLogin} />
-       )}  */}
+     
       <Navbar />
       <Switch>
         <Route exact path="/" component={Landing} />

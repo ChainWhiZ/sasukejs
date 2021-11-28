@@ -8,7 +8,6 @@ import { port } from "../../../../config/config";
 import "../../profilePageCss.css";
 
 export default function LeftSide(props) {
-  const [username] = localStorage.getItem("username");
 
   console.log(props);
 
