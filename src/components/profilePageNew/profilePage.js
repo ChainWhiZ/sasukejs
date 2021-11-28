@@ -5,9 +5,11 @@ import MenuBar from "../explore/menuBar";
 import Heading from "./heading";
 import ProfileTabs from "./tabs";
 import "./profilePageCss.css";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function ProfilePage(props) {
-  const [username] = useState(localStorage.getItem("username"));
+  const username = useRecoilValue(usernameAtom);
   if (!username) {
     return <Redirect to="/" />;
   }

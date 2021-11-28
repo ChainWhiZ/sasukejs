@@ -8,10 +8,18 @@ import RightSide from "./rightSide";
 import "../../profilePageCss.css";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { useRecoilValue } from "recoil";
-import { contract as contractAtom, walletAddress as walletAddressAtom } from "../../../../recoil/atoms";
+import {
+  contract as contractAtom,
+  walletAddress as walletAddressAtom,
+} from "../../../../recoil/atoms";
 export default function ResultsDialog(props) {
+  let valid = true;
   const [open, setOpen] = useState(props.open);
-  // const [solutions, setSolutions] = useState([]);
+  const [alert, setAlert] = useState({
+    isValid: false,
+    errorMessage: "",
+  });
+  const [solutions, setSolutions] = useState([]);
   const [disable, setDisable] = useState(false);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
@@ -21,91 +29,93 @@ export default function ResultsDialog(props) {
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [hasEscrowInitiated, setHasEscrowInitiated] = useState(false);
-  const solutions = [
-    {
-      githubLink: "https://github.com/avolabs-io/nft-auction",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-      workplanGithubId: "mishramonalisha76",
-    },
+  // const solutions = [
+  //   {
+  //     githubLink: "https://github.com/avolabs-io/nft-auction",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
 
-    {
-      githubLink: "https://github.com/reactjs/react-basic",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-      workplanGithubId: "mishramonalisha76",
-    },
-    {
-      githubLink: "https://github.com/recrsn/http-basket",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-      workplanGithubId: "mishramonalisha76",
-    },
-    {
-      githubLink: "https://github.com/recrsn/http-basket",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-      workplanGithubId: "mishramonalisha76",
-    },
-    {
-      githubLink: "https://github.com/recrsn/http-basket",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-      workplanGithubId: "mishramonalisha76",
-    },
-    {
-      githubLink: "https://github.com/recrsn/http-basket",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-      workplanGithubId: "mishramonalisha76",
-    },
+  //   {
+  //     githubLink: "https://github.com/reactjs/react-basic",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
+  //   {
+  //     githubLink: "https://github.com/recrsn/http-basket",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
+  //   {
+  //     githubLink: "https://github.com/recrsn/http-basket",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
+  //   {
+  //     githubLink: "https://github.com/recrsn/http-basket",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
+  //   {
+  //     githubLink: "https://github.com/recrsn/http-basket",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
 
-    {
-      githubLink: "https://github.com/recrsn/http-basket",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-      workplanGithubId: "mishramonalisha76",
-    },
+  //   {
+  //     githubLink: "https://github.com/recrsn/http-basket",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
 
-    {
-      githubLink: "https://github.com/Tejaaswini/Pragma",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-      workplanGithubId: "mishramonalisha76",
-    },
+  //   {
+  //     githubLink: "https://github.com/Tejaaswini/Pragma",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
 
-    {
-      githubLink: "https://github.com/Tejaaswini/covid_tracker",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-      workplanGithubId: "mishramonalisha76",
-      escrowId: "882jsj",
-    },
+  //   {
+  //     githubLink: "https://github.com/Tejaaswini/covid_tracker",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
+  //     workplanGithubId: "mishramonalisha76",
+  //     escrowId: "882jsj",
+  //   },
 
-    {
-      githubLink: "https://github.com/Tejaaswini/artfolio",
-      finalVoteScore: 0,
-      solverGithubId: "rajashree23",
-      workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-      workplanGithubId: "mishramonalisha76",
-    },
-  ];
+  //   {
+  //     githubLink: "https://github.com/Tejaaswini/artfolio",
+  //     finalVoteScore: 0,
+  //     solverGithubId: "rajashree23",
+  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
+  //     workplanGithubId: "mishramonalisha76",
+  //   },
+  // ];
   useEffect(() => {
-    //   axios.post(port + "user/view-results", { _id: props._id}).then((response) => {
-    //     setSolutions(response.data);
-    // if (solutions.some(e => e.escrowId)) {
-    //   setHasEscrowInitiated(true);
-    // }
-    //   });
+    axios
+      .post(port + "user/view-results", { _id: props._id })
+      .then((response) => {
+        setSolutions(response.data);
+        if (solutions.some((e) => e.escrowId)) {
+          setHasEscrowInitiated(true);
+        }
+      });
   });
 
   const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
@@ -117,59 +127,65 @@ export default function ResultsDialog(props) {
     setSelectedSolutionIndex(index);
     console.log(selectedSolutionIndex);
   };
-  console.log(props.publicAddress)
+  console.log(props.publicAddress);
   //change selected solver github id
   const escrowInitiationCall = async () => {
-    return await new Promise((resolve, reject) => {
+    return await new Promise(async (resolve, reject) => {
       try {
         const trxObj = await contract.methods
-          .initEscrow(walletAddress, props.questionUrl, solutions[selectedSolutionIndex].solverGithubId)
+          .initEscrow(
+            walletAddress,
+            props.questionUrl,
+            solutions[selectedSolutionIndex].solverGithubId
+          )
           .send({ from: walletAddress });
-        trxObj.on('receipt', function (receipt) {
-          console.log("Successfully done")
-          window.alert("Suuccessfuly initiated")
-          resolve(receipt)
-        })
-
-        trxObj.on('error', function (error, receipt) {
-          console.log(error)
-          if (error)
-            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-          reject(error.message)
+        trxObj.on("receipt", function (receipt) {
+          console.log("Successfully done");
+          window.alert("Suuccessfuly initiated");
+          resolve(receipt);
         });
 
+        trxObj.on("error", function (error, receipt) {
+          console.log(error);
+          if (error)
+            window.alert(
+              error.transactionHash
+                ? `Went wrong in trc hash :${error.transactionHash}`
+                : error.message
+            );
+          reject(error.message);
+        });
       } catch (error) {
-        console.log(error)
-        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-        reject(error)
+        console.log(error);
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        reject(error);
       }
     });
   };
-  const handleEscrowInitiation = () => {
+  const handleEscrowInitiation = async () => {
     setDisable(true);
     try {
-
       try {
         const escrowInitiationResponse = await escrowInitiationCall();
       } catch (error) {
-        console.log(error)
-        valid = false
+        console.log(error);
+        valid = false;
       }
 
       if (valid) {
         try {
-          const axiosResponse = await axios
-            .post(port + "escrow/init", {
-              _id: solutions[selectedSolutionIndex].githubLink,
-              _id: props._id,
-              userId: solutions[selectedSolutionIndex].solverGithubId
-            })
-
-
-        }
-        catch (error) {
-          console.log(error)
-          valid = false
+          const axiosResponse = await axios.post(port + "escrow/init", {
+            _id: solutions[selectedSolutionIndex].githubLink,
+            _id: props._id,
+            userId: solutions[selectedSolutionIndex].solverGithubId,
+          });
+        } catch (error) {
+          console.log(error);
+          valid = false;
           setAlert((prevState) => ({
             ...prevState,
             open: true,
@@ -184,18 +200,14 @@ export default function ResultsDialog(props) {
         handleClose(false);
         props.handleDialogClose(false);
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Something went wrong while acknowledging reward!",
       }));
-
-
     }
-
   };
 
   return (

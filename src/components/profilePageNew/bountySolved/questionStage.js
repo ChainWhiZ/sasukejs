@@ -8,10 +8,16 @@ import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import { Tooltip } from "@material-ui/core";
-import { contract as contractAtom, walletAddress as walletAddressAtom } from "../../../recoil/atoms";
+import {
+  contract as contractAtom,
+  walletAddress as walletAddressAtom,
+} from "../../../recoil/atoms";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
+  console.log(props)
+  let valid = true;
+  const [open, setOpen] = useState(false);
   const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
     open: false,
@@ -49,59 +55,63 @@ export default function QuestionStage(props) {
           errorMessage: "Error fetching escrow",
         }));
       });
-  }
+  };
   const completeCall = async () => {
-    return await new Promise((resolve, reject) => {
+    return await new Promise(async (resolve, reject) => {
       try {
         const trxObj = await contract.methods
-        .transferRewardAmount(props.questionId.publisherAddress, props.questionId.questionUrl)
-        .send({ from: walletAddress });
-        trxObj.on('receipt', function (receipt) {
-          console.log("Successfully done")
-          window.alert("Suuccessfuly acknowledged")
-          resolve(receipt)
-        })
-
-        trxObj.on('error', function (error, receipt) {
-          console.log(error)
-          if (error)
-            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-          reject(error.message)
+          .transferRewardAmount(
+            props.questionId.publisherAddress,
+            props.questionId.questionUrl
+          )
+          .send({ from: walletAddress });
+        trxObj.on("receipt", function (receipt) {
+          console.log("Successfully done");
+          window.alert("Suuccessfuly acknowledged");
+          resolve(receipt);
         });
 
+        trxObj.on("error", function (error, receipt) {
+          console.log(error);
+          if (error)
+            window.alert(
+              error.transactionHash
+                ? `Went wrong in trc hash :${error.transactionHash}`
+                : error.message
+            );
+          reject(error.message);
+        });
       } catch (error) {
-        console.log(error)
-        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-        reject(error)
+        console.log(error);
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        reject(error);
       }
     });
   };
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     props.handleLoader(true);
-  
-    try {
 
+    try {
       try {
         const completeResponse = await completeCall();
       } catch (error) {
-        console.log(error)
-        valid = false
+        console.log(error);
+        valid = false;
       }
-
 
       if (valid) {
         try {
-          const axiosResponse = await axios
-          .post(port + "escrow/complete", {
+          const axiosResponse = await axios.post(port + "escrow/complete", {
             _id: props.escrowId,
-          })
-
-          
-        }
-        catch (error) {
-          console.log(error)
-          valid = false
+          });
+        } catch (error) {
+          console.log(error);
+          valid = false;
           setAlert((prevState) => ({
             ...prevState,
             open: true,
@@ -110,7 +120,6 @@ export default function QuestionStage(props) {
           props.handleLoader(false);
           setOpen(false);
           props.handleDialogClose(false);
-
         }
       }
 
@@ -120,18 +129,14 @@ export default function QuestionStage(props) {
         props.handleDialogClose(false);
         fetchEscrow();
       }
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Something went wrong while acknowledging reward!",
       }));
-
-
     }
-   
   };
 
   return (
@@ -204,11 +209,14 @@ export default function QuestionStage(props) {
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             props.escrowId && escrow.escrowStatus !== "Acknowledged" ? (
-              <Button className="profile-button" onClick={()=>handleComplete()}>
+              <Button
+                className="profile-button"
+                onClick={() => handleComplete()}
+              >
                 Reward Recieved
               </Button>
             ) : (
-              <Link to={`/bounty/${props._id}`}>
+              <Link to={`/bounty/${props.questionId}`}>
                 <Button className="profile-button">Go to Bounty Page</Button>
               </Link>
             )

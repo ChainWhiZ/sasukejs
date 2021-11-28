@@ -11,6 +11,7 @@ import {
     fetchAccount,
     initiliaseContract,
 } from "../../web3js/web3";
+import { computeHeadingLevel } from "@testing-library/dom";
 
 export default function ConnectWallet() {
     const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
@@ -25,8 +26,10 @@ export default function ConnectWallet() {
         await fetchAccount(function (result) {
             setWalletAddress(result[0]);
         });
+        console.log(walletAddress)
         setContract(async (old) => {
             let _test = await initiliaseContract();
+            console.log(_test )
             return _test;
         });
         if (contract && walletAddress) {
