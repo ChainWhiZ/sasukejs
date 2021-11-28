@@ -30,6 +30,9 @@ export default function QuestionCard(props) {
   } else {
     timeLeft = Math.floor(timeLeft);
   }
+  const up = (v) => {
+    return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
+  }
 
   return (
     <>
@@ -46,7 +49,7 @@ export default function QuestionCard(props) {
               <Box className="reward-box">{props.type==="solve"?props.bountyReward:props.communityReward} MATIC</Box>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-              <Box className="reward-box">{props.type==="solve"?props.bountyReward * maticusd:props.communityReward * maticusd} USD</Box>
+              <Box className="reward-box">{props.type==="solve"?up(props.bountyReward * maticusd):up(props.communityReward * maticusd)} USD</Box>
             </Grid>
           </>
         ) : (

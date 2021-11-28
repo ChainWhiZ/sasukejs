@@ -4,7 +4,7 @@ import "../questionPage.css";
 import SolutionSubmit from "../dialogs/solutionSubmit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { maticusd as maticusdAtom, walletAddress as walletAddressAtom ,username as usernameAtom} from "../../../recoil/atoms";
+import { maticusd as maticusdAtom, walletAddress as walletAddressAtom, username as usernameAtom } from "../../../recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 export default function QuestionRightHeading(props) {
@@ -13,6 +13,9 @@ export default function QuestionRightHeading(props) {
   const username = useRecoilValue(usernameAtom)
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const maticusd = useRecoilValue(maticusdAtom);
+  const up = (v) => {
+    return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
+  }
   return (
     <>
       <Grid
@@ -33,8 +36,8 @@ export default function QuestionRightHeading(props) {
           <p class="bounty-time margin-top-20">
             {" "}
             {props.questionStage === "vote"
-              ? props.communityReward * maticusd + " USD"
-              : props.bountyReward * maticusd + " USD"}
+              ? up(props.communityReward * maticusd) + " USD"
+              : up(props.bountyReward * maticusd) + " USD"}
           </p>
           {props.questionStage === "solve" ? (
             <Button
@@ -57,7 +60,7 @@ export default function QuestionRightHeading(props) {
               style={walletAddress === props.publicAddress || username === props.publisherGithubId ? { pointerEvents: "none" } : null}
             >
               <Button class="bounty-button"
-                style={walletAddress === props.publicAddress|| username === props.publisherGithubId ? { opacity: "25%" } : null}
+                style={walletAddress === props.publicAddress || username === props.publisherGithubId ? { opacity: "25%" } : null}
               >Vote Now</Button>
             </Link>
           ) : (
