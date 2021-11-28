@@ -120,7 +120,7 @@ export default function ResultsDialog(props) {
   console.log(props.publicAddress)
   //change selected solver github id
   const escrowInitiationCall = async () => {
-    return await new Promise((resolve, reject) => {
+    return await new Promise(async(resolve, reject) => {
       try {
         const trxObj = await contract.methods
           .initEscrow(walletAddress, props.questionUrl, solutions[selectedSolutionIndex].solverGithubId)
@@ -145,7 +145,8 @@ export default function ResultsDialog(props) {
       }
     });
   };
-  const handleEscrowInitiation = () => {
+  let valid = true
+  const handleEscrowInitiation = async() => {
     setDisable(true);
     try {
 
