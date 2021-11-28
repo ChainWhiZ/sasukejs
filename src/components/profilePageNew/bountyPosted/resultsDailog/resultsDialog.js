@@ -141,7 +141,7 @@ export default function ResultsDialog(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Suuccessfuly initiated");
+          window.alert("Successfuly initiated");
           resolve(receipt);
         });
 
@@ -166,7 +166,8 @@ export default function ResultsDialog(props) {
       }
     });
   };
-  const handleEscrowInitiation = async () => {
+
+  const handleEscrowInitiation = async() => {
     setDisable(true);
     try {
       try {

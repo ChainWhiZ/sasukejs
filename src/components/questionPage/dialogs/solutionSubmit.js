@@ -66,7 +66,7 @@ export default function SolutionSubmit(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Suuccessfulyy submitted");
+          window.alert("Successfulyy submitted");
           resolve(receipt);
         });
 
@@ -148,22 +148,22 @@ export default function SolutionSubmit(props) {
     }
   };
   const handleSubmit = async (workplanId, solution) => {
-    setDisable(true);
-    //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-    if (!walletAddress) {
-      setAlert((prevState) => ({
-        ...prevState,
-        open: true,
-        errorMessage: "Please connect wallet",
-      }));
-    } else {
-      setAlert((prevState) => ({
-        ...prevState,
-        open: false,
-        errorMessage: "",
-      }));
-      let valid = true;
-      try {
+    try {
+      setDisable(true);
+      //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
+      if (!walletAddress) {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Please connect wallet",
+        }));
+      } else {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: false,
+          errorMessage: "",
+        }));
+        let valid = true;
         try {
           const solutionResponse = await solutionPosting(solution);
         } catch (error) {
@@ -194,16 +194,16 @@ export default function SolutionSubmit(props) {
           setDisable(false);
           props.handleDialogClose(false);
         }
-      } catch (error) {
-        console.log(error);
-        setOpen(false);
-        setDisable(false);
-        setAlert((prevState) => ({
-          ...prevState,
-          isValid: true,
-          errorMessage: "Something went wrong while submitting!",
-        }));
       }
+    } catch (error) {
+      console.log(error);
+      setOpen(false);
+      setDisable(false);
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Something went wrong while submitting!",
+      }));
     }
   };
 
@@ -253,7 +253,7 @@ export default function SolutionSubmit(props) {
         >
           <DialogContentText id="scroll-dialog-description">
             {props.quesDetails.workplanIds &&
-            props.quesDetails.workplanIds.length ? (
+              props.quesDetails.workplanIds.length ? (
               props.quesDetails.workplanIds &&
               props.quesDetails.workplanIds.length &&
               props.quesDetails.workplanIds.map((workplanId, index) => (
@@ -322,9 +322,9 @@ export default function SolutionSubmit(props) {
                         onClick={async () =>
                           !disable
                             ? await handleValidation(
-                                workplanId,
-                                solutions[index]
-                              )
+                              workplanId,
+                              solutions[index]
+                            )
                             : null
                         }
                       >

@@ -77,7 +77,7 @@ export default function StakingPage(props) {
         setLoader(false);
         setVoterDetails(response.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const handleSelect = (workplan) => {
@@ -103,9 +103,9 @@ export default function StakingPage(props) {
     }
   };
   const stakePosting = async () => {
-    return await new Promise(async (resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       try {
-        const trxObj = await contract.methods
+        const trxObj = contract.methods
           .stakeVote(
             props.location.state.questionDetails.githubIssueUrl,
             props.location.state.questionsDetails.publisherGithubId,
@@ -120,7 +120,7 @@ export default function StakingPage(props) {
           .send({ from: walletAddress.toString() });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Suuccessfulyy voted");
+          window.alert("Successfulyy voted");
           resolve(receipt);
         });
 
@@ -146,22 +146,22 @@ export default function StakingPage(props) {
     });
   };
   const handleStake = async () => {
-    console.log(stakeDetails);
-    console.log("in handle stake");
-    if (!walletAddress) {
-      setAlert((prevState) => ({
-        ...prevState,
-        open: true,
-        errorMessage: "Please connect wallet",
-      }));
-    } else {
-      setAlert((prevState) => ({
-        ...prevState,
-        open: false,
-        errorMessage: "",
-      }));
-      setLoader(true);
-      try {
+    try {
+      console.log(stakeDetails);
+      console.log("in handle stake");
+      if (!walletAddress) {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Please connect wallet",
+        }));
+      } else {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: false,
+          errorMessage: "",
+        }));
+        setLoader(true);
         try {
           const stakeResponse = await stakePosting();
         } catch (error) {
@@ -191,14 +191,14 @@ export default function StakingPage(props) {
           }));
           setLoader(false);
         }
-      } catch (error) {
-        console.log(error);
-        setAlert((prevState) => ({
-          ...prevState,
-          isValid: true,
-          errorMessage: "Something went wrong while staking!",
-        }));
       }
+    } catch (error) {
+      console.log(error);
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Something went wrong while staking!",
+      }));
     }
   };
 

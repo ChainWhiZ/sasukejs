@@ -36,7 +36,7 @@ export default function QuestionStage(props) {
           .send({ from: walletAddress.toString() });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Suuccessfulyy unstaked");
+          window.alert("Successfulyy unstaked");
           resolve(receipt);
         });
 
@@ -62,9 +62,9 @@ export default function QuestionStage(props) {
     });
   };
   const handleUnstake = async () => {
-    props.handleLoader(true);
-    let valid = true;
     try {
+      props.handleLoader(true);
+      let valid = true;
       try {
         const unstakeResponse = await unstakeCall();
       } catch (error) {
@@ -80,7 +80,7 @@ export default function QuestionStage(props) {
               solutionId: props.solutionId._id,
             })
 
-            .catch((err) => {});
+            .catch((err) => { });
         } catch (error) {
           console.log(error);
           valid = false;
@@ -97,7 +97,8 @@ export default function QuestionStage(props) {
         props.fetchVotedSolutions();
         props.handleLoader(false);
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
       setAlert((prevState) => ({
         ...prevState,
@@ -176,7 +177,7 @@ export default function QuestionStage(props) {
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             !props.claimed &&
-            props.questionDetails.questionStage === "complete" ? (
+              props.questionDetails.questionStage === "complete" ? (
               <Button className="profile-button" onClick={handleUnstake}>
                 Unstake Now
               </Button>
