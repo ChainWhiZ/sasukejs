@@ -10,6 +10,7 @@ import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function ProfilePage(props) {
   const username = useRecoilValue(usernameAtom);
+  console.log(username)
   if (!username) {
     return <Redirect to="/" />;
   }

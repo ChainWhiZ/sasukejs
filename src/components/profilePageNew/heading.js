@@ -22,6 +22,7 @@ export default function Heading(props) {
         githubId: username,
       })
       .then((response) => {
+        console.log(response.data)
         setData(response.data);
       })
       .catch((err) => {
@@ -34,7 +35,10 @@ export default function Heading(props) {
       });
   }, []);
   return (
+
     <>
+
+
       <Grid item md={12} xs={12} className="profile-heading-grid"></Grid>
       <Grid item md={3}>
         <img
@@ -43,38 +47,41 @@ export default function Heading(props) {
           alt="account"
         />
       </Grid>
+      {data && Object.keys(data).length  ?
+        <>
+          <Grid item md={3} className="profile-details-bounty-heading-grid">
+            <p className="profile-details-bounty">
+              {data.questionIds && data.questionIds.length}
+            </p>
+            <p className="profile-details-bounty-heading">Bounties Posted</p>
+          </Grid>
+          <Grid item md={3} className="profile-details-bounty-heading-grid">
+            <p className="profile-details-bounty">
+              {data.solutionIds && data.solutionIds.length}
+            </p>
+            <p className="profile-details-bounty-heading">Bounties Solved</p>
+          </Grid>
+          <Grid item md={3} className="profile-details-bounty-heading-grid">
+            {data.voterWeightage ? (
+              <p className="profile-details-bounty">
+                {data.voterWeightage && data.voterWeightage}
+              </p>
+            ) : (
+              <p className="profile-details-bounty">0</p>
+            )}
 
-      <Grid item md={3} className="profile-details-bounty-heading-grid">
-        <p className="profile-details-bounty">
-          {data.questionIds && data.questionIds.length}
-        </p>
-        <p className="profile-details-bounty-heading">Bounties Posted</p>
-      </Grid>
-      <Grid item md={3} className="profile-details-bounty-heading-grid">
-        <p className="profile-details-bounty">
-          {data.solutionIds && data.solutionIds.length}
-        </p>
-        <p className="profile-details-bounty-heading">Bounties Solved</p>
-      </Grid>
-      <Grid item md={3} className="profile-details-bounty-heading-grid">
-        {data.voterWeightage ? (
-          <p className="profile-details-bounty">
-            {data.voterWeightage && data.voterWeightage}
-          </p>
-        ) : (
-          <p className="profile-details-bounty">0</p>
-        )}
-
-        <p className="profile-details-bounty-heading">Voter Weightage</p>
-      </Grid>
-
+            <p className="profile-details-bounty-heading">Voter Weightage</p>
+          </Grid>
+        </>
+        : null
+      }
       <Grid
         item
         md={12}
         xs={12}
         className="profile-content-style profile-sub-info profile-bounty-username"
       >
-        <p>{localStorage.getItem("username")}</p>
+        <p>{username}</p>
       </Grid>
       <Grid
         item
@@ -88,6 +95,7 @@ export default function Heading(props) {
           connect with developers.
         </p>
       </Grid>
+
     </>
   );
 }
