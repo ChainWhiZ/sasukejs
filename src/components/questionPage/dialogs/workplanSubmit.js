@@ -109,7 +109,10 @@ export default function WorkplanSubmit(props) {
             <Button
               class="dialog-button"
               onClick={!disable ? handleSubmit : null}
-              style={{ opacity: disable ? "25%" : "100%" }}
+              style={{
+                opacity: disable ? "25%" : "100%",
+                cursor: disable ? "default" : "pointer",
+              }}
             >
               Submit
             </Button>
