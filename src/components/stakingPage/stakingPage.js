@@ -45,7 +45,7 @@ export default function StakingPage(props) {
   promise.then(function (v) {
     contract = v;
   });
-  console.log(walletAddress);
+  console.log(props.location.state.questionDetails);
   useEffect(() => {
     axios
       .post(port + "workplan/fetchall", {
@@ -87,11 +87,18 @@ export default function StakingPage(props) {
   };
 
   const handleStakeValidation = () => {
-    if (stakeDetails.stakeAmount < 5 || stakeDetails.stakeAmount > 40) {
+    console.log("in validation")
+    if (stakeDetails.stakeAmount < 0.0001 || stakeDetails.stakeAmount > 40) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
         errorMessage: "Please enter stake amount between 5 to 40 matic",
+      }));
+    } else if (!walletAddress) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please connect wallet",
       }));
     } else {
       setAlert((prevState) => ({
@@ -102,22 +109,25 @@ export default function StakingPage(props) {
       handleStake();
     }
   };
+
   const stakePosting = async () => {
+    console.log("in contract cal");
     return await new Promise((resolve, reject) => {
       try {
         const trxObj = contract.methods
           .stakeVote(
             props.location.state.questionDetails.githubIssueUrl,
-            props.location.state.questionsDetails.publisherGithubId,
             props.location.state.questionDetails.publicAddress.toString(),
+            props.location.state.questionDetails.publisherGithubId,
             stakeDetails.solverGithubId,
             stakeDetails.solverPublicAddress.toString(),
             stakeDetails
-              .solutionId(stakeDetails.stakedAmount * Math.pow(10, 18))
-              .toString(),
+              .solutionId,
             username
           )
-          .send({ from: walletAddress.toString() });
+          .send({
+            from: walletAddress.toString(), value: (stakeDetails.stakeAmount * Math.pow(10, 18))
+          });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
           window.alert("Successfulyy voted");
@@ -132,7 +142,9 @@ export default function StakingPage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
+            setLoader(false);
           reject(error.message);
+          
         });
       } catch (error) {
         console.log(error);
@@ -141,6 +153,7 @@ export default function StakingPage(props) {
             ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
+        setLoader(false);
         reject(error);
       }
     });
@@ -149,51 +162,40 @@ export default function StakingPage(props) {
     try {
       console.log(stakeDetails);
       console.log("in handle stake");
-      if (!walletAddress) {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          errorMessage: "Please connect wallet",
-        }));
-      } else {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: false,
-          errorMessage: "",
-        }));
-        setLoader(true);
+      setLoader(true);
+      try {
+        const stakeResponse = await stakePosting();
+      } catch (error) {
+        console.log(error);
+        valid = false;
+      }
+
+      if (valid) {
         try {
-          const stakeResponse = await stakePosting();
+          const axiosResponse = axios.post(port + "vote/save", {
+            publicAddress: walletAddress,
+            amountStaked: stakeDetails.stakedAmount,
+            timestamp: Date.now() / 1000,
+            solutionId: stakeDetails.solutionId,
+            githubId: username,
+          });
         } catch (error) {
           console.log(error);
           valid = false;
         }
-
-        if (valid) {
-          try {
-            const axiosResponse = axios.post(port + "vote/save", {
-              publicAddress: walletAddress,
-              amountStaked: stakeDetails.stakedAmount,
-              timestamp: Date.now() / 1000,
-              solutionId: stakeDetails.solutionId,
-              githubId: username,
-            });
-          } catch (error) {
-            console.log(error);
-            valid = false;
-          }
-        }
-        if (valid) {
-          fetchVoterDetails();
-          setStakeDetails((prevState) => ({
-            ...prevState,
-            stakeAmount: 0,
-          }));
-          setLoader(false);
-        }
       }
+      if (valid) {
+        fetchVoterDetails();
+        setStakeDetails((prevState) => ({
+          ...prevState,
+          stakeAmount: 0,
+        }));
+        setLoader(false);
+      }
+
     } catch (error) {
       console.log(error);
+      setLoader(false);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
@@ -212,6 +214,9 @@ export default function StakingPage(props) {
         <CircularIndeterminate />
       ) : (
         <>
+          {alert.open ? (
+            <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+          ) : null}
           <Grid
             container
             direction="row"
@@ -259,9 +264,7 @@ export default function StakingPage(props) {
           </Grid>
         </>
       )}
-      {alert.open ? (
-        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
-      ) : null}
+
     </>
   );
 }

@@ -56,6 +56,7 @@
 .staking-selected-workplan-card {
   background-color: #d4ff1e;
   color: black !important;
+  border-radius: 7px;
 }
 .staking-workplan {
   font-family: Poppins;
