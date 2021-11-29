@@ -67,7 +67,7 @@ export default function InputComponent(props) {
         justifyContent={props.pageState === 8 ? "flex-start" : "center"}
         className={handleStyle()}
       >
-        <Grid item md={12} xs={12} className="margin-left-35">
+        <Grid item md={12} xs={12} className={props.pageState===8?"margin-left-30":"margin-left-35"}>
           <p className="left-title ">{handleLabel()}</p>
         </Grid>
         {props.pageState === 1 ||
@@ -77,10 +77,10 @@ export default function InputComponent(props) {
           <>
           <Grid item md={8} xs={8} className="margin-top-2">
             <Input
-              disabled={
-                props.pageState === 7 &&
-                props.communityOption === "Self Approved"
-              }
+              // disabled={
+              //   props.pageState === 7 &&
+              //   props.communityOption === "Self Approved"
+              // }
               type={
                 props.pageState === 5 || props.pageState === 7
                   ? "number"
@@ -104,10 +104,11 @@ export default function InputComponent(props) {
           </>
         ) : (
           <>
-            <Grid item md={12} xs={12} style={{marginLeft:props.walletAddress?"25%":"40%"}}>
+            <Grid item md={12} xs={12} style={{marginLeft:props.walletAddress?"20%":"40%"}}>
               <Input
                 value={props.walletAddress?props.walletAddress:"Not Connected"}
                 className="input-field-style"
+                style={{marginLeft:"-5%"}}
                 disabled={true}
               />
               <br/>
@@ -154,7 +155,7 @@ export default function InputComponent(props) {
         )}
       </Grid>
       {props.alert.isValid ? (
-        <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
+        <SimpleAlerts  severity={"warning"} message={props.alert.errorMessage} />
       ) : null}
     </>
   );

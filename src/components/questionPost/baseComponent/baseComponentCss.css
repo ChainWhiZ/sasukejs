@@ -114,8 +114,8 @@
 }
 .non-selected-card {
   width: 23vw !important;
-  height: 34vh !important;
-  padding: 2% !important;
+  height: 30vh !important;
+  padding: 1% 2% 3% 2% !important;
   margin-bottom: 0;
   cursor: pointer;
   background-color: rgba(19, 19, 19, 1) !important;
@@ -123,8 +123,8 @@
 
 .selected-card {
   width: 23vw !important;
-  height: 34vh !important;
-  padding: 2% !important;
+  height: 30vh !important;
+  padding: 1% 2% 3% 2% !important;
   margin-bottom: 0;
   cursor: pointer;
   background-color: rgba(212, 255, 31, 1) !important;

@@ -70,6 +70,7 @@ export default function StakeSolution(props) {
               id="outlined-basic"
               type={"number"}
               variant="outlined"
+              disabled={props.disable}
               size="small"
               className="staking-input"
               InputProps={{ inputProps: { min: 5, max: 40 } }}
@@ -85,8 +86,8 @@ export default function StakeSolution(props) {
             <Button
               variant="contained"
               className="staking-button"
-              onClick={() => !props.disabled ? props.handleStakeValidation() : null}
-              style={{ opacity: props.disabled ? "13%" : "100%" }}
+              onClick={() => !props.disable ? props.handleStakeValidation() : null}
+              style={{ opacity: props.disable ? "25%" : "100%" }}
             >
               Stake
             </Button>

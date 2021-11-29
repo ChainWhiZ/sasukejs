@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import StakeSolution from "./stakeSolution";
 import { useRecoilValue } from "recoil";

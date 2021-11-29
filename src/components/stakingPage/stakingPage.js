@@ -17,7 +17,6 @@ import {
 import "./stakingPageCss.css";
 
 export default function StakingPage(props) {
-  let valid = true;
   console.log(props);
   const username = useRecoilValue(usernameAtom);
   const [data, setData] = useState([]);
@@ -79,7 +78,7 @@ export default function StakingPage(props) {
       })
       .catch((err) => { });
   };
-
+console.log(voterdetails)
   const handleSelect = (workplan) => {
     let i = props.location.state.questionDetails.workplanIds.indexOf(workplan);
     setSelectedWorkplan(workplan);
@@ -130,7 +129,7 @@ export default function StakingPage(props) {
           });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Successfulyy voted");
+          // window.alert("Successfulyy voted");
           resolve(receipt);
         });
 
@@ -159,6 +158,7 @@ export default function StakingPage(props) {
     });
   };
   const handleStake = async () => {
+    let valid= true;
     try {
       console.log(stakeDetails);
       console.log("in handle stake");
@@ -172,9 +172,10 @@ export default function StakingPage(props) {
 
       if (valid) {
         try {
+          console.log("in axios call")
           const axiosResponse = axios.post(port + "vote/save", {
             publicAddress: walletAddress,
-            amountStaked: stakeDetails.stakedAmount,
+            amountStaked: stakeDetails.stakeAmount,
             timestamp: Date.now() / 1000,
             solutionId: stakeDetails.solutionId,
             githubId: username,
@@ -185,6 +186,7 @@ export default function StakingPage(props) {
         }
       }
       if (valid) {
+        window.alert("Successfuly voted");
         fetchVoterDetails();
         setStakeDetails((prevState) => ({
           ...prevState,

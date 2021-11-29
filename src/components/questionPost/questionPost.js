@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BaseComponent from "./baseComponent/baseComponentPage";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -34,7 +34,6 @@ export default function QuestionPost() {
     success: false,
     message: ""
   })
-  // const [contract,setContract]=useState(null)
   const username = useRecoilValue(usernameAtom);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
@@ -46,19 +45,22 @@ export default function QuestionPost() {
 
   function handleGithubIssueValidation() {
     console.log("in here");
-    return axios
-      .post(port + "question/validate", {
-        githubIssueUrl: issueURL,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          return true;
-        }
-      })
-      .catch((err) => {
-        return false;
-      });
-    // return true;
+    // setLoader(true);
+    // return axios
+    //   .post(port + "question/validate", {
+    //     githubIssueUrl: issueURL,
+    //   })
+    //   .then((response) => {
+    //     if (response.status === 200) {
+    //       setLoader(false);
+    //       return true;
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setLoader(false);
+    //     return false;
+    //   });
+     return true;
   }
 
 
@@ -208,7 +210,7 @@ export default function QuestionPost() {
     console.log(communityOption);
     console.log(communityReward);
     console.log(terms);
-    setLoader(true);
+   
     if (terms.undertaking1 === false || terms.undertaking2 === false) {
 
       setAlert((prevState) => ({
@@ -231,6 +233,7 @@ export default function QuestionPost() {
         isValid: false,
         errorMessage: "",
       }));
+      setLoader(true);
       console.log("hereeeeee")
       const timeBegin = Math.floor(new Date().getTime() / 1000);
       let timeEnd = timeBegin + time * 24 * 60 * 60;
@@ -376,6 +379,7 @@ export default function QuestionPost() {
               handleTerms={setTerms}
               terms={terms}
               alert={alert}
+              communityOption={communityOption}
               walletAddress={walletAddress}
               handleSubmit={handleSubmit}
             />

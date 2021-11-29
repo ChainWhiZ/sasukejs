@@ -13,9 +13,9 @@ export default function BaseComponent(props) {
           <hr className="horizontal-line" style={{ marginTop: "8%" }} />
         </Grid>
         <Grid item md={4}>
-          <RightSideText {...props} className="margin-top-8" />
+          <RightSideText {...props} communityOption={props.communityOption} className="margin-top-8" />
         </Grid>
-        <Grid item md={6} className="margin-top-8">
+        <Grid item md={6} style={{ marginTop: "6%" }}>
           {props.pageState === 1 ? (
             <InputComponent
               handleIssueTitle={props.handleIssueTitle}

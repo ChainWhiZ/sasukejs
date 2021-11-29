@@ -2,9 +2,15 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import { Typography } from "@material-ui/core";
 import SimpleAlerts from "../../alert/alert";
 import { communityText, categoryText } from "../../../constants";
+import twoHands from "../../../assets/two_hands.png";
+import googleCode from "../../../assets/google_code.png";
+import settings from "../../../assets/settings.png";
+import worker from "../../../assets/worker.png";
+
+
+
 
 export default function OptionComponent(props) {
   console.log(props);
@@ -23,6 +29,16 @@ export default function OptionComponent(props) {
       }
     }
   }
+  function handleIcon(value) {
+    if (value === "Front End")
+      return googleCode;
+    if (value === "Smart Contract")
+      return worker;
+    if (value === "Back End")
+      return settings;
+    if (value === "Others")
+      return twoHands;
+  }
   return (
     <>
       <Grid
@@ -35,49 +51,57 @@ export default function OptionComponent(props) {
       >
         {props.pageState === 2
           ? categoryText.map((item) => {
-              return (
-                <Grid
-                  item
-                  md={6}
-                  xs={6}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleClick(item.title);
-                  }}
+            return (
+              <Grid
+                item
+                md={6}
+                xs={6}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleClick(item.title);
+                }}
+              >
+                <Card
+                  className={
+                    props.category.includes(item.title)
+                      ? "selected-card"
+                      : "non-selected-card"
+                  }
                 >
-                  <Card
-                    className={
-                      props.category.includes(item.title)
-                        ? "selected-card"
-                        : "non-selected-card"
-                    }
-                  >
-                    <CardContent>
-                      <p
-                        className={
-                          props.category.includes(item.title)
-                            ? "card-title black-text"
-                            : "card-title"
+                  <CardContent>
+
+                    <p
+                      className={
+                        props.category.includes(item.title)
+                          ? "card-title black-text"
+                          : "card-title"
+                      }
+                    >
+                      <img
+                        style={{marginRight:"3%"}}
+                        src={
+                          handleIcon(item.title)
                         }
-                      >
-                        {item.title}
-                      </p>
-                      <p
-                        className={
-                          props.category.includes(item.title)
-                            ? "card-body black-text"
-                            : "card-body"
-                        }
-                      >
-                        {item.content}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              );
-            })
+                        alt="icon"
+                      />
+                      {item.title}
+                    </p>
+                    <p
+                      className={
+                        props.category.includes(item.title)
+                          ? "card-body black-text"
+                          : "card-body"
+                      }
+                    >
+                      {item.content}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Grid>
+            );
+          })
           : props.pageState === 6
-          ? communityText.map((item) => {
+            ? communityText.map((item) => {
               return (
                 <Grid
                   item
@@ -119,7 +143,7 @@ export default function OptionComponent(props) {
                 </Grid>
               );
             })
-          : null}
+            : null}
       </Grid>
       {props.alert.isValid ? (
         <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
