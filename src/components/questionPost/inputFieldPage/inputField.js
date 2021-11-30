@@ -60,6 +60,9 @@ export default function InputComponent(props) {
 
   return (
     <>
+     {props.alert.isValid ? (
+        <SimpleAlerts  severity={"warning"} message={props.alert.errorMessage} />
+      ) : null}
       <Grid
         container
         direction="column"
@@ -77,10 +80,7 @@ export default function InputComponent(props) {
           <>
           <Grid item md={8} xs={8} className="margin-top-2">
             <Input
-              // disabled={
-              //   props.pageState === 7 &&
-              //   props.communityOption === "Self Approved"
-              // }
+             
               type={
                 props.pageState === 5 || props.pageState === 7
                   ? "number"
@@ -104,7 +104,7 @@ export default function InputComponent(props) {
           </>
         ) : (
           <>
-            <Grid item md={12} xs={12} style={{marginLeft:props.walletAddress?"20%":"40%"}}>
+            <Grid item md={12} xs={12} style={{marginLeft:props.walletAddress?"25%":"40%"}}>
               <Input
                 value={props.walletAddress?props.walletAddress:"Not Connected"}
                 className="input-field-style"
@@ -154,9 +154,7 @@ export default function InputComponent(props) {
           </>
         )}
       </Grid>
-      {props.alert.isValid ? (
-        <SimpleAlerts  severity={"warning"} message={props.alert.errorMessage} />
-      ) : null}
+     
     </>
   );
 }

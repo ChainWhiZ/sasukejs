@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -151,7 +151,14 @@ export default function SolutionSubmit(props) {
     try {
       setDisable(true);
       //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-      if (!walletAddress) {
+      if (walletAddress === props.quesDetails.publicAddress || username === props.quesDetails.publisherGithubId) {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Sorry publisher cannot post a solution",
+        }));
+      }
+      else if (!walletAddress) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
@@ -180,20 +187,21 @@ export default function SolutionSubmit(props) {
               _id: workplanId,
               questionId: props.quesDetails._id,
             });
+            if (axiosResponse.status === 201) {
+              eventBus.dispatch("solutionSubmitted", {
+                message: "Solution submitted",
+              });
+              setOpen(false);
+              setDisable(false);
+              props.handleDialogClose(false);
+            }
           } catch (error) {
             console.log(error);
             valid = false;
           }
         }
 
-        if (valid) {
-          eventBus.dispatch("solutionSubmitted", {
-            message: "Solution submitted",
-          });
-          setOpen(false);
-          setDisable(false);
-          props.handleDialogClose(false);
-        }
+
       }
     } catch (error) {
       console.log(error);

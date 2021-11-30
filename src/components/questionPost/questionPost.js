@@ -45,21 +45,21 @@ export default function QuestionPost() {
 
   function handleGithubIssueValidation() {
     console.log("in here");
-    // setLoader(true);
-    // return axios
-    //   .post(port + "question/validate", {
-    //     githubIssueUrl: issueURL,
-    //   })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       setLoader(false);
-    //       return true;
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLoader(false);
-    //     return false;
-    //   });
+    setLoader(true);
+    return axios
+      .post(port + "question/validate", {
+        githubIssueUrl: issueURL,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setLoader(false);
+          return true;
+        }
+      })
+      .catch((err) => {
+        setLoader(false);
+        return false;
+      });
      return true;
   }
 
@@ -181,7 +181,7 @@ export default function QuestionPost() {
 
         trxObj.on('receipt', function (receipt) {
           console.log("Successfully done")
-          window.alert("Suuccessfulyy posted")
+        //  window.alert("Suuccessfulyy posted")
           resolve(receipt)
         })
 
@@ -268,20 +268,25 @@ export default function QuestionPost() {
                   communityOption == "Community Approved" ? true : false,
                 questionCategories: category,
               })
+              if (axiosResponse.status == 201) {
+                window.alert("Suuccessfulyy posted")
+                setLoader(false);
+                history.push({
+                  pathname: `/bounty/${axiosResponse.data}`,
+                  state: { id: axiosResponse.data },
+                });
+              }
+            
           } catch (error) {
             console.log(error)
+            setAlert((prevState) => ({
+              ...prevState,
+              isValid: true,
+              errorMessage: "Something went wrong while posting!",
+            }));
             valid = false;
           }
         }
-
-        if (valid) {
-          setLoader(false);
-          history.push({
-            pathname: `/bounty/${axiosResponse.data}`,
-            state: { id: axiosResponse.data },
-          });
-        }
-
 
       } catch (error) {
         console.log(error)

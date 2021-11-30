@@ -35,6 +35,11 @@ export default function WorkplanSubmit(props) {
   };
 
   const handleSubmit = async () => {
+    setAlert((prevState) => ({
+      ...prevState,
+      open: false,
+      errorMessage: "",
+    }));
     setDisable(true);
     const timestamp = new Date().getTime();
     if (!buffer) {
@@ -43,7 +48,6 @@ export default function WorkplanSubmit(props) {
         open: true,
         errorMessage: "No file selected",
       }));
-      setDisable(false);
     }
     const uploadedFile = await fleekStorage.upload({
       apiKey: "U3QGDwCkWltjBLGG1hATUg==",

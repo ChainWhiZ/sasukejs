@@ -41,6 +41,9 @@ export default function OptionComponent(props) {
   }
   return (
     <>
+     {props.alert.isValid ? (
+        <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
+      ) : null}
       <Grid
         container
         direction="row"
@@ -145,9 +148,7 @@ export default function OptionComponent(props) {
             })
             : null}
       </Grid>
-      {props.alert.isValid ? (
-        <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
-      ) : null}
+     
     </>
   );
 }

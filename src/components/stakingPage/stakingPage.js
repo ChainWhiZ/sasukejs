@@ -44,7 +44,6 @@ export default function StakingPage(props) {
   promise.then(function (v) {
     contract = v;
   });
-  console.log(props.location.state.questionDetails);
   useEffect(() => {
     axios
       .post(port + "workplan/fetchall", {
@@ -65,7 +64,7 @@ export default function StakingPage(props) {
       });
     fetchVoterDetails();
   }, []);
-
+console.log(data);
   const fetchVoterDetails = () => {
     axios
       .post(port + "user/isvoter", {
@@ -78,7 +77,7 @@ export default function StakingPage(props) {
       })
       .catch((err) => { });
   };
-console.log(voterdetails)
+  console.log(voterdetails)
   const handleSelect = (workplan) => {
     let i = props.location.state.questionDetails.workplanIds.indexOf(workplan);
     setSelectedWorkplan(workplan);
@@ -141,9 +140,9 @@ console.log(voterdetails)
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-            setLoader(false);
+          setLoader(false);
           reject(error.message);
-          
+
         });
       } catch (error) {
         console.log(error);
@@ -158,7 +157,7 @@ console.log(voterdetails)
     });
   };
   const handleStake = async () => {
-    let valid= true;
+    let valid = true;
     try {
       console.log(stakeDetails);
       console.log("in handle stake");
@@ -180,20 +179,28 @@ console.log(voterdetails)
             solutionId: stakeDetails.solutionId,
             githubId: username,
           });
+          if (axiosResponse.status == 201) {
+            window.alert("Successfuly voted");
+            fetchVoterDetails();
+            setStakeDetails((prevState) => ({
+              ...prevState,
+              stakeAmount: 0,
+            }));
+            setLoader(false);
+          }
+          console.log(axiosResponse)
         } catch (error) {
+          setLoader(false);
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Something went wrong while staking!",
+          }));
           console.log(error);
           valid = false;
         }
       }
-      if (valid) {
-        window.alert("Successfuly voted");
-        fetchVoterDetails();
-        setStakeDetails((prevState) => ({
-          ...prevState,
-          stakeAmount: 0,
-        }));
-        setLoader(false);
-      }
+
 
     } catch (error) {
       console.log(error);

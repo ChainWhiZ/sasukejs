@@ -65,20 +65,23 @@ export default function NewExplore(props) {
   return (
     <>
       <hr className="horizontal-line" style={{ marginTop: "8vw" }} />
+
       {loader ? <CircularIndeterminate /> :
         <Grid container>
           <Grid item md={4} xs={12}>
             <MenuBar type={props.location.state.type} />
           </Grid>
           <Grid item md={8} xs={12}>
+            {alert.open ? (
+              <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+            ) : null}
             <Questions data={data} type={props.location.state.type} filterQuestions={(key) => filterQuestions(key)} />
           </Grid>
         </Grid>
       }
+
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
-      {alert.open ? (
-        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
-      ) : null}
+
 
     </>
   );
