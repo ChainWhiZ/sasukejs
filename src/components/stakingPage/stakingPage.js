@@ -179,17 +179,20 @@ console.log(data);
             solutionId: stakeDetails.solutionId,
             githubId: username,
           });
-          if (axiosResponse.status == 201) {
-            setLoader(false);
-            console.log("in axios response")
-            window.alert("Successfuly voted");
-            fetchVoterDetails();
-            setStakeDetails((prevState) => ({
-              ...prevState,
-              stakeAmount: 0,
-            }));
-            
-          }
+          Promise.resolve(axiosResponse).then((val)=>{
+            if (val.status == 201) {
+              setLoader(false);
+              console.log("in axios response")
+              window.alert("Successfuly voted");
+              fetchVoterDetails();
+              setStakeDetails((prevState) => ({
+                ...prevState,
+                stakeAmount: 0,
+              }));
+              
+            }
+          })
+         
           console.log(Promise.resolve(axiosResponse))
         } catch (error) {
           setLoader(false);
