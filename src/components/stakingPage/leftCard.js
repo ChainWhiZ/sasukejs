@@ -27,12 +27,12 @@ export default function LeftCard(props) {
             item
             md={12}
             xs={12}
-            className={handleSelectedStyle(workplan)}
-            onClick={() => props.handleSelect(workplan)}
+            className={handleSelectedStyle(workplan._id)}
+            onClick={() => props.handleSelect(workplan._id)}
           >
             <p
               className={
-                props.selectedWorkplan === workplan
+                props.selectedWorkplan === workplan._id
                   ? "staking-workplan active-black"
                   : "staking-workplan"
               }
@@ -41,14 +41,14 @@ export default function LeftCard(props) {
                 <img
                   className="staking-icon"
                   src={
-                    props.selectedWorkplan === workplan
+                    props.selectedWorkplan === workplan._id
                       ? ideaIconBlack
                       : ideaIcon
                   }
                   alt="icon"
                 />
               </span>
-              Workplan Submitted by akp11
+              Workplan Submitted by {workplan.userId}
             </p>
           </Grid>
         ))}

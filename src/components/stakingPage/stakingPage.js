@@ -79,7 +79,7 @@ console.log(data);
   };
   console.log(voterdetails)
   const handleSelect = (workplan) => {
-    let i = props.location.state.questionDetails.workplanIds.indexOf(workplan);
+    let i = data.findIndex(item => item._id == workplan);
     setSelectedWorkplan(workplan);
     setSelectedSolutions(data[i].solutionIds);
   };
@@ -180,15 +180,17 @@ console.log(data);
             githubId: username,
           });
           if (axiosResponse.status == 201) {
+            setLoader(false);
+            console.log("in axios response")
             window.alert("Successfuly voted");
             fetchVoterDetails();
             setStakeDetails((prevState) => ({
               ...prevState,
               stakeAmount: 0,
             }));
-            setLoader(false);
+            
           }
-          console.log(axiosResponse)
+          console.log(Promise.resolve(axiosResponse))
         } catch (error) {
           setLoader(false);
           setAlert((prevState) => ({
@@ -255,7 +257,7 @@ console.log(data);
             >
               <Grid item md={4} xs={12}>
                 <LeftCard
-                  workplans={props.location.state.questionDetails.workplanIds}
+                  workplans={data}
                   handleSelect={(workplan) => handleSelect(workplan)}
                   selectedWorkplan={selectedWorkplan}
                 />

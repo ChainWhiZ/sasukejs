@@ -8,7 +8,10 @@ import twoHands from "../../../assets/two_hands.png";
 import googleCode from "../../../assets/google_code.png";
 import settings from "../../../assets/settings.png";
 import worker from "../../../assets/worker.png";
-
+import blackGoogleCode from "../../../assets/black-google-code.png";
+import blackSettings from "../../../assets/black-settings.png";
+import blackWorker from "../../../assets/black-worker.png";
+import blackTwoHands from "../../../assets/black-two-hands.png";
 
 
 
@@ -31,13 +34,21 @@ export default function OptionComponent(props) {
   }
   function handleIcon(value) {
     if (value === "Front End")
-      return googleCode;
+      return  (props.category.includes(value)
+      ? blackGoogleCode
+      : googleCode);
     if (value === "Smart Contract")
-      return worker;
+      return (props.category.includes(value)
+      ? blackWorker
+      : worker);
     if (value === "Back End")
-      return settings;
+      return (props.category.includes(value)
+      ? blackSettings
+      : settings);
     if (value === "Others")
-      return twoHands;
+      return (props.category.includes(value)
+      ? blackTwoHands
+      : twoHands);
   }
   return (
     <>
@@ -81,11 +92,14 @@ export default function OptionComponent(props) {
                       }
                     >
                       <img
-                        style={{marginRight:"3%"}}
+                        style={{marginRight:"3%" }}
                         src={
                           handleIcon(item.title)
                         }
                         alt="icon"
+                        className={ props.category.includes(item.title)
+                          ? "category-image"
+                          : null}
                       />
                       {item.title}
                     </p>
