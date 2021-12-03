@@ -27,29 +27,35 @@ export default function LeftCard(props) {
             item
             md={12}
             xs={12}
-            className={handleSelectedStyle(workplan)}
-            onClick={() => props.handleSelect(workplan)}
+            className={handleSelectedStyle(workplan._id)}
+            onClick={() => props.handleSelect(workplan._id)}
           >
-            <p
-              className={
-                props.selectedWorkplan === workplan
-                  ? "staking-workplan active-black"
-                  : "staking-workplan"
-              }
+            <a
+              href={`https://ipfs.io/ipfs/${workplan._id}`}
+              target="_blank"
+              rel="noreferrer"
             >
-              <span>
-                <img
-                  className="staking-icon"
-                  src={
-                    props.selectedWorkplan === workplan
-                      ? ideaIconBlack
-                      : ideaIcon
-                  }
-                  alt="icon"
-                />
-              </span>
-              Workplan Submitted by akp11
-            </p>
+              <p
+                className={
+                  props.selectedWorkplan === workplan._id
+                    ? "staking-workplan active-black"
+                    : "staking-workplan"
+                }
+              >
+                <span>
+                  <img
+                    className="staking-icon"
+                    src={
+                      props.selectedWorkplan === workplan._id
+                        ? ideaIconBlack
+                        : ideaIcon
+                    }
+                    alt="icon"
+                  />
+                </span>
+                Workplan Submitted by {workplan.userId}
+              </p>
+            </a>
           </Grid>
         ))}
     </Grid>

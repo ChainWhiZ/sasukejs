@@ -80,7 +80,7 @@ export default function WorkplanSubmit(props) {
         setDisable(false);
       });
   };
-
+console.log(buffer)
   return (
     <>
       <Dialog
@@ -105,6 +105,7 @@ export default function WorkplanSubmit(props) {
             handleClose();
           }}
         />
+ 
 
         <p class="dialog-title">Submit Workplan</p>
         <input type="file" onChange={(e) => captureFile(e)} />
@@ -121,14 +122,15 @@ export default function WorkplanSubmit(props) {
               Submit
             </Button>
           </Grid>
-        </Grid>
-
-        {alert.open ? (
+          {alert.open ? (
           <SimpleAlerts
             severity={alert.severity}
             message={alert.errorMessage}
           />
         ) : null}
+        </Grid>
+
+       
       </Dialog>
     </>
   );

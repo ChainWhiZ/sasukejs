@@ -24,6 +24,12 @@ export default function NewExplore(props) {
   });
 
   useEffect(async () => {
+    setAlert((prevState) => ({
+      ...prevState,
+      open: false,
+      errorMessage:
+        "",
+    }));
     setLoader(true);
     axios
       .get(port + "question/fetchall")

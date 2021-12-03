@@ -187,14 +187,17 @@ export default function SolutionSubmit(props) {
               _id: workplanId,
               questionId: props.quesDetails._id,
             });
-            if (axiosResponse.status === 201) {
-              eventBus.dispatch("solutionSubmitted", {
-                message: "Solution submitted",
-              });
-              setOpen(false);
-              setDisable(false);
-              props.handleDialogClose(false);
-            }
+            Promise.resolve(axiosResponse).then((val)=>{
+              if (val.status == 201) {
+                eventBus.dispatch("solutionSubmitted", {
+                  message: "Solution submitted",
+                });
+                setOpen(false);
+                setDisable(false);
+                props.handleDialogClose(false);
+              }
+            })
+          
           } catch (error) {
             console.log(error);
             valid = false;

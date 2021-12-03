@@ -80,7 +80,7 @@ console.log(data);
   };
   console.log(voterdetails)
   const handleSelect = (workplan) => {
-    let i = props.location.state.questionDetails.workplanIds.indexOf(workplan);
+    let i = data.findIndex(item => item._id == workplan);
     setSelectedWorkplan(workplan);
     setSelectedSolutions(data[i].solutionIds);
   };
@@ -180,16 +180,21 @@ console.log(data);
             solutionId: stakeDetails.solutionId,
             githubId: username,
           });
-          if (axiosResponse.status == 201) {
-            window.alert("Successfuly voted");
-            fetchVoterDetails();
-            setStakeDetails((prevState) => ({
-              ...prevState,
-              stakeAmount: 0,
-            }));
-            setLoader(false);
-          }
-          console.log(axiosResponse)
+          Promise.resolve(axiosResponse).then((val)=>{
+            if (val.status == 201) {
+              setLoader(false);
+              console.log("in axios response")
+              window.alert("Successfuly voted");
+              fetchVoterDetails();
+              setStakeDetails((prevState) => ({
+                ...prevState,
+                stakeAmount: 0,
+              }));
+              
+            }
+          })
+         
+          console.log(Promise.resolve(axiosResponse))
         } catch (error) {
           setLoader(false);
           setAlert((prevState) => ({
