@@ -80,7 +80,7 @@ export default function QuestionStage(props) {
               solutionId: props.solutionId._id,
             })
 
-            .catch((err) => { });
+            .catch((err) => {});
         } catch (error) {
           console.log(error);
           valid = false;
@@ -97,8 +97,7 @@ export default function QuestionStage(props) {
         props.fetchVotedSolutions();
         props.handleLoader(false);
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       setAlert((prevState) => ({
         ...prevState,
@@ -177,7 +176,8 @@ export default function QuestionStage(props) {
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             !props.claimed &&
-              props.questionDetails.questionStage === "complete" ? (
+            props.amountToBeReturned &&
+            props.questionDetails.questionStage === "complete" ? (
               <Button className="profile-button" onClick={handleUnstake}>
                 Unstake Now
               </Button>

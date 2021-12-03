@@ -161,23 +161,25 @@ export default function RightSide(props) {
             props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (
               <p>Escrow already initiated for other solution</p>
             ) : (
-              <p>{handleEscrowLabel()}</p>
+              <Button
+                className="profile-button results-dialog-right-grid-button"
+                onClick={(e) =>
+                  !handleEscrowDisable() ? props.handleEscrowInitiation() : null
+                }
+                style={
+                  handleEscrowDisable()
+                    ? { color: "grey", cursor: "default" }
+                    : null
+                }
+              >
+                {handleEscrowLabel()}
+              </Button>
             )
           ) : (
-            // <Button
-            //   className="profile-button results-dialog-right-grid-button"
-            //   onClick={(e) =>
-            //     !handleEscrowDisable() ? props.handleEscrowInitiation() : null
-            //   }
-            //   style={handleEscrowDisable() ? { opacity: "25%" } : null}
-            // >
-            //   {handleEscrowLabel()}
-            // </Button>
-
             <Tooltip title="Change your wallet address">
               <Button
                 className="profile-button results-dialog-right-grid-button"
-                style={{ opacity: "25%" }}
+                style={{ color: "grey" }}
               >
                 {handleEscrowLabel()}
               </Button>
