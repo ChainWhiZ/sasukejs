@@ -36,7 +36,9 @@ export default function LeftSide(props) {
             >
               <p>
                 <span>
+                  <a href={solution.githubLink} target="_blank">
                   <img src={GithubIcon} alt="github" />
+                  </a>
                 </span>
                 {solution.solverGithubId}
               </p>

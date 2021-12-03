@@ -13,6 +13,7 @@ import {
   walletAddress as walletAddressAtom,
 } from "../../../../recoil/atoms";
 export default function ResultsDialog(props) {
+  console.log(props);
   let valid = true;
   const [open, setOpen] = useState(props.open);
   const [alert, setAlert] = useState({
@@ -29,84 +30,7 @@ export default function ResultsDialog(props) {
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [hasEscrowInitiated, setHasEscrowInitiated] = useState(false);
-  // const solutions = [
-  //   {
-  //     githubLink: "https://github.com/avolabs-io/nft-auction",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
 
-  //   {
-  //     githubLink: "https://github.com/reactjs/react-basic",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-  //   {
-  //     githubLink: "https://github.com/recrsn/http-basket",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-  //   {
-  //     githubLink: "https://github.com/recrsn/http-basket",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-  //   {
-  //     githubLink: "https://github.com/recrsn/http-basket",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-  //   {
-  //     githubLink: "https://github.com/recrsn/http-basket",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-
-  //   {
-  //     githubLink: "https://github.com/recrsn/http-basket",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeieymslgq4t7ub7owklx4xyuootoodp7oykyj5lvzpiqd5w2lpvzea",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-
-  //   {
-  //     githubLink: "https://github.com/Tejaaswini/Pragma",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-
-  //   {
-  //     githubLink: "https://github.com/Tejaaswini/covid_tracker",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-  //     workplanGithubId: "mishramonalisha76",
-  //     escrowId: "882jsj",
-  //   },
-
-  //   {
-  //     githubLink: "https://github.com/Tejaaswini/artfolio",
-  //     finalVoteScore: 0,
-  //     solverGithubId: "rajashree23",
-  //     workplan: "bafybeicw3tw2kfe4ojz3yfs5o543gpd2y42p2gbe2frzeice57c6rjk63u",
-  //     workplanGithubId: "mishramonalisha76",
-  //   },
-  // ];
   useEffect(() => {
     axios
       .post(port + "user/view-results", { _id: props._id })
@@ -132,9 +56,8 @@ export default function ResultsDialog(props) {
   const escrowInitiationCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
-        const trxObj = await contract.methods
-          .initEscrow(
-            walletAddress,
+        const trxObj = contract.methods
+          .initiateEscrow(
             props.questionUrl,
             solutions[selectedSolutionIndex].solverGithubId
           )
@@ -167,7 +90,7 @@ export default function ResultsDialog(props) {
     });
   };
 
-  const handleEscrowInitiation = async() => {
+  const handleEscrowInitiation = async () => {
     setDisable(true);
     try {
       try {
@@ -181,7 +104,7 @@ export default function ResultsDialog(props) {
         try {
           const axiosResponse = await axios.post(port + "escrow/init", {
             _id: solutions[selectedSolutionIndex].githubLink,
-            _id: props._id,
+            questionId: props._id,
             userId: solutions[selectedSolutionIndex].solverGithubId,
           });
         } catch (error) {
@@ -239,21 +162,37 @@ export default function ResultsDialog(props) {
 
         <Grid container>
           <Grid item md={4} xs={12}>
-            <LeftSide
-              solutions={solutions}
-              handleSelectedSolution={(index) => handleSelectedSolution(index)}
-              selectedSolutionIndex={selectedSolutionIndex}
-            />
+            {solutions && solutions.length ? (
+              <LeftSide
+                solutions={solutions}
+                handleSelectedSolution={(index) =>
+                  handleSelectedSolution(index)
+                }
+                selectedSolutionIndex={selectedSolutionIndex}
+              />
+            ) : (
+              <p
+                style={{
+                  fontWeight: "700",
+                  fontSize: "4vw",
+                  marginLeft: "26vw",
+                }}
+              >
+                No solution submitted
+              </p>
+            )}
           </Grid>
           <Grid item md={8} xs={12}>
-            <RightSide
-              selectedSolution={solutions[selectedSolutionIndex]}
-              handleEscrowInitiation={handleEscrowInitiation}
-              isCommunityApprovedSolution={props.isCommunityApprovedSolution}
-              hasEscrowInitiated={hasEscrowInitiated}
-              publicAddress={props.publicAddress}
-              disable={disable}
-            />
+            {solutions && solutions.length ? (
+              <RightSide
+                selectedSolution={solutions[selectedSolutionIndex]}
+                handleEscrowInitiation={handleEscrowInitiation}
+                isCommunityApprovedSolution={props.isCommunityApprovedSolution}
+                hasEscrowInitiated={hasEscrowInitiated}
+                publicAddress={props.publicAddress}
+                disable={disable}
+              />
+            ) : null}
           </Grid>
         </Grid>
       </Dialog>

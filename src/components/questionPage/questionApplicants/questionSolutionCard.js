@@ -13,6 +13,7 @@ import { Tooltip } from "@material-ui/core";
 
 import account from "../../../assets/account-circle.png"
 export default function QuestionSolutionCard(props) {
+  console.log(props)
   const [applicants, setApplicants] = useState([]);
   const [loader, setLoader] = useState(true);
   const [expanded, setExpanded] = React.useState(false);

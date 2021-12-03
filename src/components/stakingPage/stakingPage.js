@@ -51,6 +51,7 @@ export default function StakingPage(props) {
       })
       .then((response) => {
         setLoader(false);
+        console.log(response.data)
         setData(response.data);
         setSelectedSolutions(response.data[0].solutionIds);
       })
@@ -255,7 +256,7 @@ console.log(data);
             >
               <Grid item md={4} xs={12}>
                 <LeftCard
-                  workplans={props.location.state.questionDetails.workplanIds}
+                  workplans={data}
                   handleSelect={(workplan) => handleSelect(workplan)}
                   selectedWorkplan={selectedWorkplan}
                 />

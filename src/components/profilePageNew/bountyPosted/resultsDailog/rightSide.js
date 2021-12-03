@@ -18,43 +18,47 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 export default function RightSide(props) {
   const [escrow, setEscrow] = useState({});
   const walletAddress = useRecoilValue(walletAddressAtom);
-  const [ cloneconfirmation, setCloneconfirmation] = useState(false);
+  const [cloneconfirmation, setCloneconfirmation] = useState(false);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
-  console.log(props.hasEscrowInitiated);
+  console.log(props);
   useEffect(async () => {
     if (props.selectedSolution.escrowId) {
-      //   axios
-      //     .post(port + "escrow/fetch", {
-      //       _id: props.selectedSolution.escrowId,
-      //     })
-      //     .then((response) => {
-      //       setEscrow(response.data);
-      //     })
-      //     .catch((err) => {
-      //       setAlert((prevState) => ({
-      //         ...prevState,
-      //         open: true,
-      //         errorMessage: "Error fetching escrow",
-      //       }))
-      //     });
+      axios
+        .post(port + "escrow/fetch", {
+          _id: props.selectedSolution.escrowId,
+        })
+        .then((response) => {
+          console.log(response.data);
+          setEscrow(response.data);
+        })
+        .catch((err) => {
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            errorMessage: "Error fetching escrow",
+          }));
+        });
     }
-  }, []);
+  }, [props.selectedSolution.escrowId]);
   const handleEscrowDisable = () => {
     if (
-      escrow.escrowStatus === "Acknowledged" || props.disable || !cloneconfirmation 
+      escrow.escrowStatus === "Acknowledged" ||
+      props.disable ||
+      !cloneconfirmation
     )
       return true;
     return false;
   };
   const handleEscrowLabel = () => {
-    if (escrow.escrowStatus === "TransactionCompleted") return "Confirm reward";
+    if (escrow.escrowStatus === "TransactionCompleted")
+      return "Transaction Completed";
     return "Initiate Escrow";
   };
-  console.log(handleEscrowLabel());
+
   return (
     <>
       <Grid container className="results-dialog-right-grid">
@@ -135,44 +139,41 @@ export default function RightSide(props) {
             </>
           )}
         </Grid>
-        <Grid item md={12} xs={12} style={{margin:"-4% 0% 2% 12%"}}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                    checkedIcon={<CheckBoxIcon fontSize="small" />}
-                    name="cloneconfirmation"
-                    checked={cloneconfirmation}
-                    onChange={(e)=>setCloneconfirmation(e.target.checked)}
-                    style={{ color: "white" }}
-                  />
-                }
+        <Grid item md={12} xs={12} style={{ margin: "-4% 0% 2% 12%" }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                checkedIcon={<CheckBoxIcon fontSize="small" />}
+                name="cloneconfirmation"
+                checked={cloneconfirmation}
+                onChange={(e) => setCloneconfirmation(e.target.checked)}
+                style={{ color: "white" }}
               />
-              <span className="terms-text">
-              I have already taken a clone of the solution github link.
-              </span>
-            </Grid>
+            }
+          />
+          <span className="terms-text">
+            I have already taken a clone of the solution github link.
+          </span>
+        </Grid>
         <Grid item md={12} xs={12}>
           {props.publicAddress === walletAddress ? (
             props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (
-              <Tooltip title="Escrow already initiated for other solution">
-                <Button
-                  className="profile-button results-dialog-right-grid-button"
-                  style={{ opacity: "25%" }}
-                >
-                  Initiate Escrow
-                </Button>
-              </Tooltip>
+              <p>Escrow already initiated for other solution</p>
             ) : (
-              <Button
-                className="profile-button results-dialog-right-grid-button"
-                onClick={(e) => !handleEscrowDisable() ? props.handleEscrowInitiation() : null}
-                style={handleEscrowDisable()? { opacity: "25%" } : null}
-              >
-                {handleEscrowLabel()}
-              </Button>
+              <p>{handleEscrowLabel()}</p>
             )
           ) : (
+            // <Button
+            //   className="profile-button results-dialog-right-grid-button"
+            //   onClick={(e) =>
+            //     !handleEscrowDisable() ? props.handleEscrowInitiation() : null
+            //   }
+            //   style={handleEscrowDisable() ? { opacity: "25%" } : null}
+            // >
+            //   {handleEscrowLabel()}
+            // </Button>
+
             <Tooltip title="Change your wallet address">
               <Button
                 className="profile-button results-dialog-right-grid-button"
@@ -180,7 +181,6 @@ export default function RightSide(props) {
               >
                 {handleEscrowLabel()}
               </Button>
-
             </Tooltip>
           )}
         </Grid>

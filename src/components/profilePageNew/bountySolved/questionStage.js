@@ -15,7 +15,7 @@ import {
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
-  console.log(props)
+  console.log(props);
   let valid = true;
   const [open, setOpen] = useState(false);
   const [escrow, setEscrow] = useState({});
@@ -46,6 +46,7 @@ export default function QuestionStage(props) {
       .then((response) => {
         props.handleLoader(false);
         setEscrow(response.data);
+        console.log(escrow);
       })
       .catch((err) => {
         props.handleLoader(false);
@@ -59,10 +60,10 @@ export default function QuestionStage(props) {
   const completeCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
-        const trxObj = await contract.methods
+        const trxObj = contract.methods
           .transferRewardAmount(
-            props.questionId.publisherAddress,
-            props.questionId.questionUrl
+            props.questionId.publicAddress,
+            props.questionId.githubIssueUrl
           )
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
@@ -186,9 +187,9 @@ export default function QuestionStage(props) {
           <p className="profile-text-style profile-text-center">
             Winning Solution
           </p>
-          {props.questionId.selectedSolutionId ? (
+          {props.questionId.selectedSolutionId.solutionId ? (
             <a
-              href={props.questionId.selectedSolutionId}
+              href={props.questionId.selectedSolutionId.solutionId}
               target="_blank"
               rel="noreferrer"
               className="profile-content-style"
@@ -208,15 +209,17 @@ export default function QuestionStage(props) {
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
-            props.escrowId && escrow.escrowStatus !== "Acknowledged" ? (
+            props.escrowId &&
+            escrow.escrowStatus !== "Acknowledged" &&
+            props._id === props.questionId.selectedSolutionId.solutionId ? (
               <Button
                 className="profile-button"
                 onClick={() => handleComplete()}
               >
-                Reward Recieved
+                Reward Received
               </Button>
             ) : (
-              <Link to={`/bounty/${props.questionId}`}>
+              <Link to={`/bounty/${props.questionId._id}`}>
                 <Button className="profile-button">Go to Bounty Page</Button>
               </Link>
             )
