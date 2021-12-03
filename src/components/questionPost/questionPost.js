@@ -268,14 +268,16 @@ export default function QuestionPost() {
                   communityOption == "Community Approved" ? true : false,
                 questionCategories: category,
               })
-              if (axiosResponse.status == 201) {
-                window.alert("Suuccessfulyy posted")
-                setLoader(false);
-                history.push({
-                  pathname: `/bounty/${axiosResponse.data}`,
-                  state: { id: axiosResponse.data },
-                });
-              }
+              Promise.resolve(axiosResponse).then((val)=>{
+                if (val.status == 201) {
+                  window.alert("Suuccessfulyy posted")
+                  setLoader(false);
+                  history.push({
+                    pathname: `/bounty/${axiosResponse.data}`,
+                    state: { id: axiosResponse.data },
+                  });
+                }
+              })
             
           } catch (error) {
             console.log(error)
