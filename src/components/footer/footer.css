@@ -1,6 +1,7 @@
 .global-white-text {
   color: #ffffff;
-  margin-bottom: 2vw;
+  margin-bottom: 15vh;
+  margin-top: 5vh;
 }
 
 .common-text-css {
@@ -15,6 +16,7 @@
 
 .section1-text {
   margin-left: 25%;
+  font-size: 1vw;
 }
 
 .text1 {
@@ -27,7 +29,7 @@
 }
 
 .footer {
-  margin-top: 16%;
+  margin-top: 40%;
   margin-left: 29%;
 }
 
@@ -36,9 +38,9 @@
 }
 
 .discord {
-  margin-left: -4vw;
+  margin-left: -5vw;
 }
 
 .twitter {
-  margin-left: -8vw;
+  margin-left: -10vw;
 }

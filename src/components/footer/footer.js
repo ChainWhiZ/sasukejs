@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Section1 from "./section1";
 import Section2 from "./section2";
 import Section3 from "./section3";
 import Section4 from "./section4";
-
 export default function Footer() {
   return (
     <>

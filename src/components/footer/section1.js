@@ -17,7 +17,7 @@ export default function Section1() {
         </Grid>
         <Grid item md={12} xs={12}>
           <p className="section1-text">
-            Our mission is to build a platform for transparent open source and
+            Our mission is to build a platform for transparent, open source and
             community-centric dapp development{" "}
           </p>
         </Grid>

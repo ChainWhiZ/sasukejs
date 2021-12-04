@@ -23,7 +23,7 @@ export default function Section4() {
         </Grid>
         <Grid item md={4} xs={12} className="social-media-icon">
           <a
-            href="https://twitter.com/chainwhiz"
+            href="https://discord.com/invite/NjxUxWAfuz"
             target="_blank"
             rel="noreferrer"
           >
