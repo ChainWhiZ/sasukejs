@@ -1,0 +1,128 @@
+.staking-heading-box {
+  background: #131313;
+  border-radius: 6px;
+  padding: 1%;
+  text-align: center;
+  margin-right: 12% !important;
+  margin-left: 4% !important;
+}
+.staking-container {
+  margin: 3% 12% 3% 4%;
+}
+.staking-left-card {
+  background: #131313;
+  border-radius: 11px;
+
+  padding: 8% 5% 5% 5%;
+  width: 25vw !important;
+}
+.staking-right-card {
+  background: #131313;
+  border-radius: 11px;
+  margin: 0% 2% 4% 3%;
+  padding: 4% 0% 5% 5%;
+  width: 45vw !important;
+}
+.staking-color-neon {
+  color: #d4ff1e;
+}
+.staking-text-style {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1vw;
+  letter-spacing: 0.01em;
+  width: 10vw;
+}
+.staking-margin-left-11 {
+  margin-left: 15%;
+}
+.staking-margin-left-20 {
+  margin-left: 20%;
+}
+.staking-margin-left-60 {
+  margin-left: 60%;
+}
+.staking-workplan-card {
+  cursor: pointer;
+  padding-left: 4% !important;
+  width: 30vw !important;
+  margin-top: 7% !important;
+}
+.staking-workplan-card:hover {
+  background-color: #d4ff1e;
+}
+
+.staking-selected-workplan-card {
+  background-color: #d4ff1e;
+  color: black !important;
+  border-radius: 7px;
+}
+.staking-workplan {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1vw;
+
+  letter-spacing: 0.01em;
+  /* 
+color: #FFFFFF; */
+
+  opacity: 0.69;
+}
+.staking-workplan:hover {
+  color: rgba(39, 39, 39, 1);
+}
+.active-black {
+  color: rgba(39, 39, 39, 1);
+}
+.staking-solution {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1vw;
+  line-height: 3vh;
+  /* identical to box height */
+
+  letter-spacing: 0.01em;
+}
+.staking-input {
+  width: 8.5vw;
+  background: #282828;
+  border-radius: 5px;
+  margin-right: 5% !important;
+}
+.staking-button {
+  background: #d4ff1f !important;
+  border-radius: 4px !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  font-size: 1vw !important;
+  font-family: Poppins !important;
+}
+
+.staking-icon {
+  margin: 0% 5% -2% 0%;
+}
+.staking-git-icon {
+  margin: 0% 4% -2% 5%;
+}
+.staking-info-icon {
+  margin: 0% 2% -0.5% 0%;
+}
+
+.staking-button-grid {
+  margin-top: -2% !important;
+}
+
+.staking-workplan-heading {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1vw;
+  line-height: 3vh;
+
+  text-align: center;
+  letter-spacing: 0.01em;
+
+  color: #d4ff1e;
+}

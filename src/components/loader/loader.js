@@ -1,21 +1,14 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import "./loader.css";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "16%",
-  },
-}));
-
+console.log("in loader")
 export default function CircularIndeterminate() {
-  const classes = useStyles();
+
 
   return (
-    <div className={classes.root}>
-      <CircularProgress color="black" />
+    <div style={{textAlign:"center"}}>
+      <CircularProgress className="loader"/>
     </div>
   );
 }

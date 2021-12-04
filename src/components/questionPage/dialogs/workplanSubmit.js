@@ -3,23 +3,24 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import fleekStorage from "@fleekhq/fleek-storage-js";
 import axios from "axios";
-import CircularIndeterminate from "../../loader/loader";
-import LinearIndeterminate from "../../loader/linearLoader";
 import SimpleAlerts from "../../alert/alert";
+import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
 import { port } from "../../../config/config";
+import { useRecoilValue } from "recoil";
+import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
+import { username as usernameAtom } from "../../../recoil/atoms";
 
 export default function WorkplanSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [buffer, setBuffer] = useState("");
-  const [username] = localStorage.getItem("username");
-  const [loader, setLoader] = useState(false);
+  const username = useRecoilValue(usernameAtom);
+  const [disable, setDisable] = useState(false);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
-
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
@@ -34,7 +35,12 @@ export default function WorkplanSubmit(props) {
   };
 
   const handleSubmit = async () => {
-    setLoader(true);
+    setAlert((prevState) => ({
+      ...prevState,
+      open: false,
+      errorMessage: "",
+    }));
+    setDisable(true);
     const timestamp = new Date().getTime();
     if (!buffer) {
       setAlert((prevState) => ({
@@ -42,17 +48,18 @@ export default function WorkplanSubmit(props) {
         open: true,
         errorMessage: "No file selected",
       }));
-      setLoader(false);
     }
     const uploadedFile = await fleekStorage.upload({
       apiKey: "U3QGDwCkWltjBLGG1hATUg==",
       apiSecret: "GMFzg7TFJC2fjhwoz9slkfnncmV/TAHK/4WVeI0qpYY=",
+      // apiKey: process.env.REACT_APP_API_KEY,
+      // apiSecret: process.env.REACT_APP_API_SECRET,
       key: username + timestamp,
       data: buffer,
     });
     axios
       .post(port + "workplan/save", {
-        githubId: localStorage.getItem("username"),
+        githubId: username,
         workplan: uploadedFile.hash,
         questionId: props.questionId,
       })
@@ -60,7 +67,7 @@ export default function WorkplanSubmit(props) {
         if (response.status === 201) {
           props.handleFetch();
           setOpen(false);
-          setLoader(false);
+          setDisable(false);
           props.handleDialogClose(false);
         }
       })
@@ -70,31 +77,61 @@ export default function WorkplanSubmit(props) {
           open: true,
           errorMessage: "Workplan already exists. Submit a different workplan",
         }));
-        setLoader(false);
+        setDisable(false);
       });
   };
-
+console.log(buffer)
   return (
     <>
-      <Dialog aria-labelledby="simple-dialog-title" open={open}>
+      <Dialog
+        aria-labelledby="simple-dialog-title"
+        maxWidth="md"
+        className="workplan-dialog"
+        open={open}
+        BackdropProps={{
+          classes: {
+            root: "dialog-blur",
+          },
+        }}
+        onBackdropClick={handleClose}
+      >
+        <ClearRoundedIcon
+          style={{
+            marginLeft: "32vw",
+            marginTop: "2vh",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            handleClose();
+          }}
+        />
+ 
+
         <p class="dialog-title">Submit Workplan</p>
         <input type="file" onChange={(e) => captureFile(e)} />
-        <Button class="dialog-button" onClick={handleSubmit}>
-          Submit
-        </Button>
-        <span>
-          <Button class="dialog-button" onClick={handleClose}>
-            Close
-          </Button>
-        </span>
-        {alert.open ? (
+        <Grid container className="workplan-dialog-button-grid ">
+          <Grid item md={12}>
+            <Button
+              class="dialog-button"
+              onClick={!disable ? handleSubmit : null}
+              style={{
+                opacity: disable ? "25%" : "100%",
+                cursor: disable ? "default" : "pointer",
+              }}
+            >
+              Submit
+            </Button>
+          </Grid>
+          {alert.open ? (
           <SimpleAlerts
             severity={alert.severity}
             message={alert.errorMessage}
           />
         ) : null}
+        </Grid>
+
+       
       </Dialog>
-      {/* {loader ? <LinearIndeterminate /> : null}  */}
     </>
   );
 }

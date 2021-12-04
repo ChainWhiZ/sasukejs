@@ -1,12 +1,129 @@
+.grid-body {
+  color: white;
+  margin: 2% 4% 2% 5%;
+}
+.color-neon {
+  color: #d4ff1e;
+}
 .heading {
-  font-size: 12px;
   font-style: normal;
   font-weight: 500;
-  line-height: 18px;
-  letter-spacing: 0.02em;
-  color: #0000008f;
+  font-size: 14px;
+  /* line-height: 60px; */
+  letter-spacing: 0.01em;
 }
 
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.heading-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1vw;
+  letter-spacing: 0.01em;
+}
+
+.margin-top-2 {
+  margin-top: -2%;
+}
+.margin-top-10 {
+  margin-top: -10% !important;
+}
+.center {
+  text-align: center;
+}
+
+.description {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1vw;
+  letter-spacing: 0.04em;
+}
+.bounty-time {
+  font-weight: 600;
+  font-size: 40px;
+  /* line-height: 60px; */
+  margin-top: 2%;
+  letter-spacing: 0.01em;
+}
+
+
+.margin-top-20 {
+  margin-top: -4%;
+}
+.heading-box {
+  background: #131313;
+  border-radius: 11px;
+  width: 19vw !important;
+  height: 38vh !important;
+  margin: 1% 0% 5% -9%;
+  padding: 3% 3% 6% 3%;
+}
+.heading-box2 {
+  background: #131313;
+  border-radius: 11px;
+  width: 47vw !important;
+  /* height: 41vh; */
+  margin: 1% 0% 5% -8%;
+  padding: 3% 3% 3%  5%;
+}
+.description-box {
+  background: #131313;
+  border-radius: 11px;
+  width: 93vw !important;
+  /* height: 40vh; */
+  padding: 3%;
+  margin: 0% 0% 2% -2%;
+}
+
+.card-header {
+  background-color: #d4ff1e;
+  border-radius: 9px 9px 0 0;
+  margin-bottom: 21vh !important;
+  height: 8vh !important;
+  text-align: center;
+  width: 26vw !important;
+}
+
+.card-content {
+  background: #131313;
+  border-radius: 9px;
+  height: 8vh !important;
+}
+.icon {
+  margin-right: 2%;
+}
+.card-hover-content {
+  background: #d4ff1f;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.card-hover-content-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.5vw;
+  letter-spacing: 0.01em;
+  color: #272727;
+  margin-top: 5%;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  padding: 11%;
+}
+
+.sol-card {
+  width: 25vw;
+}
+
+.number-solution {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  margin: 1% 0% -3% 0%;
+  letter-spacing: 0.01em;
+}
 .title {
   font-size: 22px;
   font-style: normal;
@@ -48,28 +165,28 @@
   margin-top: -7%;
 }
 
-.button {
-  font-size: 12px;
+.bounty-button {
+  font-family: Poppins;
   font-style: normal;
-  font-weight: 600;
-  line-height: 18px;
+  font-weight: 800 !important;
+  font-size: 12px;
   letter-spacing: 0em;
   text-align: center;
   height: 38px;
-  width: 144px;
+  width: 180px;
   cursor: pointer;
 
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 9px;
   color: rgba(29, 29, 29, 1);
-  background-color: white;
-  text-transform: 'none';
+  background-color: #d4ff1e;
+  text-transform: "none";
 }
 .button:hover {
   color: rgba(255, 255, 255, 1);
   background-color: rgba(29, 29, 29, 1);
-  text-transform: 'none';
+  text-transform: "none";
 }
 button:disabled {
   background-color: #cccccc;
@@ -143,7 +260,7 @@ hr {
 .stage-button {
   background-color: rgba(196, 196, 196);
   color: rgba(29, 29, 29, 1);
-  text-transform: 'none';
+  text-transform: "none";
 
   font-size: 11px;
   font-style: normal;
@@ -159,27 +276,26 @@ hr {
   margin-left: 2%;
   margin-bottom: 7%;
 }
-
+/* 
 span a {
   text-decoration: none;
 
-  font-size: 12px;
   font-style: normal;
   font-weight: 600;
-  line-height: 18px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: rgba(0, 0, 0, 1);
-}
+  font-size: 1vw;
+  letter-spacing: 0.01em;
 
-.sol-card {
+  color: #272727;
+} */
+
+/* .sol-card {
   height: 94px;
   width: 950px;
   background: rgba(221, 221, 221, 1);
   border-radius: 11px;
   margin: 1%;
   overflow: auto;
-}
+} */
 .voting {
   margin-top: 0%;
 }
@@ -201,15 +317,14 @@ span a {
 
 .dialog-title {
   text-decoration: none;
-
-  font-size: 24px;
+  font-size: 2vw;
   font-style: normal;
   font-weight: 600;
   line-height: 18px;
   letter-spacing: 0em;
-  color: rgba(0, 0, 0, 1);
+  color:white;
   text-align: center;
-  margin-top: 6%;
+  margin: 12%;
 }
 
 input {
@@ -217,17 +332,22 @@ input {
 }
 
 .dialog-button {
-  width: 100px;
-  height: 38px;
-
-  font-size: 12px;
+  width: 6vw;
+  height: 4vh;
+ background-color: #d4ff1e;
+  font-size: 0.9vw;
   font-style: normal;
   font-weight: 600;
   line-height: 18px;
   letter-spacing: 0em;
-  margin-top: 4%;
-  margin-left: 38%;
+  font-family: Poppins ;
   cursor: pointer;
+  border-radius: 10px !important;
+}
+.workplan-dialog-button-grid {
+  /* margin: 9% 0% 0% 36%; */
+  margin-top: 6%;
+  text-align: center;
 }
 .solution-submit-title {
   text-decoration: none;
@@ -242,47 +362,133 @@ input {
   margin-left: 4%;
 }
 
-.workplan-title {
+.solution-dialog-workplan-title {
   text-decoration: none;
 
-  font-size: 15px;
+  font-size: 18px;
   font-style: normal;
   line-height: 18px;
   letter-spacing: 0em;
-  color: rgba(0, 0, 0, 1);
+  color: #d4ff1e;
   text-align: left;
-  margin-top: 3%;
-  margin-left: -13%;
+  /* margin-top: 3%;
+  margin-left: -13%; */
 }
 
-.dialog-workplan {
+.solution-dialog-workplan {
   text-decoration: none;
 
-  font-size: 12px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: 18px;
   letter-spacing: 0em;
   text-align: left;
-  color: rgba(0, 0, 0, 1);
-  margin-left: -4%;
+  color: white;
 }
-.wallet-title {
+.solution-dialog-wallet-title {
   text-decoration: none;
 
-  font-size: 15px;
+  font-size: 18px;
   font-style: normal;
   line-height: 18px;
   letter-spacing: 0em;
-  color: rgba(0, 0, 0, 1);
+  color: #d4ff1e;
   text-align: left;
-  margin-top: 3%;
-  margin-left: -2%;
+  
 }
 .MuiFormControlLabel-label {
-  font-family: 'Poppins' !important;
+  font-family: "Poppins" !important;
   font-size: 13px !important;
   letter-spacing: 0.01px;
   color: #1d1d1d;
   opacity: 0.68;
 }
+
+.bounty-right {
+  height: 47vh !important;
+}
+.bounty-workplan-detail {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1vw;
+  line-height: 5.6vh;
+  letter-spacing: 0.01em;
+  color: #272727;
+}
+
+.workplan-grid {
+  margin-top: -6.5vh !important;
+  margin-left: 2vw !important;
+}
+
+.workplan-icon {
+  margin-top: 2.2vh !important;
+  margin-left: 2vw !important;
+}
+
+.solution-lists {
+  height: 20vh !important;
+  background: #131313;
+  overflow-y: auto;
+}
+.bounty-solution-list-p {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.8vw;
+  line-height: 4vh;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+.bounty-solution-list-icons{
+  margin-top: 1.5vh !important;
+}
+
+
+.bounty-middle-github{
+  margin-top: -3.5vh !important;
+  margin-left: 2vw !important;
+}
+
+.workplan-dialog .MuiDialog-paper{
+ background-color: #000000; 
+ 
+ color: #ffffff;
+ height: 40vh;
+ overflow: hidden;
+ width: 35vw;
+}
+.solution-dialog .MuiDialog-paper{
+  background-color: #000000; 
+  color: #ffffff;
+  height: 80vh;
+  overflow: hidden;
+  width: 90vw;
+
+ }
+
+ .solution-dialog-card{
+   background-color:#131313 !important ;
+   padding: 3% 3% 3% 4%;
+   border-radius: 20px !important;
+   
+ }
+ .solution-dialog-textfield .MuiInputBase-root{
+  font-family: Poppins !important;
+  color: white !important;
+  font-style: normal !important;
+  line-height: 150px !important;
+  letter-spacing: 0.01em !important;
+  border:1px solid white;
+ }
+ .solution-dialog-close-button{
+  margin: 0% 0% 0% 84%;
+  width: 8vw;
+  height: 5vh;
+ }
+ .dialog-no-sol-sub{
+  font-weight: 600;
+  text-align: center;
+  font-size: 1vw;
+  color:  #d4ff1e !important;
+ }

@@ -1,0 +1,150 @@
+.right-side-card {
+  background: #131313 !important;
+  color: white !important;
+  padding: 0% 7% 25% 7% !important;
+}
+.margin-top-8 {
+  margin-top: 8% !important;
+}
+
+.message {
+  margin-top: 27% !important;
+}
+.message-title {
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 35px !important;
+  line-height: 50px !important;
+  letter-spacing: 0.01em !important;
+  color: white !important;
+}
+
+.message-text {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  margin-bottom: 20%;
+  letter-spacing: 0.04em;
+}
+
+.button {
+  background: #d4ff1f !important;
+  width: 7vw !important;
+  margin-top: 10% !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  font-size: 1.1vw !important;
+}
+
+.card-title {
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 1.3vw !important;
+  line-height: 2vh !important;
+  color: #ffffff !important;
+  letter-spacing: 0.04em !important;
+}
+.card-body {
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 1vw !important;
+  line-height: 3vh !important;
+  letter-spacing: 0.01em !important;
+  color: #ffffff !important;
+  margin-top: 4vh !important;
+}
+
+.input-field-number {
+  font-weight: 600 !important;
+  font-size: 100px !important;
+}
+
+.left-title {
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 22px !important;
+  color: #d4ff1e !important;
+}
+
+.terms-text {
+  font-family: Poppins;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 14px !important;
+  line-height: 21px !important;
+  letter-spacing: 0.01em !important;
+  color: #ffffff !important;
+}
+
+.days-input-parent {
+  margin-left: 18% !important;
+}
+
+.margin-top-2 {
+  margin-top: 2% !important;
+}
+
+.margin-left-35 {
+  margin-left: 35% !important;
+}
+.margin-left-30 {
+  margin-left: 30% !important;
+}
+.input-field-style {
+  font-family: Poppins !important;
+  color: white !important;
+  width: 50vw !important;
+  font-style: normal !important;
+  line-height: 150px !important;
+  letter-spacing: 0.01em !important;
+}
+
+.option-page-margins {
+  margin: 0% 0% 0% 10% !important;
+}
+
+.non-selected-card:hover {
+  background-color: rgba(212, 255, 31, 1) !important;
+  color: black I !important;
+}
+.non-selected-card {
+  width: 23vw !important;
+  height: 30vh !important;
+  padding: 1% 2% 3% 2% !important;
+  margin-bottom: 0;
+  cursor: pointer;
+  background-color: rgba(19, 19, 19, 1) !important;
+}
+
+.selected-card {
+  width: 23vw !important;
+  height: 30vh !important;
+  padding: 1% 2% 3% 2% !important;
+  margin-bottom: 0;
+  cursor: pointer;
+  background-color: rgba(212, 255, 31, 1) !important;
+}
+
+.black-text {
+  color: black !important;
+}
+
+.bounty-post-unit{
+  font-size: 2.5vw !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+.cwz{
+  margin-left: 16vw !important;
+}
+
+.category-image{
+  width: 24px;
+  height: 24px;;
+}

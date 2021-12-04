@@ -1,28 +1,35 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import MenuBar from "./menuBar";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-import Navbar from "../navbar/navbar";
 import CircularIndeterminate from "../loader/loader";
-import QuestionCard from "./questionCard";
-import Search from "./search";
-import { useStyles } from "./exploreCss";
+import Questions from "./questions";
 import { port } from "../../config/config";
 import SimpleAlerts from "../alert/alert";
 import { Redirect } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom } from "../../recoil/atoms";
+import "./explore.css";
 
-export default function Explore(props) {
-  const classes = useStyles();
+export default function NewExplore(props) {
   const [data, setData] = useState([]);
-  const [loader, setLoader] = useState(false);
-  const [username] = useState(localStorage.getItem("username"));
+  const [allQuestions, setAllQuestions] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const username = useRecoilValue(usernameAtom);
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
     severity: "error",
   });
-  useEffect(async() => {
-    console.log(props)
+
+  useEffect(async () => {
+    setAlert((prevState) => ({
+      ...prevState,
+      open: false,
+      errorMessage:
+        "",
+    }));
     setLoader(true);
     axios
       .get(port + "question/fetchall")
@@ -33,50 +40,55 @@ export default function Explore(props) {
         );
         setLoader(false);
         setData(response.data);
+        setAllQuestions(response.data);
       })
       .catch((err) => {
         setLoader(false);
         setAlert((prevState) => ({
           ...prevState,
           open: true,
-          errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+          errorMessage:
+            "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
         }));
       });
   }, [props.location.state.type]);
 
+  const filterQuestions = (key) => {
+    if (key === "") {
+      setData(allQuestions);
+    }
+    else {
+      const filteredQuestions = allQuestions.filter(question => question.questionTitle.includes(key));
+      console.log(filteredQuestions);
+      setData(filteredQuestions);
+    }
+
+  }
   if (!username) {
     return <Redirect to="/" />;
   }
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={6}>
-        <Grid item md={12} xs={12}>
-          <Navbar  />
-          <br />
+    <>
+      <hr className="horizontal-line" style={{ marginTop: "8vw" }} />
+
+      {loader ? <CircularIndeterminate /> :
+        <Grid container>
+          <Grid item md={4} xs={12}>
+            <MenuBar type={props.location.state.type} />
+          </Grid>
+          <Grid item md={8} xs={12}>
+            {alert.open ? (
+              <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+            ) : null}
+            <Questions data={data} type={props.location.state.type} filterQuestions={(key) => filterQuestions(key)} />
+          </Grid>
         </Grid>
-        <Grid item md={3} xs={12}>
-          <Search />
-        </Grid>
-        <Grid item md={9} xs={12}>
-          <h2>{data.length?"Available Bounties":"No Available Bounties"}</h2>
-          <hr />
-          {data.map((question) => (
-            <>
-              <QuestionCard {...question} />
-              <br />
-              <hr />
-            </>
-          ))}
-        </Grid>
-      </Grid>
-      {alert.open ? (
-        <SimpleAlerts
-          severity={alert.severity}
-          message={alert.errorMessage}
-        />
-      ) : null}
-      {loader ? <CircularIndeterminate /> : null}
-    </div>
+      }
+
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+
+
+    </>
   );
 }

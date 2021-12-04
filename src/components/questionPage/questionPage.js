@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-import Navbar from "../navbar/navbar";
-import QuestionHeading from "./questionLeftSection/questionHeading";
-import QuestionStage from "./questionRightSection/questionStage";
-import QuestionDescription from "./questionLeftSection/questionDescription";
-import QuestionApplicants from "./questionLeftSection/questionApplicants";
-import QuestionActivities from "./questionRightSection/questionActivities";
+import QuestionLeftHeading from "./questionHeading/questionLeftHeading";
+import QuestionRightHeading from "./questionHeading/questionRightHeading";
+import QuestionMiddleHeading from "./questionHeading/questionMiddleHeading";
+import QuestionDescription from "./questionDescription";
+import QuestionApplicants from "./questionApplicants/questionApplicants";
 import CircularIndeterminate from "../loader/loader";
 import "./questionPage.css";
 import { Redirect } from "react-router-dom";
 import SimpleAlerts from "../alert/alert";
 import { port } from "../../config/config";
+import { useRecoilValue } from "recoil";
+import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function QuestionPage(props) {
   const [data, setData] = useState({});
@@ -21,8 +22,7 @@ export default function QuestionPage(props) {
     errorMessage: "",
     severity: "error",
   });
-  const [username] = useState(localStorage.getItem('username'));
-
+  const username = useRecoilValue(usernameAtom);
   useEffect(() => {
     fetchQuestion();
   }, [data._id]);
@@ -46,37 +46,46 @@ export default function QuestionPage(props) {
       });
   };
   if (!username) {
-    return (
-      <Redirect to="/" />
-    )
+    return <Redirect to="/" />;
   }
   return (
     <>
-      <Navbar />
-      <br />
-      <br />
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+
       <br />
       <br />
       {loader ? (
         <CircularIndeterminate />
-      ) : (
-        <Grid container>
-          <Grid item md={9} xs={12}>
-            <QuestionHeading {...data} handleFetch={() => fetchQuestion()} />
-            <QuestionDescription {...data} />
-            <QuestionApplicants {...data} />
-          </Grid>
-          <Grid item md={3} xs={12} style={{ backgroundColor: "#F7F8FB" }}>
-            <QuestionStage
-              question={data}
-            />
-            <QuestionActivities />
-          </Grid>
-        </Grid>
-      )}
-      {alert.open ? (
-        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
-      ) : null}
+      ) :
+        alert.open ? (
+          <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+        ) :
+
+          (
+            <Grid container className="grid-body">
+              <Grid item md={3} xs={12}>
+                <QuestionLeftHeading
+                  questionDetails={data}
+                  handleFetch={() => fetchQuestion}
+                />
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <QuestionMiddleHeading {...data} />
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <QuestionRightHeading {...data} />
+              </Grid>
+
+              <Grid item md={12} xs={12}>
+                <QuestionDescription {...data} />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <QuestionApplicants {...data} />
+              </Grid>
+            </Grid>
+          )}
+
+      <hr className="horizontal-line" />
     </>
   );
 }

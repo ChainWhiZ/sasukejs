@@ -22,9 +22,11 @@ export const initiliaseWeb3 = async () => {
       "Non-Ethereum browser detected. You should consider trying MetaMask!"
     );
   }
+  // web3.eth.handleRevert = true
 };
 
 export const fetchAccount = async (callback) => {
+  // web3.eth.handleRevert = true
   web3.eth.getAccounts((error, result) => {
     if (error) {
       alert("Can't fetch account");
@@ -35,13 +37,18 @@ export const fetchAccount = async (callback) => {
 };
 
 export const initiliaseContract = async () => {
+  // web3.eth.handleRevert = true
   let contract = new web3.eth.Contract(
     chainwhiz,
     // "0xbdc46E2543bACf67D0F14553348e354E7ed05052"
     // "0x7fA47322B674FeCc80E5F925CdeCe08688cE8d83" //"old contract"
     // "0xc46Dbf7F0E2d4d5e1DfC050c40a92702dd67EE50" // "had escrow issue"
     // "0x5C83d26Be0122F1abEEB9009F91BA065f1809E0a" //"still some issues"
-    "0x1600b56844e733d5469ff5eecbf26d3552248b49"
+    //"0x1600b56844e733d5469ff5eecbf26d3552248b49"//old
+    // "0x8Ca862bE7C505E7369E5a0F1D788eCd173fAA491"
+    // "0x0858421E69bA63621f382Ea9E2Ba299E0B8Ce5D7"
+    // "0x2E5514C923c5ebF12026Bc9a24B5aa20f83EED3F"//old contract
+    "0xED480C4eec3B31480f7e6386fee467852162A4C7"//prod contract
   );
   return contract;
 };
