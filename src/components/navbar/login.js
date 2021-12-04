@@ -6,7 +6,6 @@ import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function Login() {
   const [username, setUsername] = useRecoilState(usernameAtom);
-  setUsername("Voter1")
   useEffect(() => {
     const url = window.location.href;
     const hasCode = url.includes("?code=");
@@ -19,7 +18,7 @@ export default function Login() {
         .then((response) => {
           setUsername(response.data.doc.githubId)
           window.history.pushState({}, {}, "/");
-          window.location.reload();
+          // window.location.reload();
         });
     } 
   });

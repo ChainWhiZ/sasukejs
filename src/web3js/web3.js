@@ -47,7 +47,8 @@ export const initiliaseContract = async () => {
     //"0x1600b56844e733d5469ff5eecbf26d3552248b49"//old
     // "0x8Ca862bE7C505E7369E5a0F1D788eCd173fAA491"
     // "0x0858421E69bA63621f382Ea9E2Ba299E0B8Ce5D7"
-    "0x2E5514C923c5ebF12026Bc9a24B5aa20f83EED3F"
+    // "0x2E5514C923c5ebF12026Bc9a24B5aa20f83EED3F"//old contract
+    "0xED480C4eec3B31480f7e6386fee467852162A4C7"//prod contract
   );
   return contract;
 };
