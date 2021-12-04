@@ -13,17 +13,6 @@ import { maticusd as maticusdAtom } from "../recoil/atoms";
 import { useRecoilState } from "recoil";
 import "../style/style.css";
 export default function RouterComponent() {
-<<<<<<< HEAD
-  // console.log = function() {}
-  console.log(localStorage.getItem("username"))
-  return (
-    <Router>
-      {localStorage.getItem("username") ? (
-        <Route exact path="/" component={AfterLogin} />
-      ) : ( 
-        <Route exact path="/" component={BeforeLogin} />
-       )} 
-=======
   const [maticusd, setMaticusd] = useRecoilState(maticusdAtom);
   useEffect(() => {
     axios
@@ -37,7 +26,6 @@ export default function RouterComponent() {
    
   },[maticusd])
   // console.log = function () {};
->>>>>>> ccb98323b6a81bc08ce334712ecac3d2ff2b803e
 
 
   return (
