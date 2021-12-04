@@ -5,6 +5,9 @@ import SimpleAlerts from "../../alert/alert";
 export default function DaysInputComponent(props) {
   return (
     <>
+      {props.alert.isValid ? (
+        <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
+      ) : null}
       <Grid
         container
         direction="column"
@@ -38,9 +41,7 @@ export default function DaysInputComponent(props) {
           <p>Days</p>
         </Grid>
       </Grid>
-      {props.alert.isValid ? (
-        <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
-      ) : null}
+    
     </>
   );
 }

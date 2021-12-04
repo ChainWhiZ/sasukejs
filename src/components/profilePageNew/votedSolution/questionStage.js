@@ -7,8 +7,11 @@ import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { contract as contractAtom,walletAddress as walletAddressAtom} from "../../../recoil/atoms";
-import Tooltip from '@material-ui/core/Tooltip';
+import {
+  contract as contractAtom,
+  walletAddress as walletAddressAtom,
+} from "../../../recoil/atoms";
+import Tooltip from "@material-ui/core/Tooltip";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
@@ -25,41 +28,83 @@ export default function QuestionStage(props) {
     contract = v;
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
+  const unstakeCall = async () => {
+    return await new Promise(async (resolve, reject) => {
+      try {
+        const trxObj = await contract.methods
+          .setApproval(props.amountToBeReturned * Math.pow(10, 18).toString())
+          .send({ from: walletAddress.toString() });
+        trxObj.on("receipt", function (receipt) {
+          console.log("Successfully done");
+          window.alert("Successfulyy unstaked");
+          resolve(receipt);
+        });
 
-  const handleUnstake = () => {
-    // props.handleLoader(true);
-    // return Promise.resolve()
-      // .then(async function () {
-      //   return contract.methods
-      //     .setApproval(
-       //     props.amountToBeReturned * (Math.pow(10, 18))).toString(),
-      //     )
-      //     .send({ from: walletAddress.toString() });
-      // })
-    //   .then(async function () {
-    //     await contract.methods.unStake(props.solutionId._id)
-      //     .send({ from: walletAddress.toString() });
-    //   })
-    //   .then(async function () {
-    //     axios
-    //       .post(port + "vote/updatereward", {
-    //         voterId: props.voterId,
-    //         solutionId: props.solutionId._id,
-    //       })
-    //       .then((response) => {
-    //         console.log(response.status)
-    //         props.fetchVotedSolutions();
-    //         props.handleLoader(false);
-    //       })
-    //       .catch((err) => {
-    //         setAlert(prevState => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error while unstaking reward"
-    //         }));
-    //         props.handleLoader(false);
-    //       });
-    //   })
+        trxObj.on("error", function (error, receipt) {
+          console.log(error);
+          if (error)
+            window.alert(
+              error.transactionHash
+                ? `Went wrong in trc hash :${error.transactionHash}`
+                : error.message
+            );
+          reject(error.message);
+        });
+      } catch (error) {
+        console.log(error);
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        reject(error);
+      }
+    });
+  };
+  const handleUnstake = async () => {
+    try {
+      props.handleLoader(true);
+      let valid = true;
+      try {
+        const unstakeResponse = await unstakeCall();
+      } catch (error) {
+        console.log(error);
+        valid = false;
+      }
+
+      if (valid) {
+        try {
+          const axiosResponse = await axios
+            .post(port + "vote/updatereward", {
+              voterId: props.voterId,
+              solutionId: props.solutionId._id,
+            })
+
+            .catch((err) => {});
+        } catch (error) {
+          console.log(error);
+          valid = false;
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            errorMessage: "Error while unstaking reward",
+          }));
+          props.handleLoader(false);
+        }
+      }
+
+      if (valid) {
+        props.fetchVotedSolutions();
+        props.handleLoader(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Something went wrong while unstaking reward!",
+      }));
+    }
   };
 
   return (
@@ -131,6 +176,7 @@ export default function QuestionStage(props) {
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             !props.claimed &&
+            props.amountToBeReturned &&
             props.questionDetails.questionStage === "complete" ? (
               <Button className="profile-button" onClick={handleUnstake}>
                 Unstake Now
@@ -141,11 +187,11 @@ export default function QuestionStage(props) {
               </Link>
             )
           ) : (
-              <Tooltip title="Change your wallet address">
-                <Button className="profile-button " style={{ opacity: "25%" }}>
-                  Go to Bounty Page
-                </Button>
-              </Tooltip>
+            <Tooltip title="Change your wallet address">
+              <Button className="profile-button " style={{ opacity: "25%" }}>
+                Go to Bounty Page
+              </Button>
+            </Tooltip>
           )}
         </Grid>
       </Grid>

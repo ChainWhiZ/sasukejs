@@ -6,67 +6,67 @@ import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../../recoil/atoms";
+import { username as usernameAtom } from "../../../recoil/atoms";
 import CircularIndeterminate from "../../loader/loader";
-import "../profilePageCss.css"
-
-
+import "../profilePageCss.css";
 
 export default function BountySolved(props) {
-    const username = useRecoilValue(usernameAtom);
-    const [data, setData] = useState([]);
-    const [loader,setLoader] = useState(true);
-    const [alert, setAlert] = useState({
-        open: false,
-        errorMessage: "",
-        severity: "error",
-    });
-    useEffect(() => {
-      fetchSolutions();
-    }, []);
-    console.log(data)
-    
-    const fetchSolutions = () =>{
-        axios
-        .post(port + "user/solutions", {
-            githubId: username
-        })
-        .then((response) => {
-             setLoader(false);
-            console.log(response)
-            setData(response.data);
-        })
-        .catch((err) => {
-            setAlert((prevState) => ({
-                ...prevState,
-                open: true,
-                errorMessage: "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
-            }));
-             setLoader(false);
-        });
-    }
+  const username = useRecoilValue(usernameAtom);
+  const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
+  useEffect(() => {
+    fetchSolutions();
+  }, []);
+  console.log(data);
 
-    return (
-        <>
-            <Grid container style={{ marginLeft: "-1%" }} >
-                {data.map(solution =>
-                    <>
-                        <Grid item md={7} xs={12} >
-                            <QuestionDetail {...solution.questionId} />
-                        </Grid>
-                        <Grid item md={5} xs={12}  >
-                            <QuestionStage {...solution} fetchSolutions={fetchSolutions}  handleLoader={(flag)=>setLoader(flag)} />
-                        </Grid>
-                    </>
-                )}
+  const fetchSolutions = () => {
+    axios
+      .post(port + "user/solutions", {
+        githubId: username,
+      })
+      .then((response) => {
+        setLoader(false);
+        console.log(response);
+        setData(response.data);
+      })
+      .catch((err) => {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage:
+            "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+        }));
+        setLoader(false);
+      });
+  };
+
+  return (
+    <>
+      <Grid container style={{ marginLeft: "-1%" }}>
+        {data.map((solution) => (
+          <>
+            <Grid item md={7} xs={12}>
+              <QuestionDetail {...solution.questionId} />
             </Grid>
-            {alert.open ? (
-                <SimpleAlerts
-                    severity={alert.severity}
-                    message={alert.errorMessage}
-                />
-            ) : null}
-            {loader ? <CircularIndeterminate /> : null}
-        </>
-    );
+            <Grid item md={5} xs={12}>
+              <QuestionStage
+                {...solution}
+                fetchSolutions={fetchSolutions}
+                handleLoader={(flag) => setLoader(flag)}
+              />
+            </Grid>
+          </>
+        ))}
+      </Grid>
+      {alert.open ? (
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+      ) : null}
+      {loader ? <CircularIndeterminate /> : null}
+    </>
+  );
 }

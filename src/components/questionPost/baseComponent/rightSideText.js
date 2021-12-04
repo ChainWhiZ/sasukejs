@@ -52,7 +52,7 @@ export default function RightSideText(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   if (props.pageState > 0 && props.pageState < 8) {
-                    props.handleValidation(props.pageState + 1);
+                    props.handleValidation((props.pageState === 6 && props.communityOption === "Self Approved")?props.pageState + 2:props.pageState + 1);
                   }
                 }}
               >
@@ -70,7 +70,7 @@ export default function RightSideText(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   if (props.pageState > 1 && props.pageState < 9) {
-                    props.handleValidation(props.pageState - 1);
+                    props.handleValidation((props.pageState === 8 && props.communityOption === "Self Approved")?props.pageState - 2:props.pageState - 1);
                   }
                 }}
               >
@@ -93,9 +93,7 @@ export default function RightSideText(props) {
           </>
         )}
 
-        {/* </Grid>
-
-                    </Grid> */}
+      
       </Grid>
     </>
   );

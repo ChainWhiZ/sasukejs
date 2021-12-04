@@ -3,7 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import WorkplanSubmit from "../dialogs/workplanSubmit";
 import { Link } from "react-router-dom";
-import {  walletAddress as walletAddressAtom ,username as usernameAtom} from "../../../recoil/atoms";
+import {
+  walletAddress as walletAddressAtom,
+  username as usernameAtom,
+} from "../../../recoil/atoms";
 import "../questionPage.css";
 import { useRecoilValue } from "recoil";
 
@@ -15,11 +18,15 @@ export default function QuestionLeftHeading(props) {
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
-  if (props.questionDetails.questionStage === "solve" && props.questionDetails.isCommunityApprovedSolution) {
-    timeLeft = Math.floor((props.questionDetails.votingTimeBegin - seconds) / (3600 * 24));
+  if (
+    props.questionDetails.questionStage === "solve" &&
+    props.questionDetails.isCommunityApprovedSolution
+  ) {
+    timeLeft = (props.questionDetails.votingTimeBegin - seconds) / (3600 * 24);
   } else {
-    timeLeft = Math.floor((props.questionDetails.timeEnd - seconds) / (3600 * 24));
+    timeLeft = (props.questionDetails.timeEnd - seconds) / (3600 * 24);
   }
+
   if (timeLeft < 1) {
     hoursOrDaysOrMinutes = "hour(s)";
     timeLeft = 24 * timeLeft;
@@ -55,7 +62,11 @@ export default function QuestionLeftHeading(props) {
         )}
         <Grid item md={12}>
           <p class="heading color-neon margin-top-10">Applicants</p>
-          <p class="bounty-time">{props.questionDetails.workplanIds.length}</p>
+          <p class="bounty-time">
+            {props.questionDetails.workplanIds
+              ? props.questionDetails.workplanIds.length
+              : 0}
+          </p>
         </Grid>
         <Grid item md={12} className="margin-top-10">
           {props.questionDetails.questionStage === "vote" ? (
@@ -66,19 +77,43 @@ export default function QuestionLeftHeading(props) {
                   questionDetails: props.questionDetails,
                 },
               }}
-              style={walletAddress === props.publicAddress || username === props.questionDetails.publisherGithubId ? { pointerEvents: "none" } : null}
+              style={
+                walletAddress === props.publicAddress ||
+                username === props.questionDetails.publisherGithubId
+                  ? { pointerEvents: "none" }
+                  : null
+              }
             >
-              <Button class="bounty-button"
-                style={walletAddress === props.publicAddress|| username === props.questionDetails.publisherGithubId ? { opacity: "25%" } : null}>Vote Now</Button>
+              <Button
+                class="bounty-button"
+                style={
+                  walletAddress === props.publicAddress ||
+                  username === props.questionDetails.publisherGithubId
+                    ? { opacity: "25%" }
+                    : null
+                }
+              >
+                Vote Now
+              </Button>
             </Link>
           ) : props.questionDetails.questionStage === "complete" ? (
             <Button class="bounty-button">Completed</Button>
           ) : (
             <Button
               class="bounty-button"
-              onClick={() => walletAddress !== props.questionDetails.publicAddress || username !== props.questionDetails.publisherGithubId  ? setOpenWorkplanDialog(true) : null}
+              onClick={() =>
+                username !== props.questionDetails.publisherGithubId
+                  ? setOpenWorkplanDialog(true)
+                  : null
+              }
               handleFetch={props.handleFetch()}
-              style={{ opacity: walletAddress === props.questionDetails.publicAddress || username === props.questionDetails.publisherGithubId ? "25%" : "100%" }}
+              style={{
+                opacity:
+                  walletAddress === props.questionDetails.publicAddress ||
+                  username === props.questionDetails.publisherGithubId
+                    ? "25%"
+                    : "100%",
+              }}
             >
               Submit Workplan
             </Button>
@@ -91,7 +126,7 @@ export default function QuestionLeftHeading(props) {
           open={openWorkplanDialog}
           handleDialogClose={() => setOpenWorkplanDialog(false)}
           questionId={props.questionDetails._id}
-          handleFetch={() => props.handleFetch()}
+          handleFetch={() => props.handleFetch}
         />
       ) : (
         ""

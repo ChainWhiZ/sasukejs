@@ -26,7 +26,6 @@ export default function StakeSolution(props) {
         solutionId: props.solutionId,
       })
       .then((response) => {
-        props.handleLoader(false);
         setSolution(response.data);
       })
       .catch((err) => {
@@ -50,48 +49,51 @@ export default function StakeSolution(props) {
 
   return (
     <>
-      <>
-        <Grid item md={1} xs={12}>
-          <img className="staking-icon" src={avatarIcon} alt="avatar" />
-        </Grid>
-        <Grid item md={5} xs={12}>
-          <p className="staking-solution">
-            {solution.userId} submitted a solution
-          </p>
-        </Grid>
-        <Grid item md={1} xs={12}>
-          <a href={props.solutionId} target="_blank" rel="noreferrer">
-            <img className="staking-git-icon" src={githubIcon} alt="github" />
-          </a>
-        </Grid>
+      {solution.userId ?
+        <>
+          <Grid item md={1} xs={12}>
+            <img className="staking-icon" src={avatarIcon} alt="avatar" />
+          </Grid>
+          <Grid item md={5} xs={12}>
+            <p className="staking-solution">
+              {solution.userId} submitted a solution
+            </p>
+          </Grid>
+          <Grid item md={1} xs={12}>
+            <a href={props.solutionId} target="_blank" rel="noreferrer">
+              <img className="staking-git-icon" src={githubIcon} alt="github" />
+            </a>
+          </Grid>
 
-        <Grid item md={3} xs={12} style={{ marginBottom: "1.5%" }}>
-          <TextField
-            id="outlined-basic"
-            type={"number"}
-            variant="outlined"
-            size="small"
-            className="staking-input"
-            InputProps={{ inputProps: { min: 5, max: 40 } }}
-            value={
-              props.solutionId === props.stakeDetails.solutionId
-                ? props.stakeDetails.stakeAmount
-                : 0
-            }
-            onChange={(e) => handleChange(e.target.value)}
-          />
-        </Grid>
-        <Grid item md={2} className="staking-button-grid">
-          <Button
-            variant="contained"
-            className="staking-button"
-            onClick={() => !props.disabled? props.handleStakeValidation():null}
-            style={{ opacity: props.disabled?"13%":"100%" }}
-          >
-            Stake
-          </Button>
-        </Grid>
-      </>
+          <Grid item md={3} xs={12} style={{ marginBottom: "1.5%" }}>
+            <TextField
+              id="outlined-basic"
+              type={"number"}
+              variant="outlined"
+              disabled={props.disable}
+              size="small"
+              className="staking-input"
+              InputProps={{ inputProps: { min: 5, max: 40 } }}
+              value={
+                props.solutionId === props.stakeDetails.solutionId
+                  ? props.stakeDetails.stakeAmount
+                  : 0
+              }
+              onChange={(e) => handleChange(e.target.value)}
+            />
+          </Grid>
+          <Grid item md={2} className="staking-button-grid">
+            <Button
+              variant="contained"
+              className="staking-button"
+              onClick={() => !props.disable ? props.handleStakeValidation() : null}
+              style={{ opacity: props.disable ? "25%" : "100%" }}
+            >
+              Stake
+            </Button>
+          </Grid>
+        </>
+        : null}
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}

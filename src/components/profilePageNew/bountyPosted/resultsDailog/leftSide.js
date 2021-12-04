@@ -8,7 +8,6 @@ import { port } from "../../../../config/config";
 import "../../profilePageCss.css";
 
 export default function LeftSide(props) {
-  const [username] = localStorage.getItem("username");
 
   console.log(props);
 
@@ -37,7 +36,9 @@ export default function LeftSide(props) {
             >
               <p>
                 <span>
+                  <a href={solution.githubLink} target="_blank">
                   <img src={GithubIcon} alt="github" />
+                  </a>
                 </span>
                 {solution.solverGithubId}
               </p>

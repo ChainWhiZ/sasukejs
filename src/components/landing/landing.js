@@ -30,9 +30,9 @@ export default function Landing() {
         <Grid item md={12} xs={12} className="margin-top-4">
           <p className="landing-heading">Welcome to Chainwhiz</p>
         </Grid>
-        <Grid item md={12} xs={12} className="margin-top-4">
+        {/* <Grid item md={12} xs={12} className="margin-top-4">
           <Button id="waitlist-button" className="landing-waitlist-button" onClick={() => handleClick()}>Join Waitlist</Button>
-        </Grid>
+        </Grid> */}
         <Grid item md={10} xs={12} class="description-grid">
           <p className="landing-description">
             Zero platform fees. Near to negligible network fees. Open-source and

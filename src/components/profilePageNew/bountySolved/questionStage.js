@@ -8,10 +8,16 @@ import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import { Tooltip } from "@material-ui/core";
-import { contract as contractAtom, walletAddress as walletAddressAtom } from "../../../recoil/atoms";
+import {
+  contract as contractAtom,
+  walletAddress as walletAddressAtom,
+} from "../../../recoil/atoms";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
+  console.log(props);
+  let valid = true;
+  const [open, setOpen] = useState(false);
   const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
     open: false,
@@ -40,6 +46,7 @@ export default function QuestionStage(props) {
       .then((response) => {
         props.handleLoader(false);
         setEscrow(response.data);
+        console.log(escrow);
       })
       .catch((err) => {
         props.handleLoader(false);
@@ -49,46 +56,88 @@ export default function QuestionStage(props) {
           errorMessage: "Error fetching escrow",
         }));
       });
-  }
+  };
+  const completeCall = async () => {
+    return await new Promise(async (resolve, reject) => {
+      try {
+        const trxObj = contract.methods
+          .transferRewardAmount(
+            props.questionId.publicAddress,
+            props.questionId.githubIssueUrl
+          )
+          .send({ from: walletAddress });
+        trxObj.on("receipt", function (receipt) {
+          console.log("Successfully done");
+          window.alert("Suuccessfuly acknowledged");
+          resolve(receipt);
+        });
 
-  const handleComplete = () => {
-    // props.handleLoader(true);
-    // return Promise.resolve()
-    //   .then(async function () {
-    //     await contract.methods
-    //       .transferRewardAmount(props.questionId.publisherAddress, props.questionId.questionUrl)
-    //       .send({ from: walletAddress })
-    //       .on("error", function () {
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error",
-    //         }));
-    //       });
-    //   })
-    //   .then(async function () {
-    //     axios
-    //       .post(port + "escrow/complete", {
-    //         _id: props.escrowId,
-    //       })
-    //       .then((response) => {
-    //         console.log(response.status);
-    //         props.handleLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
-    //         fetchEscrow();
-    //       })
-    //       .catch((err) => {
-    //         setAlert((prevState) => ({
-    //           ...prevState,
-    //           open: true,
-    //           errorMessage: "Error",
-    //         }));
-    //         props.handleLoader(false);
-    //         setOpen(false);
-    //         props.handleDialogClose(false);
-    //       });
-    //   });
+        trxObj.on("error", function (error, receipt) {
+          console.log(error);
+          if (error)
+            window.alert(
+              error.transactionHash
+                ? `Went wrong in trc hash :${error.transactionHash}`
+                : error.message
+            );
+          reject(error.message);
+        });
+      } catch (error) {
+        console.log(error);
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        reject(error);
+      }
+    });
+  };
+
+  const handleComplete = async () => {
+    props.handleLoader(true);
+
+    try {
+      try {
+        const completeResponse = await completeCall();
+      } catch (error) {
+        console.log(error);
+        valid = false;
+      }
+
+      if (valid) {
+        try {
+          const axiosResponse = await axios.post(port + "escrow/complete", {
+            _id: props.escrowId,
+          });
+        } catch (error) {
+          console.log(error);
+          valid = false;
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            errorMessage: "Error",
+          }));
+          props.handleLoader(false);
+          setOpen(false);
+          props.handleDialogClose(false);
+        }
+      }
+
+      if (valid) {
+        props.handleLoader(false);
+        setOpen(false);
+        props.handleDialogClose(false);
+        fetchEscrow();
+      }
+    } catch (error) {
+      console.log(error);
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Something went wrong while acknowledging reward!",
+      }));
+    }
   };
 
   return (
@@ -138,9 +187,9 @@ export default function QuestionStage(props) {
           <p className="profile-text-style profile-text-center">
             Winning Solution
           </p>
-          {props.questionId.selectedSolutionId ? (
+          {props.questionId.selectedSolutionId.solutionId ? (
             <a
-              href={props.questionId.selectedSolutionId}
+              href={props.questionId.selectedSolutionId.solutionId}
               target="_blank"
               rel="noreferrer"
               className="profile-content-style"
@@ -160,12 +209,17 @@ export default function QuestionStage(props) {
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
-            props.escrowId && escrow.escrowStatus !== "Acknowledged" ? (
-              <Button className="profile-button" onClick={()=>handleComplete()}>
-                Reward Recieved
+            props.escrowId &&
+            escrow.escrowStatus !== "Acknowledged" &&
+            props._id === props.questionId.selectedSolutionId.solutionId ? (
+              <Button
+                className="profile-button"
+                onClick={() => handleComplete()}
+              >
+                Reward Received
               </Button>
             ) : (
-              <Link to={`/bounty/${props._id}`}>
+              <Link to={`/bounty/${props.questionId._id}`}>
                 <Button className="profile-button">Go to Bounty Page</Button>
               </Link>
             )

@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import GithubIcon from "../../../assets/githubIcon.png";
 import ResultsDialog from "./resultsDailog/resultsDialog";
 import "../profilePageCss.css";
-
+import { useRecoilValue } from "recoil";
+import { walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 export default function QuestionStage(props) {
   const [openResultsDialog, setOpenResultsDialog] = useState(false);
+  console.log(props);
+  console.log(props.selectedSolutionId);
+  const walletAddress = useRecoilValue(walletAddressAtom);
   return (
     <>
       <Grid container className="profile-question-stage-grid">
@@ -20,7 +24,7 @@ export default function QuestionStage(props) {
             {props.bountyReward} MATIC
           </p>
         </Grid>
-        <Grid item md={12}>
+        <Grid item md={12} style={{ textAlign: "center" }}>
           {props.selectedSolutionId ? (
             <>
               <p
@@ -30,7 +34,7 @@ export default function QuestionStage(props) {
                 Winning Solution
               </p>
               <a
-                href={props.questionId.selectedSolutionId}
+                href={props.selectedSolutionId.solutionId}
                 target="_blank"
                 rel="noreferrer"
                 className="profile-content-style"
@@ -39,10 +43,10 @@ export default function QuestionStage(props) {
                   class="icon"
                   src={GithubIcon}
                   alt="git"
-                  style={{ marginTop: "-2%" }}
+                  style={{ marginTop: "2%" }}
                 />
-                <p>{props.questionId.selectedSolutionId.userId}</p>
               </a>
+              <p>{props.selectedSolutionId.userId}</p>
             </>
           ) : (
             <>
@@ -76,19 +80,35 @@ export default function QuestionStage(props) {
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.isCommunityApprovedSolution ? (
-            props.questionStage === "complete" && !props.selectedSolutionId ? (
-              <Button className="profile-button"  onClick={()=>setOpenResultsDialog(true)}>View Results</Button>
+            props.publicAddress === walletAddress ? (
+              props.questionStage === "complete" ? (
+                <Button
+                  className="profile-button"
+                  onClick={() => setOpenResultsDialog(true)}
+                >
+                  View Results
+                </Button>
+              ) : (
+                <Link to={`/bounty/${props._id}`}>
+                  <Button className="profile-button">Go to Bounty Page</Button>
+                </Link>
+              )
             ) : (
-              <Link to={`/bounty/${props._id}`}>
-                <Button className="profile-button">Go to Bounty Page</Button>
-              </Link>
+              <Button className="profile-button" style={{ opacity: "25%" }}>
+                Check Wallet Address
+              </Button>
             )
           ) : props.questionStage === "solve" ? (
             <Link to={`/bounty/${props._id}`}>
               <Button className="profile-button">Go to Bounty Page</Button>
             </Link>
           ) : (
-            <Button className="profile-button" onClick={()=>setOpenResultsDialog(true)}>View All Solutions</Button>
+            <Button
+              className="profile-button"
+              onClick={() => setOpenResultsDialog(true)}
+            >
+              View All Solutions
+            </Button>
           )}
         </Grid>
       </Grid>
@@ -97,7 +117,8 @@ export default function QuestionStage(props) {
           open={openResultsDialog}
           handleDialogClose={() => setOpenResultsDialog(false)}
           _id={props._id}
-          isCommunityApprovedSolution = {props.isCommunityApprovedSolution}
+          questionUrl={props.githubIssueUrl}
+          isCommunityApprovedSolution={props.isCommunityApprovedSolution}
           publicAddress={props.publicAddress}
         />
       ) : (

@@ -30,6 +30,10 @@ export default function QuestionPost() {
     isValid: false,
     errorMessage: "",
   });
+  const [success, setSuccess] = useState({
+    success: false,
+    message: ""
+  })
   const username = useRecoilValue(usernameAtom);
   const contractPromise = useRecoilValue(contractAtom);
   let contract;
@@ -38,22 +42,27 @@ export default function QuestionPost() {
     contract = v;
   });
 
+
   function handleGithubIssueValidation() {
     console.log("in here");
-    // return axios
-    //   .post(port + "question/validate", {
-    //     githubIssueUrl: issueURL,
-    //   })
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       return true;
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     return false;
-    //   });
-    return true;
+    setLoader(true);
+    return axios
+      .post(port + "question/validate", {
+        githubIssueUrl: issueURL,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setLoader(false);
+          return true;
+        }
+      })
+      .catch((err) => {
+        setLoader(false);
+        return false;
+      });
+     return true;
   }
+
 
   function handlePageChange(page) {
     setAlert((prevState) => ({
@@ -150,25 +159,49 @@ export default function QuestionPost() {
       handlePageChange(page);
     }
   }
- 
-  async function questionPosting(timeEnd,votingTimeBegin) {
-    return await contract.methods
-      .postIssue(
-        issueURL,
-         (reward * Math.pow(10, 18)).toString(),
-          (communityReward * Math.pow(10, 18)).toString(),
-        (votingTimeBegin-1).toString(),
-        votingTimeBegin.toString(),
-        timeEnd.toString(),
-        communityOption == "Community Approved" ? true : false
-      )
-      .send({ from: walletAddress.toString() }, function (error, transactionHash) {
-        if (transactionHash) {
-          return true;
-        }
-      });
+
+  async function questionPosting(timeEnd, votingTimeBegin) {
+    return await new Promise((resolve, reject) => {
+      const rewardAmount = reward * Math.pow(10, 18);
+      const communityRewardAmount = communityReward* Math.pow(10, 18)
+      const totalAmount = rewardAmount+communityRewardAmount
+      console.log("total %s comm %s sol %s",totalAmount, communityRewardAmount, rewardAmount)
+      try {
+        const trxObj = contract.methods
+          .postIssue(
+            username,
+            issueURL,
+            rewardAmount.toString(),
+            communityRewardAmount.toString(),
+            communityOption == "Community Approved" ? (votingTimeBegin - 1).toString() : timeEnd.toString(),
+            communityOption == "Community Approved" ? votingTimeBegin.toString() : "0",
+            communityOption == "Community Approved" ? timeEnd.toString() : "0",
+          )
+          .send({ from: walletAddress.toString(), value:totalAmount });
+
+        trxObj.on('receipt', function (receipt) {
+          console.log("Successfully done")
+        //  window.alert("Suuccessfulyy posted")
+          resolve(receipt)
+        })
+
+        trxObj.on('error', function (error, receipt) {
+          setLoader(false)
+          console.log(error)
+          if (error)
+            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+          reject(error.message)
+        });
+
+      } catch (error) {
+        console.log(error)
+        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+        reject(error)
+      }
+    })
+
   };
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log(time);
     console.log(issueTitle);
     console.log(category);
@@ -177,14 +210,16 @@ export default function QuestionPost() {
     console.log(communityOption);
     console.log(communityReward);
     console.log(terms);
-    setLoader(true);
+   
     if (terms.undertaking1 === false || terms.undertaking2 === false) {
+
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Please accept the terms",
       }));
     } else if (!walletAddress) {
+
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
@@ -192,48 +227,79 @@ export default function QuestionPost() {
       }));
     }
     else {
+
       setAlert((prevState) => ({
         ...prevState,
         isValid: false,
         errorMessage: "",
       }));
+      setLoader(true);
+      console.log("hereeeeee")
       const timeBegin = Math.floor(new Date().getTime() / 1000);
       let timeEnd = timeBegin + time * 24 * 60 * 60;
-      let votingTimeBegin =  communityOption == "Community Approved"
-                  ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-                 : 0
-      return Promise.resolve()
-        .then(async function () {
-          return await questionPosting(timeEnd,votingTimeBegin);
-        })
-        .then(async function () {
-          //return setSuccessStatus(true);
-        })
-        .then(async function () {
-          return axios
-            .post(port + "question/save", {
-              githubId: username,
-              publicAddress: walletAddress,
-              questionTitle: issueTitle,
-              githubIssueUrl: issueURL,
-              timeEnd: timeEnd,
-              solvingTimeBegin: timeBegin,
-              votingTimeBegin:votingTimeBegin,
-              bountyReward: reward,
-              communityReward: communityReward,
-              isCommunityApprovedSolution:
-                communityOption == "Community Approved" ? true : false,
-              questionCategories: category,
-            })
-            .then((response) => {
-             setLoader(false);
-              history.push({
-                pathname: `/bounty/${response.data}`,
-                state: { id: response.data },
-              });
-            });
-        })
-        .then(function () { });
+      let votingTimeBegin = communityOption == "Community Approved"
+        ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+        : 0
+      let valid = true;
+      let axiosResponse;
+      try {
+        try {
+          const questionResponse = await questionPosting(timeEnd, votingTimeBegin);
+        }
+        catch (error) {
+          console.log(error)
+          valid = false
+        }
+
+        if (valid) {
+          try {
+            axiosResponse = await axios
+              .post(port + "question/save", {
+                githubId: username,
+                publicAddress: walletAddress,
+                questionTitle: issueTitle,
+                githubIssueUrl: issueURL,
+                timeEnd: timeEnd,
+                solvingTimeBegin: timeBegin,
+                votingTimeBegin: votingTimeBegin,
+                bountyReward: reward,
+                communityReward: communityReward,
+                isCommunityApprovedSolution:
+                  communityOption == "Community Approved" ? true : false,
+                questionCategories: category,
+              })
+              Promise.resolve(axiosResponse).then((val)=>{
+                if (val.status == 201) {
+                  window.alert("Suuccessfulyy posted")
+                  setLoader(false);
+                  history.push({
+                    pathname: `/bounty/${axiosResponse.data}`,
+                    state: { id: axiosResponse.data },
+                  });
+                }
+              })
+            
+          } catch (error) {
+            console.log(error)
+            setAlert((prevState) => ({
+              ...prevState,
+              isValid: true,
+              errorMessage: "Something went wrong while posting!",
+            }));
+            valid = false;
+          }
+        }
+
+      } catch (error) {
+        console.log(error)
+        setAlert((prevState) => ({
+          ...prevState,
+          isValid: true,
+          errorMessage: "Something went wrong while posting!",
+        }));
+
+      }
+
     }
 
   }
@@ -320,12 +386,15 @@ export default function QuestionPost() {
               handleTerms={setTerms}
               terms={terms}
               alert={alert}
+              communityOption={communityOption}
               walletAddress={walletAddress}
               handleSubmit={handleSubmit}
             />
           ) : null}
         </>
+
       }
+      {success.success ? alert(success.message) : null}
     </>
   );
 }

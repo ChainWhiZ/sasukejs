@@ -66,7 +66,7 @@ export default function QuestionPage(props) {
               <Grid item md={3} xs={12}>
                 <QuestionLeftHeading
                   questionDetails={data}
-                  handleFetch={() => fetchQuestion()}
+                  handleFetch={() => fetchQuestion}
                 />
               </Grid>
               <Grid item md={6} xs={12}>
