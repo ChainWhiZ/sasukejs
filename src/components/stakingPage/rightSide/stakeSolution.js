@@ -86,8 +86,8 @@ export default function StakeSolution(props) {
             <Button
               variant="contained"
               className="staking-button"
-              onClick={() => !props.disable ? props.handleStakeValidation() : null}
-              style={{ opacity: props.disable ? "25%" : "100%" }}
+              onClick={() => props.handleStakeValidation()  }
+              disabled={ props.disable }
             >
               Stake
             </Button>

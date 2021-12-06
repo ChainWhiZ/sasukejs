@@ -279,6 +279,7 @@ console.log(data);
           </Grid>
         </>
       )}
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
 
     </>
   );

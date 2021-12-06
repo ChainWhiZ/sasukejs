@@ -11,7 +11,6 @@ import {
   contract as contractAtom,
   walletAddress as walletAddressAtom,
 } from "../../../recoil/atoms";
-import Tooltip from "@material-ui/core/Tooltip";
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
@@ -187,11 +186,9 @@ export default function QuestionStage(props) {
               </Link>
             )
           ) : (
-            <Tooltip title="Change your wallet address">
-              <Button className="profile-button " style={{ opacity: "25%" }}>
-                Go to Bounty Page
+              <Button className="profile-button " disabled>
+              Change your wallet address
               </Button>
-            </Tooltip>
           )}
         </Grid>
       </Grid>

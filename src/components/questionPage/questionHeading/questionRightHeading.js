@@ -42,8 +42,8 @@ export default function QuestionRightHeading(props) {
           {props.questionStage === "solve" ? (
             <Button
               class="bounty-button"
-              onClick={() => username !== props.publisherGithubId ? setOpenSolveDialog(true) : null}
-              style={{ opacity: walletAddress === props.publicAddress || username === props.publisherGithubId ? "25%" : "100%" }}
+              onClick={() =>  setOpenSolveDialog(true) }
+              disabled={  walletAddress === props.publicAddress || username === props.publisherGithubId }
 
             >
               Submit Github link
@@ -60,7 +60,7 @@ export default function QuestionRightHeading(props) {
               style={walletAddress === props.publicAddress || username === props.publisherGithubId ? { pointerEvents: "none" } : null}
             >
               <Button class="bounty-button"
-                style={walletAddress === props.publicAddress || username === props.publisherGithubId ? { opacity: "25%" } : null}
+                disabled={walletAddress === props.publicAddress || username === props.publisherGithubId }
               >Vote Now</Button>
             </Link>
           ) : (

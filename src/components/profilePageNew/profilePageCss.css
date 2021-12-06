@@ -57,6 +57,21 @@
   text-transform: none !important;
   font-size: 1vw !important;
 }
+.profile-button:hover {
+  color: rgba(255, 255, 255, 1) !important;
+  background-color: rgba(29, 29, 29, 1) !important;
+  text-transform: "none" !important;
+}
+.profile-button:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  opacity: 39% !important;
+  cursor: auto !important;
+}
+.profile-button:disabled:hover {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+}
 .profile-content-style {
   font-family: Poppins !important;
   color: #ffffff !important;

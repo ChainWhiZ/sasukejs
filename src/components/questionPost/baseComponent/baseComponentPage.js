@@ -77,6 +77,8 @@ export default function BaseComponent(props) {
           ) : null}
         </Grid>
       </Grid>
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+
     </>
   );
 }

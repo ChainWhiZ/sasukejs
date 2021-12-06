@@ -59,8 +59,8 @@ export default function Landing() {
         <Grid item md={4} xs={12} class="category-box">
           <p className="category-title">Solve a Bounty</p>
           <p className="category-description">
-            Start contributing on open-source projects by builidng out bounties
-            listed on the platform. In exchange earn high bounty rewards.
+            Start contributing on open-source projects by buildng out bounties
+            listed on the platform. In exchange earn bounty rewards.
           </p>
         </Grid>
         <Grid item md={4} xs={12} class="category-box">
