@@ -82,7 +82,7 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter issue title",
+            errorMessage: "You don’t have a name? Where’s mine then?",
           }));
         } else {
           handlePageChange(page);
@@ -93,7 +93,7 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter valid issue URL",
+            errorMessage: "What’s all this rush? Enter the issue URL.",
           }));
         } else {
           handlePageChange(page);
@@ -104,7 +104,7 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter valid reward",
+            errorMessage: "Please enter valid bounty reward",
           }));
         } else {
           handlePageChange(page);
@@ -115,7 +115,7 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter valid issue category",
+            errorMessage: "How dare you? Choose the right category/ies for me.",
           }));
         } else {
           handlePageChange(page);
@@ -189,13 +189,13 @@ export default function QuestionPost() {
           setLoader(false)
           console.log(error)
           if (error)
-            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+            window.alert(error.transactionHash ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com. Went wrong in trc hash :${error.transactionHash}` : error.message)
           reject(error.message)
         });
 
       } catch (error) {
         console.log(error)
-        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
+        window.alert(error.transactionHash ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com.Went wrong in trc hash :${error.transactionHash}` : error.message)
         reject(error)
       }
     })

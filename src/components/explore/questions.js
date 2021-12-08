@@ -31,7 +31,7 @@ const[searchValue,setSearchValue] = useState("");
             </>
           ))
         ) : (
-          <p>No questions? Looks like the world is going to end</p>
+          <p>Looks like our developers are having bounties for breakfast, lunch and dinner. Check back for new bounties</p>
         )}
       </Grid>
     </>

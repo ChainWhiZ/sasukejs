@@ -73,7 +73,7 @@ export default function ResultsDialog(props) {
           if (error)
             window.alert(
               error.transactionHash
-                ? `Went wrong in trc hash :${error.transactionHash}`
+                ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com.Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
           reject(error.message);
@@ -82,7 +82,7 @@ export default function ResultsDialog(props) {
         console.log(error);
         window.alert(
           error.transactionHash
-            ? `Went wrong in trc hash :${error.transactionHash}`
+            ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com.Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
         reject(error);
