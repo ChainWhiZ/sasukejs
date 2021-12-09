@@ -75,7 +75,7 @@ export default function SolutionSubmit(props) {
           if (error)
             window.alert(
               error.transactionHash
-                ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com.Went wrong in trc hash :${error.transactionHash}`
+                ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
           reject(error.message);
@@ -84,7 +84,7 @@ export default function SolutionSubmit(props) {
         console.log(error);
         window.alert(
           error.transactionHash
-            ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com.Went wrong in trc hash :${error.transactionHash}`
+            ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
         reject(error);
@@ -155,6 +155,7 @@ export default function SolutionSubmit(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
+          severity: "error",
           errorMessage: "Sorry publisher cannot post a solution",
         }));
       }
@@ -162,6 +163,7 @@ export default function SolutionSubmit(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
+          severity: "error",
           errorMessage: "Please connect wallet",
         }));
       } else {

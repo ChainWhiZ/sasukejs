@@ -47,26 +47,34 @@ export default function BountySolved(props) {
 
   return (
     <>
-      <Grid container style={{ marginLeft: "-1%" }}>
-        {data.map((solution) => (
-          <>
-            <Grid item md={7} xs={12}>
-              <QuestionDetail {...solution.questionId} />
-            </Grid>
-            <Grid item md={5} xs={12}>
-              <QuestionStage
-                {...solution}
-                fetchSolutions={fetchSolutions}
-                handleLoader={(flag) => setLoader(flag)}
-              />
-            </Grid>
-          </>
-        ))}
-      </Grid>
+      {loader ? <CircularIndeterminate /> :
+        <Grid container style={{ marginLeft: "-1%" }}>
+          {data.length ?
+
+            (data.map((solution) => (
+              <>
+                <Grid item md={7} xs={12}>
+                  <QuestionDetail {...solution.questionId} />
+                </Grid>
+                <Grid item md={5} xs={12}>
+                  <QuestionStage
+                    {...solution}
+                    fetchSolutions={fetchSolutions}
+                    handleLoader={(flag) => setLoader(flag)}
+                  />
+                </Grid>
+              </>
+            )))
+            :
+            <p style={{ "marginLeft": "3%" }}>Run the day. Don’t let it run you. Start your journey on Chainwhiz.</p>
+          }
+
+        </Grid>
+
+      }
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-      {loader ? <CircularIndeterminate /> : null}
     </>
   );
 }

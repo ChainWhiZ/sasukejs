@@ -62,8 +62,7 @@ export const text = {
   },
   page7: {
       title: `Enter Community Reward`,
-      content: `Mention the amount that the developer
-      shall receive after completing the bounty. Note: This amount will be held in an escrow contract and will be transferred to the developer once you confirm that you’ve received the code.`
+      content: `Community voting makes your life a lot easier in selecting the best solution to your bounty. They do the voting.You choose the best solution based on the votes. Simple and Fast. The reward goes out to the voters who voted for the highest voted solutions. `
   },
   page8: {
       title: `Confirm your Wallet Address`,
@@ -74,19 +73,19 @@ export const text = {
 export const categoryText = [
   {
       title: "Front End",
-      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "Front-end web development is the development of the graphical user interface of a website, through the use of HTML, CSS, and JavaScript, so that users can view and interact with that website."
   },
   {
       title: "Back End",
-      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "Backend is the server-side of the website. It stores and arranges data, and also makes sure everything on the client-side of the website works fine. Its basically behind the scenes."
   },
   {
       title: "Smart Contract",
-      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "A smart contract is a self-executing contract with the terms of the agreement between buyer and seller being directly written into lines of code. The code exists on the blockchain network."
   },
   {
       title: "Others",
-      content: "There are many variations of passs of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look asa o la sl asosl saseo w wls also l asl a lwew pals asl as"
+      content: "This is an open category that can correspond to a vast number of options like documentation, design, architecture or any other categories that we missed out on."
   }
 ]
 

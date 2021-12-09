@@ -138,7 +138,7 @@ console.log(data);
           if (error)
             window.alert(
               error.transactionHash
-                ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com.Went wrong in trc hash :${error.transactionHash}`
+                ? `Went wrong. in trc hash :${error.transactionHash}`
                 : error.message
             );
           setLoader(false);
@@ -149,7 +149,7 @@ console.log(data);
         console.log(error);
         window.alert(
           error.transactionHash
-            ? `It’s not you. It’s us.Our contract is not audited.Report bugs at hello.chainwhiz@gmail.com.Went wrong in trc hash :${error.transactionHash}`
+            ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
         setLoader(false);
