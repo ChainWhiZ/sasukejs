@@ -12,7 +12,6 @@ import SimpleAlerts from "../../alert/alert";
 import "../stakingPageCss.css";
 
 export default function StakeSolution(props) {
-  console.log(props);
   const [solution, setSolution] = useState({});
   const [alert, setAlert] = useState({
     open: false,
@@ -21,12 +20,14 @@ export default function StakeSolution(props) {
   });
 
   useEffect(async () => {
+    console.log(props.solutionId)
     axios
       .post(port + "solution/fetch", {
         solutionId: props.solutionId,
       })
       .then((response) => {
         setSolution(response.data);
+        console.log(solution)
       })
       .catch((err) => {
         setAlert((prevState) => ({
@@ -49,7 +50,7 @@ export default function StakeSolution(props) {
 
   return (
     <>
-      {solution.userId ?
+      {solution ? (
         <>
           <Grid item md={1} xs={12}>
             <img className="staking-icon" src={avatarIcon} alt="avatar" />
@@ -86,14 +87,14 @@ export default function StakeSolution(props) {
             <Button
               variant="contained"
               className="staking-button"
-              onClick={() => props.handleStakeValidation()  }
-              disabled={ props.disable }
+              onClick={() => props.handleStakeValidation()}
+              disabled={props.disable}
             >
               Stake
             </Button>
           </Grid>
         </>
-        : null}
+      ) : null}
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
