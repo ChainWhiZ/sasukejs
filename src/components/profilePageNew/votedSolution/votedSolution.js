@@ -6,63 +6,68 @@ import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../../recoil/atoms";
+import { username as usernameAtom } from "../../../recoil/atoms";
 import CircularIndeterminate from "../../loader/loader";
 import "../profilePageCss.css";
 
 export default function VotedSolution() {
     const username = useRecoilValue(usernameAtom);
     const [data, setData] = useState([]);
-    const [loader,setLoader] = useState(true);
+    const [loader, setLoader] = useState(true);
     const [alert, setAlert] = useState({
         open: false,
         errorMessage: "",
         severity: "error",
     });
-   
+
     useEffect(() => {
-       fetchVotedSolutions();
+        fetchVotedSolutions();
     }, []);
-    const fetchVotedSolutions =() =>{
+    const fetchVotedSolutions = () => {
         axios
-        .post(port + "user/votedetails", {
-            githubId: username
-        })
-        .then((response) => {
-             setLoader(false);
-            console.log(response.data)
-            setData(response.data);
-        })
-        .catch((err) => {
-            setLoader(false);
-            setAlert((prevState) => ({
-              ...prevState,
-              open: true,
-              errorMessage: "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
-            }));
-        });
+            .post(port + "user/votedetails", {
+                githubId: username
+            })
+            .then((response) => {
+                setLoader(false);
+                console.log(response.data)
+                setData(response.data);
+            })
+            .catch((err) => {
+                setLoader(false);
+                setAlert((prevState) => ({
+                    ...prevState,
+                    open: true,
+                    errorMessage: "Couldn't fetch voted solutions! Server-side issue. Sorry for the inconvenience",
+                }));
+            });
     }
     return (
-        <>
+        <>  {loader ? <CircularIndeterminate /> :
             <Grid container style={{ marginLeft: "-1%" }} >
-                {data.map(votedOn =>
-                    <>
-                        <Grid item md={7} xs={12} >
-                            <QuestionDetail {...votedOn.questionDetails} />
-                        </Grid>
-                        <Grid item md={5} xs={12}  >
-                            <QuestionStage {...votedOn} fetchVotedSolutions={fetchVotedSolutions} handleLoader={(flag)=>setLoader(flag)}/>
-                        </Grid>
-                    </>
-                )}
+                {data.length ?
+                    (data.map(votedOn =>
+                        <>
+                            <Grid item md={7} xs={12} >
+                                <QuestionDetail {...votedOn.questionDetails} />
+                            </Grid>
+                            <Grid item md={5} xs={12}  >
+                                <QuestionStage {...votedOn} fetchVotedSolutions={fetchVotedSolutions} handleLoader={(flag) => setLoader(flag)} />
+                            </Grid>
+                        </>
+                    ))
+                    :
+                    <p style={{ "marginLeft": "3%" }}>Run the day. Don’t let it run you. Start your journey on Chainwhiz.</p>
+                }
             </Grid>
+        }
             {alert.open ? (
                 <SimpleAlerts
                     severity={alert.severity}
                     message={alert.errorMessage}
                 />
             ) : null}
-            {loader? <CircularIndeterminate /> :null}
+
         </>
     );
 }

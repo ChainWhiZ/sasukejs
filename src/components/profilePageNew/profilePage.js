@@ -37,6 +37,8 @@ export default function ProfilePage(props) {
           </Grid>
         </Grid>
       </Grid>
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+
     </>
   );
 }

@@ -94,8 +94,8 @@ export default function QuestionStage(props) {
                 </Link>
               )
             ) : (
-              <Button className="profile-button" style={{ opacity: "25%" }}>
-                Check Wallet Address
+              <Button className="profile-button" disabled>
+                Change Wallet Address
               </Button>
             )
           ) : props.questionStage === "solve" ? (

@@ -46,7 +46,7 @@ export default function RouterComponent() {
         <Route path="/stake" component={StakingPage} />
         <Route path="/profile" component={ProfilePage} />
       </Switch>
-      <Footer />
+      {window.location.pathname !== '/post' && <Footer /> }
     </Router>
   );
 }

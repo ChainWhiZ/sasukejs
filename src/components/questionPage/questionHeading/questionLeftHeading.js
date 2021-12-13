@@ -86,11 +86,10 @@ export default function QuestionLeftHeading(props) {
             >
               <Button
                 class="bounty-button"
-                style={
+                disabled={
                   walletAddress === props.publicAddress ||
                   username === props.questionDetails.publisherGithubId
-                    ? { opacity: "25%" }
-                    : null
+
                 }
               >
                 Vote Now
@@ -102,18 +101,15 @@ export default function QuestionLeftHeading(props) {
             <Button
               class="bounty-button"
               onClick={() =>
-                username !== props.questionDetails.publisherGithubId
-                  ? setOpenWorkplanDialog(true)
-                  : null
+                setOpenWorkplanDialog(true)
+                 
               }
               handleFetch={props.handleFetch()}
-              style={{
-                opacity:
+              disabled={
                   walletAddress === props.questionDetails.publicAddress ||
                   username === props.questionDetails.publisherGithubId
-                    ? "25%"
-                    : "100%",
-              }}
+                 
+              }
             >
               Submit Workplan
             </Button>

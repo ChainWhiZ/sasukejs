@@ -6,7 +6,6 @@ import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function Login() {
   const [username, setUsername] = useRecoilState(usernameAtom);
-  // setUsername("Voter1")
   useEffect(() => {
     const url = window.location.href;
     const hasCode = url.includes("?code=");
@@ -17,16 +16,21 @@ export default function Login() {
       axios
         .post(port + "authenticate/user", { code: token })
         .then((response) => {
-          setUsername(response.data.doc.githubId)
+          setUsername(response.data.doc.githubId);
           window.history.pushState({}, {}, "/");
           window.location.reload();
         });
-    } 
+    }
   });
 
   return (
     <>
-      <a href={"https://github.com/login/oauth/authorize?client_id="+process.env.REACT_APP_CLIENT_ID}>
+      <a
+        href={
+          "https://github.com/login/oauth/authorize?client_id=" +
+          process.env.REACT_APP_CLIENT_ID
+        }
+      >
         <p className="item login ">Login</p>
       </a>
     </>

@@ -155,6 +155,7 @@ export default function SolutionSubmit(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
+          severity: "error",
           errorMessage: "Sorry publisher cannot post a solution",
         }));
       }
@@ -162,6 +163,7 @@ export default function SolutionSubmit(props) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
+          severity: "error",
           errorMessage: "Please connect wallet",
         }));
       } else {

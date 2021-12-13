@@ -8,7 +8,6 @@ import "../../profilePageCss.css";
 import BlackInfoIcon from "../../../../assets/black_info.png";
 import IdeaIcon from "../../../../assets/white_idea.png";
 import { useRecoilValue } from "recoil";
-import { Tooltip } from "@material-ui/core";
 import { walletAddress as walletAddressAtom } from "../../../../recoil/atoms";
 import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
@@ -176,14 +175,12 @@ export default function RightSide(props) {
               </Button>
             )
           ) : (
-            <Tooltip title="Change your wallet address">
               <Button
                 className="profile-button results-dialog-right-grid-button"
-                style={{ color: "grey" }}
+                disabled
               >
-                {handleEscrowLabel()}
+                Change wallet address
               </Button>
-            </Tooltip>
           )}
         </Grid>
       </Grid>

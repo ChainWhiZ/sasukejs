@@ -41,22 +41,28 @@ export default function BountyPosted(props) {
   }, []);
   return (
     <>
-      <Grid container style={{ marginLeft: "-1%" }}>
-        {data.map((question) => (
-          <>
-            <Grid item md={7} xs={12}>
-              <QuestionDetail {...question} />
-            </Grid>
-            <Grid item md={5} xs={12}>
-              <QuestionStage {...question} />
-            </Grid>
-          </>
-        ))}
-      </Grid>
+      {loader ? <CircularIndeterminate /> :
+        <Grid container style={{ marginLeft: "-1%" }}>
+          {data.length ?
+            (data.map((question) => (
+              <>
+                <Grid item md={7} xs={12}>
+                  <QuestionDetail {...question} />
+                </Grid>
+                <Grid item md={5} xs={12}>
+                  <QuestionStage {...question} />
+                </Grid>
+              </>
+            )))
+            :
+            <p style={{ "marginLeft": "3%" }}>Run the day. Don’t let it run you. Start your journey on Chainwhiz.</p>
+          }
+        </Grid>
+      }
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-      {loader ? <CircularIndeterminate /> : null}
+
     </>
   );
 }

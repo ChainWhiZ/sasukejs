@@ -7,7 +7,6 @@ import { port } from "../../../config/config";
 import GithubIcon from "../../../assets/githubIcon.png";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { Tooltip } from "@material-ui/core";
 import {
   contract as contractAtom,
   walletAddress as walletAddressAtom,
@@ -224,11 +223,9 @@ export default function QuestionStage(props) {
               </Link>
             )
           ) : (
-            <Tooltip title="Change your wallet address">
-              <Button className="profile-button" style={{ opacity: "25%" }}>
-                Go to Bounty Page
+              <Button className="profile-button" disabled>
+              Change wallet address
               </Button>
-            </Tooltip>
           )}
         </Grid>
       </Grid>

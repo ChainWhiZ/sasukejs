@@ -5,7 +5,6 @@ import ideaIconBlack from "../../assets/idea_black.png";
 import "./stakingPageCss.css";
 
 export default function LeftCard(props) {
-  console.log(props);
   const handleSelectedStyle = (value) => {
     if (props.selectedWorkplan === value) {
       return "staking-workplan-card staking-selected-workplan-card";
@@ -30,19 +29,19 @@ export default function LeftCard(props) {
             className={handleSelectedStyle(workplan._id)}
             onClick={() => props.handleSelect(workplan._id)}
           >
-            <a
-              href={`https://ipfs.io/ipfs/${workplan._id}`}
-              target="_blank"
-              rel="noreferrer"
+            <p
+              className={
+                props.selectedWorkplan === workplan._id
+                  ? "staking-workplan active-black"
+                  : "staking-workplan"
+              }
             >
-              <p
-                className={
-                  props.selectedWorkplan === workplan._id
-                    ? "staking-workplan active-black"
-                    : "staking-workplan"
-                }
-              >
-                <span>
+              <span>
+                <a
+                  href={`https://ipfs.io/ipfs/${workplan._id}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     className="staking-icon"
                     src={
@@ -52,10 +51,10 @@ export default function LeftCard(props) {
                     }
                     alt="icon"
                   />
-                </span>
-                Workplan Submitted by {workplan.userId}
-              </p>
-            </a>
+                </a>
+              </span>
+              Workplan Submitted by {workplan.userId}
+            </p>
           </Grid>
         ))}
     </Grid>

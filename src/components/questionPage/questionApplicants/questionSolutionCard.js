@@ -110,7 +110,7 @@ export default function QuestionSolutionCard(props) {
                                     target="_blank"
                                     rel="noreferrer"
                                   >
-                                    <img src={GithubIcon} alt="git" />
+                                    <img src={GithubIcon} alt="git" style={{width:"2vw "}} />
                                   </a>
                                 </Tooltip>
                               ) :
@@ -120,7 +120,7 @@ export default function QuestionSolutionCard(props) {
                                   target="_blank"
                                   rel="noreferrer"
                                 >
-                                  <img src={GithubIcon} alt="git" />
+                                  <img src={GithubIcon} alt="git"  style={{width:"2vw "}}  />
                                 </a>}
                             </Grid>
                           </>

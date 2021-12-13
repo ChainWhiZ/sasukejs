@@ -6,8 +6,6 @@ import { balance as balanceAtom } from "../../../recoil/atoms";
 import "../stakingPageCss.css";
 
 export default function RightCard(props) {
-  console.log(props);
-
   const balance = useRecoilValue(balanceAtom);
   return (
     <Grid
@@ -28,21 +26,19 @@ export default function RightCard(props) {
         </p>
       </Grid>
 
-
-        <>
-          {props.solutions &&
-            props.solutions.length &&
-            props.solutions.map((solution) => (
-              <StakeSolution
-                solutionId={solution}
-                handleStakeValidation={props.handleStakeValidation}
-                handleSetStakeDetails={props.handleSetStakeDetails}
-                stakeDetails={props.stakeDetails}
-                disable={props.disable}
-              />
-            ))}
-        </>
-     
+      <>
+        {props.solutions &&
+          props.solutions.length &&
+          props.solutions.map((solution) => (
+            <StakeSolution
+              solutionId={solution}
+              handleStakeValidation={props.handleStakeValidation}
+              handleSetStakeDetails={props.handleSetStakeDetails}
+              stakeDetails={props.stakeDetails}
+              disable={props.disable}
+            />
+          ))}
+      </>
     </Grid>
   );
 }

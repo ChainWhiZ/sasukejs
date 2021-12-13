@@ -100,7 +100,21 @@ color: #FFFFFF; */
   font-size: 1vw !important;
   font-family: Poppins !important;
 }
-
+.staking-button:hover {
+  color: rgba(255, 255, 255, 1) !important;
+  background-color: rgba(29, 29, 29, 1) !important;
+  text-transform: "none" !important;
+}
+.staking-button:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  opacity: 39% !important;
+  cursor: auto !important;
+}
+.staking-button:disabled:hover {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+}
 .staking-icon {
   margin: 0% 5% -2% 0%;
 }
