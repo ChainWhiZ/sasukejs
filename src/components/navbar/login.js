@@ -6,6 +6,7 @@ import { username as usernameAtom } from "../../recoil/atoms";
 
 export default function Login() {
   const [username, setUsername] = useRecoilState(usernameAtom);
+  setUsername("rajashree23")
 
   useEffect(() => {
     const url = window.location.href;

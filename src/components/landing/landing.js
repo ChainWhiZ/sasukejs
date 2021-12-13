@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./landing.css";
 // import WaitlistForm from "../form/waitlistForm";
-import { Button } from "@material-ui/core";
-import { createPopup } from '@typeform/embed'
-import '@typeform/embed/build/css/popup.css'
+import { Link } from "react-router-dom";
+import { createPopup } from "@typeform/embed";
+import "@typeform/embed/build/css/popup.css";
 
 export default function Landing() {
   //const [waitlistDialog,setWaitlistDialog] = useState(false);
   const handleClick = () => {
-    const { toggle } = createPopup("UNzTJS5Q")
-    document.getElementById('waitlist-button').onclick = toggle
-  }
+    const { toggle } = createPopup("UNzTJS5Q");
+    document.getElementById("waitlist-button").onclick = toggle;
+  };
   return (
     <>
       <Grid
@@ -25,9 +25,13 @@ export default function Landing() {
           <hr className="horizontal-line" style={{ marginTop: "2%" }} />
         </Grid>
         <Grid item md={12} xs={12}>
-          <p className="landing-warning"> It’s not you. It’s us. Our contract is not audited.  Report bugs at hello.chainwhiz@gmail.com.</p>
+          <p className="landing-warning">
+            {" "}
+            It’s not you. It’s us. Our contract is not audited. Report bugs at
+            hello.chainwhiz@gmail.com.
+          </p>
         </Grid>
-        <Grid item md={12} xs={12} >
+        <Grid item md={12} xs={12}>
           <p className="landing-heading">Welcome to Chainwhiz</p>
         </Grid>
         {/* <Grid item md={12} xs={12} className="margin-top-4">
@@ -49,27 +53,49 @@ export default function Landing() {
         </Grid>
       </Grid>
       <Grid container justify="space-evenly">
-        <Grid item md={4} xs={12} class="category-box">
-          <p className="category-title">Post a Bounty</p>
-          <p className="category-description">
-            Fill in the basic details like bounty title, time of delivery,
-            bounty amount ,and Github issue URL and your bounty is live.
-          </p>
-        </Grid>
-        <Grid item md={4} xs={12} class="category-box">
-          <p className="category-title">Solve a Bounty</p>
-          <p className="category-description">
-            Start contributing on open-source projects by buildng out bounties
-            listed on the platform. In exchange earn bounty rewards.
-          </p>
-        </Grid>
-        <Grid item md={4} xs={12} class="category-box">
-          <p className="category-title">Vote on Solutions</p>
-          <p className="category-description">
-            Stake and vote on solutions submitted by developers on bounties on
-            the platform and earn incentives on the staked amount.
-          </p>
-        </Grid>
+        <Link to="/post">
+          <Grid item md={4} xs={12} class="category-box">
+            <p className="category-title">Post a Bounty</p>
+            <p className="category-description">
+              Fill in the basic details like bounty title, time of delivery,
+              bounty amount ,and Github issue URL and your bounty is live.
+            </p>
+          </Grid>
+        </Link>
+        <Link
+          to={{
+            pathname: "/explore",
+            state: {
+              type: "solve",
+            },
+          }}
+          className="link"
+        >
+          <Grid item md={4} xs={12} class="category-box">
+            <p className="category-title">Solve a Bounty</p>
+            <p className="category-description">
+              Start contributing on open-source projects by buildng out bounties
+              listed on the platform. In exchange earn bounty rewards.
+            </p>
+          </Grid>
+        </Link>
+        <Link
+          to={{
+            pathname: "/explore",
+            state: {
+              type: "vote",
+            },
+          }}
+          className="link"
+        >
+          <Grid item md={4} xs={12} class="category-box">
+            <p className="category-title">Vote on Solutions</p>
+            <p className="category-description">
+              Stake and vote on solutions submitted by developers on bounties on
+              the platform and earn incentives on the staked amount.
+            </p>
+          </Grid>
+        </Link>
       </Grid>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
       {/* {waitlistDialog?
