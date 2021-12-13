@@ -20,7 +20,7 @@ export default function Login() {
         .then((response) => {
           setUsername(response.data.doc.githubId);
           window.history.pushState({}, {}, "/");
-          window.location.reload();
+          // window.location.reload();
         });
     }
   });
