@@ -37,7 +37,7 @@ export default function StakeSolution(props) {
             "Solution can't be loaded! Server-side issue. Sorry for the inconvenience",
         }));
       });
-  }, []);
+  }, [props.solutionId]);
 
   const handleChange = (value) => {
     props.handleSetStakeDetails({
@@ -47,7 +47,7 @@ export default function StakeSolution(props) {
       solverGithubId: solution.userId,
     });
   };
-
+ console.log(solution)
   return (
     <>
       {solution ? (

@@ -6,6 +6,7 @@ import { balance as balanceAtom } from "../../../recoil/atoms";
 import "../stakingPageCss.css";
 
 export default function RightCard(props) {
+  console.log(props)
   const balance = useRecoilValue(balanceAtom);
   return (
     <Grid
