@@ -50,7 +50,7 @@ export default function StakingPage(props) {
       })
       .then((response) => {
         setLoader(false);
-
+        console.log(response.data)
         setData(response.data);
         setSelectedSolutions(response.data[0].solutionIds);
       })
@@ -80,9 +80,11 @@ export default function StakingPage(props) {
 
   const handleSelect = (workplan) => {
     let i = data.findIndex((item) => item._id == workplan);
+    console.log(i)
     setSelectedWorkplan(workplan);
     setSelectedSolutions(data[i].solutionIds);
   };
+  console.log(selectedSolutions)
 
   const handleStakeValidation = () => {
     if (stakeDetails.stakeAmount < 0.0001 || stakeDetails.stakeAmount > 40) {

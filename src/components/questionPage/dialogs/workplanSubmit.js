@@ -48,12 +48,13 @@ export default function WorkplanSubmit(props) {
         open: true,
         errorMessage: "No file selected",
       }));
+      
     }
+    console.log(process.env.REACT_APP_API_KEY)
+    console.log(process.env.REACT_APP_API_SECRET)
     const uploadedFile = await fleekStorage.upload({
-      apiKey: "U3QGDwCkWltjBLGG1hATUg==",
-      apiSecret: "GMFzg7TFJC2fjhwoz9slkfnncmV/TAHK/4WVeI0qpYY=",
-      // apiKey: process.env.REACT_APP_API_KEY,
-      // apiSecret: process.env.REACT_APP_API_SECRET,
+      apiKey: process.env.REACT_APP_API_KEY,
+      apiSecret: process.env.REACT_APP_API_SECRET,
       key: username + timestamp,
       data: buffer,
     });

@@ -5,6 +5,7 @@ import ideaIconBlack from "../../assets/idea_black.png";
 import "./stakingPageCss.css";
 
 export default function LeftCard(props) {
+  console.log(props)
   const handleSelectedStyle = (value) => {
     if (props.selectedWorkplan === value) {
       return "staking-workplan-card staking-selected-workplan-card";
