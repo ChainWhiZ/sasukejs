@@ -87,7 +87,7 @@ export default function RightSide(props) {
               <Grid item md={6}>
                 <p className="results-dialog-heading">Voting Score</p>
                 <p className="results-dialog-right-grid-content-score">
-                  {props.selectedSolution.finalVoteScore}
+                  {(props.selectedSolution.finalVoteScore).toFixed(4)}
                 </p>
               </Grid>
               <Grid item md={6}>
