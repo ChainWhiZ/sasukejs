@@ -54,11 +54,15 @@ export default function QuestionCard(props) {
           </>
         ) : (
           <>
-            <Grid item md={2} xs={12} className="reward-grid"></Grid>
-            <Grid item md={2} xs={12} className="reward-grid">
-              {" "}
-              <Box className="reward-box non-community">
+            <Grid item md={2} xs={12} className="reward-grid ">
+            <Box className="reward-box">
                 {props.bountyReward} MATIC
+              </Box>
+            </Grid>
+            <Grid item md={2} xs={12} className="reward-grid right-reward-box">
+              
+              <Box className="reward-box">
+                {props.bountyReward * maticusd} MATIC
               </Box>
             </Grid>
           </>
