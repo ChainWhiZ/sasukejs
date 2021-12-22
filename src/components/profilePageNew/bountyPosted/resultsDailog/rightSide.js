@@ -165,22 +165,18 @@ export default function RightSide(props) {
                 onClick={(e) =>
                   !handleEscrowDisable() ? props.handleEscrowInitiation() : null
                 }
-                style={
-                  handleEscrowDisable()
-                    ? { color: "grey", cursor: "default" }
-                    : null
-                }
+                disabled={handleEscrowDisable()}
               >
                 {handleEscrowLabel()}
               </Button>
             )
           ) : (
-              <Button
-                className="profile-button results-dialog-right-grid-button"
-                disabled
-              >
-                Change wallet address
-              </Button>
+            <Button
+              className="profile-button results-dialog-right-grid-button"
+              disabled
+            >
+              Change wallet address
+            </Button>
           )}
         </Grid>
       </Grid>
