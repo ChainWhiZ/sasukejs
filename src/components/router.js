@@ -23,10 +23,10 @@ export default function RouterComponent() {
   useEffect(() => {
     axios
       .get(
-        `https://api.polygonscan.com/api?module=stats&action=maticprice&apikey=${process.env.REACT_APP_POLYGONSCAN}`
+        "https://api.coinbase.com/v2/exchange-rates?currency=MATIC"
       )
       .then((response) => {
-        setMaticusd(response.data.result.maticusd);
+        setMaticusd(response.data.data.rates.MUSD);
         window.addEventListener("resize", updateMedia);
         return () => window.removeEventListener("resize", updateMedia);
       })
