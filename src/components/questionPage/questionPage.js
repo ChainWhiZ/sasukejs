@@ -45,9 +45,9 @@ export default function QuestionPage(props) {
         setLoader(false);
       });
   };
-  if (!username) {
-    return <Redirect to="/" />;
-  }
+  // if (!username) {
+  //   return <Redirect to="/" />;
+  // }
   return (
     <>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />

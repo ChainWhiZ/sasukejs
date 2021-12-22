@@ -86,11 +86,7 @@ export default function QuestionLeftHeading(props) {
             >
               <Button
                 class="bounty-button"
-                disabled={
-                  walletAddress === props.publicAddress ||
-                  username === props.questionDetails.publisherGithubId
-
-                }
+               disabled={walletAddress === props.publicAddress || username === props.publisherGithubId }
               >
                 Vote Now
               </Button>

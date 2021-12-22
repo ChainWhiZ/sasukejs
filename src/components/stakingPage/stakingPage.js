@@ -21,7 +21,7 @@ export default function StakingPage(props) {
   const [data, setData] = useState([]);
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [selectedWorkplan, setSelectedWorkplan] = useState(
-    props.location.state.questionDetails.workplanIds[0]
+    props.location.state.questionDetails.workplanIds[ props.location.state.questionDetails.workplanIds.length -1]
   );
   const [selectedSolutions, setSelectedSolutions] = useState([]);
   const [voterdetails, setVoterDetails] = useState({});
