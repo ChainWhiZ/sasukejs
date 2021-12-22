@@ -87,7 +87,7 @@ export default function RightSide(props) {
               <Grid item md={6}>
                 <p className="results-dialog-heading">Voting Score</p>
                 <p className="results-dialog-right-grid-content-score">
-                  {props.selectedSolution.finalVoteScore}
+                  {(props.selectedSolution.finalVoteScore).toFixed(4)}
                 </p>
               </Grid>
               <Grid item md={6}>
@@ -165,22 +165,18 @@ export default function RightSide(props) {
                 onClick={(e) =>
                   !handleEscrowDisable() ? props.handleEscrowInitiation() : null
                 }
-                style={
-                  handleEscrowDisable()
-                    ? { color: "grey", cursor: "default" }
-                    : null
-                }
+                disabled={handleEscrowDisable()}
               >
                 {handleEscrowLabel()}
               </Button>
             )
           ) : (
-              <Button
-                className="profile-button results-dialog-right-grid-button"
-                disabled
-              >
-                Change wallet address
-              </Button>
+            <Button
+              className="profile-button results-dialog-right-grid-button"
+              disabled
+            >
+              Change wallet address
+            </Button>
           )}
         </Grid>
       </Grid>
