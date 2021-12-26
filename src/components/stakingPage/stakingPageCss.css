@@ -51,6 +51,8 @@
 }
 .staking-workplan-card:hover {
   background-color: #d4ff1e;
+  color: black !important;
+  border-radius: 7px;
 }
 
 .staking-selected-workplan-card {
