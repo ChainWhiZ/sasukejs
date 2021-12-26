@@ -64,7 +64,7 @@ export default function ResultsDialog(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Successfuly initiated");
+         
           resolve(receipt);
         });
 
@@ -85,6 +85,7 @@ export default function ResultsDialog(props) {
             ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
+        handleClose(false);
         reject(error);
       }
     });
@@ -121,6 +122,7 @@ export default function ResultsDialog(props) {
       }
 
       if (valid) {
+        window.alert("Successfuly initiated");
         handleClose(false);
         props.handleDialogClose(false);
       }

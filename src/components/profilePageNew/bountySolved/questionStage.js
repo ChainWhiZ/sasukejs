@@ -67,7 +67,7 @@ export default function QuestionStage(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Suuccessfuly acknowledged");
+         
           resolve(receipt);
         });
 
@@ -79,6 +79,7 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
+            props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
@@ -124,6 +125,7 @@ export default function QuestionStage(props) {
       }
 
       if (valid) {
+        window.alert("Suuccessfuly acknowledged");
         props.handleLoader(false);
         setOpen(false);
         props.handleDialogClose(false);
