@@ -47,6 +47,7 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
+            props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
@@ -101,6 +102,7 @@ export default function QuestionStage(props) {
       }
     } catch (error) {
       console.log(error);
+      props.handleLoader(false);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
@@ -160,7 +162,7 @@ export default function QuestionStage(props) {
                 <p className="profile-content-style profile-text-center">
                   {(props.amountStaked - props.amountToBeReturned).toFixed(4)}
                 </p>
-                :
+                
               </>
             )
           ) : (

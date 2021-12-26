@@ -76,6 +76,7 @@ export default function ResultsDialog(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
+            handleClose(false);
           reject(error.message);
         });
       } catch (error) {
@@ -128,6 +129,7 @@ export default function ResultsDialog(props) {
       }
     } catch (error) {
       console.log(error);
+      handleClose(false);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,

@@ -89,6 +89,7 @@ export default function QuestionStage(props) {
             ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
+        props.handleLoader(false);
         reject(error);
       }
     });
@@ -133,6 +134,7 @@ export default function QuestionStage(props) {
       }
     } catch (error) {
       console.log(error);
+      props.handleLoader(false);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
