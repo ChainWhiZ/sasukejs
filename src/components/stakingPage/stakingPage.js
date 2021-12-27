@@ -21,7 +21,7 @@ export default function StakingPage(props) {
   const [data, setData] = useState([]);
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [selectedWorkplan, setSelectedWorkplan] = useState(
-    props.location.state.questionDetails.workplanIds[ props.location.state.questionDetails.workplanIds.length -1]
+    props.location.state.questionDetails.workplanIds[0]
   );
   const [selectedSolutions, setSelectedSolutions] = useState([]);
   const [voterdetails, setVoterDetails] = useState({});
@@ -43,6 +43,8 @@ export default function StakingPage(props) {
   promise.then(function (v) {
     contract = v;
   });
+  console.log(props.location.state.questionDetails.workplanIds);
+
   useEffect(() => {
     axios
       .post(port + "workplan/fetchall", {
@@ -52,7 +54,8 @@ export default function StakingPage(props) {
         setLoader(false);
         console.log(response.data)
         setData(response.data);
-        setSelectedSolutions(response.data[0].solutionIds);
+        let i = response.data.findIndex((item) => item._id == selectedWorkplan);
+        setSelectedSolutions(response.data[i].solutionIds);
       })
       .catch((err) => {
         setAlert((prevState) => ({

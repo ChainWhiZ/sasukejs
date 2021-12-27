@@ -29,13 +29,13 @@ export default function QuestionStage(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
   const unstakeCall = async () => {
     return await new Promise(async (resolve, reject) => {
+
       try {
-        const trxObj = await contract.methods
-          .setApproval(props.amountToBeReturned * Math.pow(10, 18).toString())
+        const trxObj =  contract.methods
+          .setApproval(Math.floor(props.amountToBeReturned * Math.pow(10, 18).toString()))
           .send({ from: walletAddress.toString() });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Successfulyy unstaked");
           resolve(receipt);
         });
 
@@ -47,15 +47,18 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
+            props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
         console.log(error);
+        
         window.alert(
           error.transactionHash
             ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
+        props.handleLoader(false);
         reject(error);
       }
     });
@@ -93,11 +96,13 @@ export default function QuestionStage(props) {
       }
 
       if (valid) {
+        window.alert("Successfulyy unstaked");
         props.fetchVotedSolutions();
         props.handleLoader(false);
       }
     } catch (error) {
       console.log(error);
+      props.handleLoader(false);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
@@ -146,7 +151,7 @@ export default function QuestionStage(props) {
               <>
                 <p className="profile-text-style profile-text-center">Earned</p>
                 <p className="profile-content-style profile-text-center">
-                  {props.amountToBeReturned - props.amountStaked}
+                  {(props.amountToBeReturned - props.amountStaked).toFixed(4)}
                 </p>
               </>
             ) : (
@@ -155,9 +160,9 @@ export default function QuestionStage(props) {
                   Slashed
                 </p>
                 <p className="profile-content-style profile-text-center">
-                  {props.amountStaked - props.amountToBeReturned}
+                  {(props.amountStaked - props.amountToBeReturned).toFixed(4)}
                 </p>
-                :
+                
               </>
             )
           ) : (
@@ -167,7 +172,7 @@ export default function QuestionStage(props) {
                 To be Unstaked
               </p>
               <p className="profile-content-style profile-text-center">
-                {props.amountToBeReturned}
+                {props.amountToBeReturned.toFixed(4)}
               </p>
             </>
           )}
