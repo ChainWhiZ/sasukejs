@@ -68,10 +68,7 @@
   opacity: 39% !important;
   cursor: auto !important;
 }
-.profile-button:disabled:hover {
-  background-color: #cccccc !important;
-  color: #666666 !important;
-}
+
 .profile-content-style {
   font-family: Poppins !important;
   color: #ffffff !important;

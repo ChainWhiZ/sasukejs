@@ -42,3 +42,8 @@ a {
 .login {
   margin-top: 2vh;
 }
+
+.navbar-loader{
+  margin-top: 1.5vh;
+  color: rgba(215, 255, 46, 1) !important;
+}

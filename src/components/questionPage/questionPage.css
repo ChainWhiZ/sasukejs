@@ -194,10 +194,6 @@
   opacity: 39% !important;
   cursor: auto !important;
 }
-.bounty-button:disabled:hover {
-  background-color: #cccccc !important;
-  color: #666666 !important;
-}
 
 .category {
   font-family: Poppins;

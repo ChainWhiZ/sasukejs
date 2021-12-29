@@ -79,6 +79,7 @@ export default function SolutionSubmit(props) {
                 : error.message
             );
           reject(error.message);
+          props.handleDialogClose(false);
         });
       } catch (error) {
         console.log(error);
@@ -90,6 +91,7 @@ export default function SolutionSubmit(props) {
         reject(error);
         setOpen(false);
         setDisable(false);
+        props.handleDialogClose(false);
       }
     });
   };
