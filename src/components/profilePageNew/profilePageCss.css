@@ -65,7 +65,6 @@
 .profile-button:disabled {
   background-color: #cccccc !important;
   color: #666666 !important;
-  opacity: 39% !important;
   cursor: auto !important;
 }
 
