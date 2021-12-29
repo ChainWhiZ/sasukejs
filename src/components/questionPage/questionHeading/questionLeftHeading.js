@@ -101,11 +101,6 @@ export default function QuestionLeftHeading(props) {
                  
               }
               handleFetch={props.handleFetch()}
-              disabled={
-                  walletAddress === props.questionDetails.publicAddress ||
-                  username === props.questionDetails.publisherGithubId
-                 
-              }
             >
               Submit Workplan
             </Button>

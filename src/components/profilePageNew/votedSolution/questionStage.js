@@ -11,6 +11,7 @@ import {
   contract as contractAtom,
   walletAddress as walletAddressAtom,
 } from "../../../recoil/atoms";
+import Tooltip from '@material-ui/core/Tooltip';
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
@@ -31,7 +32,7 @@ export default function QuestionStage(props) {
     return await new Promise(async (resolve, reject) => {
 
       try {
-        const trxObj =  contract.methods
+        const trxObj = contract.methods
           .setApproval(Math.floor(props.amountToBeReturned * Math.pow(10, 18).toString()))
           .send({ from: walletAddress.toString() });
         trxObj.on("receipt", function (receipt) {
@@ -47,12 +48,12 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-            props.handleLoader(false);
+          props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
         console.log(error);
-        
+
         window.alert(
           error.transactionHash
             ? `Went wrong in trc hash :${error.transactionHash}`
@@ -82,7 +83,7 @@ export default function QuestionStage(props) {
               solutionId: props.solutionId._id,
             })
 
-            .catch((err) => {});
+            .catch((err) => { });
         } catch (error) {
           console.log(error);
           valid = false;
@@ -150,19 +151,28 @@ export default function QuestionStage(props) {
             props.amountToBeReturned > props.amountStaked ? (
               <>
                 <p className="profile-text-style profile-text-center">Earned</p>
-                <p className="profile-content-style profile-text-center">
-                  {(props.amountToBeReturned - props.amountStaked).toFixed(4)}
-                </p>
+                <Tooltip title={props.amountToBeReturned - props.amountStaked}
+                disableHoverListener={!((props.amountToBeReturned - props.amountStaked).toString().length >4)}>
+                  <p className="profile-content-style profile-text-center">
+
+                    {(props.amountToBeReturned - props.amountStaked).toFixed(4)}
+
+                  </p>
+                </Tooltip>
               </>
             ) : (
               <>
                 <p className="profile-text-style profile-text-center">
                   Slashed
                 </p>
-                <p className="profile-content-style profile-text-center">
-                  {(props.amountStaked - props.amountToBeReturned).toFixed(4)}
-                </p>
-                
+                <Tooltip title={props.amountStaked - props.amountToBeReturned} 
+                disableHoverListener={!((props.amountStaked - props.amountToBeReturned).toString().length >4)}>
+                  <p className="profile-content-style profile-text-center">
+
+                    {(props.amountStaked - props.amountToBeReturned).toFixed(4)}
+
+                  </p>
+                </Tooltip>
               </>
             )
           ) : (
@@ -171,17 +181,19 @@ export default function QuestionStage(props) {
               <p className="profile-text-style profile-text-center">
                 To be Unstaked
               </p>
+              <Tooltip title={props.amountToBeReturned}  disableHoverListener={!(props.amountToBeReturned.toString().length >4)}>
               <p className="profile-content-style profile-text-center">
                 {props.amountToBeReturned.toFixed(4)}
               </p>
+              </Tooltip>
             </>
           )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             !props.claimed &&
-            props.amountToBeReturned &&
-            props.questionDetails.questionStage === "complete" ? (
+              props.amountToBeReturned &&
+              props.questionDetails.questionStage === "complete" ? (
               <Button className="profile-button" onClick={handleUnstake}>
                 Unstake Now
               </Button>
@@ -191,9 +203,9 @@ export default function QuestionStage(props) {
               </Link>
             )
           ) : (
-              <Button className="profile-button " disabled>
+            <Button className="profile-button " disabled>
               Change your wallet address
-              </Button>
+            </Button>
           )}
         </Grid>
       </Grid>

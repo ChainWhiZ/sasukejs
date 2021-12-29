@@ -6,6 +6,7 @@ import axios from "axios";
 import { port } from "../../config/config";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
+import { Tooltip } from "@material-ui/core";
 
 export default function Heading(props) {
   const username = useRecoilValue(usernameAtom);
@@ -47,7 +48,7 @@ export default function Heading(props) {
           alt="account"
         />
       </Grid>
-      {data && Object.keys(data).length  ?
+      {data && Object.keys(data).length ?
         <>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
             <p className="profile-details-bounty">
@@ -63,9 +64,11 @@ export default function Heading(props) {
           </Grid>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
             {data.voterWeightage ? (
-              <p className="profile-details-bounty">
-                {data.voterWeightage && data.voterWeightage}
-              </p>
+             
+                <p className="profile-details-bounty">
+                  {data.voterWeightage}
+                </p>
+             
             ) : (
               <p className="profile-details-bounty">0</p>
             )}
