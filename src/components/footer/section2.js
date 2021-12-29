@@ -30,6 +30,15 @@ export default function Section2() {
           </a>
         </Grid>
         <Grid item md={12} xs={12}>
+          <a
+            href="https://www.notion.so/akpradhan/Beta1-testing-guidelines-593de740193043d1beab13ffeb7b424d"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p>Product Guidelines </p>
+          </a>
+        </Grid>
+        <Grid item md={12} xs={12}>
           <p style={{ opacity: "40%" }}>Brand Kit </p>
         </Grid>
       </Grid>
