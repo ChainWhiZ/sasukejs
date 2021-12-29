@@ -14,7 +14,6 @@ import {
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
-  console.log(props);
   let valid = true;
   const [open, setOpen] = useState(false);
   const [escrow, setEscrow] = useState({});
@@ -190,7 +189,7 @@ export default function QuestionStage(props) {
           <p className="profile-text-style profile-text-center">
             Winning Solution
           </p>
-          {props.questionId.selectedSolutionId.solutionId ? (
+          {props.questionId.selectedSolutionId && props.questionId.selectedSolutionId.solutionId ? (
             <a
               href={props.questionId.selectedSolutionId.solutionId}
               target="_blank"
