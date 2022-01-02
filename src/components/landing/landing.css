@@ -94,3 +94,21 @@ p {
   text-transform: none !important;
   font-size: 1vw !important;
 }
+.login-popup .MuiDialog-paper{
+  background-color: #000000; 
+  padding: 1%;
+  color: #ffffff;
+  height: 18vh;
+  overflow: hidden;
+  width: 24.5vw;
+  text-align: center;
+ }
+ .dialog-button:hover{
+  background-color: #000000; 
+  
+  color: #ffffff;
+ }
+ 
+ .dialog-button{
+   margin-top: 3%;
+ }
