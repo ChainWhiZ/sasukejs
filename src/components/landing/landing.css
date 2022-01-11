@@ -103,12 +103,22 @@ p {
   width: 24.5vw;
   text-align: center;
  }
- .dialog-button:hover{
+ .dialog-button:hover,
+ .dialog-button:active{
   background-color: #000000; 
+  color: white;
+  border: 2px solid white;
   
   color: #ffffff;
  }
  
  .dialog-button{
    margin-top: 3%;
+   outline: none;
+   border: none;
  }
+ .dialog-button:focus{
+   outline: none;
+ }
+
+ 
