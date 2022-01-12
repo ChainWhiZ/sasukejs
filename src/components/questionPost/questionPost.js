@@ -20,6 +20,7 @@ export default function QuestionPost() {
   const [communityOption, setCommunityOption] = useState();
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(false);
+  const [currency, setCurrency] = useState('matic')
   const [terms, setTerms] = useState({
     undertaking1: false,
     undertaking2: false,
@@ -107,6 +108,7 @@ export default function QuestionPost() {
             errorMessage: "Please enter valid bounty reward",
           }));
         } else {
+          console.log(currency)
           handlePageChange(page);
         }
       }
@@ -357,6 +359,8 @@ export default function QuestionPost() {
               pageState={activePage}
               handleReward={setReward}
               reward={reward}
+              handleCurrency = {setCurrency}
+              currency = {currency}
               alert={alert}
             />
           ) : activePage === 6 ? (
@@ -376,6 +380,8 @@ export default function QuestionPost() {
               handleCommunityReward={setCommunityReward}
               communityOption={communityOption}
               communityReward={communityReward}
+              handleCurrency = {setCurrency}
+              currency = {currency}
               alert={alert}
             />
           ) : activePage === 8 ? (

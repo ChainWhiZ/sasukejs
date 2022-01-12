@@ -49,6 +49,8 @@ export default function BaseComponent(props) {
               handleReward={props.handleReward}
               pageState={props.pageState}
               reward={props.reward}
+              handleCurrency = {props.handleCurrency}
+              currency = {props.currency}
               alert={props.alert}
             />
           ) : props.pageState === 6 ? (
@@ -64,6 +66,8 @@ export default function BaseComponent(props) {
               pageState={props.pageState}
               communityOption={props.communityOption}
               communityReward={props.communityReward}
+              handleCurrency = {props.handleCurrency}
+              currency = {props.currency}
               alert={props.alert}
             />
           ) : props.pageState === 8 ? (

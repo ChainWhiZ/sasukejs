@@ -5,13 +5,16 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import SimpleAlerts from "../../alert/alert";
 
 export default function InputComponent(props) {
-  let currency=""
-  if(props.pageState === 5 || props.pageState === 7) {
-    currency="MATIC";
-  }
+
+
+  const handleCurrencyChange = (event) => {
+    props.handleCurrency(event.target.value);
+  };
   function handlePlaceholder() {
     if (props.pageState === 1) return "Enter Issue Title";
     if (props.pageState === 4) return "Enter Github Issue URL";
@@ -60,8 +63,8 @@ export default function InputComponent(props) {
 
   return (
     <>
-     {props.alert.isValid ? (
-        <SimpleAlerts  severity={"warning"} message={props.alert.errorMessage} />
+      {props.alert.isValid ? (
+        <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
       ) : null}
       <Grid
         container
@@ -70,50 +73,70 @@ export default function InputComponent(props) {
         justifyContent={props.pageState === 8 ? "flex-start" : "center"}
         className={handleStyle()}
       >
-        <Grid item md={12} xs={12} className={props.pageState===8?"margin-left-30":"margin-left-35"}>
+        <Grid item md={12} xs={12} className={props.pageState === 8 ? "margin-left-30" : "margin-left-35"}>
           <p className="left-title ">{handleLabel()}</p>
         </Grid>
         {props.pageState === 1 ||
-        props.pageState === 4 ||
-        props.pageState === 5 ||
-        props.pageState === 7 ? (
+          props.pageState === 4 ||
+          props.pageState === 5 ||
+          props.pageState === 7 ? (
           <>
-          <Grid item md={8} xs={8} className="margin-top-2">
-            <Input
-             
-              type={
-                props.pageState === 5 || props.pageState === 7
-                  ? "number"
-                  : "text"
-              }
-              inputProps={{
-                style: { textAlign: "center" },
-                min: (props.pageState===5)?10:5,
-              }}
-              placeholder={handlePlaceholder()}
-              value={handleValue()}
-              className={handleStyle("input")}
-              onChange={(e) => {
-                handleOnChange(e.target.value);
-              }}
-            />
-          </Grid>
-          <Grid item md={12} className="bounty-post-unit cwz">
-            <p>{currency}</p>
-          </Grid>
+            <Grid item md={8} xs={8} className="margin-top-2">
+              <Input
+
+                type={
+                  props.pageState === 5 || props.pageState === 7
+                    ? "number"
+                    : "text"
+                }
+                inputProps={{
+                  style: { textAlign: "center" },
+                  min: (props.pageState === 5) ? 10 : 5,
+                }}
+                placeholder={handlePlaceholder()}
+                value={handleValue()}
+                className={handleStyle("input")}
+                onChange={(e) => {
+                  handleOnChange(e.target.value);
+                }}
+              />
+            </Grid>
+
+
+            <Grid item md={12} className="cwz">
+              {
+                props.pageState === 5
+                  ?
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    value={props.currency}
+                    className="bounty-post-unit"
+                    onChange={handleCurrencyChange}
+                    label="Currency"
+                  >
+
+                    <MenuItem value={"matic"}>MATIC</MenuItem>
+                    <MenuItem value={"dev"}>DEV</MenuItem>
+                  </Select>
+                  : props.pageState === 7 ?
+                    <p className="bounty-post-unit">{(props.currency).toUpperCase()}</p>
+                    : null}
+            </Grid>
+
           </>
         ) : (
           <>
-            <Grid item md={12} xs={12} style={{marginLeft:props.walletAddress?"25%":"40%"}}>
+            <Grid item md={12} xs={12} style={{ marginLeft: props.walletAddress ? "25%" : "40%" }}>
               <Input
-                value={props.walletAddress?props.walletAddress:"Not Connected"}
+                value={props.walletAddress ? props.walletAddress : "Not Connected"}
                 className="input-field-style"
-                style={{marginLeft:"-5%"}}
+                style={{ marginLeft: "-5%" }}
                 disabled={true}
               />
-              <br/>
-              <br/>
-              <br/>
+              <br />
+              <br />
+              <br />
             </Grid>
             <Grid item md={12} xs={12}>
               <FormControlLabel
@@ -154,7 +177,7 @@ export default function InputComponent(props) {
           </>
         )}
       </Grid>
-     
+
     </>
   );
 }
