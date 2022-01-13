@@ -30,8 +30,8 @@ export default function QuestionRightHeading(props) {
           <p class="heading color-neon">Bounty Amount</p>
           <p class="bounty-time ">
             {props.questionStage === "vote"
-              ? props.communityReward + " MATIC"
-              : props.bountyReward + " MATIC"}
+              ? props.communityReward + " "+props.bountyCurrency
+              : props.bountyReward + " "+props.bountyCurrency}
           </p>
           <p class="bounty-time margin-top-20">
             {" "}

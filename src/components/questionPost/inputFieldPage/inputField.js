@@ -116,8 +116,8 @@ export default function InputComponent(props) {
                     label="Currency"
                   >
 
-                    <MenuItem value={"matic"}>MATIC</MenuItem>
-                    <MenuItem value={"dev"}>DEV</MenuItem>
+                    <MenuItem value={"MATIC"}>MATIC</MenuItem>
+                    <MenuItem value={"DEV"}>DEV</MenuItem>
                   </Select>
                   : props.pageState === 7 ?
                     <p className="bounty-post-unit">{(props.currency).toUpperCase()}</p>

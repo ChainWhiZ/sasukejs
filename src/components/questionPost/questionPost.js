@@ -20,7 +20,7 @@ export default function QuestionPost() {
   const [communityOption, setCommunityOption] = useState();
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(false);
-  const [currency, setCurrency] = useState('matic')
+  const [currency, setCurrency] = useState('MATIC')
   const [terms, setTerms] = useState({
     undertaking1: false,
     undertaking2: false,
@@ -261,6 +261,7 @@ export default function QuestionPost() {
                 publicAddress: walletAddress,
                 questionTitle: issueTitle,
                 githubIssueUrl: issueURL,
+                bountyCurrency:currency,
                 timeEnd: timeEnd,
                 solvingTimeBegin: timeBegin,
                 votingTimeBegin: votingTimeBegin,

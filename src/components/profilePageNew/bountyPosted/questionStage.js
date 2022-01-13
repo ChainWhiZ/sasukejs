@@ -21,7 +21,7 @@ export default function QuestionStage(props) {
             className="profile-content-style profile-text-center profile-bounty-reward"
             style={{ marginTop: "1%" }}
           >
-            {props.bountyReward} MATIC
+            {props.bountyReward} {props.bountyCurrency}
           </p>
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
