@@ -155,7 +155,7 @@ export default function QuestionStage(props) {
                 disableHoverListener={!((props.amountToBeReturned - props.amountStaked).toString().length >4)}>
                   <p className="profile-content-style profile-text-center">
 
-                    {(props.amountToBeReturned - props.amountStaked).toFixed(4)}
+                    {(props.incentive).toFixed(4)}
 
                   </p>
                 </Tooltip>
