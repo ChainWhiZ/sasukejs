@@ -46,7 +46,7 @@ export default function QuestionCard(props) {
         {props.isCommunityApprovedSolution ? (
           <>
             <Grid item md={2} xs={12} className="reward-grid">
-              <Box className="reward-box">{props.type==="solve"?props.bountyReward:props.communityReward} MATIC</Box>
+              <Box className="reward-box">{props.type==="solve"?props.bountyReward:props.communityReward} {props.bountyCurrency}</Box>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               <Box className="reward-box">{props.type==="solve"?up(props.bountyReward * maticusd):up(props.communityReward * maticusd)} USD</Box>
@@ -56,13 +56,13 @@ export default function QuestionCard(props) {
           <>
             <Grid item md={2} xs={12} className="reward-grid ">
             <Box className="reward-box">
-                {props.bountyReward} MATIC
+                {props.bountyReward} {props.bountyCurrency}
               </Box>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               
               <Box className="reward-box">
-                {props.bountyReward * maticusd} MATIC
+                {props.bountyReward * maticusd} {props.bountyCurrency}
               </Box>
             </Grid>
           </>
