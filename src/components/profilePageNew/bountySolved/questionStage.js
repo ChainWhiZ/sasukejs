@@ -14,6 +14,7 @@ import {
 import "../profilePageCss.css";
 
 export default function QuestionStage(props) {
+  console.log(props)
   let valid = true;
   const [open, setOpen] = useState(false);
   const [escrow, setEscrow] = useState({});
@@ -66,7 +67,7 @@ export default function QuestionStage(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-         
+
           resolve(receipt);
         });
 
@@ -78,7 +79,7 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-            props.handleLoader(false);
+          props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
@@ -167,6 +168,15 @@ export default function QuestionStage(props) {
             </>
           ) : null}
         </Grid>
+        <Grid item md={12}>
+          <p className="profile-text-style" style={{textAlign:"center"}}>Bounty Amount</p>
+          <p
+            className="profile-content-style profile-text-center profile-bounty-reward"
+            style={{ marginTop: "1%" }}
+          >
+            {props.questionId.bountyReward} {props.questionId.bountyCurrency}
+          </p>
+        </Grid>
         <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
             Your Solution
@@ -189,7 +199,8 @@ export default function QuestionStage(props) {
           <p className="profile-text-style profile-text-center">
             Winning Solution
           </p>
-          {props.questionId.selectedSolutionId && props.questionId.selectedSolutionId.solutionId ? (
+          {props.questionId.selectedSolutionId &&
+          props.questionId.selectedSolutionId.solutionId ? (
             <a
               href={props.questionId.selectedSolutionId.solutionId}
               target="_blank"
@@ -226,9 +237,9 @@ export default function QuestionStage(props) {
               </Link>
             )
           ) : (
-              <Button className="profile-button" disabled>
+            <Button className="profile-button" disabled>
               Change wallet address
-              </Button>
+            </Button>
           )}
         </Grid>
       </Grid>
