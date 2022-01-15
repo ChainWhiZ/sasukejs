@@ -8,8 +8,8 @@ import "./navbar.css";
 
 export default function Login() {
   const [username, setUsername] = useRecoilState(usernameAtom);
+  setUsername("voter1")
   const [ loader,setLoader] = useState(false);
-  setUsername("mishramonalisha76");
   useEffect(() => {
     const url = window.location.href;
     const hasCode = url.includes("?code=");
