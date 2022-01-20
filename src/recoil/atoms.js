@@ -24,4 +24,7 @@ export const maticusd = atom({
   key: "maticusd",
   default:0,
 });
-
+export const devusd = atom({
+  key: "devusd",
+  default:0,
+});

@@ -26,8 +26,8 @@ export default function LoginPopup(props) {
                 onBackdropClick={handleClose}
             >
                 
-                <Grid container className="">
-                    <Grid item md={12}>
+                <Grid container >
+                    <Grid item md={12} style={{padding:"3rem"}}>
                         <p>
                             Please Login with your GithubId to access the Marketplace
                             

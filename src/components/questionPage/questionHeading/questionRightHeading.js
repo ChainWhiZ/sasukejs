@@ -4,7 +4,7 @@ import "../questionPage.css";
 import SolutionSubmit from "../dialogs/solutionSubmit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { maticusd as maticusdAtom, walletAddress as walletAddressAtom, username as usernameAtom } from "../../../recoil/atoms";
+import { maticusd as maticusdAtom, walletAddress as walletAddressAtom, username as usernameAtom ,devusd as devusdAtom} from "../../../recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 export default function QuestionRightHeading(props) {
@@ -13,6 +13,7 @@ export default function QuestionRightHeading(props) {
   const username = useRecoilValue(usernameAtom)
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const maticusd = useRecoilValue(maticusdAtom);
+  const devusd = useRecoilValue(devusdAtom);
   const up = (v) => {
     return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
   }
@@ -36,8 +37,8 @@ export default function QuestionRightHeading(props) {
           <p class="bounty-time margin-top-20">
             {" "}
             {props.questionStage === "vote"
-              ? up(props.communityReward * maticusd) + " USD"
-              : up(props.bountyReward * maticusd) + " USD"}
+              ? up(props.communityReward * (props.bountyCurrency==='DEV'?devusd:maticusd)) + " USD"
+              : up(props.bountyReward * (props.bountyCurrency==='DEV'?devusd:maticusd)) + " USD"}
           </p>
           {props.questionStage === "solve" ? (
             <Button
