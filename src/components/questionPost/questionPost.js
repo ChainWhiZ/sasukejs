@@ -7,7 +7,11 @@ import { text } from "../../constants";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
 import { Redirect } from "react-router-dom";
-import { walletAddress as walletAddressAtom, contract as contractAtom } from "../../recoil/atoms";
+import {
+  walletAddress as walletAddressAtom,
+  contract as contractAtom,
+  tokenContract as tokenContractAtom,
+} from "../../recoil/atoms";
 import CircularIndeterminate from "../loader/loader";
 
 export default function QuestionPost() {
@@ -20,7 +24,7 @@ export default function QuestionPost() {
   const [communityOption, setCommunityOption] = useState();
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(false);
-  const [currency, setCurrency] = useState('MATIC')
+  const [currency, setCurrency] = useState("MATIC");
   const [terms, setTerms] = useState({
     undertaking1: false,
     undertaking2: false,
@@ -33,17 +37,27 @@ export default function QuestionPost() {
   });
   const [success, setSuccess] = useState({
     success: false,
-    message: ""
-  })
+    message: "",
+  });
   const username = useRecoilValue(usernameAtom);
   const contractPromise = useRecoilValue(contractAtom);
+  console.log(contractPromise);
   let contract;
   var promise = Promise.resolve(contractPromise);
   promise.then(function (v) {
     contract = v;
   });
-
-
+  console.log(tokenContractAtom);
+  const tokenContractPromise = useRecoilValue(tokenContractAtom);
+  console.log(tokenContractPromise);
+  let tokenContract;
+  var tokenPromise = Promise.resolve(tokenContractPromise);
+  tokenPromise.then(function (v) {
+    console.log(v);
+    tokenContract = v;
+    console.log(tokenContract);
+  });
+  console.log(tokenContract);
   function handleGithubIssueValidation() {
     console.log("in here");
     setLoader(true);
@@ -61,9 +75,8 @@ export default function QuestionPost() {
         setLoader(false);
         return false;
       });
-     return true;
+    return true;
   }
-
 
   function handlePageChange(page) {
     setAlert((prevState) => ({
@@ -108,7 +121,7 @@ export default function QuestionPost() {
             errorMessage: "Please enter valid bounty reward",
           }));
         } else {
-          console.log(currency)
+          console.log(currency);
           handlePageChange(page);
         }
       }
@@ -135,7 +148,10 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
-        if (communityReward <= 0.00000001 && communityOption == "Community Approved") {
+        if (
+          communityReward <= 0.00000001 &&
+          communityOption == "Community Approved"
+        ) {
           console.log(typeof communityReward);
           setAlert((prevState) => ({
             ...prevState,
@@ -162,12 +178,17 @@ export default function QuestionPost() {
     }
   }
 
-  async function questionPosting(timeEnd, votingTimeBegin) {
+  async function questionPostingWithMatic(timeEnd, votingTimeBegin) {
     return await new Promise((resolve, reject) => {
       const rewardAmount = reward * Math.pow(10, 18);
-      const communityRewardAmount = communityReward* Math.pow(10, 18)
-      const totalAmount = rewardAmount+communityRewardAmount
-      console.log("total %s comm %s sol %s",totalAmount, communityRewardAmount, rewardAmount)
+      const communityRewardAmount = communityReward * Math.pow(10, 18);
+      const totalAmount = rewardAmount + communityRewardAmount;
+      console.log(
+        "total %s comm %s sol %s",
+        totalAmount,
+        communityRewardAmount,
+        rewardAmount
+      );
       try {
         const trxObj = contract.methods
           .postIssue(
@@ -175,34 +196,114 @@ export default function QuestionPost() {
             issueURL,
             rewardAmount.toString(),
             communityRewardAmount.toString(),
-            communityOption == "Community Approved" ? (votingTimeBegin - 1).toString() : timeEnd.toString(),
-            communityOption == "Community Approved" ? votingTimeBegin.toString() : "0",
+            communityOption == "Community Approved"
+              ? (votingTimeBegin - 1).toString()
+              : timeEnd.toString(),
+            communityOption == "Community Approved"
+              ? votingTimeBegin.toString()
+              : "0",
             communityOption == "Community Approved" ? timeEnd.toString() : "0",
+            currency
           )
-          .send({ from: walletAddress.toString(), value:totalAmount });
+          .send({ from: walletAddress.toString(), value: totalAmount });
 
-        trxObj.on('receipt', function (receipt) {
-          console.log("Successfully done")
-        //  window.alert("Suuccessfulyy posted")
-          resolve(receipt)
-        })
-
-        trxObj.on('error', function (error, receipt) {
-          setLoader(false)
-          console.log(error)
-          if (error)
-            window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-          reject(error.message)
+        trxObj.on("receipt", function (receipt) {
+          console.log("Successfully done");
+          //  window.alert("Suuccessfulyy posted")
+          resolve(receipt);
         });
 
+        trxObj.on("error", function (error, receipt) {
+          setLoader(false);
+          console.log(error);
+          if (error)
+            window.alert(
+              error.transactionHash
+                ? `Went wrong in trc hash :${error.transactionHash}`
+                : error.message
+            );
+          reject(error.message);
+        });
       } catch (error) {
-        console.log(error)
-        window.alert(error.transactionHash ? `Went wrong in trc hash :${error.transactionHash}` : error.message)
-        reject(error)
+        console.log(error);
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        reject(error);
       }
-    })
+    });
+  }
+  async function questionPostingWithERC20(timeEnd, votingTimeBegin) {
+    return await new Promise((resolve, reject) => {
+      const rewardAmount = reward * Math.pow(10, 18);
+      const communityRewardAmount = communityReward * Math.pow(10, 18);
+      const totalAmount = rewardAmount + communityRewardAmount;
+      console.log(
+        "total %s comm %s sol %s",
+        totalAmount,
+        communityRewardAmount,
+        rewardAmount
+      );
+      try {
+        console.log(tokenContract.methods);
+        const approvalTrx = tokenContract.methods
+          .approve(
+            "0x48e020C88Ef77c762f34631cc9eA8D3eff32a04B",
+            (totalAmount * 2).toString()
+          )
+          .send({ from: walletAddress.toString() });
+        window.alert("Approving your token, wait for the next transaction");
+        approvalTrx.on("receipt", function (receipt) {
+          const trxObj = contract.methods
+            .postIssue(
+              username,
+              issueURL,
+              rewardAmount.toString(),
+              communityRewardAmount.toString(),
+              communityOption == "Community Approved"
+                ? (votingTimeBegin - 1).toString()
+                : timeEnd.toString(),
+              communityOption == "Community Approved"
+                ? votingTimeBegin.toString()
+                : "0",
+              communityOption == "Community Approved"
+                ? timeEnd.toString()
+                : "0",
+              `"DUM"`
+            )
+            .send({ from: walletAddress.toString() });
 
-  };
+          trxObj.on("receipt", function (receipt) {
+            console.log("Successfully done");
+            //  window.alert("Suuccessfulyy posted")
+            resolve(receipt);
+          });
+
+          trxObj.on("error", function (error, receipt) {
+            setLoader(false);
+            console.log(error);
+            if (error)
+              window.alert(
+                error.transactionHash
+                  ? `Went wrong in trc hash :${error.transactionHash}`
+                  : error.message
+              );
+            reject(error.message);
+          });
+        });
+      } catch (error) {
+        console.log(error);
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        reject(error);
+      }
+    });
+  }
   async function handleSubmit() {
     console.log(time);
     console.log(issueTitle);
@@ -212,78 +313,75 @@ export default function QuestionPost() {
     console.log(communityOption);
     console.log(communityReward);
     console.log(terms);
-   
-    if (terms.undertaking1 === false || terms.undertaking2 === false) {
 
+    if (terms.undertaking1 === false || terms.undertaking2 === false) {
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Please accept the terms",
       }));
     } else if (!walletAddress) {
-
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Please connect wallet",
       }));
-    }
-    else {
-
+    } else {
       setAlert((prevState) => ({
         ...prevState,
         isValid: false,
         errorMessage: "",
       }));
       setLoader(true);
-      console.log("hereeeeee")
+      console.log("hereeeeee");
       const timeBegin = Math.floor(new Date().getTime() / 1000);
       let timeEnd = timeBegin + time * 24 * 60 * 60;
-      let votingTimeBegin = communityOption == "Community Approved"
-        ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
-        : 0
+      let votingTimeBegin =
+        communityOption == "Community Approved"
+          ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+          : 0;
       let valid = true;
       let axiosResponse;
       try {
         try {
-          const questionResponse = await questionPosting(timeEnd, votingTimeBegin);
-        }
-        catch (error) {
-          console.log(error)
-          valid = false
+          const questionResponse =
+            currency === "MATIC"
+              ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
+              : await questionPostingWithERC20(timeEnd, votingTimeBegin);
+        } catch (error) {
+          console.log(error);
+          valid = false;
         }
 
         if (valid) {
           try {
-            axiosResponse = await axios
-              .post(port + "question/save", {
-                githubId: username,
-                publicAddress: walletAddress,
-                questionTitle: issueTitle,
-                githubIssueUrl: issueURL,
-                bountyCurrency:currency,
-                timeEnd: timeEnd,
-                solvingTimeBegin: timeBegin,
-                votingTimeBegin: votingTimeBegin,
-                bountyReward: reward,
-                communityReward: communityReward,
-                isCommunityApprovedSolution:
-                  communityOption == "Community Approved" ? true : false,
-                questionCategories: category,
-              })
-              Promise.resolve(axiosResponse).then((val)=>{
-                if (val.status == 201) {
-                  window.alert("Suuccessfulyy posted")
-                  setLoader(false);
-                  history.push({
-                    pathname: `/bounty/${axiosResponse.data}`,
-                    state: { id: axiosResponse.data },
-                  });
-                }
-              })
-            
+            axiosResponse = await axios.post(port + "question/save", {
+              githubId: username,
+              publicAddress: walletAddress,
+              questionTitle: issueTitle,
+              githubIssueUrl: issueURL,
+              bountyCurrency: currency,
+              timeEnd: timeEnd,
+              solvingTimeBegin: timeBegin,
+              votingTimeBegin: votingTimeBegin,
+              bountyReward: reward,
+              communityReward: communityReward,
+              isCommunityApprovedSolution:
+                communityOption == "Community Approved" ? true : false,
+              questionCategories: category,
+            });
+            Promise.resolve(axiosResponse).then((val) => {
+              if (val.status == 201) {
+                window.alert("Successfully posted");
+                setLoader(false);
+                history.push({
+                  pathname: `/bounty/${axiosResponse.data}`,
+                  state: { id: axiosResponse.data },
+                });
+              }
+            });
           } catch (error) {
-            console.log(error)
+            console.log(error);
             setAlert((prevState) => ({
               ...prevState,
               isValid: true,
@@ -292,19 +390,15 @@ export default function QuestionPost() {
             valid = false;
           }
         }
-
       } catch (error) {
-        console.log(error)
+        console.log(error);
         setAlert((prevState) => ({
           ...prevState,
           isValid: true,
           errorMessage: "Something went wrong while posting!",
         }));
-
       }
-
     }
-
   }
 
   if (!username) {
@@ -313,9 +407,9 @@ export default function QuestionPost() {
 
   return (
     <>
-      {loader ?
+      {loader ? (
         <CircularIndeterminate />
-        :
+      ) : (
         <>
           {activePage === 1 ? (
             <BaseComponent
@@ -360,8 +454,8 @@ export default function QuestionPost() {
               pageState={activePage}
               handleReward={setReward}
               reward={reward}
-              handleCurrency = {setCurrency}
-              currency = {currency}
+              handleCurrency={setCurrency}
+              currency={currency}
               alert={alert}
             />
           ) : activePage === 6 ? (
@@ -381,8 +475,8 @@ export default function QuestionPost() {
               handleCommunityReward={setCommunityReward}
               communityOption={communityOption}
               communityReward={communityReward}
-              handleCurrency = {setCurrency}
-              currency = {currency}
+              handleCurrency={setCurrency}
+              currency={currency}
               alert={alert}
             />
           ) : activePage === 8 ? (
@@ -399,8 +493,7 @@ export default function QuestionPost() {
             />
           ) : null}
         </>
-
-      }
+      )}
       {success.success ? alert(success.message) : null}
     </>
   );

@@ -229,7 +229,7 @@ export default function QuestionStage(props) {
                 className="profile-button"
                 onClick={() => handleComplete()}
               >
-                Reward Received
+                Claim Reward
               </Button>
             ) : (
               <Link to={`/bounty/${props.questionId._id}`}>
