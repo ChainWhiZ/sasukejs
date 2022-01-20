@@ -100,9 +100,16 @@ p {
   color: #ffffff;
   height: 18vh;
   overflow: hidden;
-  width: 24.5vw;
+  width: 35vw;
+  height: 34vh;
   text-align: center;
  }
+ @media only screen and (max-width: 1366) and (min-width: 1000) {
+  .login-popup .MuiDialog-paper {
+    width: 40vw;
+    height: 50vh;
+  }
+}
  .dialog-button:hover,
  .dialog-button:active{
   background-color: #000000; 

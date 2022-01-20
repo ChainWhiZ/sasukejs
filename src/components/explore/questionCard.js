@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import "./explore.css";
 import time from "../../assets/Time.png";
 import account from "../../assets/Account.png";
-import { maticusd as maticusdAtom } from "../../recoil/atoms";
+import { maticusd as maticusdAtom,devusd as devusdAtom } from "../../recoil/atoms";
 import { useRecoilValue } from "recoil";
 
 export default function QuestionCard(props) {
   const maticusd = useRecoilValue(maticusdAtom);
+  const devusd = useRecoilValue(devusdAtom);
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
@@ -49,7 +50,7 @@ export default function QuestionCard(props) {
               <Box className="reward-box">{props.type==="solve"?props.bountyReward:props.communityReward} {props.bountyCurrency}</Box>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-              <Box className="reward-box">{props.type==="solve"?up(props.bountyReward * maticusd):up(props.communityReward * maticusd)} USD</Box>
+              <Box className="reward-box">{props.type==="solve"?up(props.bountyCurrency==='DEV'?devusd:maticusd):up(props.bountyCurrency==='DEV'?devusd:maticusd)} USD</Box>
             </Grid>
           </>
         ) : (
@@ -62,7 +63,7 @@ export default function QuestionCard(props) {
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               
               <Box className="reward-box">
-                {props.bountyReward * maticusd} {props.bountyCurrency}
+                {props.bountyReward * (props.bountyCurrency==='DEV'?devusd:maticusd)} {props.bountyCurrency}
               </Box>
             </Grid>
           </>
