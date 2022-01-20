@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { walletAddress as walletAddressAtom, contract as contractAtom, balance as balanceAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom, contract as contractAtom, balance as balanceAtom, tokenContract as tokenContractAtom } from "../../recoil/atoms";
 import walletIcon from "../../assets/wallet.png";
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from "@material-ui/core/Button";
@@ -10,12 +10,14 @@ import {
     initiliaseWeb3,
     fetchAccount,
     initiliaseContract,
+    initiliaseTokenContract
 } from "../../web3js/web3";
 import { computeHeadingLevel } from "@testing-library/dom";
 
 export default function ConnectWallet() {
     const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
     const [contract, setContract] = useRecoilState(contractAtom);
+    const [tokenContract, setTokenContract] = useRecoilState(tokenContractAtom);
     const [balance, setBalance] = useRecoilState(balanceAtom);
     const [connectWallet, setConnectWallet] = useState(false);
     const [open, setOpen] = useState(false);
@@ -29,6 +31,11 @@ export default function ConnectWallet() {
         console.log(walletAddress)
         setContract(async (old) => {
             let _test = await initiliaseContract();
+            console.log(_test )
+            return _test;
+        });
+        setTokenContract(async (old) => {
+            let _test = await initiliaseTokenContract();
             console.log(_test )
             return _test;
         });

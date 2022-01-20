@@ -100,7 +100,7 @@ export default function QuestionStage(props) {
       }
 
       if (valid) {
-        window.alert("Successfulyy unstaked");
+        window.alert("Successfully unstaked");
         props.fetchVotedSolutions();
         props.handleLoader(false);
       }
