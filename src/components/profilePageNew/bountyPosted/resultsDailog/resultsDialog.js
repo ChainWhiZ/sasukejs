@@ -123,7 +123,7 @@ export default function ResultsDialog(props) {
       }
 
       if (valid) {
-        window.alert("Successfuly initiated");
+        window.alert("Successfully initiated");
         handleClose(false);
         props.handleDialogClose(false);
       }
