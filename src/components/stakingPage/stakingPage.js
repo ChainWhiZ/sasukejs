@@ -130,7 +130,7 @@ export default function StakingPage(props) {
             value: stakeDetails.stakeAmount * Math.pow(10, 18),
           });
         trxObj.on("receipt", function (receipt) {
-          // window.alert("Successfulyy voted");
+          // window.alert("Successfully voted");
           resolve(receipt);
         });
 
@@ -178,7 +178,7 @@ export default function StakingPage(props) {
             if (val.status == 201) {
               setLoader(false);
 
-              window.alert("Successfuly voted");
+              window.alert("Successfully voted");
               fetchVoterDetails();
               setStakeDetails((prevState) => ({
                 ...prevState,

@@ -66,7 +66,7 @@ export default function SolutionSubmit(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Successfulyy submitted");
+          window.alert("Successfully submitted");
           resolve(receipt);
         });
 

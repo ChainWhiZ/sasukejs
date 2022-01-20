@@ -8,7 +8,7 @@ import "./navbar.css";
 
 export default function Login() {
   const [username, setUsername] = useRecoilState(usernameAtom);
-  setUsername("solver1")
+  setUsername("solver2")
   const [ loader,setLoader] = useState(false);
   useEffect(() => {
     const url = window.location.href;
