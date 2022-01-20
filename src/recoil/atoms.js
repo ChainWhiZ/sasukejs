@@ -25,3 +25,9 @@ export const maticusd = atom({
   default:0,
 });
 
+export const tokenContract = atom({
+  key: "tokenContract",
+  default:{},
+});
+
+

@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import chainwhiz from "../artifacts/chainwhizAbi";
+import { chainwhiz, erc20 } from "../artifacts/chainwhizAbi";
 
 let web3;
 
@@ -49,7 +49,17 @@ export const initiliaseContract = async () => {
     // "0x0858421E69bA63621f382Ea9E2Ba299E0B8Ce5D7"
     // "0x2E5514C923c5ebF12026Bc9a24B5aa20f83EED3F"//old contract
     //"0xED480C4eec3B31480f7e6386fee467852162A4C7",//prod contract
-    "0x7b452FAF31e26A53c9567F8A6B7e586428967e48" //new prod contract
+    // "0x7b452FAF31e26A53c9567F8A6B7e586428967e48" //new prod contract
+    "0x48e020C88Ef77c762f34631cc9eA8D3eff32a04B" //testnet
   );
+  return contract;
+};
+export const initiliaseTokenContract = async () => {
+  // web3.eth.handleRevert = true
+  let contract = new web3.eth.Contract(
+    erc20,
+    "0x29740a588FF949B08c187db7bE2e4B4cdf968F2A"
+  );
+
   return contract;
 };

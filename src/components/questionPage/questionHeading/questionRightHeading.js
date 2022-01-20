@@ -8,7 +8,7 @@ import { maticusd as maticusdAtom, walletAddress as walletAddressAtom, username 
 import { useRecoilValue } from "recoil";
 
 export default function QuestionRightHeading(props) {
-  console.log(props)
+  console.log(props.bountyCurrency)
   const walletAddress = useRecoilValue(walletAddressAtom);
   const username = useRecoilValue(usernameAtom)
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
