@@ -32,7 +32,7 @@ export default function QuestionStage(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
   useEffect(async () => {
     if (props.escrowId) {
-      props.handleLoader(true);
+      // props.handleLoader(true);
       fetchEscrow();
     }
   }, []);
@@ -43,12 +43,12 @@ export default function QuestionStage(props) {
         _id: props.escrowId,
       })
       .then((response) => {
-        props.handleLoader(false);
+        // props.handleLoader(false);
         setEscrow(response.data);
         console.log(escrow);
       })
       .catch((err) => {
-        props.handleLoader(false);
+        // props.handleLoader(false);
         setAlert((prevState) => ({
           ...prevState,
           open: true,
@@ -79,7 +79,7 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-          props.handleLoader(false);
+          // props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
@@ -89,14 +89,14 @@ export default function QuestionStage(props) {
             ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
-        props.handleLoader(false);
+        // props.handleLoader(false);
         reject(error);
       }
     });
   };
 
   const handleComplete = async () => {
-    props.handleLoader(true);
+    // props.handleLoader(true);
 
     try {
       try {
@@ -119,22 +119,22 @@ export default function QuestionStage(props) {
             open: true,
             errorMessage: "Error",
           }));
-          props.handleLoader(false);
+          // props.handleLoader(false);
           setOpen(false);
           props.handleDialogClose(false);
         }
       }
 
       if (valid) {
-        window.alert("Suuccessfuly acknowledged");
-        props.handleLoader(false);
+        window.alert("Successfully claimed");
+        // props.handleLoader(false);
         setOpen(false);
         props.handleDialogClose(false);
         fetchEscrow();
       }
     } catch (error) {
       console.log(error);
-      props.handleLoader(false);
+      // props.handleLoader(false);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
@@ -223,7 +223,7 @@ export default function QuestionStage(props) {
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             props.escrowId &&
-            escrow.escrowStatus !== "Acknowledged" &&
+            escrow.escrowStatus !== "Completed" &&
             props._id === props.questionId.selectedSolutionId.solutionId ? (
               <Button
                 className="profile-button"

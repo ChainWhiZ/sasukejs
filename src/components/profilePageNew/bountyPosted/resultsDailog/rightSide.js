@@ -45,7 +45,7 @@ export default function RightSide(props) {
   }, [props.selectedSolution.escrowId]);
   const handleEscrowDisable = () => {
     if (
-      escrow.escrowStatus === "Acknowledged" ||
+      escrow.escrowStatus === "Completed" ||
       props.disable ||
       !cloneconfirmation
     )
