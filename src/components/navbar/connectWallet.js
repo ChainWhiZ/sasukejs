@@ -10,7 +10,8 @@ import {
     initiliaseWeb3,
     fetchAccount,
     initiliaseContract,
-    initiliaseTokenContract
+    initiliaseTokenContract,
+    checkChain
 } from "../../web3js/web3";
 import { computeHeadingLevel } from "@testing-library/dom";
 
@@ -25,18 +26,20 @@ export default function ConnectWallet() {
     const handleConnectWalletClick = async () => {
         setConnectWallet(false);
         await initiliaseWeb3();
-        await fetchAccount(function (result) {
-            setWalletAddress(result[0]);
+        await fetchAccount(async function (result) {
+            if (await checkChain())
+                setWalletAddress(result[0]);
+
         });
         console.log(walletAddress)
         setContract(async (old) => {
             let _test = await initiliaseContract();
-            console.log(_test )
+            console.log(_test)
             return _test;
         });
         setTokenContract(async (old) => {
             let _test = await initiliaseTokenContract();
-            console.log(_test )
+            console.log(_test)
             return _test;
         });
         if (contract && walletAddress) {
@@ -45,7 +48,7 @@ export default function ConnectWallet() {
                     .balanceOf(walletAddress)
                     .call({ from: walletAddress })
             );
-        setBalance(getBalance);
+            setBalance(getBalance);
         }
 
     }
