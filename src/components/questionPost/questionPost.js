@@ -254,8 +254,8 @@ export default function QuestionPost() {
             (totalAmount * 2).toString()
           )
           .send({ from: walletAddress.toString() });
-        window.alert("Approving your token, wait for the next transaction");
         approvalTrx.on("receipt", function (receipt) {
+          window.alert("Approving your token, wait for the next transaction");
           const trxObj = contract.methods
             .postIssue(
               username,
