@@ -28,7 +28,8 @@ export default function RightCard(props) {
       </Grid>
 
       <>
-        {props.solutions &&
+      {props.solutions && props.solutions.length?
+        props.solutions &&
           props.solutions.length &&
           props.solutions.map((solution) => (
             <StakeSolution
@@ -38,7 +39,7 @@ export default function RightCard(props) {
               stakeDetails={props.stakeDetails}
               disable={props.disable}
             />
-          ))}
+          )):<p>No solutions</p>}
       </>
     </Grid>
   );
