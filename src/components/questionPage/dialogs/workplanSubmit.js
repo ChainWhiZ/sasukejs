@@ -66,7 +66,6 @@ export default function WorkplanSubmit(props) {
       })
       .then((response) => {
         if (response.status === 201) {
-          props.handleFetch();
           setOpen(false);
           setDisable(false);
           props.handleDialogClose(false);

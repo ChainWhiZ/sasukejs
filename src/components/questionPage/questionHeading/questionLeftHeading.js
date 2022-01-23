@@ -100,7 +100,6 @@ export default function QuestionLeftHeading(props) {
                 setOpenWorkplanDialog(true)
                  
               }
-              handleFetch={props.handleFetch()}
             >
               Submit Workplan
             </Button>
@@ -113,7 +112,7 @@ export default function QuestionLeftHeading(props) {
           open={openWorkplanDialog}
           handleDialogClose={() => setOpenWorkplanDialog(false)}
           questionId={props.questionDetails._id}
-          handleFetch={() => props.handleFetch}
+          
         />
       ) : (
         ""
