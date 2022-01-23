@@ -9,7 +9,7 @@ import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../../recoil/atoms";
 import CircularIndeterminate from "../../loader/loader";
 import "../profilePageCss.css";
-
+import { Link } from "react-router-dom";
 export default function BountySolved(props) {
   const username = useRecoilValue(usernameAtom);
   const [data, setData] = useState([]);
@@ -54,7 +54,9 @@ export default function BountySolved(props) {
             (data.map((solution) => (
               <>
                 <Grid item md={7} xs={12}>
+                <Link to={`/bounty/${solution.questionId._id}`}>
                   <QuestionDetail {...solution.questionId} />
+                  </Link>
                 </Grid>
                 <Grid item md={5} xs={12}>
                   <QuestionStage
