@@ -56,7 +56,6 @@ p {
   margin-top: 4% !important;
 }
 
-
 .category-box {
   padding: 1% 3% 1% 3%;
   background: #131313;
@@ -70,22 +69,32 @@ p {
   border: 4px solid rgba(212, 255, 30, 1);
   margin-top: -1.3vw;
 }
-.landing-warning{
+.landing-warning {
   color: white;
-		padding: 10px;
-		display: inline-block;
-		border-radius: 5px;
-		animation: blinkingBackground 3s infinite;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  animation: blinkingBackground 3s infinite;
 }
-@keyframes blinkingBackground{
-  0%		{ background-color: #09d36e;}
-  25%		{ background-color: rgb(255, 131, 30);}
-  50%		{ background-color: #47d3e6;}
-  75%		{ background-color: #254878;}
-  100%	{ background-color: #d50404;}
+@keyframes blinkingBackground {
+  0% {
+    background-color: #09d36e;
+  }
+  25% {
+    background-color: rgb(255, 131, 30);
+  }
+  50% {
+    background-color: #47d3e6;
+  }
+  75% {
+    background-color: #254878;
+  }
+  100% {
+    background-color: #d50404;
+  }
 }
 
-.landing-waitlist-button{
+.landing-waitlist-button {
   background: #d4ff1f !important;
   border-radius: 6px !important;
   font-family: Poppins !important;
@@ -94,38 +103,36 @@ p {
   text-transform: none !important;
   font-size: 1vw !important;
 }
-.login-popup .MuiDialog-paper{
-  background-color: #000000; 
+.login-popup .MuiDialog-paper {
+  background-color: #000000;
   padding: 1%;
   color: #ffffff;
-  height: 18vh;
   overflow: hidden;
   width: 35vw;
   height: 34vh;
   text-align: center;
- }
- @media only screen and (max-width: 1366) and (min-width: 1000) {
+}
+@media only screen and (min-width: 480px) and (max-width: 1800px) {
   .login-popup .MuiDialog-paper {
     width: 40vw;
     height: 50vh;
   }
 }
- .dialog-button:hover,
- .dialog-button:active{
-  background-color: #000000; 
+
+.dialog-button:hover,
+.dialog-button:active {
+  background-color: #000000;
   color: white;
   border: 2px solid white;
-  
-  color: #ffffff;
- }
- 
- .dialog-button{
-   margin-top: 3%;
-   outline: none;
-   border: none;
- }
- .dialog-button:focus{
-   outline: none;
- }
 
- 
+  color: #ffffff;
+}
+
+.dialog-button {
+  margin-top: 3%;
+  outline: none;
+  border: none;
+}
+.dialog-button:focus {
+  outline: none;
+}
