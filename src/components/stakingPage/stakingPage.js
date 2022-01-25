@@ -72,6 +72,7 @@ export default function StakingPage(props) {
         }));
       });
     fetchVoterDetails();
+
     // if (walletAddress) {
     //   fetchBalance(walletAddress).then(res=> setBalance(res.toFixed(4)));
     // }
