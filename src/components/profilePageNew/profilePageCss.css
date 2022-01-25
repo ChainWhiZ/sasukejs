@@ -254,3 +254,13 @@
   height: 30px;
   margin: 0 auto;
 }
+.profile-page-loader
+{
+    color: rgba(215, 255, 46, 1) !important;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    position:fixed;
+}

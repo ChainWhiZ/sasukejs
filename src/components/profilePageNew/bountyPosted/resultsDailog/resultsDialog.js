@@ -8,6 +8,7 @@ import RightSide from "./rightSide";
 import "../../profilePageCss.css";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { useRecoilValue } from "recoil";
+import { CircularProgress } from "@material-ui/core";
 import {
   contract as contractAtom,
   walletAddress as walletAddressAtom,
@@ -20,6 +21,7 @@ export default function ResultsDialog(props) {
     isValid: false,
     errorMessage: "",
   });
+  const [loader, setLoader] = useState(true);
   const [solutions, setSolutions] = useState([]);
   const [disable, setDisable] = useState(false);
   const contractPromise = useRecoilValue(contractAtom);
@@ -39,6 +41,7 @@ export default function ResultsDialog(props) {
         if (solutions.some((e) => e.escrowId)) {
           setHasEscrowInitiated(true);
         }
+        setLoader(false);
       });
   });
 
@@ -64,7 +67,7 @@ export default function ResultsDialog(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-         
+
           resolve(receipt);
         });
 
@@ -76,7 +79,7 @@ export default function ResultsDialog(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-            handleClose(false);
+          handleClose(false);
           reject(error.message);
         });
       } catch (error) {
@@ -175,15 +178,19 @@ export default function ResultsDialog(props) {
                 selectedSolutionIndex={selectedSolutionIndex}
               />
             ) : (
-              <p
-                style={{
-                  fontWeight: "700",
-                  fontSize: "4vw",
-                  marginLeft: "26vw",
-                }}
-              >
-                No solution submitted
-              </p>
+              loader ?
+                <CircularProgress className="profile-page-loader" />
+                :
+                <p
+                  style={{
+                    fontWeight: "700",
+                    fontSize: "4vw",
+                    marginLeft: "26vw",
+                  }}
+                >
+                  No solution submitted
+                </p>
+
             )}
           </Grid>
           <Grid item md={8} xs={12}>
