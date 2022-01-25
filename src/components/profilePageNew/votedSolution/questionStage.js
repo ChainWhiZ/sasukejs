@@ -35,12 +35,33 @@ export default function QuestionStage(props) {
       try {
         const trxObj = contract.methods
           .setApproval(
-            Math.floor(props.amountToBeReturned * Math.pow(10, 18).toString())
+            (Math.floor((props.amountToBeReturned * Math.pow(10, 18))).toString())
           )
           .send({ from: walletAddress.toString() });
         trxObj.on("receipt", function (receipt) {
-          console.log("Successfully done");
-          resolve(receipt);
+          // Call unstake function if setApproval is done
+          try {
+            const unstakeTrx = contract.methods.unstake(props.solutionId._id).send({ from: walletAddress.toString() })
+            unstakeTrx.on("receipt", function (res) {
+              console.log("Successfully Unstaked");
+              resolve(receipt);
+            })
+            unstakeTrx.on("error", function (error, receipt) {
+              console.log(error);
+              if (error)
+                window.alert(
+                  error.transactionHash
+                    ? `Went wrong in trc hash :${error.transactionHash}`
+                    : error.message
+                );
+              props.handleLoader(false);
+              reject(error.message);
+            });
+          } catch (error) {
+            console.log(error)
+            window.alert("Something went wrong!")
+          }
+
         });
 
         trxObj.on("error", function (error, receipt) {
