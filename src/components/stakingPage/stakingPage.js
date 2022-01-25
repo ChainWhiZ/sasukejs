@@ -75,7 +75,7 @@ export default function StakingPage(props) {
     if (walletAddress) {
       fetchBalance(walletAddress).then(res=> setBalance(Number(res).toFixed(4)));
     }
-  }, []);
+  }, [walletAddress]);
 
 
   const fetchVoterDetails = () => {
