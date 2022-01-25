@@ -31,7 +31,7 @@ export default function QuestionStage(props) {
                 className="profile-text-style profile-text-center"
                 style={{ marginTop: "-8%" }}
               >
-                Winning Solution
+                Chosen Solution
               </p>
               <a
                 href={props.selectedSolutionId.solutionId}
