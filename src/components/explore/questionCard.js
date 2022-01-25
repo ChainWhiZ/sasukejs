@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 export default function QuestionCard(props) {
   const maticusd = useRecoilValue(maticusdAtom);
   const devusd = useRecoilValue(devusdAtom);
-  let hoursOrDaysOrMinutes = "days";
+  let hoursOrDaysOrMinutes = "day(s)";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
   if (props.questionStage === "solve" && props.isCommunityApprovedSolution) {

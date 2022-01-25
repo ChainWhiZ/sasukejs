@@ -86,7 +86,7 @@ export default function QuestionStage(props) {
               solutionId: props.solutionId._id,
             })
 
-            .catch((err) => { });
+            .catch((err) => {});
         } catch (error) {
           console.log(error);
           valid = false;
@@ -155,16 +155,14 @@ export default function QuestionStage(props) {
               <>
                 <p className="profile-text-style profile-text-center">Earned</p>
                 <Tooltip
-                  title={props.amountToBeReturned - props.amountStaked}
+                  title={props.incentive}
                   disableHoverListener={
-                    !(
-                      (props.incentive).toString()
-                        .length > 4
-                    )
+                    !(props.incentive.toString().length > 4)
                   }
                 >
                   <p className="profile-content-style profile-text-center">
-                    {props.incentive.toFixed(4)} {props.questionDetails.bountyCurrency}
+                    {props.incentive.toFixed(4)}{" "}
+                    {props.questionDetails.bountyCurrency}
                   </p>
                 </Tooltip>
               </>
@@ -183,7 +181,8 @@ export default function QuestionStage(props) {
                   }
                 >
                   <p className="profile-content-style profile-text-center">
-                    {(props.amountStaked - props.amountToBeReturned).toFixed(4)} MATIC
+                    {(props.amountStaked - props.amountToBeReturned).toFixed(4)}{" "}
+                    MATIC
                   </p>
                 </Tooltip>
               </>
@@ -194,7 +193,12 @@ export default function QuestionStage(props) {
               <p className="profile-text-style profile-text-center">
                 To be Unstaked
               </p>
-              <Tooltip title={props.amountStaked} disableHoverListener={!(props.amountStaked.toString().length > 4)}>
+              <Tooltip
+                title={props.amountStaked}
+                disableHoverListener={
+                  !(props.amountStaked.toString().length > 4)
+                }
+              >
                 <p className="profile-content-style profile-text-center">
                   {props.amountStaked} MATIC
                 </p>
@@ -205,7 +209,12 @@ export default function QuestionStage(props) {
                   <div class="unstake__image">
                     <img src={plus} alt="plus" style={{ width: "100%" }} />
                   </div>
-                  <Tooltip title={props.incentive} disableHoverListener={!(props.incentive.toString().length > 4)}>
+                  <Tooltip
+                    title={props.incentive}
+                    disableHoverListener={
+                      !(props.incentive.toString().length > 4)
+                    }
+                  >
                     <p className="profile-content-style profile-text-center">
                       {" "}
                       {props.incentive} {props.questionDetails.bountyCurrency}
@@ -216,9 +225,18 @@ export default function QuestionStage(props) {
                 <>
                   {" "}
                   <div class="unstake__image">
-                    <img src={minus} alt="minus" style={{ width: "100%", margin: "7px 0px 0px 0px" }} />
+                    <img
+                      src={minus}
+                      alt="minus"
+                      style={{ width: "100%", margin: "7px 0px 0px 0px" }}
+                    />
                   </div>
-                  <Tooltip title={props.amountToBeReturned} disableHoverListener={!(props.amountToBeReturned.toString().length > 4)}>
+                  <Tooltip
+                    title={props.amountToBeReturned}
+                    disableHoverListener={
+                      !(props.amountToBeReturned.toString().length > 4)
+                    }
+                  >
                     <p className="profile-content-style profile-text-center">
                       {" "}
                       {props.amountToBeReturned.toFixed(4)} MATIC
@@ -233,8 +251,8 @@ export default function QuestionStage(props) {
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             !props.claimed &&
-              props.amountToBeReturned &&
-              props.questionDetails.questionStage === "complete" ? (
+            props.amountToBeReturned &&
+            props.questionDetails.questionStage === "complete" ? (
               <Button className="profile-button" onClick={handleUnstake}>
                 Unstake Now
               </Button>
