@@ -41,7 +41,7 @@ export default function QuestionStage(props) {
         trxObj.on("receipt", function (receipt) {
           // Call unstake function if setApproval is done
           try {
-            const unstakeTrx = contract.methods.unstake(/**solution Link */).send({ from: walletAddress.toString() })
+            const unstakeTrx = contract.methods.unstake(props.solutionId._id).send({ from: walletAddress.toString() })
             unstakeTrx.on("receipt", function (res) {
               console.log("Successfully Unstaked");
               resolve(receipt);
