@@ -12,6 +12,8 @@ import {
   walletAddress as walletAddressAtom,
 } from "../../../recoil/atoms";
 import "../profilePageCss.css";
+import { shortenLength,checkLength } from "../../helper";
+import { Tooltip } from "@material-ui/core";
 
 export default function QuestionStage(props) {
   console.log(props)
@@ -169,13 +171,16 @@ export default function QuestionStage(props) {
           ) : null}
         </Grid>
         <Grid item md={12}>
-          <p className="profile-text-style" style={{textAlign:"center"}}>Bounty Amount</p>
-          <p
-            className="profile-content-style profile-text-center profile-bounty-reward"
-            style={{ marginTop: "1%" }}
-          >
-            {props.questionId.bountyReward} {props.questionId.bountyCurrency}
-          </p>
+          <p className="profile-text-style" style={{ textAlign: "center" }}>Bounty Amount</p>
+          <Tooltip title={props.questionId.bountyReward}
+            disableHoverListener={!(checkLength(props.questionId.bountyReward))}>
+            <p
+              className="profile-content-style profile-text-center profile-bounty-reward"
+              style={{ marginTop: "1%" }}
+            >
+              {shortenLength(props.questionId.bountyReward)} {props.questionId.bountyCurrency}
+            </p>
+          </Tooltip>
         </Grid>
         <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
@@ -200,7 +205,7 @@ export default function QuestionStage(props) {
             Chosen Solution
           </p>
           {props.questionId.selectedSolutionId &&
-          props.questionId.selectedSolutionId.solutionId ? (
+            props.questionId.selectedSolutionId.solutionId ? (
             <a
               href={props.questionId.selectedSolutionId.solutionId}
               target="_blank"
@@ -223,8 +228,8 @@ export default function QuestionStage(props) {
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             props.escrowId &&
-            escrow.escrowStatus !== "Completed" &&
-            props._id === props.questionId.selectedSolutionId.solutionId ? (
+              escrow.escrowStatus !== "Completed" &&
+              props._id === props.questionId.selectedSolutionId.solutionId ? (
               <Button
                 className="profile-button"
                 onClick={() => handleComplete()}

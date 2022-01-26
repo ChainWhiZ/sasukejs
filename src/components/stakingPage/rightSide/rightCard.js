@@ -4,6 +4,8 @@ import StakeSolution from "./stakeSolution";
 import { useRecoilValue } from "recoil";
 import { balance as balanceAtom } from "../../../recoil/atoms";
 import "../stakingPageCss.css";
+import { Tooltip } from "@material-ui/core";
+import { shortenLength,checkLength } from "../../helper";
 
 export default function RightCard(props) {
   console.log(props)
@@ -22,14 +24,21 @@ export default function RightCard(props) {
         </p>
       </Grid>
       <Grid item md={5} xs={12}>
-        <p className="staking-color-neon staking-text-style staking-margin-left-15">
-          {balance + " MATIC"}
-        </p>
+        <Tooltip
+          title={balance}
+          disableHoverListener={
+            !(checkLength(balance, 6))
+          }
+        >
+          <p className="staking-color-neon staking-text-style staking-margin-left-15">
+            {shortenLength(balance, 6) + " MATIC"}
+          </p>
+        </Tooltip>
       </Grid>
 
       <>
-      {props.solutions && props.solutions.length?
-        props.solutions &&
+        {props.solutions && props.solutions.length ?
+          props.solutions &&
           props.solutions.length &&
           props.solutions.map((solution) => (
             <StakeSolution
@@ -39,7 +48,7 @@ export default function RightCard(props) {
               stakeDetails={props.stakeDetails}
               disable={props.disable}
             />
-          )):<p>No solutions</p>}
+          )) : <p>No solutions</p>}
       </>
     </Grid>
   );
