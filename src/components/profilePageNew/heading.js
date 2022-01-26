@@ -7,6 +7,7 @@ import { port } from "../../config/config";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
 import { Tooltip } from "@material-ui/core";
+import { checkLength, shortenLength } from "../helper";
 
 export default function Heading(props) {
   const username = useRecoilValue(usernameAtom);
@@ -51,24 +52,43 @@ export default function Heading(props) {
       {data && Object.keys(data).length ?
         <>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
+          <Tooltip
+              title={data.questionIds.length}
+              disableHoverListener={
+                !(checkLength(data.questionIds.length, 6))
+              }
+            >
             <p className="profile-details-bounty">
-              {data.questionIds && data.questionIds.length}
+            {shortenLength(data.questionIds.length, 6)}
             </p>
+            </Tooltip>
             <p className="profile-details-bounty-heading">Bounties Posted</p>
           </Grid>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
-            <p className="profile-details-bounty">
-              {data.solutionIds && data.solutionIds.length}
-            </p>
+            <Tooltip
+              title={data.solutionIds.length}
+              disableHoverListener={
+                !(checkLength(data.solutionIds.length, 6))
+              }
+            >
+              <p className="profile-details-bounty">
+                {shortenLength(data.solutionIds.length, 6)}
+              </p>
+            </Tooltip>
             <p className="profile-details-bounty-heading">Bounties Solved</p>
           </Grid>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
             {data.voterWeightage ? (
-             
+              <Tooltip
+                title={data.voterWeightage}
+                disableHoverListener={
+                  !(checkLength(data.voterWeightage, 6))
+                }
+              >
                 <p className="profile-details-bounty">
-                  {data.voterWeightage}
+                {shortenLength(data.voterWeightage, 6)}
                 </p>
-             
+              </Tooltip>
             ) : (
               <p className="profile-details-bounty">0</p>
             )}
