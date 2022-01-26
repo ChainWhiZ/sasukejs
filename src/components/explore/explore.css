@@ -39,7 +39,7 @@
 }
 
 .menubar-usergrid {
-  margin-left: 0.5vw  !important;
+  margin-left: 0.5vw !important;
 }
 .grid-item {
   margin-top: -6vw !important;
@@ -115,10 +115,10 @@ a {
 }
 
 .reward-grid {
-  margin-top: 2vh !important;
+  margin: 2vh -1vw !important;
 }
 .right-reward-box {
-  margin-left: -3vw !important;
+  margin-left: -1vw !important;
 }
 
 .ques-category-box {
@@ -166,4 +166,13 @@ a {
 
 .non-community {
   margin-left: -7vw;
+}
+.reward__value {
+  background: white;
+  color: black;
+  width: 60%;
+  padding: 0.8rem;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 1.2rem;
 }
