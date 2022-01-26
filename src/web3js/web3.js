@@ -26,8 +26,8 @@ export const initiliaseWeb3 = async () => {
 };
 
 export const checkChain = async () => {
-  if (!(web3.givenProvider.networkVersion == 80001)) {
-    window.alert("Please switch to Polygon Mumbai");
+  if (!(web3.givenProvider.networkVersion == 137)) {
+    window.alert("Please switch to Polygon Mumbai Mainnet");
     return false
   }
 

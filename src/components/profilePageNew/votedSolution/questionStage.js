@@ -15,6 +15,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import "../profilePageCss.css";
 import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
+import { checkLength, shortenLength } from "../../helper";
 
 export default function QuestionStage(props) {
   console.log(props);
@@ -167,9 +168,16 @@ export default function QuestionStage(props) {
           {props.questionDetails.questionStage === "vote" ? (
             <>
               <p className="profile-text-style profile-text-center">Staked</p>
+              <Tooltip
+                  title={props.amountStaked}
+                  disableHoverListener={
+                    !(checkLength(props.amountToBeReturned))
+                  }
+                >
               <p className="profile-content-style profile-text-center">
-                {props.amountStaked} MATIC
+                {shortenLength(props.amountStaked)} MATIC
               </p>
+              </Tooltip>
             </>
           ) : props.claimed ? (
             props.incentive ? (
@@ -178,11 +186,11 @@ export default function QuestionStage(props) {
                 <Tooltip
                   title={props.incentive}
                   disableHoverListener={
-                    !(props.incentive.toString().length > 4)
+                    !(checkLength(props.incentive))
                   }
                 >
                   <p className="profile-content-style profile-text-center">
-                    {props.incentive.toFixed(4)}{" "}
+                    {shortenLength(props.incentive)}{" "}
                     {props.questionDetails.bountyCurrency}
                   </p>
                 </Tooltip>
@@ -195,14 +203,10 @@ export default function QuestionStage(props) {
                 <Tooltip
                   title={props.amountStaked - props.amountToBeReturned}
                   disableHoverListener={
-                    !(
-                      (props.amountStaked - props.amountToBeReturned).toString()
-                        .length > 4
-                    )
-                  }
+                    !(checkLength(props.amountStaked - props.amountToBeReturned))}
                 >
                   <p className="profile-content-style profile-text-center">
-                    {(props.amountStaked - props.amountToBeReturned).toFixed(4)}{" "}
+                    {shortenLength(props.amountStaked - props.amountToBeReturned)}{" "}
                     MATIC
                   </p>
                 </Tooltip>
@@ -217,11 +221,11 @@ export default function QuestionStage(props) {
               <Tooltip
                 title={props.amountStaked}
                 disableHoverListener={
-                  !(props.amountStaked.toString().length > 4)
+                  !(checkLength(props.amountStaked))
                 }
               >
                 <p className="profile-content-style profile-text-center">
-                  {props.amountStaked} MATIC
+                  {shortenLength(props.amountStaked)} MATIC
                 </p>
               </Tooltip>
               {props.incentive ? (
@@ -233,12 +237,12 @@ export default function QuestionStage(props) {
                   <Tooltip
                     title={props.incentive}
                     disableHoverListener={
-                      !(props.incentive.toString().length > 4)
+                      !(checkLength(props.incentive))
                     }
                   >
                     <p className="profile-content-style profile-text-center">
                       {" "}
-                      {props.incentive} {props.questionDetails.bountyCurrency}
+                      {shortenLength(props.incentive)} {props.questionDetails.bountyCurrency}
                     </p>
                   </Tooltip>
                 </>
@@ -255,17 +259,16 @@ export default function QuestionStage(props) {
                   <Tooltip
                     title={props.amountToBeReturned}
                     disableHoverListener={
-                      !(props.amountToBeReturned.toString().length > 4)
+                      !(checkLength(props.amountToBeReturned))
                     }
                   >
                     <p className="profile-content-style profile-text-center">
                       {" "}
-                      {props.amountToBeReturned.toFixed(4)} MATIC
+                      {shortenLength(props.amountToBeReturned)} MATIC
                     </p>
                   </Tooltip>
                 </>
               )}
-              {/* </Tooltip> */}
             </div>
           )}
         </Grid>

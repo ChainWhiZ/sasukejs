@@ -14,6 +14,7 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Tooltip } from "@material-ui/core";
+import { checkLength, shortenLength } from "../../../helper";
 
 export default function RightSide(props) {
   const [escrow, setEscrow] = useState({});
@@ -87,9 +88,9 @@ export default function RightSide(props) {
             <>
               <Grid item md={6}>
                 <p className="results-dialog-heading">Voting Score</p>
-                <Tooltip title={props.selectedSolution.finalVoteScore} disableHoverListener={!(props.selectedSolution.finalVoteScore.toString().length > 4)}>
+                <Tooltip title={props.selectedSolution.finalVoteScore} disableHoverListener={!(checkLength(props.selectedSolution.finalVoteScore))}>
                   <p className="results-dialog-right-grid-content-score">
-                    {(props.selectedSolution.finalVoteScore).toFixed(4)}
+                    {shortenLength(props.selectedSolution.finalVoteScore)}
                   </p>
                 </Tooltip>
               </Grid>
