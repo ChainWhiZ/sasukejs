@@ -114,11 +114,11 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 5) {
-        if (reward <= 0.000001) {
+        if ((reward <= 5) && (reward >= 40000)) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter valid bounty reward",
+            errorMessage: "Please enter valid bounty reward between 5 to 40000",
           }));
         } else {
           console.log(currency);
@@ -149,14 +149,14 @@ export default function QuestionPost() {
       }
       if (activePage === 7) {
         if (
-          communityReward <= 0.00000001 &&
+          (communityReward <= 5) && (communityReward >= 40000) &&
           communityOption == "Community Approved"
         ) {
           console.log(typeof communityReward);
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter valid community reward",
+            errorMessage: "Please enter valid community reward between 5 to 40000",
           }));
         } else {
           handlePageChange(page);
