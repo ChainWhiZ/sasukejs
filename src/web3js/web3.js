@@ -25,6 +25,15 @@ export const initiliaseWeb3 = async () => {
   // web3.eth.handleRevert = true
 };
 
+export const checkChain = async () => {
+  if (!(web3.givenProvider.networkVersion == 80001)) {
+    window.alert("Please switch to Polygon Mumbai");
+    return false
+  }
+
+  return true;
+}
+
 export const fetchAccount = async (callback) => {
   // web3.eth.handleRevert = true
   web3.eth.getAccounts((error, result) => {
