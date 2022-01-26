@@ -10,7 +10,8 @@ import {
     initiliaseWeb3,
     fetchAccount,
     initiliaseContract,
-    initiliaseTokenContract
+    initiliaseTokenContract,
+    checkChain
 } from "../../web3js/web3";
 
 export default function ConnectWallet() {
@@ -25,18 +26,19 @@ export default function ConnectWallet() {
         setConnectWallet(false);
         await initiliaseWeb3();
         await fetchAccount(async function (result) {
-            setWalletAddress(result[0]);
-            console.log(walletAddress)
+            if (await checkChain())
+                setWalletAddress(result[0]);
+
         });
         console.log(walletAddress)
         setContract(async (old) => {
             let _test = await initiliaseContract();
-            console.log(_test )
+            console.log(_test)
             return _test;
         });
         setTokenContract(async (old) => {
             let _test = await initiliaseTokenContract();
-            console.log(_test )
+            console.log(_test)
             return _test;
         });
 
