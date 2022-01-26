@@ -45,6 +45,12 @@ export const fetchAccount = async (callback) => {
   });
 };
 
+export const fetchBalance =  async (walletAddress) => {
+  initiliaseWeb3();
+  const balance = await web3.eth.getBalance(walletAddress);
+  return (web3.utils.fromWei(balance.toString(), 'ether'));
+};
+
 export const initiliaseContract = async () => {
   // web3.eth.handleRevert = true
   let contract = new web3.eth.Contract(
@@ -59,7 +65,7 @@ export const initiliaseContract = async () => {
     // "0x2E5514C923c5ebF12026Bc9a24B5aa20f83EED3F"//old contract
     //"0xED480C4eec3B31480f7e6386fee467852162A4C7",//prod contract
     // "0x7b452FAF31e26A53c9567F8A6B7e586428967e48" //new prod contract
-    "0x48e020C88Ef77c762f34631cc9eA8D3eff32a04B" //testnet
+    "0x842Edf7aB0086c3B96Deb9f461F7DD5635841e69" //testnet
   );
   return contract;
 };

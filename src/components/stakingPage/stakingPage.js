@@ -8,13 +8,15 @@ import RightCard from "./rightSide/rightCard";
 import infoIcon from "../../assets/info.png";
 import CircularIndeterminate from "../loader/loader";
 import SimpleAlerts from "../alert/alert";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
   username as usernameAtom,
+  balance as balanceAtom
 } from "../../recoil/atoms";
 import "./stakingPageCss.css";
+import { fetchBalance } from "../../web3js/web3";
 
 export default function StakingPage(props) {
   const username = useRecoilValue(usernameAtom);
@@ -23,6 +25,7 @@ export default function StakingPage(props) {
   const [selectedWorkplan, setSelectedWorkplan] = useState(
     props.location.state.questionDetails.workplanIds[0]
   );
+  const [balance, setBalance] = useRecoilState(balanceAtom);
   const [selectedSolutions, setSelectedSolutions] = useState([]);
   const [voterdetails, setVoterDetails] = useState({});
   const [loader, setLoader] = useState(true);
@@ -42,10 +45,13 @@ export default function StakingPage(props) {
   var promise = Promise.resolve(contractPromise);
   promise.then(function (v) {
     contract = v;
+    console.log(contract)
   });
+  
   console.log(props.location.state.questionDetails.workplanIds);
 
-  useEffect(() => {
+
+  useEffect(async () => {
     axios
       .post(port + "workplan/fetchall", {
         _id: props.location.state.questionDetails._id,
@@ -66,7 +72,11 @@ export default function StakingPage(props) {
         }));
       });
     fetchVoterDetails();
-  }, []);
+    if (walletAddress) {
+      fetchBalance(walletAddress).then(res=> setBalance(Number(res).toFixed(4)));
+    }
+  }, [walletAddress]);
+
 
   const fetchVoterDetails = () => {
     axios
@@ -78,7 +88,7 @@ export default function StakingPage(props) {
         setLoader(false);
         setVoterDetails(response.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const handleSelect = (workplan) => {

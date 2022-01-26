@@ -197,7 +197,7 @@ export default function QuestionStage(props) {
         </Grid>
         <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
-            Winning Solution
+            Chosen Solution
           </p>
           {props.questionId.selectedSolutionId &&
           props.questionId.selectedSolutionId.solutionId ? (

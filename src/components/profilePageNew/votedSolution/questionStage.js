@@ -35,12 +35,33 @@ export default function QuestionStage(props) {
       try {
         const trxObj = contract.methods
           .setApproval(
-            Math.floor(props.amountToBeReturned * Math.pow(10, 18).toString())
+            Math.floor((props.amountToBeReturned * Math.pow(10, 18))).toString()
           )
           .send({ from: walletAddress.toString() });
         trxObj.on("receipt", function (receipt) {
-          console.log("Successfully done");
-          resolve(receipt);
+          // Call unstake function if setApproval is done
+          try {
+            const unstakeTrx = contract.methods.unstake(props.solutionId._id).send({ from: walletAddress.toString() })
+            unstakeTrx.on("receipt", function (res) {
+              console.log("Successfully Unstaked");
+              resolve(receipt);
+            })
+            unstakeTrx.on("error", function (error, receipt) {
+              console.log(error);
+              if (error)
+                window.alert(
+                  error.transactionHash
+                    ? `Went wrong in trc hash :${error.transactionHash}`
+                    : error.message
+                );
+              props.handleLoader(false);
+              reject(error.message);
+            });
+          } catch (error) {
+            console.log(error)
+            window.alert("Something went wrong!")
+          }
+
         });
 
         trxObj.on("error", function (error, receipt) {
@@ -155,16 +176,14 @@ export default function QuestionStage(props) {
               <>
                 <p className="profile-text-style profile-text-center">Earned</p>
                 <Tooltip
-                  title={props.amountToBeReturned - props.amountStaked}
+                  title={props.incentive}
                   disableHoverListener={
-                    !(
-                      (props.incentive).toString()
-                        .length > 4
-                    )
+                    !(props.incentive.toString().length > 4)
                   }
                 >
                   <p className="profile-content-style profile-text-center">
-                    {props.incentive.toFixed(4)} {props.questionDetails.bountyCurrency}
+                    {props.incentive.toFixed(4)}{" "}
+                    {props.questionDetails.bountyCurrency}
                   </p>
                 </Tooltip>
               </>
@@ -183,42 +202,67 @@ export default function QuestionStage(props) {
                   }
                 >
                   <p className="profile-content-style profile-text-center">
-                    {(props.amountStaked - props.amountToBeReturned).toFixed(4)} MATIC
+                    {(props.amountStaked - props.amountToBeReturned).toFixed(4)}{" "}
+                    MATIC
                   </p>
                 </Tooltip>
               </>
             )
           ) : (
-            <div style={{marginTop:"-12px"}}>
+            <div style={{ marginTop: "-12px" }}>
               {" "}
               <p className="profile-text-style profile-text-center">
                 To be Unstaked
               </p>
-              {/* <Tooltip title={props.amountToBeReturned}  disableHoverListener={!(props.amountToBeReturned.toString().length >4)}> */}
-              <p className="profile-content-style profile-text-center">
-                {props.amountStaked} MATIC
-              </p>
+              <Tooltip
+                title={props.amountStaked}
+                disableHoverListener={
+                  !(props.amountStaked.toString().length > 4)
+                }
+              >
+                <p className="profile-content-style profile-text-center">
+                  {props.amountStaked} MATIC
+                </p>
+              </Tooltip>
               {props.incentive ? (
                 <>
                   {" "}
                   <div class="unstake__image">
                     <img src={plus} alt="plus" style={{ width: "100%" }} />
                   </div>
-                  <p className="profile-content-style profile-text-center">
-                    {" "}
-                    {props.incentive} {props.questionDetails.bountyCurrency}
-                  </p>
+                  <Tooltip
+                    title={props.incentive}
+                    disableHoverListener={
+                      !(props.incentive.toString().length > 4)
+                    }
+                  >
+                    <p className="profile-content-style profile-text-center">
+                      {" "}
+                      {props.incentive} {props.questionDetails.bountyCurrency}
+                    </p>
+                  </Tooltip>
                 </>
               ) : (
                 <>
                   {" "}
                   <div class="unstake__image">
-                    <img src={minus} alt="minus" style={{ width: "100%", margin:"7px 0px 0px 0px" }} />
+                    <img
+                      src={minus}
+                      alt="minus"
+                      style={{ width: "100%", margin: "7px 0px 0px 0px" }}
+                    />
                   </div>
-                  <p className="profile-content-style profile-text-center">
-                    {" "}
-                    {props.amountToBeReturned.toFixed(4)} MATIC
-                  </p>
+                  <Tooltip
+                    title={props.amountToBeReturned}
+                    disableHoverListener={
+                      !(props.amountToBeReturned.toString().length > 4)
+                    }
+                  >
+                    <p className="profile-content-style profile-text-center">
+                      {" "}
+                      {props.amountToBeReturned.toFixed(4)} MATIC
+                    </p>
+                  </Tooltip>
                 </>
               )}
               {/* </Tooltip> */}
