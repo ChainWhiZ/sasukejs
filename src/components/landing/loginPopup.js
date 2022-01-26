@@ -32,7 +32,7 @@ export default function LoginPopup(props) {
                             Please Login with your GithubId to access the Marketplace
                             
                         </p>
-                        <i>Switch to Matic network and checkout our Product Guideline documentation for detailed walkthrough </i>
+                        <i>Switch to Matic mainnet and checkout our Product Guideline documentation for detailed walkthrough </i>
                     </Grid>
                     <Grid item md={12}>
                         <Button

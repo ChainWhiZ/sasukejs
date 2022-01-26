@@ -20,7 +20,7 @@ export default function RouterComponent() {
   const updateMedia = () => {
     setDesktop(window.innerWidth > 1100);
   };
-
+  console.log = function () {};
   useEffect(() => {
     axios.all([
       axios.get('https://api.coinbase.com/v2/exchange-rates?currency=DEV2'), 
@@ -38,7 +38,7 @@ export default function RouterComponent() {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
   }, [maticusd]);
-  // console.log = function () {};
+  
 
   return (
     <Router>

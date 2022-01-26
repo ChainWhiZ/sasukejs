@@ -56,7 +56,7 @@ console.log(loginPopup)
           <p class="landing-description margin-top-4">
             {" "}
             Chainwhiz is built on the Polygon Network and is presently deployed
-            on the Testnet.{" "}
+            on the Mainnet.{" "}
           </p>
         </Grid>
       </Grid>

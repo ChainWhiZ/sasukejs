@@ -250,7 +250,7 @@ export default function QuestionPost() {
         console.log(tokenContract.methods);
         const approvalTrx = tokenContract.methods
           .approve(
-            "0x842Edf7aB0086c3B96Deb9f461F7DD5635841e69",
+            process.env.REACT_APP_CHAINWHIZ_CORE_ADDRESS,
             (totalAmount * 2).toString()
           )
           .send({ from: walletAddress.toString() });
@@ -271,7 +271,7 @@ export default function QuestionPost() {
               communityOption == "Community Approved"
                 ? timeEnd.toString()
                 : "0",
-              "DUM"
+              currency
             )
             .send({ from: walletAddress.toString() });
 
