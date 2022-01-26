@@ -1,8 +1,8 @@
-export const checkLength = (val,n) => {
+export const checkLength = (val,n=4) => {
     return (val.toString()).length > n;
 }
 
-export const shortenLength = (val,n) => {
+export const shortenLength = (val,n=4) => {
     let valIntegerString = val.toString().split(".")[0]
     let valDecimalString = val.toString().split(".")[1];
     if (val.toString().length > n && valDecimalString) {

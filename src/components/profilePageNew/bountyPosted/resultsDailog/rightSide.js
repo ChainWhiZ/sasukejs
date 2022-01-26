@@ -89,9 +89,9 @@ export default function RightSide(props) {
               <Grid item md={6}>
                 <p className="results-dialog-heading">Voting Score</p>
                 <Tooltip title={props.selectedSolution.finalVoteScore}
-                  disableHoverListener={!(checkLength(props.selectedSolution.finalVoteScore,4))}>
+                  disableHoverListener={!(checkLength(props.selectedSolution.finalVoteScore))}>
                   <p className="results-dialog-right-grid-content-score">
-                    {shortenLength(props.selectedSolution.finalVoteScore,4)}
+                    {shortenLength(props.selectedSolution.finalVoteScore)}
                   </p>
                 </Tooltip>
               </Grid>

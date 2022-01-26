@@ -173,12 +173,12 @@ export default function QuestionStage(props) {
         <Grid item md={12}>
           <p className="profile-text-style" style={{ textAlign: "center" }}>Bounty Amount</p>
           <Tooltip title={props.questionId.bountyReward}
-            disableHoverListener={!(checkLength(props.questionId.bountyReward,4))}>
+            disableHoverListener={!(checkLength(props.questionId.bountyReward))}>
             <p
               className="profile-content-style profile-text-center profile-bounty-reward"
               style={{ marginTop: "1%" }}
             >
-              {shortenLength(props.questionId.bountyReward,4)} {props.questionId.bountyCurrency}
+              {shortenLength(props.questionId.bountyReward)} {props.questionId.bountyCurrency}
             </p>
           </Tooltip>
         </Grid>

@@ -171,11 +171,11 @@ export default function QuestionStage(props) {
               <Tooltip
                   title={props.amountStaked}
                   disableHoverListener={
-                    !(checkLength(props.amountToBeReturned,4))
+                    !(checkLength(props.amountToBeReturned))
                   }
                 >
               <p className="profile-content-style profile-text-center">
-                {shortenLength(props.amountStaked,4)} MATIC
+                {shortenLength(props.amountStaked)} MATIC
               </p>
               </Tooltip>
             </>
@@ -186,11 +186,11 @@ export default function QuestionStage(props) {
                 <Tooltip
                   title={props.incentive}
                   disableHoverListener={
-                    !(checkLength(props.incentive,4))
+                    !(checkLength(props.incentive))
                   }
                 >
                   <p className="profile-content-style profile-text-center">
-                    {shortenLength(props.incentive,4)}{" "}
+                    {shortenLength(props.incentive)}{" "}
                     {props.questionDetails.bountyCurrency}
                   </p>
                 </Tooltip>
@@ -203,10 +203,10 @@ export default function QuestionStage(props) {
                 <Tooltip
                   title={props.amountStaked - props.amountToBeReturned}
                   disableHoverListener={
-                    !(checkLength(props.amountStaked - props.amountToBeReturned,4))}
+                    !(checkLength(props.amountStaked - props.amountToBeReturned))}
                 >
                   <p className="profile-content-style profile-text-center">
-                    {shortenLength(props.amountStaked - props.amountToBeReturned,4)}{" "}
+                    {shortenLength(props.amountStaked - props.amountToBeReturned)}{" "}
                     MATIC
                   </p>
                 </Tooltip>
@@ -221,11 +221,11 @@ export default function QuestionStage(props) {
               <Tooltip
                 title={props.amountStaked}
                 disableHoverListener={
-                  !(checkLength(props.amountStaked,4))
+                  !(checkLength(props.amountStaked))
                 }
               >
                 <p className="profile-content-style profile-text-center">
-                  {shortenLength(props.amountStaked,4)} MATIC
+                  {shortenLength(props.amountStaked)} MATIC
                 </p>
               </Tooltip>
               {props.incentive ? (
@@ -237,12 +237,12 @@ export default function QuestionStage(props) {
                   <Tooltip
                     title={props.incentive}
                     disableHoverListener={
-                      !(checkLength(props.incentive,4))
+                      !(checkLength(props.incentive))
                     }
                   >
                     <p className="profile-content-style profile-text-center">
                       {" "}
-                      {shortenLength(props.incentive,4)} {props.questionDetails.bountyCurrency}
+                      {shortenLength(props.incentive)} {props.questionDetails.bountyCurrency}
                     </p>
                   </Tooltip>
                 </>
@@ -259,12 +259,12 @@ export default function QuestionStage(props) {
                   <Tooltip
                     title={props.amountToBeReturned}
                     disableHoverListener={
-                      !(checkLength(props.amountToBeReturned,4))
+                      !(checkLength(props.amountToBeReturned))
                     }
                   >
                     <p className="profile-content-style profile-text-center">
                       {" "}
-                      {shortenLength(props.amountToBeReturned,4)} MATIC
+                      {shortenLength(props.amountToBeReturned)} MATIC
                     </p>
                   </Tooltip>
                 </>
