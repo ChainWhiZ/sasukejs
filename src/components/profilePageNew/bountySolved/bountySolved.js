@@ -62,7 +62,7 @@ export default function BountySolved(props) {
                   <QuestionStage
                     {...solution}
                     fetchSolutions={fetchSolutions}
-                    
+                    handleLoader={(flag) => setLoader(flag)}
                   />
                 </Grid>
               </>

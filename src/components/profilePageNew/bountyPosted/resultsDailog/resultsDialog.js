@@ -112,6 +112,13 @@ export default function ResultsDialog(props) {
             questionId: props._id,
             userId: solutions[selectedSolutionIndex].solverGithubId,
           });
+          Promise.resolve(axiosResponse).then((val) => {
+            if (val.status == 201) {
+              window.alert("Successfully initiated");
+              handleClose(false);
+              props.handleDialogClose(false);
+            }
+          });
         } catch (error) {
           console.log(error);
           valid = false;
@@ -125,11 +132,6 @@ export default function ResultsDialog(props) {
         }
       }
 
-      if (valid) {
-        window.alert("Successfully initiated");
-        handleClose(false);
-        props.handleDialogClose(false);
-      }
     } catch (error) {
       console.log(error);
       handleClose(false);

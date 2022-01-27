@@ -100,7 +100,7 @@ export default function StakingPage(props) {
   console.log(selectedSolutions)
 
   const handleStakeValidation = () => {
-    if (stakeDetails.stakeAmount <= 5 || stakeDetails.stakeAmount >= 40) {
+    if (stakeDetails.stakeAmount <= 0.0001 || stakeDetails.stakeAmount >= 40) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,

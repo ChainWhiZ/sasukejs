@@ -81,7 +81,7 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-          // props.handleLoader(false);
+           props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
@@ -91,15 +91,14 @@ export default function QuestionStage(props) {
             ? `Went wrong in trc hash :${error.transactionHash}`
             : error.message
         );
-        // props.handleLoader(false);
+         props.handleLoader(false);
         reject(error);
       }
     });
   };
 
   const handleComplete = async () => {
-    // props.handleLoader(true);
-
+     props.handleLoader(true);
     try {
       try {
         const completeResponse = await completeCall();
@@ -109,9 +108,18 @@ export default function QuestionStage(props) {
       }
 
       if (valid) {
+        console.log("in escrow complete")
         try {
           const axiosResponse = await axios.post(port + "escrow/complete", {
             _id: props.escrowId,
+          });
+          Promise.resolve(axiosResponse).then((val) => {
+            if (val.status == 201) {
+              window.alert("Successfully claimed");
+               props.handleLoader(false);
+              setOpen(false);
+              fetchEscrow();
+            }
           });
         } catch (error) {
           console.log(error);
@@ -121,28 +129,21 @@ export default function QuestionStage(props) {
             open: true,
             errorMessage: "Error",
           }));
-          // props.handleLoader(false);
+           props.handleLoader(false);
           setOpen(false);
-          props.handleDialogClose(false);
         }
       }
 
-      if (valid) {
-        window.alert("Successfully claimed");
-        // props.handleLoader(false);
-        setOpen(false);
-        props.handleDialogClose(false);
-        fetchEscrow();
-      }
     } catch (error) {
       console.log(error);
-      // props.handleLoader(false);
+       props.handleLoader(false);
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Something went wrong while acknowledging reward!",
       }));
     }
+    
   };
 
   return (
@@ -182,8 +183,9 @@ export default function QuestionStage(props) {
             </p>
           </Tooltip>
         </Grid>
-        <Grid item md={6} className="profile-text-center">
-          <p className="profile-text-style profile-text-center">
+        <Grid item md={6} className="profile-text-center" style={
+            props._id === props.questionId.selectedSolutionId.solutionId?{marginLeft:"25%"}:null}>
+          <p className="profile-text-style profile-text-center" >
             Your Solution
           </p>
           <a
@@ -200,6 +202,7 @@ export default function QuestionStage(props) {
             />
           </a>
         </Grid>
+        {props._id !== props.questionId.selectedSolutionId.solutionId ?
         <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
             Chosen Solution
@@ -224,7 +227,9 @@ export default function QuestionStage(props) {
               NA
             </p>
           )}
+        
         </Grid>
+          : null}
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             props.escrowId &&
@@ -237,9 +242,9 @@ export default function QuestionStage(props) {
                 Claim Reward
               </Button>
             ) : (
-              <Link to={`/bounty/${props.questionId._id}`}>
-                <Button className="profile-button">Go to Bounty Page</Button>
-              </Link>
+             // <Link to={`/bounty/${props.questionId._id}`}>
+                <Button onClick={() => handleComplete()} className="profile-button">Go to Bounty Page</Button>
+             // </Link>
             )
           ) : (
             <Button className="profile-button" disabled>
