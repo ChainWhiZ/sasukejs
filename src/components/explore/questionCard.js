@@ -118,16 +118,51 @@ export default function QuestionCard(props) {
         ) : (
           <>
             <Grid item md={2} xs={12} className="reward-grid ">
-              <Box className="reward-box">
-                {props.bountyReward} {props.bountyCurrency}
-              </Box>
+            <Tooltip
+                title={
+                  props.bountyReward
+                }
+                disableHoverListener={
+                  !checkLength(
+                    props.bountyReward
+                  )
+                }
+              >
+                <p className="reward__value">
+                  {" "}
+                  {shortenLength(
+                    props.bountyReward
+                  )}{" "}
+                  {props.bountyCurrency}
+                </p>
+                </Tooltip>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-              <Box className="reward-box">
-                {props.bountyReward *
-                  (props.bountyCurrency === "DEV" ? devusd : maticusd)}{" "}
-                {props.bountyCurrency}
-              </Box>
+            <Tooltip
+                title={
+                     props.bountyCurrency === "DEV"
+                      ? devusd * props.bountyReward
+                      : maticusd * props.bountyReward
+                    
+                }
+                disableHoverListener={
+                  !checkLength(
+                     props.bountyCurrency === "DEV"
+                        ? devusd * props.bountyReward
+                        : maticusd * props.bountyReward
+                    )
+                }
+              >
+                <p className="reward__value">
+                  {" "}
+                  {shortenLength(
+                    props.bountyCurrency === "DEV"
+                        ? devusd * props.bountyReward
+                        : maticusd * props.bountyReward
+                    )}{" "}
+                  USD
+                </p>
+              </Tooltip>
             </Grid>
           </>
         )}

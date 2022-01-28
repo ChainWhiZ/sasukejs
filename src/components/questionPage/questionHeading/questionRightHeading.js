@@ -100,18 +100,6 @@ export default function QuestionRightHeading(props) {
             </p>
           </Tooltip>
 
-          {/* <p class="bounty-time margin-top-20">
-            {" "}
-            {props.questionStage === "vote"
-              ? up(
-                  props.communityReward *
-                    (props.bountyCurrency === "DEV" ? devusd : maticusd)
-                ) + " USD"
-              : up(
-                  props.bountyReward *
-                    (props.bountyCurrency === "DEV" ? devusd : maticusd)
-                ) + " USD"}
-          </p> */}
           {props.questionStage === "solve" ? (
             <Button
               class="bounty-button"
