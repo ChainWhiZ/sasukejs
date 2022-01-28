@@ -51,7 +51,7 @@ export default function StakingPage(props) {
   console.log(props.location.state.questionDetails.workplanIds);
 
 
-  useEffect(async () => {
+  useEffect( () => {
     axios
       .post(port + "workplan/fetchall", {
         _id: props.location.state.questionDetails._id,
@@ -100,7 +100,7 @@ export default function StakingPage(props) {
   console.log(selectedSolutions)
 
   const handleStakeValidation = () => {
-    if (stakeDetails.stakeAmount <= 0.0001 || stakeDetails.stakeAmount >= 40) {
+    if (stakeDetails.stakeAmount <= 5 || stakeDetails.stakeAmount >= 40) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,

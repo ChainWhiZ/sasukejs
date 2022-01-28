@@ -32,7 +32,7 @@ export default function QuestionStage(props) {
     contract = v;
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
-  useEffect(async () => {
+  useEffect( () => {
     if (props.escrowId) {
       // props.handleLoader(true);
       fetchEscrow();

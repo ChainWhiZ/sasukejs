@@ -26,7 +26,7 @@ export default function RightSide(props) {
     severity: "error",
   });
   console.log(props);
-  useEffect(async () => {
+  useEffect( () => {
     if (props.selectedSolution.escrowId) {
       axios
         .post(port + "escrow/fetch", {
@@ -44,7 +44,7 @@ export default function RightSide(props) {
           }));
         });
     }
-  }, [props.selectedSolution.escrowId]);
+  }, [escrow._id]);
   const handleEscrowDisable = () => {
     if (
       escrow.escrowStatus === "TransactionCompleted" ||
@@ -144,7 +144,8 @@ export default function RightSide(props) {
             </>
           )}
         </Grid>
-        {!handleEscrowDisable() ?
+        {!(escrow.escrowStatus === "TransactionCompleted" ||
+          escrow.escrowStatus === "Completed" )?
           <Grid item md={12} xs={12} style={{ margin: "-4% 0% 2% 12%" }}>
             <FormControlLabel
               control={

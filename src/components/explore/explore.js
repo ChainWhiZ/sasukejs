@@ -23,7 +23,7 @@ export default function NewExplore(props) {
     severity: "error",
   });
 
-  useEffect(async () => {
+  useEffect( () => {
     setAlert((prevState) => ({
       ...prevState,
       open: false,

@@ -43,7 +43,7 @@ export default function ResultsDialog(props) {
         }
         setLoader(false);
       });
-  });
+  },[]);
 
   const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
   const handleClose = () => {
@@ -105,7 +105,7 @@ export default function ResultsDialog(props) {
         valid = false;
       }
 
-      if (valid) {
+      if (!valid) {
         try {
           const axiosResponse = await axios.post(port + "escrow/init", {
             _id: solutions[selectedSolutionIndex].githubLink,
