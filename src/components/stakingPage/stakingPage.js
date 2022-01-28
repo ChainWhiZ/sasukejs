@@ -222,7 +222,7 @@ export default function StakingPage(props) {
   }
   return (
     <>
-      <hr className="horizontal-line" style={{ marginTop: "7.5%" }} />
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
       {loader ? (
         <CircularIndeterminate />
       ) : (
