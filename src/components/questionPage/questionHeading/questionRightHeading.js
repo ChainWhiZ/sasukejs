@@ -64,7 +64,7 @@ export default function QuestionRightHeading(props) {
 
           <Tooltip
             title={
-              props.type === "solve"
+              props.questionStage === "solve"
                 ? props.bountyCurrency === "DEV"
                   ? devusd * props.bountyReward
                   : maticusd * props.bountyReward
@@ -74,7 +74,7 @@ export default function QuestionRightHeading(props) {
             }
             disableHoverListener={
               !checkLength(
-                props.type === "solve"
+                props.questionStage === "solve"
                   ? props.bountyCurrency === "DEV"
                     ? devusd * props.bountyReward
                     : maticusd * props.bountyReward
@@ -88,7 +88,7 @@ export default function QuestionRightHeading(props) {
             <p class="bounty-time margin-top-20">
               {" "}
               {shortenLength(
-                props.type === "solve"
+                props.questionStage === "solve"
                   ? props.bountyCurrency === "DEV"
                     ? devusd * props.bountyReward
                     : maticusd * props.bountyReward
