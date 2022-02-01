@@ -50,6 +50,14 @@ export default function WorkplanSubmit(props) {
       }));
       
     }
+    if (!username) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please login to submit workplan",
+      }));
+      
+    }
     console.log(process.env.REACT_APP_API_KEY)
     console.log(process.env.REACT_APP_API_SECRET)
     const uploadedFile = await fleekStorage.upload({
