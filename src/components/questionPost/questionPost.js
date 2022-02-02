@@ -326,6 +326,13 @@ export default function QuestionPost() {
         isValid: true,
         errorMessage: "Please connect wallet",
       }));
+    }else if (!username) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please login to submit workplan",
+      }));
+      
     } else {
       setAlert((prevState) => ({
         ...prevState,
@@ -401,9 +408,9 @@ export default function QuestionPost() {
     }
   }
 
-  if (!username) {
-    return <Redirect to="/" />;
-  }
+  // if (!username) {
+  //   return <Redirect to="/" />;
+  // }
 
   return (
     <>
