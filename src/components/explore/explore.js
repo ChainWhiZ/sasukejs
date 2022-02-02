@@ -64,9 +64,6 @@ export default function NewExplore(props) {
     }
 
   }
-  if (!username) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <>

@@ -326,6 +326,13 @@ export default function QuestionPost() {
         isValid: true,
         errorMessage: "Please connect wallet",
       }));
+    }else if (!username) {
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Please login to post bounty",
+      }));
+      
     } else {
       setAlert((prevState) => ({
         ...prevState,
@@ -401,9 +408,7 @@ export default function QuestionPost() {
     }
   }
 
-  if (!username) {
-    return <Redirect to="/" />;
-  }
+
 
   return (
     <>
