@@ -11,8 +11,11 @@ import {
   contract as contractAtom,
   walletAddress as walletAddressAtom,
 } from "../../../recoil/atoms";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 import "../profilePageCss.css";
+import plus from "../../../assets/plus.svg";
+import minus from "../../../assets/minus.svg";
+import { checkLength, shortenLength } from "../../helper";
 
 export default function QuestionStage(props) {
   console.log(props);
@@ -30,14 +33,36 @@ export default function QuestionStage(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
   const unstakeCall = async () => {
     return await new Promise(async (resolve, reject) => {
-
       try {
         const trxObj = contract.methods
-          .setApproval(Math.floor(props.amountToBeReturned * Math.pow(10, 18).toString()))
+          .setApproval(
+            Math.floor((props.amountToBeReturned * Math.pow(10, 18))).toString()
+          )
           .send({ from: walletAddress.toString() });
         trxObj.on("receipt", function (receipt) {
-          console.log("Successfully done");
-          resolve(receipt);
+          // Call unstake function if setApproval is done
+          try {
+            const unstakeTrx = contract.methods.unstake(props.solutionId._id).send({ from: walletAddress.toString() })
+            unstakeTrx.on("receipt", function (res) {
+              console.log("Successfully Unstaked");
+              resolve(receipt);
+            })
+            unstakeTrx.on("error", function (error, receipt) {
+              console.log(error);
+              if (error)
+                window.alert(
+                  error.transactionHash
+                    ? `Went wrong in trc hash :${error.transactionHash}`
+                    : error.message
+                );
+              props.handleLoader(false);
+              reject(error.message);
+            });
+          } catch (error) {
+            console.log(error)
+            window.alert("Something went wrong!")
+          }
+
         });
 
         trxObj.on("error", function (error, receipt) {
@@ -83,7 +108,7 @@ export default function QuestionStage(props) {
               solutionId: props.solutionId._id,
             })
 
-            .catch((err) => { });
+            .catch((err) => {});
         } catch (error) {
           console.log(error);
           valid = false;
@@ -97,7 +122,7 @@ export default function QuestionStage(props) {
       }
 
       if (valid) {
-        window.alert("Successfulyy unstaked");
+        window.alert("Successfully unstaked");
         props.fetchVotedSolutions();
         props.handleLoader(false);
       }
@@ -143,20 +168,30 @@ export default function QuestionStage(props) {
           {props.questionDetails.questionStage === "vote" ? (
             <>
               <p className="profile-text-style profile-text-center">Staked</p>
+              <Tooltip
+                  title={props.amountStaked}
+                  disableHoverListener={
+                    !(checkLength(props.amountToBeReturned))
+                  }
+                >
               <p className="profile-content-style profile-text-center">
-                {props.amountStaked}
+                {shortenLength(props.amountStaked)} MATIC
               </p>
+              </Tooltip>
             </>
           ) : props.claimed ? (
-            props.amountToBeReturned > props.amountStaked ? (
+            props.incentive ? (
               <>
                 <p className="profile-text-style profile-text-center">Earned</p>
-                <Tooltip title={props.amountToBeReturned - props.amountStaked}
-                disableHoverListener={!((props.amountToBeReturned - props.amountStaked).toString().length >4)}>
+                <Tooltip
+                  title={props.incentive}
+                  disableHoverListener={
+                    !(checkLength(props.incentive))
+                  }
+                >
                   <p className="profile-content-style profile-text-center">
-
-                    {(props.amountToBeReturned - props.amountStaked).toFixed(4)}
-
+                    {shortenLength(props.incentive)}{" "}
+                    {props.questionDetails.bountyCurrency}
                   </p>
                 </Tooltip>
               </>
@@ -165,35 +200,83 @@ export default function QuestionStage(props) {
                 <p className="profile-text-style profile-text-center">
                   Slashed
                 </p>
-                <Tooltip title={props.amountStaked - props.amountToBeReturned} 
-                disableHoverListener={!((props.amountStaked - props.amountToBeReturned).toString().length >4)}>
+                <Tooltip
+                  title={props.amountStaked - props.amountToBeReturned}
+                  disableHoverListener={
+                    !(checkLength(props.amountStaked - props.amountToBeReturned))}
+                >
                   <p className="profile-content-style profile-text-center">
-
-                    {(props.amountStaked - props.amountToBeReturned).toFixed(4)}
-
+                    {shortenLength(props.amountStaked - props.amountToBeReturned)}{" "}
+                    MATIC
                   </p>
                 </Tooltip>
               </>
             )
           ) : (
-            <>
+            <div style={{ marginTop: "-12px" }}>
               {" "}
               <p className="profile-text-style profile-text-center">
                 To be Unstaked
               </p>
-              <Tooltip title={props.amountToBeReturned}  disableHoverListener={!(props.amountToBeReturned.toString().length >4)}>
-              <p className="profile-content-style profile-text-center">
-                {props.amountToBeReturned.toFixed(4)}
-              </p>
+              <Tooltip
+                title={props.amountStaked}
+                disableHoverListener={
+                  !(checkLength(props.amountStaked))
+                }
+              >
+                <p className="profile-content-style profile-text-center">
+                  {shortenLength(props.amountStaked)} MATIC
+                </p>
               </Tooltip>
-            </>
+              {props.incentive ? (
+                <>
+                  {" "}
+                  <div class="unstake__image">
+                    <img src={plus} alt="plus" style={{ width: "100%" }} />
+                  </div>
+                  <Tooltip
+                    title={props.incentive}
+                    disableHoverListener={
+                      !(checkLength(props.incentive))
+                    }
+                  >
+                    <p className="profile-content-style profile-text-center">
+                      {" "}
+                      {shortenLength(props.incentive)} {props.questionDetails.bountyCurrency}
+                    </p>
+                  </Tooltip>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <div class="unstake__image">
+                    <img
+                      src={minus}
+                      alt="minus"
+                      style={{ width: "100%", margin: "7px 0px 0px 0px" }}
+                    />
+                  </div>
+                  <Tooltip
+                    title={props.amountToBeReturned}
+                    disableHoverListener={
+                      !(checkLength(props.amountToBeReturned))
+                    }
+                  >
+                    <p className="profile-content-style profile-text-center">
+                      {" "}
+                      {shortenLength(props.amountToBeReturned)} MATIC
+                    </p>
+                  </Tooltip>
+                </>
+              )}
+            </div>
           )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             !props.claimed &&
-              props.amountToBeReturned &&
-              props.questionDetails.questionStage === "complete" ? (
+            props.amountToBeReturned &&
+            props.questionDetails.questionStage === "complete" ? (
               <Button className="profile-button" onClick={handleUnstake}>
                 Unstake Now
               </Button>

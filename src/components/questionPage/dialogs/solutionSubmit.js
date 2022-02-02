@@ -66,7 +66,7 @@ export default function SolutionSubmit(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-          window.alert("Successfulyy submitted");
+          window.alert("Successfully submitted");
           resolve(receipt);
         });
 
@@ -168,7 +168,15 @@ export default function SolutionSubmit(props) {
           severity: "error",
           errorMessage: "Please connect wallet",
         }));
-      } else {
+      } else if (!username) {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "Please login to submit solution",
+        }));
+        
+      }
+       else{
         setAlert((prevState) => ({
           ...prevState,
           open: false,

@@ -9,7 +9,7 @@ import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../../recoil/atoms";
 import CircularIndeterminate from "../../loader/loader";
 import "../profilePageCss.css";
-
+import { Link } from "react-router-dom";
 export default function VotedSolution() {
     const username = useRecoilValue(usernameAtom);
     const [data, setData] = useState([]);
@@ -49,7 +49,9 @@ export default function VotedSolution() {
                     (data.map(votedOn =>
                         <>
                             <Grid item md={7} xs={12} >
+                            <Link to={`/bounty/${votedOn.questionDetails._id}`}>
                                 <QuestionDetail {...votedOn.questionDetails} />
+                                </Link>
                             </Grid>
                             <Grid item md={5} xs={12}  >
                                 <QuestionStage {...votedOn} fetchVotedSolutions={fetchVotedSolutions} handleLoader={(flag) => setLoader(flag)} />

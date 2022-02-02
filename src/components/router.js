@@ -9,32 +9,36 @@ import Navbar from "./navbar/navbar";
 import Footer from "./footer/footer";
 import NewExplore from "./explore/explore";
 import StakingPage from "./stakingPage/stakingPage";
-import { maticusd as maticusdAtom } from "../recoil/atoms";
+import { maticusd as maticusdAtom,devusd as devusdAtom } from "../recoil/atoms";
 import { useRecoilState } from "recoil";
 import MobileView from "./mobileView/mobileView";
 import "../style/style.css";
 export default function RouterComponent() {
   const [isDesktop, setDesktop] = useState(window.innerWidth > 1100);
   const [maticusd, setMaticusd] = useRecoilState(maticusdAtom);
+  const [devusd, setDevusd] = useRecoilState(devusdAtom);
   const updateMedia = () => {
     setDesktop(window.innerWidth > 1100);
   };
-
+  console.log = function () {};
   useEffect(() => {
-    axios
-      .get(
-        "https://api.coinbase.com/v2/exchange-rates?currency=MATIC"
-      )
-      .then((response) => {
-        setMaticusd(response.data.data.rates.MUSD);
-        window.addEventListener("resize", updateMedia);
-        return () => window.removeEventListener("resize", updateMedia);
-      })
-      .catch((err) => {});
+    axios.all([
+      axios.get('https://api.coinbase.com/v2/exchange-rates?currency=DEV2'), 
+      axios.get('https://api.coinbase.com/v2/exchange-rates?currency=MATIC')
+    ])
+    .then(axios.spread((response1, response2) => {
+      console.log(response2.data.data)
+      setMaticusd(response2.data.data.rates.USD);
+      console.log(response1.data.data)
+      setDevusd(response1.data.data.rates.USD);
       window.addEventListener("resize", updateMedia);
       return () => window.removeEventListener("resize", updateMedia);
+    }))
+    .catch((err) => {})
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
   }, [maticusd]);
-  // console.log = function () {};
+  
 
   return (
     <Router>

@@ -8,6 +8,7 @@ import RightSide from "./rightSide";
 import "../../profilePageCss.css";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { useRecoilValue } from "recoil";
+import { CircularProgress } from "@material-ui/core";
 import {
   contract as contractAtom,
   walletAddress as walletAddressAtom,
@@ -20,6 +21,7 @@ export default function ResultsDialog(props) {
     isValid: false,
     errorMessage: "",
   });
+  const [loader, setLoader] = useState(true);
   const [solutions, setSolutions] = useState([]);
   const [disable, setDisable] = useState(false);
   const contractPromise = useRecoilValue(contractAtom);
@@ -39,8 +41,9 @@ export default function ResultsDialog(props) {
         if (solutions.some((e) => e.escrowId)) {
           setHasEscrowInitiated(true);
         }
+        setLoader(false);
       });
-  });
+  },[]);
 
   const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
   const handleClose = () => {
@@ -64,7 +67,7 @@ export default function ResultsDialog(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-         
+
           resolve(receipt);
         });
 
@@ -76,7 +79,7 @@ export default function ResultsDialog(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-            handleClose(false);
+          handleClose(false);
           reject(error.message);
         });
       } catch (error) {
@@ -102,12 +105,19 @@ export default function ResultsDialog(props) {
         valid = false;
       }
 
-      if (valid) {
+      if (!valid) {
         try {
           const axiosResponse = await axios.post(port + "escrow/init", {
             _id: solutions[selectedSolutionIndex].githubLink,
             questionId: props._id,
             userId: solutions[selectedSolutionIndex].solverGithubId,
+          });
+          Promise.resolve(axiosResponse).then((val) => {
+            if (val.status == 201) {
+              window.alert("Successfully initiated");
+              handleClose(false);
+              props.handleDialogClose(false);
+            }
           });
         } catch (error) {
           console.log(error);
@@ -122,11 +132,6 @@ export default function ResultsDialog(props) {
         }
       }
 
-      if (valid) {
-        window.alert("Successfuly initiated");
-        handleClose(false);
-        props.handleDialogClose(false);
-      }
     } catch (error) {
       console.log(error);
       handleClose(false);
@@ -175,15 +180,19 @@ export default function ResultsDialog(props) {
                 selectedSolutionIndex={selectedSolutionIndex}
               />
             ) : (
-              <p
-                style={{
-                  fontWeight: "700",
-                  fontSize: "4vw",
-                  marginLeft: "26vw",
-                }}
-              >
-                No solution submitted
-              </p>
+              loader ?
+                <CircularProgress className="profile-page-loader" />
+                :
+                <p
+                  style={{
+                    fontWeight: "700",
+                    fontSize: "4vw",
+                    marginLeft: "26vw",
+                  }}
+                >
+                  No solution submitted
+                </p>
+
             )}
           </Grid>
           <Grid item md={8} xs={12}>

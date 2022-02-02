@@ -12,8 +12,11 @@ import {
   walletAddress as walletAddressAtom,
 } from "../../../recoil/atoms";
 import "../profilePageCss.css";
+import { shortenLength, checkLength } from "../../helper";
+import { Tooltip } from "@material-ui/core";
 
 export default function QuestionStage(props) {
+  console.log(props);
   let valid = true;
   const [open, setOpen] = useState(false);
   const [escrow, setEscrow] = useState({});
@@ -29,9 +32,9 @@ export default function QuestionStage(props) {
     contract = v;
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
-  useEffect(async () => {
+  useEffect( () => {
     if (props.escrowId) {
-      props.handleLoader(true);
+      // props.handleLoader(true);
       fetchEscrow();
     }
   }, []);
@@ -42,12 +45,12 @@ export default function QuestionStage(props) {
         _id: props.escrowId,
       })
       .then((response) => {
-        props.handleLoader(false);
+        // props.handleLoader(false);
         setEscrow(response.data);
         console.log(escrow);
       })
       .catch((err) => {
-        props.handleLoader(false);
+        // props.handleLoader(false);
         setAlert((prevState) => ({
           ...prevState,
           open: true,
@@ -66,7 +69,7 @@ export default function QuestionStage(props) {
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
-         
+
           resolve(receipt);
         });
 
@@ -78,7 +81,7 @@ export default function QuestionStage(props) {
                 ? `Went wrong in trc hash :${error.transactionHash}`
                 : error.message
             );
-            props.handleLoader(false);
+          props.handleLoader(false);
           reject(error.message);
         });
       } catch (error) {
@@ -96,7 +99,6 @@ export default function QuestionStage(props) {
 
   const handleComplete = async () => {
     props.handleLoader(true);
-
     try {
       try {
         const completeResponse = await completeCall();
@@ -106,9 +108,18 @@ export default function QuestionStage(props) {
       }
 
       if (valid) {
+        console.log("in escrow complete");
         try {
           const axiosResponse = await axios.post(port + "escrow/complete", {
             _id: props.escrowId,
+          });
+          Promise.resolve(axiosResponse).then((val) => {
+            if (val.status == 201) {
+              window.alert("Successfully claimed");
+              props.handleLoader(false);
+              setOpen(false);
+              fetchEscrow();
+            }
           });
         } catch (error) {
           console.log(error);
@@ -120,16 +131,7 @@ export default function QuestionStage(props) {
           }));
           props.handleLoader(false);
           setOpen(false);
-          props.handleDialogClose(false);
         }
-      }
-
-      if (valid) {
-        window.alert("Suuccessfuly acknowledged");
-        props.handleLoader(false);
-        setOpen(false);
-        props.handleDialogClose(false);
-        fetchEscrow();
       }
     } catch (error) {
       console.log(error);
@@ -167,6 +169,23 @@ export default function QuestionStage(props) {
             </>
           ) : null}
         </Grid>
+        <Grid item md={12}>
+          <p className="profile-text-style" style={{ textAlign: "center" }}>
+            Bounty Amount
+          </p>
+          <Tooltip
+            title={props.questionId.bountyReward}
+            disableHoverListener={!checkLength(props.questionId.bountyReward)}
+          >
+            <p
+              className="profile-content-style profile-text-center profile-bounty-reward"
+              style={{ marginTop: "1%" }}
+            >
+              {shortenLength(props.questionId.bountyReward)}{" "}
+              {props.questionId.bountyCurrency}
+            </p>
+          </Tooltip>
+        </Grid>
         <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
             Your Solution
@@ -185,11 +204,13 @@ export default function QuestionStage(props) {
             />
           </a>
         </Grid>
+
         <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
-            Winning Solution
+            Chosen Solution
           </p>
-          {props.questionId.selectedSolutionId && props.questionId.selectedSolutionId.solutionId ? (
+          {props.questionId.selectedSolutionId &&
+          props.questionId.selectedSolutionId.solutionId ? (
             <a
               href={props.questionId.selectedSolutionId.solutionId}
               target="_blank"
@@ -209,26 +230,32 @@ export default function QuestionStage(props) {
             </p>
           )}
         </Grid>
+
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.publicAddress === walletAddress ? (
             props.escrowId &&
-            escrow.escrowStatus !== "Acknowledged" &&
+            escrow.escrowStatus !== "Completed" &&
             props._id === props.questionId.selectedSolutionId.solutionId ? (
               <Button
                 className="profile-button"
                 onClick={() => handleComplete()}
               >
-                Reward Received
+                Claim Reward
               </Button>
             ) : (
-              <Link to={`/bounty/${props.questionId._id}`}>
-                <Button className="profile-button">Go to Bounty Page</Button>
-              </Link>
+              // <Link to={`/bounty/${props.questionId._id}`}>
+              <Button
+                onClick={() => handleComplete()}
+                className="profile-button"
+              >
+                Go to Bounty Page
+              </Button>
+              // </Link>
             )
           ) : (
-              <Button className="profile-button" disabled>
+            <Button className="profile-button" disabled>
               Change wallet address
-              </Button>
+            </Button>
           )}
         </Grid>
       </Grid>

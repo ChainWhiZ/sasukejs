@@ -19,7 +19,7 @@ export default function StakeSolution(props) {
     severity: "error",
   });
 
-  useEffect(async () => {
+  useEffect( () => {
     console.log(props.solutionId)
     axios
       .post(port + "solution/fetch", {

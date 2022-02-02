@@ -13,6 +13,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { Tooltip } from "@material-ui/core";
+import { checkLength, shortenLength } from "../../../helper";
 
 export default function RightSide(props) {
   const [escrow, setEscrow] = useState({});
@@ -24,7 +26,7 @@ export default function RightSide(props) {
     severity: "error",
   });
   console.log(props);
-  useEffect(async () => {
+  useEffect( () => {
     if (props.selectedSolution.escrowId) {
       axios
         .post(port + "escrow/fetch", {
@@ -42,10 +44,11 @@ export default function RightSide(props) {
           }));
         });
     }
-  }, [props.selectedSolution.escrowId]);
+  }, [escrow._id]);
   const handleEscrowDisable = () => {
     if (
-      escrow.escrowStatus === "Acknowledged" ||
+      escrow.escrowStatus === "TransactionCompleted" ||
+      escrow.escrowStatus === "Completed" ||
       props.disable ||
       !cloneconfirmation
     )
@@ -53,8 +56,8 @@ export default function RightSide(props) {
     return false;
   };
   const handleEscrowLabel = () => {
-    if (escrow.escrowStatus === "TransactionCompleted")
-      return "Transaction Completed";
+    if (escrow.escrowStatus === "TransactionCompleted" || escrow.escrowStatus === "Completed")
+      return "Completed";
     return "Initiate Escrow";
   };
 
@@ -86,9 +89,12 @@ export default function RightSide(props) {
             <>
               <Grid item md={6}>
                 <p className="results-dialog-heading">Voting Score</p>
-                <p className="results-dialog-right-grid-content-score">
-                  {(props.selectedSolution.finalVoteScore).toFixed(4)}
-                </p>
+                <Tooltip title={props.selectedSolution.finalVoteScore}
+                  disableHoverListener={!(checkLength(props.selectedSolution.finalVoteScore))}>
+                  <p className="results-dialog-right-grid-content-score">
+                    {shortenLength(props.selectedSolution.finalVoteScore)}
+                  </p>
+                </Tooltip>
               </Grid>
               <Grid item md={6}>
                 <p className="results-dialog-heading">Workplan</p>
@@ -138,23 +144,28 @@ export default function RightSide(props) {
             </>
           )}
         </Grid>
-        <Grid item md={12} xs={12} style={{ margin: "-4% 0% 2% 12%" }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                checkedIcon={<CheckBoxIcon fontSize="small" />}
-                name="cloneconfirmation"
-                checked={cloneconfirmation}
-                onChange={(e) => setCloneconfirmation(e.target.checked)}
-                style={{ color: "white" }}
-              />
-            }
-          />
-          <span className="terms-text">
-            I have already taken a clone of the solution github link.
-          </span>
-        </Grid>
+        {!(escrow.escrowStatus === "TransactionCompleted" ||
+          escrow.escrowStatus === "Completed" )?
+          <Grid item md={12} xs={12} style={{ margin: "-4% 0% 2% 12%" }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                  checkedIcon={<CheckBoxIcon fontSize="small" />}
+                  name="cloneconfirmation"
+                  checked={cloneconfirmation}
+                  onChange={(e) => setCloneconfirmation(e.target.checked)}
+                  style={{ color: "white" }}
+                />
+              }
+            />
+
+            <span className="terms-text">
+              I have already taken a clone of the solution github link.
+            </span>
+
+          </Grid>
+          : null}
         <Grid item md={12} xs={12}>
           {props.publicAddress === walletAddress ? (
             props.hasEscrowInitiated && !props.selectedSolution.escrowId ? (

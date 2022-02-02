@@ -35,7 +35,7 @@
   background: #131313;
   border-radius: 11px;
   width: 44vw !important;
-  height: 43vh !important;
+  height: 50vh !important;
   margin: 6% 2% 2% 2%;
   padding: 4% 4% 4% 5%;
 }
@@ -45,7 +45,7 @@
   width: 17vw !important;
   margin: 9% 2% 2% 8%;
   padding: 6% 4% 8% 4%;
-  height: 42vh;
+  height: 50vh;
   margin-left: 9vw;
 }
 .profile-button {
@@ -160,7 +160,7 @@
   border-radius: 8px;
   margin-right: 19% !important;
   padding-left: 6%;
-  margin-top:-4%;
+  margin-top: -4%;
 }
 .results-dialog-right-grid-content {
   background: #131313;
@@ -197,8 +197,8 @@
 }
 .results-dialog-right-grid-content-score {
   font-weight: 600;
-  font-size: 64px;
-  margin: -7% -2% 0% 1%;
+  font-size: 55px;
+  margin: -7% -2% 0% -2%;
 }
 
 .results-dialog-right-grid-github-icon {
@@ -245,4 +245,22 @@
 }
 .profile-details-bounty-heading-grid {
   margin-top: -7vw !important;
+}
+.unstake__image {
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+}
+.profile-page-loader
+{
+    color: rgba(215, 255, 46, 1) !important;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    position:fixed;
 }

@@ -5,12 +5,17 @@ import { Link } from "react-router-dom";
 import "./explore.css";
 import time from "../../assets/Time.png";
 import account from "../../assets/Account.png";
-import { maticusd as maticusdAtom } from "../../recoil/atoms";
+import {
+  maticusd as maticusdAtom,
+  devusd as devusdAtom,
+} from "../../recoil/atoms";
 import { useRecoilValue } from "recoil";
-
+import { checkLength, shortenLength } from "../helper";
+import Tooltip from "@material-ui/core/Tooltip";
 export default function QuestionCard(props) {
   const maticusd = useRecoilValue(maticusdAtom);
-  let hoursOrDaysOrMinutes = "days";
+  const devusd = useRecoilValue(devusdAtom);
+  let hoursOrDaysOrMinutes = "day(s)";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
   if (props.questionStage === "solve" && props.isCommunityApprovedSolution) {
@@ -32,7 +37,7 @@ export default function QuestionCard(props) {
   }
   const up = (v) => {
     return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
-  }
+  };
 
   return (
     <>
@@ -46,24 +51,118 @@ export default function QuestionCard(props) {
         {props.isCommunityApprovedSolution ? (
           <>
             <Grid item md={2} xs={12} className="reward-grid">
-              <Box className="reward-box">{props.type==="solve"?props.bountyReward:props.communityReward} MATIC</Box>
+              <Tooltip
+                title={
+                  props.type === "solve"
+                    ? props.bountyReward
+                    : props.communityReward
+                }
+                disableHoverListener={
+                  !checkLength(
+                    props.type === "solve"
+                      ? props.bountyReward
+                      : props.communityReward
+                  )
+                }
+              >
+                <p className="reward__value">
+                  {" "}
+                  {shortenLength(
+                    props.type === "solve"
+                      ? props.bountyReward
+                      : props.communityReward
+                  )}{" "}
+                  {props.bountyCurrency}
+                </p>
+              </Tooltip>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-              <Box className="reward-box">{props.type==="solve"?up(props.bountyReward * maticusd):up(props.communityReward * maticusd)} USD</Box>
+              <Tooltip
+                title={
+                  props.type === "solve"
+                    ? props.bountyCurrency === "DEV"
+                      ? devusd * props.bountyReward
+                      : maticusd * props.bountyReward
+                    : props.bountyCurrency === "DEV"
+                    ? devusd * props.communityReward
+                    : maticusd * props.communityReward
+                }
+                disableHoverListener={
+                  !checkLength(
+                    props.type === "solve"
+                      ? props.bountyCurrency === "DEV"
+                        ? devusd * props.bountyReward
+                        : maticusd * props.bountyReward
+                      : props.bountyCurrency === "DEV"
+                      ? devusd * props.communityReward
+                      : maticusd * props.communityReward
+                  )
+                }
+              >
+                <p className="reward__value">
+                  {" "}
+                  {shortenLength(
+                    props.type === "solve"
+                      ? props.bountyCurrency === "DEV"
+                        ? devusd * props.bountyReward
+                        : maticusd * props.bountyReward
+                      : props.bountyCurrency === "DEV"
+                      ? devusd * props.communityReward
+                      : maticusd * props.communityReward
+                  )}{" "}
+                  USD
+                </p>
+              </Tooltip>
             </Grid>
           </>
         ) : (
           <>
             <Grid item md={2} xs={12} className="reward-grid ">
-            <Box className="reward-box">
-                {props.bountyReward} MATIC
-              </Box>
+            <Tooltip
+                title={
+                  props.bountyReward
+                }
+                disableHoverListener={
+                  !checkLength(
+                    props.bountyReward
+                  )
+                }
+              >
+                <p className="reward__value">
+                  {" "}
+                  {shortenLength(
+                    props.bountyReward
+                  )}{" "}
+                  {props.bountyCurrency}
+                </p>
+                </Tooltip>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-              
-              <Box className="reward-box">
-                {props.bountyReward * maticusd} MATIC
-              </Box>
+            <Tooltip
+                title={
+                     props.bountyCurrency === "DEV"
+                      ? devusd * props.bountyReward
+                      : maticusd * props.bountyReward
+                    
+                }
+                disableHoverListener={
+                  !checkLength(
+                     props.bountyCurrency === "DEV"
+                        ? devusd * props.bountyReward
+                        : maticusd * props.bountyReward
+                    )
+                }
+              >
+                <p className="reward__value">
+                  {" "}
+                  {shortenLength(
+                    props.bountyCurrency === "DEV"
+                        ? devusd * props.bountyReward
+                        : maticusd * props.bountyReward
+                    )}{" "}
+                  USD
+                </p>
+              </Tooltip>
             </Grid>
           </>
         )}

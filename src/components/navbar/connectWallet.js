@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import { walletAddress as walletAddressAtom, contract as contractAtom, balance as balanceAtom } from "../../recoil/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { walletAddress as walletAddressAtom, contract as contractAtom, tokenContract as tokenContractAtom } from "../../recoil/atoms";
 import walletIcon from "../../assets/wallet.png";
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from "@material-ui/core/Button";
@@ -10,36 +10,37 @@ import {
     initiliaseWeb3,
     fetchAccount,
     initiliaseContract,
+    initiliaseTokenContract,
+    checkChain
 } from "../../web3js/web3";
-import { computeHeadingLevel } from "@testing-library/dom";
 
 export default function ConnectWallet() {
     const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
     const [contract, setContract] = useRecoilState(contractAtom);
-    const [balance, setBalance] = useRecoilState(balanceAtom);
+    const [tokenContract, setTokenContract] = useRecoilState(tokenContractAtom);
     const [connectWallet, setConnectWallet] = useState(false);
     const [open, setOpen] = useState(false);
+    const walletAddressValue = useRecoilValue(walletAddressAtom);
 
     const handleConnectWalletClick = async () => {
         setConnectWallet(false);
         await initiliaseWeb3();
-        await fetchAccount(function (result) {
-            setWalletAddress(result[0]);
+        await fetchAccount(async function (result) {
+            if (await checkChain())
+                setWalletAddress(result[0]);
+
         });
         console.log(walletAddress)
         setContract(async (old) => {
             let _test = await initiliaseContract();
-            console.log(_test )
+            console.log(_test)
             return _test;
         });
-        if (contract && walletAddress) {
-            const getBalance = parseInt(
-                await contract.methods
-                    .balanceOf(walletAddress)
-                    .call({ from: walletAddress })
-            );
-        setBalance(getBalance);
-        }
+        setTokenContract(async (old) => {
+            let _test = await initiliaseTokenContract();
+            console.log(_test)
+            return _test;
+        });
 
     }
     const handleTooltipClose = () => {
