@@ -408,9 +408,7 @@ export default function QuestionPost() {
     }
   }
 
-  // if (!username) {
-  //   return <Redirect to="/" />;
-  // }
+
 
   return (
     <>
