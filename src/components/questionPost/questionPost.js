@@ -329,8 +329,8 @@ export default function QuestionPost() {
     }else if (!username) {
       setAlert((prevState) => ({
         ...prevState,
-        open: true,
-        errorMessage: "Please login to submit workplan",
+        isValid: true,
+        errorMessage: "Please login to post bounty",
       }));
       
     } else {

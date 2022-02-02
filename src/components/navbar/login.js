@@ -16,20 +16,17 @@ export default function Login() {
     const hasCode = url.includes("?code=");
     if (hasCode) {
       setLoader(true);
-      // const query = window.location.search.substring(1);
       const urlParts = url.split("?code=");
       console.log(url.split("?code="));
       axios
-        .post(port + "authenticate/user", { code: urlParts[1], redirectUri: urlParts[0] })
+        .post(port + "authenticate/user", { code: urlParts[1], redirectUri: urlParts[0].toString() })
         .then((response) => {
           setLoader(false);
-          console.log(response.data)
           setUsername(response.data.doc.githubId);
           window.history.pushState({}, {}, response.data.redirectUri);
         });
     }
-  },[callbackUrl]);
-console.log(callbackUrl)
+  },[]);
   return (
     <>
     
