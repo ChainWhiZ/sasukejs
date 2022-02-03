@@ -11,14 +11,12 @@ export default function Section1() {
         </Grid>
         <Grid item md={12} xs={12}>
           <p className="section1-text text1">
-            Chainwhiz is an open-source and decentralised marketplace with zero
-            platform fees.{" "}
+          Chainwhiz is an open-source bounty marketplace connecting Web3 projects with builders and communities.{" "}
           </p>
         </Grid>
         <Grid item md={12} xs={12}>
           <p className="section1-text">
-            Our mission is to build a platform for transparent, open source and
-            community-centric dapp development{" "}
+          Our mission is to build a transparent and community-centric bounty platform for scaling and forming communities.{" "}
           </p>
         </Grid>
       </Grid>
