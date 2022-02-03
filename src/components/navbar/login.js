@@ -11,7 +11,7 @@ export default function Login() {
   const [username, setUsername] = useRecoilState(usernameAtom);
   const [loader, setLoader] = useState(false);
   const [callbackUrl, setCallbackUrl] = useState('');
-  const history = useHistory()
+  const history = useHistory();
   useEffect(() => {
     history.listen((location) => {
       setCallbackUrl("https://app.chainwhiz.app" + location.pathname);
@@ -39,7 +39,7 @@ export default function Login() {
         <a
           href={
             "https://github.com/login/oauth/authorize?client_id=" +
-            process.env.REACT_APP_CLIENT_ID + "&redirect_uri=" + callbackUrl
+            process.env.REACT_APP_CLIENT_ID + "&redirect_uri=" + window.location.href
           }
         >
           <p className="item login ">Login</p>
