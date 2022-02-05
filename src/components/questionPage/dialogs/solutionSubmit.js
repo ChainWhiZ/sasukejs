@@ -135,14 +135,16 @@ export default function SolutionSubmit(props) {
         errorMessage:
           "Please enter valid GitHub repository or pull request link",
       }));
-    } else if (!(await handleGithubLinkValidation(solution))) {
+    } 
+    else if(!solution.match(regPr)) {
+      if(!(await handleGithubLinkValidation(solution))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
         errorMessage: "GitHub repository link is invalid or it already exists",
       }));
-    } else {
+    }} else {
       setAlert((prevState) => ({
         ...prevState,
         open: false,
@@ -228,6 +230,7 @@ export default function SolutionSubmit(props) {
       }));
     }
   };
+
 
   return (
     <>
