@@ -118,7 +118,8 @@ export default function SolutionSubmit(props) {
   };
 
   const handleValidation = async (workplan, solution) => {
-    const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)/;
+    const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)/;//regex for repo check
+    const regPr = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/pull\/(\d+)/;
     if (!solution) {
       setSolution([]);
       setAlert((prevState) => ({
@@ -126,21 +127,23 @@ export default function SolutionSubmit(props) {
         open: true,
         errorMessage: "GitHub Repository link field is empty",
       }));
-    } else if (!solution.match(reg)) {
+    } else if (!(solution.match(reg) || solution.match(regPr))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please enter valid GitHub repository link",
+        errorMessage: "Please enter valid GitHub repository or pull request link",
       }));
-    } else if (!(await handleGithubLinkValidation(solution))) {
+    } 
+    else if(!solution.match(regPr)) {
+      if(!(await handleGithubLinkValidation(solution))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
         errorMessage: "GitHub repository link is invalid or it already exists",
       }));
-    } else {
+    }} else {
       setAlert((prevState) => ({
         ...prevState,
         open: false,
@@ -229,6 +232,7 @@ export default function SolutionSubmit(props) {
       }));
     }
   };
+
 
   return (
     <>
