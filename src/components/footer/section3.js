@@ -42,13 +42,13 @@ export default function Section3() {
           </a>
         </Grid>
         <Grid item md={12} xs={12}>
-          {/* <a
-            href="https://www.notion.so/akpradhan/Disclaimer-d5d1889f056149db9a3359a144dcd0a7"
+          <a
+            href="https://denim-salute-741.notion.site/Chainwhiz-Platform-FAQs-cffb7ce7b0604b92b03e9c36159b584a"
             target="_blank"
             rel="noreferrer"
-          > */}
-            <p style={{opacity:"30%"}}>FAQs </p>
-          {/* </a> */}
+          >
+            <p>FAQs </p>
+          </a>
         </Grid>
         <Grid item md={12} xs={12}>
           <p style={{ color: "#d7ff2e" }}>hello.chainwhiz@gmail.com</p>

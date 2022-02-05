@@ -106,7 +106,7 @@ export default function SolutionSubmit(props) {
             ...prevState,
             open: true,
             severity: "success",
-            errorMessage: "GitHub Repository link is valid",
+            errorMessage: "GitHub link is valid",
           }));
           return true;
         }
@@ -118,7 +118,8 @@ export default function SolutionSubmit(props) {
   };
 
   const handleValidation = async (workplan, solution) => {
-    const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)/;
+    const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)/; //regex for repo check
+    const regPr = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/pull\/(\d+)/;
     if (!solution) {
       setSolution([]);
       setAlert((prevState) => ({
@@ -126,21 +127,23 @@ export default function SolutionSubmit(props) {
         open: true,
         errorMessage: "GitHub Repository link field is empty",
       }));
-    } else if (!solution.match(reg)) {
+    } else if (!(solution.match(reg) || solution.match(regPr))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please enter valid GitHub repository link",
+        errorMessage:
+          "Please enter valid GitHub repository or pull request link",
       }));
-    } else if (!(await handleGithubLinkValidation(solution))) {
+    } 
+    else if(!(await handleGithubLinkValidation(solution))) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "GitHub repository link is invalid or it already exists",
+        errorMessage: "GitHub link is invalid or it already exists",
       }));
-    } else {
+    }  else {
       setAlert((prevState) => ({
         ...prevState,
         open: false,
@@ -153,15 +156,17 @@ export default function SolutionSubmit(props) {
     try {
       setDisable(true);
       //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-      if (walletAddress === props.quesDetails.publicAddress || username === props.quesDetails.publisherGithubId) {
+      if (
+        walletAddress === props.quesDetails.publicAddress ||
+        username === props.quesDetails.publisherGithubId
+      ) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
           severity: "error",
           errorMessage: "Sorry publisher cannot post a solution",
         }));
-      }
-      else if (!walletAddress) {
+      } else if (!walletAddress) {
         setAlert((prevState) => ({
           ...prevState,
           open: true,
@@ -174,9 +179,7 @@ export default function SolutionSubmit(props) {
           open: true,
           errorMessage: "Please login to submit solution",
         }));
-        
-      }
-       else{
+      } else {
         setAlert((prevState) => ({
           ...prevState,
           open: false,
@@ -199,7 +202,7 @@ export default function SolutionSubmit(props) {
               _id: workplanId,
               questionId: props.quesDetails._id,
             });
-            Promise.resolve(axiosResponse).then((val)=>{
+            Promise.resolve(axiosResponse).then((val) => {
               if (val.status == 201) {
                 eventBus.dispatch("solutionSubmitted", {
                   message: "Solution submitted",
@@ -208,15 +211,12 @@ export default function SolutionSubmit(props) {
                 setDisable(false);
                 props.handleDialogClose(false);
               }
-            })
-          
+            });
           } catch (error) {
             console.log(error);
             valid = false;
           }
         }
-
-
       }
     } catch (error) {
       console.log(error);
@@ -229,6 +229,7 @@ export default function SolutionSubmit(props) {
       }));
     }
   };
+
 
   return (
     <>
@@ -276,7 +277,7 @@ export default function SolutionSubmit(props) {
         >
           <DialogContentText id="scroll-dialog-description">
             {props.quesDetails.workplanIds &&
-              props.quesDetails.workplanIds.length ? (
+            props.quesDetails.workplanIds.length ? (
               props.quesDetails.workplanIds &&
               props.quesDetails.workplanIds.length &&
               props.quesDetails.workplanIds.map((workplanId, index) => (
@@ -345,9 +346,9 @@ export default function SolutionSubmit(props) {
                         onClick={async () =>
                           !disable
                             ? await handleValidation(
-                              workplanId,
-                              solutions[index]
-                            )
+                                workplanId,
+                                solutions[index]
+                              )
                             : null
                         }
                       >
