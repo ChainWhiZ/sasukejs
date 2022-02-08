@@ -11,7 +11,7 @@ export default function Section2() {
             target="_blank"
             rel="noreferrer"
           >
-            <p>Marketplace</p>
+            <p>Launch App</p>
           </a>
         </Grid>
         <Grid item md={12} xs={12}>
