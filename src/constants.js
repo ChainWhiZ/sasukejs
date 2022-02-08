@@ -55,9 +55,8 @@ export const text = {
       shall receive after completing the bounty. Note: This amount will be held in an escrow contract and will be transferred to the developer once you confirm that you’ve received the code.`,
   },
   page6: {
-    title: `Who can approve the solution`,
-    content: `The Issue title is the first thing that a 
-      developer sees when he comes across your bounty. It’s best practise to keep the title to the point and closely related to the issue. Avoid vague words like Important, Amazing, Stunning etc.`,
+    title: `Solution Voting`,
+    content: `Turn it on if you want the solutions to Be reviewed and voted on by the community members. Turn it off if you don’t want the community to vote on your solutions.`,
   },
   page7: {
     title: `Enter Community Reward`,
@@ -94,12 +93,12 @@ export const categoryText = [
 
 export const communityText = [
   {
-    title: "Community Approved",
+    title: "Turn on voting",
     content:
       "The community stakes and votes on the submitted solutions to your bounty and helps you figure out the best solution.You get to your desired solution 5x faster. The community earns incentives. Win-win.",
   },
   {
-    title: "Self Approved",
+    title: "Turn off voting",
     content:
       "If you are willing to spend hours reviewing pieces of code to figure out the best solution to your bounty, this one is  for you. Pros: You are superhuman. Cons: You don’t leverage the power of community. Win-Lose.   ",
   },
