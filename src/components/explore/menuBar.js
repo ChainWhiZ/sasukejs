@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./explore.css";
 import { Link } from "react-router-dom";
@@ -11,17 +11,22 @@ import blackProfile from "../../assets/black_profile.png";
 import whiteSolveBounty from "../../assets/white_solve_bounty.png";
 import blackVoteBounty from "../../assets/black_vote_bounty.png";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom} from "../../recoil/atoms";
+import { username as usernameAtom } from "../../recoil/atoms";
+import LoginPopup from "../landing/loginPopup";
 
 export default function MenuBar(props) {
   const username = useRecoilValue(usernameAtom);
-  console.log(props);
+  const [loginPopup, setLoginPopup] = useState(false);
   return (
     <>
       <Grid container className="menubar">
-        <Grid item md={12} className="menubar-usergrid" >
-          <img src={accountCircle} alt="account" />
-          <p className="menubar-username">{username}</p>
+        <Grid item md={12} className="menubar-usergrid">
+          {username ? (
+            <>
+              <img src={accountCircle} alt="account" />
+              <p className="menubar-username">{username}</p>
+            </>
+          ) : null}
         </Grid>
 
         <Link to="/post">
@@ -30,14 +35,7 @@ export default function MenuBar(props) {
             <p className="menubar-items">Post a Bounty</p>
           </Grid>
         </Link>
-        <Link
-          to={{
-            pathname: "/explore",
-            state: {
-              type: "solve",
-            },
-          }}
-        >
+        <Link to="/solve">
           <Grid
             item
             md={12}
@@ -60,14 +58,7 @@ export default function MenuBar(props) {
             </p>
           </Grid>
         </Link>
-        <Link
-          to={{
-            pathname: "/explore",
-            state: {
-              type: "vote",
-            },
-          }}
-        >
+        <Link to="/vote">
           <Grid
             item
             md={12}
@@ -88,12 +79,38 @@ export default function MenuBar(props) {
             </p>
           </Grid>
         </Link>
-        <Link to="/profile">
-          <Grid
-            item md={12}
-            className={
-              props.type === "profile" ? "grid-item active" : "grid-item"
-            }>
+        {username ? (
+          <Link to="/profile">
+            <Grid
+              item
+              md={12}
+              className={
+                props.type === "profile" ? "grid-item active" : "grid-item"
+              }
+            >
+              <img
+                src={props.type === "profile" ? blackProfile : whiteProfile}
+                alt="profile"
+              />
+              <p
+                className={
+                  props.type === "profile"
+                    ? "menubar-items p-active"
+                    : "menubar-items"
+                }
+              >
+                Your Profile
+              </p>
+            </Grid>
+          </Link>
+        ) : (
+          <div
+        class="profile-div"
+          
+            onClick={() => {
+              setLoginPopup(true);
+            }}
+          >
             <img
               src={props.type === "profile" ? blackProfile : whiteProfile}
               alt="profile"
@@ -102,10 +119,21 @@ export default function MenuBar(props) {
               className={
                 props.type === "profile"
                   ? "menubar-items p-active"
-                  : "menubar-items"}>Your Profile</p>
-          </Grid>
-        </Link>
+                  : "menubar-items"
+              }
+         
+            >
+              Your Profile
+            </p>
+          </div>
+        )}
       </Grid>
+      {loginPopup ? (
+        <LoginPopup
+          handlePopupClose={(flag) => setLoginPopup(flag)}
+          open={loginPopup}
+        />
+      ) : null}
     </>
   );
 }

@@ -31,7 +31,7 @@ export default function Section2() {
         </Grid>
         <Grid item md={12} xs={12}>
           <a
-            href="https://www.notion.so/akpradhan/Beta1-testing-guidelines-593de740193043d1beab13ffeb7b424d"
+            href="https://www.notion.so/akpradhan/Polygon-mainnet-6e84dec8946949a1b15178d3323eb227"
             target="_blank"
             rel="noreferrer"
           >

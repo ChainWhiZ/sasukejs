@@ -36,29 +36,13 @@ export default function Navbar() {
           </Grid>
           <Grid item md={3}>
             {" "}
-            <Link
-              to={{
-                pathname: "/explore",
-                state: {
-                  type: "solve",
-                },
-              }}
-              className="link"
-            >
+            <Link to="/solve" className="link">
               <p className="item ">Solve a Bounty</p>
             </Link>
           </Grid>
           <Grid item md={3}>
             {" "}
-            <Link
-              to={{
-                pathname: "/explore",
-                state: {
-                  type: "vote",
-                },
-              }}
-              className="link"
-            >
+            <Link to="/vote" className="link">
               <p className="item">Vote on Solutions</p>
             </Link>
           </Grid>

@@ -55,7 +55,8 @@ export default function RouterComponent() {
                 return <QuestionPage {...props} />;
               }}
             />
-            <Route path="/explore" component={NewExplore} />
+            <Route path="/solve" component={NewExplore} />
+            <Route path="/vote" component={NewExplore} />
             <Route path="/stake" component={StakingPage} />
             <Route path="/profile" component={ProfilePage} />
           </Switch>
