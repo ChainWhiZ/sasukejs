@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import {communityText} from "../../../constants";
 export default function RightSideText(props) {
   console.log(props);
   return (
@@ -52,7 +53,7 @@ export default function RightSideText(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   if (props.pageState > 0 && props.pageState < 8) {
-                    props.handleValidation((props.pageState === 6 && props.communityOption === "Turn off voting")?props.pageState + 2:props.pageState + 1);
+                    props.handleValidation((props.pageState === 6 && props.communityOption === communityText[1].title )?props.pageState + 2:props.pageState + 1);
                   }
                 }}
               >
@@ -70,7 +71,7 @@ export default function RightSideText(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   if (props.pageState > 1 && props.pageState < 9) {
-                    props.handleValidation((props.pageState === 8 && props.communityOption === "Turn off voting")?props.pageState - 2:props.pageState - 1);
+                    props.handleValidation((props.pageState === 8 && props.communityOption === communityText[1].title)?props.pageState - 2:props.pageState - 1);
                   }
                 }}
               >
