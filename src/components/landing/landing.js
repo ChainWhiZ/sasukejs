@@ -19,7 +19,6 @@ export default function Landing() {
       setLoginPopup(true);
     }, 3000);
   }, [])
-console.log(loginPopup)
   return (
     <>
       <Grid
@@ -70,15 +69,7 @@ console.log(loginPopup)
             </p>
           </Grid>
         </Link>
-        <Link
-          to={{
-            pathname: "/explore",
-            state: {
-              type: "solve",
-            },
-          }}
-          className="link"
-        >
+        <Link to="solve" className="link">
           <Grid item md={4} xs={12} class="category-box">
             <p className="category-title">Solve a Bounty</p>
             <p className="category-description">
@@ -87,15 +78,7 @@ console.log(loginPopup)
             </p>
           </Grid>
         </Link>
-        <Link
-          to={{
-            pathname: "/explore",
-            state: {
-              type: "vote",
-            },
-          }}
-          className="link"
-        >
+        <Link to="vote" className="link">
           <Grid item md={4} xs={12} class="category-box">
             <p className="category-title">Vote on Solutions</p>
             <p className="category-description">
@@ -108,8 +91,12 @@ console.log(loginPopup)
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
       {/* {waitlistDialog?
       (<WaitlistForm open={waitlistDialog} handleDialogClose={(flag)=>setWaitlistDialog(flag)}/>):null} */}
-      {loginPopup ? <LoginPopup handlePopupClose={(flag)=>setLoginPopup(flag)} open={loginPopup}/> : null}
+      {loginPopup ? (
+        <LoginPopup
+          handlePopupClose={(flag) => setLoginPopup(flag)}
+          open={loginPopup}
+        />
+      ) : null}
     </>
-
   );
 }
