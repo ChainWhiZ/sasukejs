@@ -150,7 +150,7 @@ export default function QuestionPost() {
       if (activePage === 7) {
         if (
           (communityReward <= 5) && (communityReward >= 40000) &&
-          communityOption == "Community Approved"
+          communityOption == "Turn on voting"
         ) {
           console.log(typeof communityReward);
           setAlert((prevState) => ({
@@ -196,13 +196,13 @@ export default function QuestionPost() {
             issueURL,
             rewardAmount.toString(),
             communityRewardAmount.toString(),
-            communityOption == "Community Approved"
+            communityOption == "Turn on voting"
               ? (votingTimeBegin - 1).toString()
               : timeEnd.toString(),
-            communityOption == "Community Approved"
+            communityOption == "Turn on voting"
               ? votingTimeBegin.toString()
               : "0",
-            communityOption == "Community Approved" ? timeEnd.toString() : "0",
+            communityOption == "Turn on voting" ? timeEnd.toString() : "0",
             currency
           )
           .send({ from: walletAddress.toString(), value: totalAmount });
@@ -262,13 +262,13 @@ export default function QuestionPost() {
               issueURL,
               rewardAmount.toString(),
               communityRewardAmount.toString(),
-              communityOption == "Community Approved"
+              communityOption == "Turn on voting"
                 ? (votingTimeBegin - 1).toString()
                 : timeEnd.toString(),
-              communityOption == "Community Approved"
+              communityOption == "Turn on voting"
                 ? votingTimeBegin.toString()
                 : "0",
-              communityOption == "Community Approved"
+              communityOption == "Turn on voting"
                 ? timeEnd.toString()
                 : "0",
               currency
@@ -344,7 +344,7 @@ export default function QuestionPost() {
       const timeBegin = Math.floor(new Date().getTime() / 1000);
       let timeEnd = timeBegin + time * 24 * 60 * 60;
       let votingTimeBegin =
-        communityOption == "Community Approved"
+        communityOption == "Turn on voting"
           ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
           : 0;
       let valid = true;
@@ -374,7 +374,7 @@ export default function QuestionPost() {
               bountyReward: reward,
               communityReward: communityReward,
               isCommunityApprovedSolution:
-                communityOption == "Community Approved" ? true : false,
+                communityOption == "Turn on voting" ? true : false,
               questionCategories: category,
             });
             Promise.resolve(axiosResponse).then((val) => {

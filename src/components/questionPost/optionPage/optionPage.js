@@ -25,6 +25,8 @@ export default function OptionComponent(props) {
         props.handleCategory((prevState) => [...prevState, value]);
       }
     } else {
+      console.log(value)
+      console.log(props.communityOption)
       if (props.communityOption === value) {
         props.handleCommunityChoice("");
       } else {
