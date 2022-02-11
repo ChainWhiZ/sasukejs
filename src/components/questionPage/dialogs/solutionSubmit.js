@@ -297,7 +297,7 @@ export default function SolutionSubmit(props) {
                         </Grid>
                         <Grid item md={10} style={{ marginLeft: "-7%" }}>
                           <a
-                            href={`https://ipfs.io/ipfs/${workplanId}`}
+                            href={`https://gateway.ipfs.io/ipfs/${workplanId}`}
                             target="_blank"
                             rel="noreferrer"
                             class="solution-dialog-workplan"

@@ -39,7 +39,7 @@ export default function LeftCard(props) {
             >
               <span>
                 <a
-                  href={`https://ipfs.io/ipfs/${workplan._id}`}
+                  href={`https://gateway.ipfs.io/ipfs/${workplan._id}`}
                   target="_blank"
                   rel="noreferrer"
                 >

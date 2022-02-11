@@ -72,7 +72,7 @@ export default function QuestionSolutionCard(props) {
               </Grid>
               <Grid item md={10} className="workplan-grid">
                 <a
-                  href={`https://ipfs.io/ipfs/${applicants._id}`}
+                  href={`https://gateway.ipfs.io/ipfs/${applicants._id}`}
                   target="_blank"
                   rel="noreferrer"
                 >
