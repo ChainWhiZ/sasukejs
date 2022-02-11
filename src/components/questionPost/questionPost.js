@@ -44,7 +44,7 @@ export default function QuestionPost() {
   console.log(issueURL)
   console.log(reward)
   console.log(communityOption)
-  
+
   const [success, setSuccess] = useState({
     success: false,
     message: "",
@@ -519,7 +519,7 @@ export default function QuestionPost() {
             />
           ) : activePage === 8 ? (
             <BaseComponent
-              {...text["page3"]}
+              {...text["page9"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTime={setVoteTime}

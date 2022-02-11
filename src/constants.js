@@ -66,6 +66,10 @@ export const text = {
     title: `Confirm your Wallet Address`,
     content: `Provide the wallet address which you will be using for transfering the bounty reward to the escrow. All transactions, regarding the bounty shall be associated with this address. `,
   },
+  page9: {
+    title: `Expected time of the vote`,
+    content: `Use this section to highlight the number of days within which you are expecting the voting to be completed. Remember, shorter the expected time, higher should be the community amount.  `,
+  },
 };
 
 export const categoryText = [
