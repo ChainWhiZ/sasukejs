@@ -507,7 +507,7 @@ export default function QuestionPost() {
             />
           ) : activePage === 9 ? (
             <BaseComponent
-              {...text["page8"]}
+              {...text["page9"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTerms={setTerms}
@@ -519,7 +519,7 @@ export default function QuestionPost() {
             />
           ) : activePage === 8 ? (
             <BaseComponent
-              {...text["page9"]}
+              {...text["page8"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTime={setVoteTime}
