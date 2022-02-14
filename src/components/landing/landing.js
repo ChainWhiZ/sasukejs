@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 // import { createPopup } from "@typeform/embed";
 // import "@typeform/embed/build/css/popup.css";
 import LoginPopup from "./loginPopup";
+// import info from "../../assets/info.png"
 
 export default function Landing() {
   //const [waitlistDialog,setWaitlistDialog] = useState(false);
@@ -31,13 +32,7 @@ export default function Landing() {
         <Grid item md={12} xs={12}>
           <hr className="horizontal-line" style={{ marginTop: "2%" }} />
         </Grid>
-        <Grid item md={12} xs={12}>
-          <p className="landing-warning">
-            {" "}
-            It’s not you. It’s us. Our contract is not audited. Report bugs at
-            hello.chainwhiz@gmail.com.
-          </p>
-        </Grid>
+    
         <Grid item md={12} xs={12}>
           <p className="landing-heading">Welcome to Chainwhiz</p>
         </Grid>
@@ -87,6 +82,15 @@ export default function Landing() {
             </p>
           </Grid>
         </Link>
+      
+        <Grid item md={12} xs={12} style={{textAlign:"center", marginTop:"3rem"}}>
+        {/* <img src={info} alt="info" /> */}
+          <p className="landing-warning">
+            {" "}
+            It’s not you. It’s us. Our contract is not audited. Report bugs at
+            hello.chainwhiz@gmail.com.
+          </p>
+        </Grid>
       </Grid>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
       {/* {waitlistDialog?
