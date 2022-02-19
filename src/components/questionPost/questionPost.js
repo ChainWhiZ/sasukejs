@@ -366,7 +366,7 @@ export default function QuestionPost() {
       let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime* 24 * 60 * 60;
       let votingTimeBegin =
         communityOption == communityText[0].title
-          ? timeBegin + time * 24 * 60 * 60
+          ? timeBegin + time * 24 * 60 * 60 + 1
           : 0;
       let valid = true;
       let axiosResponse;
