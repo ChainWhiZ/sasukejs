@@ -98,13 +98,26 @@ body{
 .margin-left-30 {
   margin-left: 30% !important;
 }
-.input-field-style {
+
+.input-field-style,
+.chip-input-field-style .MuiInputBase-root  {
   font-family: Poppins !important;
   color: white !important;
   width: 50vw !important;
   font-style: normal !important;
   line-height: 150px !important;
   letter-spacing: 0.01em !important;
+}
+.chip-input-field-style .MuiInputBase-input {
+  text-align: center ;
+}
+ .MuiFormControl-fullWidth {
+  width: 150% !important;
+}
+.chip-input-field-style .MuiChip-root {
+  color: #131313;
+  background-color: #d4ff1f;
+  margin: 0 0.5rem ;
 }
 
 .option-page-margins {

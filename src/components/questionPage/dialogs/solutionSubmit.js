@@ -16,6 +16,7 @@ import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { port } from "../../../config/config";
 import eventBus from "../../EventBus";
 import { useRecoilValue } from "recoil";
+import validator from 'validator'
 import {
   username as usernameAtom,
   walletAddress as walletAddressAtom,
@@ -125,25 +126,45 @@ export default function SolutionSubmit(props) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "GitHub Repository link field is empty",
+        errorMessage: "Solution link field is empty",
       }));
-    } else if (!(solution.match(reg) || solution.match(regPr))) {
+    }
+    else if (solution.includes('https://github.com/')) {
+      console.log("in hereeee github")
+      if (!(solution.match(reg) || solution.match(regPr))) {
+        setSolution([]);
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage:
+            "Please enter valid GitHub repository or pull request link",
+        }));
+      }
+      else if (!(await handleGithubLinkValidation(solution))) {
+        setSolution([]);
+        setAlert((prevState) => ({
+          ...prevState,
+          open: true,
+          errorMessage: "GitHub link is invalid or it already exists",
+        }));
+      } else {
+        setAlert((prevState) => ({
+          ...prevState,
+          open: false,
+          errorMessage: "",
+        }));
+        await handleSubmit(workplan, solution);
+      }
+    }
+    else if (!validator.isURL(solution)) {
       setSolution([]);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage:
-          "Please enter valid GitHub repository or pull request link",
+        errorMessage: "Solution Link is not valid",
       }));
-    } 
-    else if(!(await handleGithubLinkValidation(solution))) {
-      setSolution([]);
-      setAlert((prevState) => ({
-        ...prevState,
-        open: true,
-        errorMessage: "GitHub link is invalid or it already exists",
-      }));
-    }  else {
+    }
+    else {
       setAlert((prevState) => ({
         ...prevState,
         open: false,
@@ -154,7 +175,7 @@ export default function SolutionSubmit(props) {
   };
   const handleSubmit = async (workplanId, solution) => {
     try {
-      setDisable(true);
+   
       //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
       if (
         walletAddress === props.quesDetails.publicAddress ||
@@ -180,6 +201,7 @@ export default function SolutionSubmit(props) {
           errorMessage: "Please login to submit solution",
         }));
       } else {
+        setDisable(true);
         setAlert((prevState) => ({
           ...prevState,
           open: false,
@@ -277,7 +299,7 @@ export default function SolutionSubmit(props) {
         >
           <DialogContentText id="scroll-dialog-description">
             {props.quesDetails.workplanIds &&
-            props.quesDetails.workplanIds.length ? (
+              props.quesDetails.workplanIds.length ? (
               props.quesDetails.workplanIds &&
               props.quesDetails.workplanIds.length &&
               props.quesDetails.workplanIds.map((workplanId, index) => (
@@ -346,9 +368,9 @@ export default function SolutionSubmit(props) {
                         onClick={async () =>
                           !disable
                             ? await handleValidation(
-                                workplanId,
-                                solutions[index]
-                              )
+                              workplanId,
+                              solutions[index]
+                            )
                             : null
                         }
                       >

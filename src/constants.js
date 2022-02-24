@@ -46,23 +46,31 @@ export const text = {
     content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
   },
   page4: {
+    title: `Expected time of the solution`,
+    content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
+  },
+  page5: {
+    title: `Expected time of the solution`,
+    content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
+  },
+  page6: {
     title: `Provide the Github issue link`,
     content: `Provide the link to the issue on your Github for which you’re posting this bounty. Please do not post a spam link or a shortened link. The community checks for spam bounties and can report you for acting as a bad actor.`,
   },
-  page5: {
+  page7: {
     title: `Provide the bounty amount`,
     content: `Mention the amount that the developer
       shall receive after completing the bounty. Note: This amount will be held in an escrow contract and will be transferred to the developer once you confirm that you’ve received the code.`,
   },
-  page6: {
+  page8: {
     title: `Solution Voting`,
     content: `Turn it on if you want the solutions to Be reviewed and voted on by the community members. Turn it off if you don’t want the community to vote on your solutions.`,
   },
-  page7: {
+  page9: {
     title: `Enter Community Reward`,
     content: `Community voting makes your life a lot easier in selecting the best solution to your bounty. They do the voting.You choose the best solution based on the votes. Simple and Fast. The reward goes out to the voters who voted for the highest voted solutions. `,
   },
-  page9: {
+  page10: {
     title: `Confirm your Wallet Address`,
     content: `Provide the wallet address which you will be using for transfering the bounty reward to the escrow. All transactions, regarding the bounty shall be associated with this address. `,
   },
