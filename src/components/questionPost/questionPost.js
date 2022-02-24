@@ -21,7 +21,9 @@ export default function QuestionPost() {
   const [time, setTime] = useState(0);
   const [voteTime, setVoteTime] = useState(0);
   const [category, setCategory] = useState([]);
+  const [languages, setLanguages] = useState([]);
   const [issueURL, setIssueURL] = useState("");
+  const [evaluationCriteria, setEvaluationCriteria] = useState("");
   const [reward, setReward] = useState(0);
   const [communityOption, setCommunityOption] = useState();
   const [activePage, setActivePage] = useState(1);
@@ -112,7 +114,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 4) {
+      if (activePage === 6) {
         if (!(await handleGithubIssueValidation())) {
           setAlert((prevState) => ({
             ...prevState,
@@ -123,7 +125,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 5) {
+      if (activePage === 7) {
         if ((reward <= 5) && (reward >= 40000)) {
           setAlert((prevState) => ({
             ...prevState,
@@ -147,6 +149,28 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 3) {
+        if (!languages.length) {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "How dare you? Choose the right category/ies for me.",
+          }));
+        } else {
+          handlePageChange(page);
+        }
+      }
+      if (activePage === 4) {
+        if (evaluationCriteria === "") {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Enter valid criteria.",
+          }));
+        } else {
+          handlePageChange(page);
+        }
+      }
+      if (activePage === 5) {
         if (time <= 0) {
           setAlert((prevState) => ({
             ...prevState,
@@ -157,6 +181,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
+<<<<<<< HEAD
       if (activePage === 8) {
         if (voteTime <= 0) {
           setAlert((prevState) => ({
@@ -169,6 +194,9 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
+=======
+      if (activePage === 9) {
+>>>>>>> 7259efe (added)
         if (
           (communityReward <= 5) && (communityReward >= 40000) &&
           communityOption == communityText[0].title
@@ -183,7 +211,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 6) {
+      if (activePage === 8) {
         if (!communityOption) {
           setAlert((prevState) => ({
             ...prevState,
@@ -348,13 +376,13 @@ export default function QuestionPost() {
         isValid: true,
         errorMessage: "Please connect wallet",
       }));
-    }else if (!username) {
+    } else if (!username) {
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
         errorMessage: "Please login to post bounty",
       }));
-      
+
     } else {
       setAlert((prevState) => ({
         ...prevState,
@@ -452,8 +480,8 @@ export default function QuestionPost() {
               {...text["page2"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleCategory={setCategory}
-              category={category}
+              handleChipData={setCategory}
+              chipData={category}
               alert={alert}
             />
           ) : activePage === 3 ? (
@@ -461,8 +489,8 @@ export default function QuestionPost() {
               {...text["page3"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleTime={setTime}
-              time={time}
+              handleChipData={setLanguages}
+              chipData={languages}
               alert={alert}
             />
           ) : activePage === 4 ? (
@@ -470,13 +498,32 @@ export default function QuestionPost() {
               {...text["page4"]}
               handleValidation={handleValidation}
               pageState={activePage}
+              handleEvaluationCriteria={setEvaluationCriteria}
+              evaluationCriteria={evaluationCriteria}
+              alert={alert}
+            />
+
+          ) : activePage === 5 ? (
+            <BaseComponent
+              {...text["page5"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleTime={setTime}
+              time={time}
+              alert={alert}
+            />
+          ) : activePage === 6 ? (
+            <BaseComponent
+              {...text["page6"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
               handleIssueURL={setIssueURL}
               issueURL={issueURL}
               alert={alert}
             />
-          ) : activePage === 5 ? (
+          ) : activePage === 7 ? (
             <BaseComponent
-              {...text["page5"]}
+              {...text["page7"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleReward={setReward}
@@ -485,18 +532,18 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 6 ? (
+          ) : activePage === 8 ? (
             <BaseComponent
-              {...text["page6"]}
+              {...text["page8"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleCommunityChoice={setCommunityOption}
               communityOption={communityOption}
               alert={alert}
             />
-          ) : activePage === 7 ? (
+          ) : activePage === 9 ? (
             <BaseComponent
-              {...text["page7"]}
+              {...text["page9"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleCommunityReward={setCommunityReward}
@@ -506,9 +553,9 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 9 ? (
+          ) : activePage === 10 ? (
             <BaseComponent
-              {...text["page9"]}
+              {...text["page10"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTerms={setTerms}
