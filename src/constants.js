@@ -62,9 +62,13 @@ export const text = {
     title: `Enter Community Reward`,
     content: `Community voting makes your life a lot easier in selecting the best solution to your bounty. They do the voting.You choose the best solution based on the votes. Simple and Fast. The reward goes out to the voters who voted for the highest voted solutions. `,
   },
-  page8: {
+  page9: {
     title: `Confirm your Wallet Address`,
     content: `Provide the wallet address which you will be using for transfering the bounty reward to the escrow. All transactions, regarding the bounty shall be associated with this address. `,
+  },
+  page8: {
+    title: `Expected time of the vote`,
+    content: `Use this section to highlight the number of days within which you are expecting the voting to be completed. Remember, shorter the expected time, higher should be the community amount.  `,
   },
 };
 

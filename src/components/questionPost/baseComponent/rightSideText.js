@@ -28,7 +28,7 @@ export default function RightSideText(props) {
                         <Grid container direction="row" container
                             justifyContent="space-between"
                             alignItems="center"> */}
-        {props.pageState > 0 && props.pageState < 8 ? (
+        {props.pageState > 0 && props.pageState < 9 ? (
           <>
             <Grid item md={6} xs={6}>
               <Button
@@ -37,7 +37,7 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 8) {
+                  if (props.pageState > 1 && props.pageState < 10) {
                     props.handleValidation(props.pageState - 1);
                   }
                 }}
@@ -52,8 +52,8 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 0 && props.pageState < 8) {
-                    props.handleValidation((props.pageState === 6 && props.communityOption === communityText[1].title )?props.pageState + 2:props.pageState + 1);
+                  if (props.pageState > 0 && props.pageState < 10) {
+                    props.handleValidation((props.pageState === 6 && props.communityOption === communityText[1].title )?props.pageState + 3:props.pageState + 1);
                   }
                 }}
               >
@@ -70,8 +70,8 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 9) {
-                    props.handleValidation((props.pageState === 8 && props.communityOption === communityText[1].title)?props.pageState - 2:props.pageState - 1);
+                  if (props.pageState > 1 && props.pageState < 10) {
+                    props.handleValidation((props.pageState === 9 && props.communityOption === communityText[1].title)?props.pageState - 3:props.pageState - 1);
                   }
                 }}
               >

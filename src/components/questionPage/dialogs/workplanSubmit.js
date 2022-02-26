@@ -116,9 +116,11 @@ console.log(buffer)
  
 
         <p class="dialog-title">Submit Workplan</p>
+        <p class="dialog-text">Supported file formats: pdf, txt, md</p>
         <input type="file" onChange={(e) => captureFile(e)} />
         <Grid container className="workplan-dialog-button-grid ">
           <Grid item md={12}>
+          {/* <p class="dialog-text">Supported formats: .pdf, .txt, .md, </p> */}
             <Button
               class="dialog-button"
               onClick={!disable ? handleSubmit : null}

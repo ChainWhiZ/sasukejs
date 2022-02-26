@@ -320,6 +320,19 @@ span a {
   color:white;
   text-align: center;
   margin: 12%;
+  margin-bottom: 0%;
+}
+
+.dialog-text {
+  text-decoration: none;
+  font-size: 1vw;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0em;
+  color: #d4ff1e;
+  text-align: center;
+  margin: 5%;
 }
 
 input {

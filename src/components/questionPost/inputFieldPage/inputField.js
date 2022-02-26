@@ -20,7 +20,7 @@ export default function InputComponent(props) {
     if (props.pageState === 4) return "Enter Github Issue URL";
     if (props.pageState === 5) return "Enter Reward Amount";
     if (props.pageState === 7) return "Enter Community Reward";
-    if (props.pageState === 8) return "Confirm Wallet Address";
+    if (props.pageState === 9) return "Confirm Wallet Address";
   }
 
   function handleValue() {
@@ -46,7 +46,7 @@ export default function InputComponent(props) {
     if (props.pageState === 4) return "Github Issue Link";
     if (props.pageState === 5) return "Enter Your Reward";
     if (props.pageState === 7) return "Enter Community Reward";
-    if (props.pageState === 8) return "Your Wallet Address";
+    if (props.pageState === 9) return "Your Wallet Address";
   }
   function handleStyle(el = "parent") {
     if (el === "input") {
@@ -54,7 +54,7 @@ export default function InputComponent(props) {
         return "input-field-style input-field-number";
       return "input-field-style";
     } else {
-      if (props.pageState === 8) return "margin-left-30";
+      if (props.pageState === 9) return "margin-left-30";
       return null;
     }
   }
@@ -69,11 +69,11 @@ export default function InputComponent(props) {
       <Grid
         container
         direction="column"
-        alignItems={props.pageState === 8 ? "flex-start" : "center"}
-        justifyContent={props.pageState === 8 ? "flex-start" : "center"}
+        alignItems={props.pageState === 9 ? "flex-start" : "center"}
+        justifyContent={props.pageState === 9 ? "flex-start" : "center"}
         className={handleStyle()}
       >
-        <Grid item md={12} xs={12} className={props.pageState === 8 ? "margin-left-30" : "margin-left-35"}>
+        <Grid item md={12} xs={12} className={props.pageState === 9 ? "margin-left-30" : "margin-left-35"}>
           <p className="left-title ">{handleLabel()}</p>
         </Grid>
         {props.pageState === 1 ||

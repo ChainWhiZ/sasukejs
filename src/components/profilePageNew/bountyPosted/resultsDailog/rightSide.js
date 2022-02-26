@@ -105,7 +105,7 @@ export default function RightSide(props) {
                 className="results-dialog-right-grid-github-icon"
               >
                 <a
-                  href={`https://ipfs.io/ipfs/${props.selectedSolution.workplan}`}
+                  href={`https://gateway.ipfs.io/ipfs/${props.selectedSolution.workplan}`}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -125,7 +125,7 @@ export default function RightSide(props) {
               </Grid>
               <Grid item md={1}>
                 <a
-                  href={`https://ipfs.io/ipfs/${props.selectedSolution.workplan}`}
+                  href={`https://gateway.ipfs.io/ipfs/${props.selectedSolution.workplan}`}
                   target="_blank"
                   rel="noreferrer"
                 >

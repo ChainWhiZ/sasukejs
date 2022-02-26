@@ -19,6 +19,7 @@ export default function QuestionPost() {
   let history = useHistory();
   const [issueTitle, setIssueTitle] = useState("");
   const [time, setTime] = useState(0);
+  const [voteTime, setVoteTime] = useState(0);
   const [category, setCategory] = useState([]);
   const [issueURL, setIssueURL] = useState("");
   const [reward, setReward] = useState(0);
@@ -36,6 +37,14 @@ export default function QuestionPost() {
     isValid: false,
     errorMessage: "",
   });
+  console.log(issueTitle)
+  console.log(time)
+  console.log(voteTime)
+  console.log(category)
+  console.log(issueURL)
+  console.log(reward)
+  console.log(communityOption)
+
   const [success, setSuccess] = useState({
     success: false,
     message: "",
@@ -139,6 +148,17 @@ export default function QuestionPost() {
       }
       if (activePage === 3) {
         if (time <= 0) {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Please enter valid time",
+          }));
+        } else {
+          handlePageChange(page);
+        }
+      }
+      if (activePage === 8) {
+        if (voteTime <= 0) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -343,10 +363,10 @@ export default function QuestionPost() {
       setLoader(true);
       console.log("hereeeeee");
       const timeBegin = Math.floor(new Date().getTime() / 1000);
-      let timeEnd = timeBegin + time * 24 * 60 * 60;
+      let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime* 24 * 60 * 60+1;
       let votingTimeBegin =
         communityOption == communityText[0].title
-          ? timeBegin + Math.floor(0.7 * (timeEnd - timeBegin)) + 1
+          ? timeBegin + time * 24 * 60 * 60 + 1
           : 0;
       let valid = true;
       let axiosResponse;
@@ -485,9 +505,9 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 8 ? (
+          ) : activePage === 9 ? (
             <BaseComponent
-              {...text["page8"]}
+              {...text["page9"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTerms={setTerms}
@@ -497,7 +517,16 @@ export default function QuestionPost() {
               walletAddress={walletAddress}
               handleSubmit={handleSubmit}
             />
-          ) : null}
+          ) : activePage === 8 ? (
+            <BaseComponent
+              {...text["page8"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleTime={setVoteTime}
+              time={voteTime}
+              alert={alert}
+            />
+          ): null}
         </>
       )}
       {success.success ? alert(success.message) : null}

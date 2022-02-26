@@ -6,6 +6,7 @@ import DaysInputComponent from "../daysInputPage/daysInput";
 import OptionComponent from "../optionPage/optionPage";
 import InputComponent from "../inputFieldPage/inputField";
 export default function BaseComponent(props) {
+  
   return (
     <>
       <Grid container>
@@ -70,12 +71,19 @@ export default function BaseComponent(props) {
               currency = {props.currency}
               alert={props.alert}
             />
-          ) : props.pageState === 8 ? (
+          ) : props.pageState === 9 ? (
             <InputComponent
               handleTerms={props.handleTerms}
               pageState={props.pageState}
               terms={props.terms}
               walletAddress = {props.walletAddress}
+              alert={props.alert}
+            />
+          ) : props.pageState === 8 ? (
+            <DaysInputComponent
+              handleTime={props.handleTime}
+              pageState={props.pageState}
+              time={props.time}
               alert={props.alert}
             />
           ) : null}
