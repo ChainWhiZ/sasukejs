@@ -1,2 +1,2 @@
- export const port = "https://chainwhiz.herokuapp.com/"
+ export const port = "www.backend-app.chainwhiz.app"
  //export const port = "http://localhost:4000/"
