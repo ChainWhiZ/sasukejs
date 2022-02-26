@@ -313,7 +313,7 @@ export default function SolutionSubmit(props) {
                             type={"text"}
                             //label="Paste you GitHub repository link"
                             className="solution-dialog-textfield"
-                            placeholder="https://github.com/<github id>/<repo name>"
+                            placeholder="Enter Github Repo or Pull Request URL "
                             value={solutions[index]}
                             onChange={(e) =>
                               handleChange(e.target.value, index)

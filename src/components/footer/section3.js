@@ -34,7 +34,7 @@ export default function Section3() {
         </Grid>
         <Grid item md={12} xs={12}>
           <a
-            href="https://www.notion.so/akpradhan/Disclaimer-d5d1889f056149db9a3359a144dcd0a7"
+            href="./Disclaimer.pdf"
             target="_blank"
             rel="noreferrer"
           >
@@ -43,7 +43,7 @@ export default function Section3() {
         </Grid>
         <Grid item md={12} xs={12}>
           <a
-            href="https://denim-salute-741.notion.site/Chainwhiz-Platform-FAQs-cffb7ce7b0604b92b03e9c36159b584a"
+            href="./Chainwhiz_Platform_FAQs.pdf"
             target="_blank"
             rel="noreferrer"
           >
