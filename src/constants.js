@@ -126,3 +126,5 @@ export const sidebarItems = [
     url: "/profile",
   },
 ];
+
+export const twitterMessage = `Hey! Just contributed to a bounty @chainwhiz. Checkout https://app.chainwhiz.app for awesome bounties!!`
