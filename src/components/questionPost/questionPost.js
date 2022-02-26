@@ -363,7 +363,7 @@ export default function QuestionPost() {
       setLoader(true);
       console.log("hereeeeee");
       const timeBegin = Math.floor(new Date().getTime() / 1000);
-      let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime* 24 * 60 * 60;
+      let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime* 24 * 60 * 60+1;
       let votingTimeBegin =
         communityOption == communityText[0].title
           ? timeBegin + time * 24 * 60 * 60 + 1
