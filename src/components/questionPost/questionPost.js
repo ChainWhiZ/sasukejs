@@ -21,7 +21,7 @@ export default function QuestionPost() {
   const [time, setTime] = useState(0);
   const [voteTime, setVoteTime] = useState(0);
   const [category, setCategory] = useState([]);
-  const [languages, setLanguages] = useState([]);
+  const [languagesAndTools, setLanguagesAndTools] = useState([]);
   const [issueDescription, setIssueDescription] = useState("");
   const [evaluationCriteria, setEvaluationCriteria] = useState("");
   const [reward, setReward] = useState(0);
@@ -180,7 +180,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 3) {
-        if (!languages.length) {
+        if (!languagesAndTools.length) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -441,6 +441,9 @@ export default function QuestionPost() {
               issueUrl: getIssueUrl(),
               bountyCurrency: currency,
               timeEnd: timeEnd,
+              description: issueDescription,
+              evaluation:evaluationCriteria,
+              languagesAndTools:languagesAndTools,
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
               bountyReward: reward,
@@ -511,8 +514,8 @@ export default function QuestionPost() {
               {...text["page3"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleChipData={setLanguages}
-              chipData={languages}
+              handleChipData={setLanguagesAndTools}
+              chipData={languagesAndTools}
               alert={alert}
             />
           ) : activePage === 4 ? (
