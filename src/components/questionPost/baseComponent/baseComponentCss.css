@@ -66,7 +66,8 @@ body{
   font-size: 100px !important;
 }
 
-.left-title {
+.left-title,
+.left-title	.MuiFormControlLabel-label {
   font-family: Poppins !important;
   font-style: normal !important;
   font-weight: 500 !important;
@@ -86,6 +87,9 @@ body{
 
 .days-input-parent {
   margin-left: 18% !important;
+}
+.input-parent {
+  margin-left: -2% !important;
 }
 
 .margin-top-2 {
@@ -167,4 +171,29 @@ body{
 .category-image{
   width: 24px;
   height: 24px;;
+}
+
+.radio-input {
+  width: 20vw !important;
+  display: inline !important;
+ 
+}
+.radio-input input {
+  margin-left: 1rem ;
+}
+.radio-button + span {
+  font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 1.3rem;
+vertical-align: middle;
+letter-spacing: 0.04em;
+
+}
+.radio-button .MuiRadio-root {
+  color: white;
+}
+
+.radio-button .MuiRadio-colorSecondary .Mui-checked{
+  color: rgba(212, 255, 31, 1) ;
 }

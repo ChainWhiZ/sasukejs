@@ -6,6 +6,8 @@ import DaysInputComponent from "../daysInputPage/daysInput";
 import OptionComponent from "../optionPage/optionPage";
 import InputComponent from "../inputFieldPage/inputField";
 import ChipInputComponent from "../chipInputFieldPage/chipInputFieldPage";
+import RadioInputComponent from "../radioInputFieldPage/radioInputFieldPage";
+
 export default function BaseComponent(props) {
   
   return (
@@ -15,7 +17,7 @@ export default function BaseComponent(props) {
           <hr className="horizontal-line" style={{ marginTop: "8%" }} />
         </Grid>
         <Grid item md={4}>
-          <RightSideText {...props} communityOption={props.communityOption} className="margin-top-8" />
+          <RightSideText {...props} communityOption={props.communityOption}  issueUrlOptions={props.issueUrlOptions} className="margin-top-8" />
         </Grid>
         <Grid item md={6} style={{ marginTop: "6%" }}>
           {props.pageState === 1 ? (
@@ -54,13 +56,23 @@ export default function BaseComponent(props) {
               alert={props.alert}
             />
           ) : props.pageState === 6 ? (
-            <InputComponent
-              handleIssueURL={props.handleIssueURL}
+            <RadioInputComponent
+              handleValidation={props.handleValidation}
               pageState={props.pageState}
-              issueURL={props.issueURL}
+              handleIssueUrlOptions={props.handleIssueUrlOptions}
+              issueUrlOptions={props.issueUrlOptions}
               alert={props.alert}
             />
           ) : props.pageState === 7 ? (
+            <InputComponent
+              handleValidation={props.handleValidation}
+              pageState={props.pageState}
+              issueUrlOptions={props.issueUrlOptions}
+              handleIssueDescription={props.handleIssueDescription}
+              issueDescription={props.issueDescription}
+              alert={props.alert}
+            />
+          ) : props.pageState === 8 ? (
             <InputComponent
               handleReward={props.handleReward}
               pageState={props.pageState}
@@ -69,14 +81,14 @@ export default function BaseComponent(props) {
               currency={props.currency}
               alert={props.alert}
             />
-          ) : props.pageState === 8 ? (
+          ) : props.pageState === 9 ? (
             <OptionComponent
               handleCommunityChoice={props.handleCommunityChoice}
               pageState={props.pageState}
               communityOption={props.communityOption}
               alert={props.alert}
             />
-          ) : props.pageState === 9 ? (
+          ) : props.pageState === 10 ? (
             <InputComponent
               handleCommunityReward={props.handleCommunityReward}
               pageState={props.pageState}
@@ -86,7 +98,7 @@ export default function BaseComponent(props) {
               currency={props.currency}
               alert={props.alert}
             />
-          ) : props.pageState === 10 ? (
+          ) : props.pageState === 11 ? (
             <InputComponent
               handleTerms={props.handleTerms}
               pageState={props.pageState}

@@ -24,6 +24,22 @@ export const approvalTypes = [
   "The community will approve the solution",
 ];
 
+export const options = {
+  issueUrlOptions:
+
+      [
+          {
+              value: 'githubIssueUrl',
+              label: 'Github Issue Url',
+              placeholder: 'Enter Github issue Link'
+          }, {
+              value: 'otherUrl',
+              label: 'Other Url',
+              placeholder: 'Enter other link'
+          }
+      ],
+
+};
 export const drawerList = [
   "Edit your profile",
   "Bounties Posted",
@@ -33,12 +49,12 @@ export const drawerList = [
 
 export const text = {
   page1: {
-    title: `What should we call your Issue?`,
+    title: `What should we call your Bounty?`,
     content: `The title is the first thing that a dev sees when he/she comes across your bounty. It’s best practise to keep the title closely related to the issue. Avoid vague words like Important, amazing, stunning etc.`,
   },
   page2: {
     title: `Choose the category/ies`,
-    content: `The category of an issue helps the devs
+    content: `The category of an bounty helps the builders
       associate it with their areas of strengths. Defining the proper set of categories is important for ensuring quality over quantity as solutions. `,
   },
   page3: {
@@ -46,8 +62,8 @@ export const text = {
     content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
   },
   page4: {
-    title: `Expected time of the solution`,
-    content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
+    title: `List the evaluation criterias`,
+    content: `The evaluation criteria field is for highlighting the main focus points of your bounty. Minimum code execution time, gradient based UI design, etc. Whatever be the priorities of your bounty, list them down here for the builders to understand.`,
   },
   page5: {
     title: `Expected time of the solution`,
@@ -58,19 +74,23 @@ export const text = {
     content: `Provide the link to the issue on your Github for which you’re posting this bounty. Please do not post a spam link or a shortened link. The community checks for spam bounties and can report you for acting as a bad actor.`,
   },
   page7: {
+    title:'Enter the bounty description',
+    content:'Use this area to describe to the builders any details regarding the bounty. Chances of getting a good solution to your bounties increase 10x times if the description has been filled out.'
+  },
+  page8: {
     title: `Provide the bounty amount`,
     content: `Mention the amount that the developer
       shall receive after completing the bounty. Note: This amount will be held in an escrow contract and will be transferred to the developer once you confirm that you’ve received the code.`,
   },
-  page8: {
+  page9: {
     title: `Solution Voting`,
     content: `Turn it on if you want the solutions to Be reviewed and voted on by the community members. Turn it off if you don’t want the community to vote on your solutions.`,
   },
-  page9: {
+  page10: {
     title: `Enter Community Reward`,
     content: `Community voting makes your life a lot easier in selecting the best solution to your bounty. They do the voting.You choose the best solution based on the votes. Simple and Fast. The reward goes out to the voters who voted for the highest voted solutions. `,
   },
-  page10: {
+  page11: {
     title: `Confirm your Wallet Address`,
     content: `Provide the wallet address which you will be using for transfering the bounty reward to the escrow. All transactions, regarding the bounty shall be associated with this address. `,
   },

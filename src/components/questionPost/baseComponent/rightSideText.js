@@ -1,9 +1,30 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import {communityText} from "../../../constants";
+import {communityText,options} from "../../../constants";
+
 export default function RightSideText(props) {
   console.log(props);
+  //type 0 is + 1 is -
+  function getPageChange(type=0) {
+   if (type && props.pageState === 8 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
+   {
+    return props.pageState - 2;
+   }
+   if (!type && props.pageState === 6 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
+   {
+    return props.pageState + 2;
+   }
+   if (!type && props.pageState === 9 && props.communityOption === communityText[1].title)
+   {
+    return props.pageState + 2;
+   }
+   if (type && props.pageState === 11 && props.communityOption === communityText[1].title)
+   {
+    return props.pageState - 2;
+   }
+   return type?props.pageState - 1:props.pageState + 1;
+  }
   return (
     <>
       <Grid container className="right-side-card">
@@ -28,7 +49,7 @@ export default function RightSideText(props) {
                         <Grid container direction="row" container
                             justifyContent="space-between"
                             alignItems="center"> */}
-        {props.pageState > 0 && props.pageState < 10 ? (
+        {props.pageState > 0 && props.pageState < 11 ? (
           <>
             <Grid item md={6} xs={6}>
               <Button
@@ -37,8 +58,10 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 10) {
-                    props.handleValidation(props.pageState - 1);
+                  //convert into functions
+                  if (props.pageState > 1 && props.pageState < 11) {
+                    console.log("in here")
+                    props.handleValidation(getPageChange(1));
                   }
                 }}
               >
@@ -52,9 +75,14 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 0 && props.pageState < 10) {
-                    props.handleValidation((props.pageState === 8 && props.communityOption === communityText[1].title )?props.pageState + 2:props.pageState + 1);
+                  if (props.pageState > 0 && props.pageState < 11) {
+                   
+                    props.handleValidation(getPageChange());
+                   
+                  
+
                   }
+                  
                 }}
               >
                 Next
@@ -70,8 +98,8 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 11) {
-                    props.handleValidation((props.pageState === 10 && props.communityOption === communityText[1].title)?props.pageState - 2:props.pageState - 1);
+                  if (props.pageState > 1 && props.pageState < 12) {
+                    props.handleValidation(getPageChange(1));
                   }
                 }}
               >
