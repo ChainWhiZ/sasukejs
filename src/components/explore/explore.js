@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import { logEvent } from "firebase/analytics"
+import firebaseAnalytics from "../firebaseConfig";
 import MenuBar from "./menuBar";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
@@ -21,6 +23,7 @@ export default function NewExplore(props) {
   });
 
   useEffect(() => {
+    logEvent(firebaseAnalytics, "dApp")
     setAlert((prevState) => ({
       ...prevState,
       open: false,

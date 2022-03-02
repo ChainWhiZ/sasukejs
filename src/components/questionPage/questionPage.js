@@ -13,7 +13,7 @@ import SimpleAlerts from "../alert/alert";
 import { port } from "../../config/config";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
-
+import { Helmet } from "react-helmet";
 export default function QuestionPage(props) {
   const [data, setData] = useState({});
   const [loader, setLoader] = useState(true);
@@ -62,6 +62,18 @@ export default function QuestionPage(props) {
 
           (
             <Grid container className="grid-body">
+              <Helmet>
+                <meta charSet="utf-8" />
+                <title>{data.questionTitle}</title>
+                <meta name="keywords" content="bounty,community" />
+                <meta property="og:image" content="./favicon_io/favicon.ico" />
+                <meta name="og:description" content={`Reward ${data.bountyReward + data.communityReward} ${data.bountyCurrency}`} />
+                <meta property="image" content="./favicon_io/favicon.ico" />
+                <meta name="theme-color" content="#d4ff1f" />
+                <meta name="description" content={`Reward ${data.bountyReward + data.communityReward} ${data.bountyCurrency}`} />
+                <meta name="image" content="https://app.chainwhiz.app/bounty/6213d0d284ff2300187cbb03" />
+                <meta name="og:image" content="https://app.chainwhiz.app/bounty/6213d0d284ff2300187cbb03" />
+              </Helmet>
               <Grid item md={3} xs={12}>
                 <QuestionLeftHeading
                   questionDetails={data}
