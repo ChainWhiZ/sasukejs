@@ -7,7 +7,7 @@ import { text } from "../../constants";
 import { useRecoilValue } from "recoil";
 import { username as usernameAtom } from "../../recoil/atoms";
 import { communityText } from "../../constants";
-import { Redirect } from "react-router-dom";
+import validator from 'validator'
 import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
@@ -22,13 +22,18 @@ export default function QuestionPost() {
   const [voteTime, setVoteTime] = useState(0);
   const [category, setCategory] = useState([]);
   const [languages, setLanguages] = useState([]);
-  const [issueURL, setIssueURL] = useState("");
+  const [issueDescription, setIssueDescription] = useState("");
   const [evaluationCriteria, setEvaluationCriteria] = useState("");
   const [reward, setReward] = useState(0);
   const [communityOption, setCommunityOption] = useState();
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(false);
   const [currency, setCurrency] = useState("MATIC");
+  const [issueUrlOptions, setIssueUrlOptions] = useState({
+    choice: 'githubIssueUrl',
+    url1: '',
+    url2: '',
+  });
   const [terms, setTerms] = useState({
     undertaking1: false,
     undertaking2: false,
@@ -70,12 +75,14 @@ export default function QuestionPost() {
     console.log(tokenContract);
   });
   console.log(tokenContract);
+  function getIssueUrl() {
+    return issueUrlOptions.choice == 'githubIssueUrl' ? issueUrlOptions.url1 : issueUrlOptions.url2;
+  }
   function handleGithubIssueValidation() {
-    console.log("in here");
     setLoader(true);
     return axios
       .post(port + "question/validate", {
-        githubIssueUrl: issueURL,
+        githubIssueUrl: getIssueUrl(),
       })
       .then((response) => {
         if (response.status === 200) {
@@ -114,19 +121,43 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
+      if (activePage === 7) {
+          handlePageChange(page);
+      }
       if (activePage === 6) {
-        if (!(await handleGithubIssueValidation())) {
+        if(issueUrlOptions.url === '')
+        {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "What’s all this rush? Enter the issue URL.",
+          }));
+        }
+        else if (getIssueUrl().includes('https://github.com/')) {
+          if (!(await handleGithubIssueValidation())) {
+            setAlert((prevState) => ({
+              ...prevState,
+              isValid: true,
+              errorMessage: "What’s all this rush? Enter valid github issue URL.",
+            }));
+          }
+          else {
+            handlePageChange(page);
+          }
+        }
+        else if (!validator.isURL(getIssueUrl())) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
             errorMessage: "What’s all this rush? Enter valid issue URL.",
           }));
-        } else {
+        }
+        else {
           handlePageChange(page);
         }
       }
-      if (activePage === 7) {
-        if ((reward <= 5) && (reward >= 40000)) {
+      if (activePage === 8) {
+        if ((reward <= 5) || (reward >= 40000)) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -142,7 +173,7 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "How dare you? Choose the right category/ies for me.",
+            errorMessage: "How dare you? Enter the right category/ies for me.",
           }));
         } else {
           handlePageChange(page);
@@ -153,22 +184,15 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "How dare you? Choose the right category/ies for me.",
+            errorMessage: "How dare you? Enter the right languages/tools for me.",
           }));
         } else {
           handlePageChange(page);
         }
       }
       if (activePage === 4) {
-        if (evaluationCriteria === "") {
-          setAlert((prevState) => ({
-            ...prevState,
-            isValid: true,
-            errorMessage: "Enter valid criteria.",
-          }));
-        } else {
-          handlePageChange(page);
-        }
+
+        handlePageChange(page);
       }
       if (activePage === 5) {
         if (time <= 0) {
@@ -181,7 +205,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-<<<<<<< HEAD
+
       if (activePage === 8) {
         if (voteTime <= 0) {
           setAlert((prevState) => ({
@@ -193,12 +217,10 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 7) {
-=======
-      if (activePage === 9) {
->>>>>>> 7259efe (added)
+ 
+      if (activePage === 10) {
         if (
-          (communityReward <= 5) && (communityReward >= 40000) &&
+          (communityReward <= 5) || (communityReward >= 40000) &&
           communityOption == communityText[0].title
         ) {
           console.log(typeof communityReward);
@@ -211,7 +233,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 8) {
+      if (activePage === 9) {
         if (!communityOption) {
           setAlert((prevState) => ({
             ...prevState,
@@ -243,7 +265,7 @@ export default function QuestionPost() {
         const trxObj = contract.methods
           .postIssue(
             username,
-            issueURL,
+            getIssueUrl(),
             rewardAmount.toString(),
             communityRewardAmount.toString(),
             communityOption == communityText[0].title
@@ -309,7 +331,7 @@ export default function QuestionPost() {
           const trxObj = contract.methods
             .postIssue(
               username,
-              issueURL,
+              getIssueUrl(),
               rewardAmount.toString(),
               communityRewardAmount.toString(),
               communityOption == communityText[0].title
@@ -358,7 +380,7 @@ export default function QuestionPost() {
     console.log(time);
     console.log(issueTitle);
     console.log(category);
-    console.log(issueURL);
+    console.log(getIssueUrl());
     console.log(reward);
     console.log(communityOption);
     console.log(communityReward);
@@ -416,7 +438,7 @@ export default function QuestionPost() {
               githubId: username,
               publicAddress: walletAddress,
               questionTitle: issueTitle,
-              githubIssueUrl: issueURL,
+              issueUrl: getIssueUrl(),
               bountyCurrency: currency,
               timeEnd: timeEnd,
               solvingTimeBegin: timeBegin,
@@ -517,33 +539,44 @@ export default function QuestionPost() {
               {...text["page6"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleIssueURL={setIssueURL}
-              issueURL={issueURL}
+              handleIssueUrlOptions={setIssueUrlOptions}
+              issueUrlOptions={issueUrlOptions}
               alert={alert}
             />
-          ) : activePage === 7 ? (
+            ): activePage === 7 ? (
+              <BaseComponent
+                {...text["page7"]}
+                handleValidation={handleValidation}
+                pageState={activePage}
+                handleIssueDescription={setIssueDescription}
+                issueUrlOptions={issueUrlOptions}
+                issueDescription = {issueDescription}
+                alert={alert}
+              />
+          ) : activePage === 8 ? (
             <BaseComponent
-              {...text["page7"]}
+              {...text["page8"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleReward={setReward}
               reward={reward}
+              issueUrlOptions={issueUrlOptions}
               handleCurrency={setCurrency}
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 8 ? (
+          ) : activePage === 9 ? (
             <BaseComponent
-              {...text["page8"]}
+              {...text["page9"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleCommunityChoice={setCommunityOption}
               communityOption={communityOption}
               alert={alert}
             />
-          ) : activePage === 9 ? (
+          ) : activePage === 10 ? (
             <BaseComponent
-              {...text["page9"]}
+              {...text["page10"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleCommunityReward={setCommunityReward}
@@ -553,9 +586,9 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 10 ? (
+          ) : activePage === 11 ? (
             <BaseComponent
-              {...text["page10"]}
+              {...text["page11"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTerms={setTerms}
