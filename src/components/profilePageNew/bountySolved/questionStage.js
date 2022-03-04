@@ -243,14 +243,13 @@ export default function QuestionStage(props) {
                 Claim Reward
               </Button>
             ) : (
-              // <Link to={`/bounty/${props.questionId._id}`}>
+              <Link to={`/bounty/${props.questionId._id}`}>
               <Button
-                onClick={() => handleComplete()}
                 className="profile-button"
               >
                 Go to Bounty Page
               </Button>
-              // </Link>
+              </Link>
             )
           ) : (
             <Button className="profile-button" disabled>
