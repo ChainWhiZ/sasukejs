@@ -54,6 +54,7 @@
   cursor: pointer;
   background-color: rgba(215, 255, 46, 1) !important;
   border-radius: 1vw;
+  color: #101010;
 }
 .profile-div{
   margin-top: -7rem;

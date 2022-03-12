@@ -22,6 +22,8 @@ export default function MenuBar(props) {
   const [toggleHoverIcons, setToggleHoverIcons] = useState({
     bountyAggregator: smallBusinessWhite,
     solveBounty: whiteSolveBounty,
+    voteBounty: voteBounty,
+    profile: whiteProfile,
   });
   const toggleHover = (key, value) => {
     setToggleHoverIcons((prevState) => ({
@@ -51,12 +53,18 @@ export default function MenuBar(props) {
           <Grid
             item
             md={12}
+            onMouseEnter={() =>
+              toggleHover("solveBounty",solveBounty )
+            }
+            onMouseLeave={() =>
+              toggleHover("solveBounty", whiteSolveBounty)
+            }
             className={
               props.type === "solve" ? "grid-item active" : "grid-item"
             }
           >
             <img
-              src={props.type === "solve" ? solveBounty : whiteSolveBounty}
+              src={props.type === "solve" ? solveBounty : toggleHoverIcons.solveBounty}
               alt="solveBounty"
             />
             <p
@@ -96,10 +104,16 @@ export default function MenuBar(props) {
           <Grid
             item
             md={12}
+            onMouseEnter={() =>
+              toggleHover("voteBounty",blackVoteBounty )
+            }
+            onMouseLeave={() =>
+              toggleHover("voteBounty", voteBounty)
+            }
             className={props.type === "vote" ? "grid-item active" : "grid-item"}
           >
             <img
-              src={props.type === "vote" ? blackVoteBounty : voteBounty}
+              src={props.type === "vote" ? blackVoteBounty : toggleHoverIcons.voteBounty}
               alt="voteBounty"
             />
             <p
@@ -118,12 +132,18 @@ export default function MenuBar(props) {
             <Grid
               item
               md={12}
+              onMouseEnter={() =>
+                toggleHover("profile",blackProfile )
+              }
+              onMouseLeave={() =>
+                toggleHover("profile", whiteProfile)
+              }
               className={
                 props.type === "profile" ? "grid-item active" : "grid-item"
               }
             >
               <img
-                src={props.type === "profile" ? blackProfile : whiteProfile}
+                src={props.type === "profile" ? blackProfile : toggleHoverIcons.profile}
                 alt="profile"
               />
               <p
@@ -140,12 +160,18 @@ export default function MenuBar(props) {
         ) : (
           <div
             class="profile-div"
+            onMouseEnter={() =>
+              toggleHover("profile",blackProfile )
+            }
+            onMouseLeave={() =>
+              toggleHover("profile", whiteProfile)
+            }
             onClick={() => {
               setLoginPopup(true);
             }}
           >
             <img
-              src={props.type === "profile" ? blackProfile : whiteProfile}
+              src={props.type === "profile" ? blackProfile : toggleHoverIcons.profile}
               alt="profile"
             />
             <p
