@@ -20,8 +20,8 @@ export default function InputComponent(props) {
     if (props.pageState === 4) return "Enter Evaluation Criteria";
     if (props.pageState === 7) return "Enter Bounty Description";
     if (props.pageState === 8) return "Enter Reward Amount";
-    if (props.pageState === 10) return "Enter Community Reward";
-    if (props.pageState === 11) return "Confirm Wallet Address";
+    if (props.pageState === 11) return "Enter Community Reward";
+    if (props.pageState === 12) return "Confirm Wallet Address";
   }
 
   function handleValue() {
@@ -29,7 +29,7 @@ export default function InputComponent(props) {
     if (props.pageState === 4) return props.evaluationCriteria;
     if (props.pageState === 7) return props.issueDescription;
     if (props.pageState === 8) return props.reward;
-    if (props.pageState === 10) return props.communityReward;
+    if (props.pageState === 11) return props.communityReward;
   }
 
   function handleOnChange(value) {
@@ -37,7 +37,7 @@ export default function InputComponent(props) {
     if (props.pageState === 4) return props.handleEvaluationCriteria(value);
     if (props.pageState === 7) return props.handleIssueDescription(value);
     if (props.pageState === 8) return props.handleReward(value);
-    if (props.pageState === 10) return props.handleCommunityReward(value);
+    if (props.pageState === 11) return props.handleCommunityReward(value);
   }
 
   function handleUndertakings(e) {
@@ -49,12 +49,12 @@ export default function InputComponent(props) {
     if (props.pageState === 4) return "Evaluation Criteria";
     if (props.pageState === 8) return "Enter Your Reward";
     if (props.pageState === 7) return "Bounty description";
-    if (props.pageState === 10) return "Enter Community Reward";
-    if (props.pageState === 11) return "Your Wallet Address";
+    if (props.pageState === 11) return "Enter Community Reward";
+    if (props.pageState === 12) return "Your Wallet Address";
   }
   function handleStyle(el = "parent") {
     if (el === "input") {
-      if (props.pageState === 8 || props.pageState === 10)
+      if (props.pageState === 8 || props.pageState === 11)
         return "input-field-style input-field-number";
       return "input-field-style";
     } else {
@@ -73,8 +73,8 @@ export default function InputComponent(props) {
       <Grid
         container
         direction="column"
-        alignItems={props.pageState === 11 ? "flex-start" : "center"}
-        justifyContent={props.pageState === 11 ? "flex-start" : "center"}
+        alignItems={props.pageState === 12 ? "flex-start" : "center"}
+        justifyContent={props.pageState === 12 ? "flex-start" : "center"}
         className={handleStyle()}
       >
         <Grid item md={12} xs={12} className={props.pageState === 11 ? "margin-left-30" : "margin-left-35"}>
@@ -85,19 +85,19 @@ export default function InputComponent(props) {
           props.pageState === 6 ||
           props.pageState === 7 ||
           props.pageState === 8 ||
-          props.pageState === 10 ? (
+          props.pageState === 11 ? (
           <>
             <Grid item md={8} xs={8} className="margin-top-2">
               <Input
 
                 type={
-                  props.pageState === 8 || props.pageState === 10
+                  props.pageState === 8 || props.pageState === 11
                     ? "number"
                     : "text"
                 }
                 inputProps={{
                   style: { textAlign: "center" },
-                  min: (props.pageState === 8) ? 11 : 5,
+                  min: (props.pageState === 8) ? 10 : 5,
                 }}
                 placeholder={handlePlaceholder()}
                 value={handleValue()}
@@ -125,7 +125,7 @@ export default function InputComponent(props) {
                     <MenuItem value={"MATIC"}>MATIC</MenuItem>
                     <MenuItem value={"DEV"}>DEV</MenuItem>
                   </Select>
-                  : props.pageState === 10 ?
+                  : props.pageState === 11 ?
                     <p className="bounty-post-unit">{(props.currency).toUpperCase()}</p>
                     : null}
             </Grid>
