@@ -19,7 +19,7 @@ export default function RightSideText(props) {
    {
     return props.pageState + 2;
    }
-   if (type && props.pageState === 11 && props.communityOption === communityText[1].title)
+   if (type && props.pageState === 12 && props.communityOption === communityText[1].title)
    {
     return props.pageState - 2;
    }
@@ -49,7 +49,7 @@ export default function RightSideText(props) {
                         <Grid container direction="row" container
                             justifyContent="space-between"
                             alignItems="center"> */}
-        {props.pageState > 0 && props.pageState < 11 ? (
+        {props.pageState > 0 && props.pageState < 12 ? (
           <>
             <Grid item md={6} xs={6}>
               <Button
@@ -59,7 +59,7 @@ export default function RightSideText(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   //convert into functions
-                  if (props.pageState > 1 && props.pageState < 11) {
+                  if (props.pageState > 1 && props.pageState < 12) {
                     console.log("in here")
                     props.handleValidation(getPageChange(1));
                   }
@@ -75,7 +75,7 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 0 && props.pageState < 11) {
+                  if (props.pageState > 0 && props.pageState < 12) {
                    
                     props.handleValidation(getPageChange());
                    
@@ -98,7 +98,7 @@ export default function RightSideText(props) {
                 className="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 12) {
+                  if (props.pageState > 1 && props.pageState < 13) {
                     props.handleValidation(getPageChange(1));
                   }
                 }}

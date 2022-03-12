@@ -48,7 +48,7 @@ export default function QuestionPost() {
   console.log(time)
   console.log(voteTime)
   console.log(category)
-  console.log(issueURL)
+  console.log(issueUrlOptions)
   console.log(reward)
   console.log(communityOption)
 
@@ -122,11 +122,10 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
-          handlePageChange(page);
+        handlePageChange(page);
       }
       if (activePage === 6) {
-        if(issueUrlOptions.url === '')
-        {
+        if (issueUrlOptions.url === '') {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -206,7 +205,7 @@ export default function QuestionPost() {
         }
       }
 
-      if (activePage === 8) {
+      if (activePage === 10) {
         if (voteTime <= 0) {
           setAlert((prevState) => ({
             ...prevState,
@@ -217,8 +216,8 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
- 
-      if (activePage === 10) {
+
+      if (activePage === 11) {
         if (
           (communityReward <= 5) || (communityReward >= 40000) &&
           communityOption == communityText[0].title
@@ -414,7 +413,7 @@ export default function QuestionPost() {
       setLoader(true);
       console.log("hereeeeee");
       const timeBegin = Math.floor(new Date().getTime() / 1000);
-      let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime* 24 * 60 * 60+1;
+      let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime * 24 * 60 * 60 + 1;
       let votingTimeBegin =
         communityOption == communityText[0].title
           ? timeBegin + time * 24 * 60 * 60 + 1
@@ -442,8 +441,8 @@ export default function QuestionPost() {
               bountyCurrency: currency,
               timeEnd: timeEnd,
               description: issueDescription,
-              evaluation:evaluationCriteria,
-              languagesAndTools:languagesAndTools,
+              evaluation: evaluationCriteria,
+              languagesAndTools: languagesAndTools,
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
               bountyReward: reward,
@@ -546,16 +545,16 @@ export default function QuestionPost() {
               issueUrlOptions={issueUrlOptions}
               alert={alert}
             />
-            ): activePage === 7 ? (
-              <BaseComponent
-                {...text["page7"]}
-                handleValidation={handleValidation}
-                pageState={activePage}
-                handleIssueDescription={setIssueDescription}
-                issueUrlOptions={issueUrlOptions}
-                issueDescription = {issueDescription}
-                alert={alert}
-              />
+          ) : activePage === 7 ? (
+            <BaseComponent
+              {...text["page7"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleIssueDescription={setIssueDescription}
+              issueUrlOptions={issueUrlOptions}
+              issueDescription={issueDescription}
+              alert={alert}
+            />
           ) : activePage === 8 ? (
             <BaseComponent
               {...text["page8"]}
@@ -579,6 +578,15 @@ export default function QuestionPost() {
             />
           ) : activePage === 10 ? (
             <BaseComponent
+              {...text["page8"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleTime={setVoteTime}
+              time={voteTime}
+              alert={alert}
+            />
+          ) : activePage === 11 ? (
+            <BaseComponent
               {...text["page10"]}
               handleValidation={handleValidation}
               pageState={activePage}
@@ -589,7 +597,7 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 11 ? (
+          ) : activePage === 12 ? (
             <BaseComponent
               {...text["page11"]}
               handleValidation={handleValidation}
@@ -601,16 +609,8 @@ export default function QuestionPost() {
               walletAddress={walletAddress}
               handleSubmit={handleSubmit}
             />
-          ) : activePage === 8 ? (
-            <BaseComponent
-              {...text["page8"]}
-              handleValidation={handleValidation}
-              pageState={activePage}
-              handleTime={setVoteTime}
-              time={voteTime}
-              alert={alert}
-            />
-          ): null}
+
+          ) : null}
         </>
       )}
       {success.success ? alert(success.message) : null}

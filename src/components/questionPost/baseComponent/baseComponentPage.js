@@ -88,7 +88,7 @@ export default function BaseComponent(props) {
               communityOption={props.communityOption}
               alert={props.alert}
             />
-          ) : props.pageState === 10 ? (
+          ) : props.pageState === 11 ? (
             <InputComponent
               handleCommunityReward={props.handleCommunityReward}
               pageState={props.pageState}
@@ -98,7 +98,7 @@ export default function BaseComponent(props) {
               currency={props.currency}
               alert={props.alert}
             />
-          ) : props.pageState === 11 ? (
+          ) : props.pageState === 12 ? (
             <InputComponent
               handleTerms={props.handleTerms}
               pageState={props.pageState}
@@ -106,7 +106,7 @@ export default function BaseComponent(props) {
               walletAddress={props.walletAddress}
               alert={props.alert}
             />
-          ) : props.pageState === 8 ? (
+          ) : props.pageState === 10 ? (
             <DaysInputComponent
               handleTime={props.handleTime}
               pageState={props.pageState}
