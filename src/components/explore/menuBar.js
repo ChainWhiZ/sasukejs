@@ -20,15 +20,15 @@ export default function MenuBar(props) {
   const username = useRecoilValue(usernameAtom);
   const [loginPopup, setLoginPopup] = useState(false);
   const [toggleHoverIcons, setToggleHoverIcons] = useState({
-    bountyAggregator:smallBusinessWhite,
-    solveBounty:whiteSolveBounty});
-  const toggleHover = (key,value) => {
+    bountyAggregator: smallBusinessWhite,
+    solveBounty: whiteSolveBounty,
+  });
+  const toggleHover = (key, value) => {
     setToggleHoverIcons((prevState) => ({
       ...prevState,
-      [key]: value
-  }));
-    
-  }
+      [key]: value,
+    }));
+  };
   return (
     <>
       <Grid container className="menubar">
@@ -70,13 +70,28 @@ export default function MenuBar(props) {
             </p>
           </Grid>
         </Link>
-        <Link>
-          <Grid item md={12} className="grid-item" onMouseEnter={()=>toggleHover('bountyAggregator',smallBusiness)} 
-          onMouseLeave={()=>toggleHover('bountyAggregator',smallBusinessWhite)}>
-            <img src={toggleHoverIcons.bountyAggregator} alt="bountyAggregator" />
-            <p onClick={()=>window.location.href="https://bounties-app.chainwhiz.app/"} className="menubar-items">Bounty Aggregtor</p>
-          </Grid>
-        </Link>
+       
+          <a href="https://bounties-app.chainwhiz.app/" target="_blank">
+            <Grid
+              item
+              md={12}
+              className="grid-item"
+              onMouseEnter={() =>
+                toggleHover("bountyAggregator", smallBusiness)
+              }
+              onMouseLeave={() =>
+                toggleHover("bountyAggregator", smallBusinessWhite)
+              }
+            >
+              <img
+                src={toggleHoverIcons.bountyAggregator}
+                alt="bountyAggregator"
+              />
+
+              <p className="menubar-items">Bounty Aggregator</p>
+            </Grid>
+          </a>
+     
         <Link to="/vote">
           <Grid
             item
@@ -125,7 +140,6 @@ export default function MenuBar(props) {
         ) : (
           <div
             class="profile-div"
-
             onClick={() => {
               setLoginPopup(true);
             }}
@@ -140,7 +154,6 @@ export default function MenuBar(props) {
                   ? "menubar-items p-active"
                   : "menubar-items"
               }
-
             >
               Your Profile
             </p>
