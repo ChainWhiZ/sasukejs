@@ -21,7 +21,6 @@ export default function NewExplore(props) {
     errorMessage: "",
     severity: "error",
   });
-
   useEffect(() => {
     logEvent(firebaseAnalytics, "dApp")
     setAlert((prevState) => ({

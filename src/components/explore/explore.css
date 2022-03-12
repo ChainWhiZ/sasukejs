@@ -39,6 +39,9 @@
   margin-top: -3.8vh;
   margin-left: 4vw;
 }
+.menubar-items:hover {
+  color: #101010;
+}
 
 .menubar-usergrid {
   margin-left: 0.5vw !important;
