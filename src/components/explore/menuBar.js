@@ -4,6 +4,7 @@ import "./explore.css";
 import { Link } from "react-router-dom";
 import accountCircle from "../../assets/account-circle.png";
 import postBounty from "../../assets/post_bounty.png";
+import postBountyBlack from "../../assets/post_bounty_black.png";
 import solveBounty from "../../assets/solve_bounty.png";
 import voteBounty from "../../assets/vote_bounty.png";
 import whiteProfile from "../../assets/profile.png";
@@ -24,6 +25,7 @@ export default function MenuBar(props) {
     solveBounty: whiteSolveBounty,
     voteBounty: voteBounty,
     profile: whiteProfile,
+    postBounty: postBounty
   });
   const toggleHover = (key, value) => {
     setToggleHoverIcons((prevState) => ({
@@ -44,8 +46,15 @@ export default function MenuBar(props) {
         </Grid>
 
         <Link to="/post">
-          <Grid item md={12} className="grid-item">
-            <img src={postBounty} alt="postBounty" />
+          <Grid item md={12} className="grid-item"
+           onMouseEnter={() =>
+            toggleHover("postBounty",postBountyBlack )
+          }
+          onMouseLeave={() =>
+            toggleHover("postBounty", postBounty)
+          }
+         >
+            <img src={toggleHoverIcons.postBounty} alt="postBounty" />
             <p className="menubar-items">Post a Bounty</p>
           </Grid>
         </Link>
