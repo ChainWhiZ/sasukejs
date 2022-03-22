@@ -4,7 +4,7 @@ import "./explore.css";
 import { Link } from "react-router-dom";
 import accountCircle from "../../assets/account-circle.png";
 import postBounty from "../../assets/post_bounty.png";
-import blackPostBounty from "../../assets/post-bounty-black.png";
+import postBountyBlack from "../../assets/post-bounty-black.png";
 import solveBounty from "../../assets/solve_bounty.png";
 import voteBounty from "../../assets/vote_bounty.png";
 import whiteProfile from "../../assets/profile.png";
