@@ -115,7 +115,7 @@ p {
 @media only screen and (min-width: 480px) and (max-width: 1800px) {
   .login-popup .MuiDialog-paper {
     width: 40vw;
-    height: 50vh;
+    height: 35vh;
   }
 }
 
@@ -124,12 +124,11 @@ p {
   background-color: #000000;
   color: white;
   border: 2px solid white;
-
   color: #ffffff;
 }
 
 .dialog-button {
-  margin-top: 3%;
+  margin-top: -15%;
   outline: none;
   border: none;
 }

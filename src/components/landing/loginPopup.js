@@ -25,11 +25,14 @@ export default function LoginPopup(props) {
       >
         <Grid container>
           <Grid item md={12} style={{ padding: "3rem" }}>
-            <p>Please Login with your GithubId to access the Marketplace</p>
-            <i>
-              Switch to Matic mainnet and checkout our Product Guideline
-              documentation for detailed walkthrough{" "}
-            </i>
+            <b style={{ color: "#d7ff2e" }}>Eyes Here!</b>
+            <p>
+              Connect your Metamask Wallet by clicking on the wallet icon in the navbar. Change the network to Matic Mainnet.
+            </p>
+
+            <p>
+              Read the  <a href="./Product_Guidelines.pdf" target="_blank"><span style={{ color: "#d7ff2e" }}> Product Guidelines </span></a> for more details. Reachout to us on our Discord for any queries.
+            </p>
           </Grid>
           <Grid item md={12}>
             <Button class="dialog-button" onClick={handleClose}>
