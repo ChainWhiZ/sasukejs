@@ -4,7 +4,7 @@ import SimpleAlerts from '../../alert/alert';
 import { Grid } from '@material-ui/core';
 import { Input } from '@material-ui/core';
 import { options } from "../../../constants";
-
+import "../baseComponent/baseComponentCss.css";
 
 export default function RadioInputComponent(props) {
     const [currentOption, setCurrentOptions] = useState(options.issueUrlOptions);
@@ -15,7 +15,7 @@ export default function RadioInputComponent(props) {
     function handleRadioOnChange(value) {
         console.log(props)
         console.log(props.issueUrlOptions)
-        if (props.pageState === 6) {
+        if (props.pageState === 5) {
             return props.handleIssueUrlOptions(prevState => ({
                 ...prevState,
                 choice: value
@@ -26,7 +26,7 @@ export default function RadioInputComponent(props) {
     function handleInputOnChange(value, type) {
         console.log(props)
         console.log(props.issueUrlOptions)
-        if (props.pageState === 6) {
+        if (props.pageState === 5) {
             return props.handleIssueUrlOptions(prevState => ({
                 ...prevState,
                 [type === 1 ? 'url1' : 'url2']: value,
@@ -36,11 +36,11 @@ export default function RadioInputComponent(props) {
         console.log(props.issueUrlOptions)
     }
     function handleCurrentOptions() {
-        if (props.pageState === 6) return options.issueUrlOptions;
+        if (props.pageState === 5) return options.issueUrlOptions;
     }
 
     function handleSelection() {
-        if (props.pageState === 6) return props.issueUrlOptions;
+        if (props.pageState === 5) return props.issueUrlOptions;
     }
 
     return (
@@ -55,7 +55,7 @@ export default function RadioInputComponent(props) {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                className="margin-left-30 input-field-style"
+                className="input-field-style margin-left-8 margin-top-8 "
             >
 
                 <Grid item md={12} xs={12}>

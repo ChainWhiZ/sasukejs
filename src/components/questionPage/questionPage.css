@@ -24,7 +24,15 @@
   font-size: 1vw;
   letter-spacing: 0.01em;
 }
-
+.heading-text-category::first-letter {
+ text-transform: uppercase;
+}
+.heading-show{
+  cursor: pointer;
+}
+.heading-show:hover{
+  color: #ffffff;
+}
 .margin-top-2 {
   margin-top: -2%;
 }
@@ -93,7 +101,7 @@
   height: 8vh !important;
 }
 .icon {
-  margin-right: 0rem;
+  margin-top: 0rem;
 }
 .card-hover-content {
   background: #d4ff1f;
@@ -455,8 +463,14 @@ input {
 
 
 .bounty-middle-github{
-  margin-top: -3.5vh !important;
-  margin-left: 2vw !important;
+  margin-left: 1vw !important;
+  vertical-align: top;
+  cursor: pointer;
+}
+.bounty-middle-github-disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
 }
 
 .workplan-dialog .MuiDialog-paper{
@@ -501,3 +515,4 @@ input {
   font-size: 1vw;
   color:  #d4ff1e !important;
  }
+ 
