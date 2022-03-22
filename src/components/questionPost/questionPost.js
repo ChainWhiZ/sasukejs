@@ -20,7 +20,7 @@ export default function QuestionPost() {
   const [issueTitle, setIssueTitle] = useState("");
   const [time, setTime] = useState(0);
   const [voteTime, setVoteTime] = useState(0);
-  const [category, setCategory] = useState([]);
+  // const [category, setCategory] = useState([]);
   const [languagesAndTools, setLanguagesAndTools] = useState([]);
   const [issueDescription, setIssueDescription] = useState("");
   const [evaluationCriteria, setEvaluationCriteria] = useState("");
@@ -47,7 +47,7 @@ export default function QuestionPost() {
   console.log(issueTitle)
   console.log(time)
   console.log(voteTime)
-  console.log(category)
+  // console.log(category)
   console.log(issueUrlOptions)
   console.log(reward)
   console.log(communityOption)
@@ -121,10 +121,10 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 7) {
+      if (activePage === 6) {
         handlePageChange(page);
       }
-      if (activePage === 6) {
+      if (activePage === 5) {
         if (issueUrlOptions.url === '') {
           setAlert((prevState) => ({
             ...prevState,
@@ -155,7 +155,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 8) {
+      if (activePage === 7) {
         if ((reward <= 5) || (reward >= 40000)) {
           setAlert((prevState) => ({
             ...prevState,
@@ -167,18 +167,18 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
+      // if (activePage === 2) {
+      //   if (!category.length) {
+      //     setAlert((prevState) => ({
+      //       ...prevState,
+      //       isValid: true,
+      //       errorMessage: "How dare you? Enter the right category/ies for me.",
+      //     }));
+      //   } else {
+      //     handlePageChange(page);
+      //   }
+      // }
       if (activePage === 2) {
-        if (!category.length) {
-          setAlert((prevState) => ({
-            ...prevState,
-            isValid: true,
-            errorMessage: "How dare you? Enter the right category/ies for me.",
-          }));
-        } else {
-          handlePageChange(page);
-        }
-      }
-      if (activePage === 3) {
         if (!languagesAndTools.length) {
           setAlert((prevState) => ({
             ...prevState,
@@ -189,11 +189,18 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 4) {
-
-        handlePageChange(page);
+      if (activePage === 3) {
+        if (!evaluationCriteria) {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Please enter evaluation criteria",
+          }));
+        } else {
+          handlePageChange(page);
+        }
       }
-      if (activePage === 5) {
+      if (activePage === 4) {
         if (time <= 0) {
           setAlert((prevState) => ({
             ...prevState,
@@ -205,7 +212,7 @@ export default function QuestionPost() {
         }
       }
 
-      if (activePage === 10) {
+      if (activePage === 9) {
         if (voteTime <= 0) {
           setAlert((prevState) => ({
             ...prevState,
@@ -217,7 +224,7 @@ export default function QuestionPost() {
         }
       }
 
-      if (activePage === 11) {
+      if (activePage === 10) {
         if (
           (communityReward <= 5) || (communityReward >= 40000) &&
           communityOption == communityText[0].title
@@ -232,7 +239,7 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 9) {
+      if (activePage === 8) {
         if (!communityOption) {
           setAlert((prevState) => ({
             ...prevState,
@@ -378,7 +385,7 @@ export default function QuestionPost() {
   async function handleSubmit() {
     console.log(time);
     console.log(issueTitle);
-    console.log(category);
+    // console.log(category);
     console.log(getIssueUrl());
     console.log(reward);
     console.log(communityOption);
@@ -449,7 +456,7 @@ export default function QuestionPost() {
               communityReward: communityReward,
               isCommunityApprovedSolution:
                 communityOption == communityText[0].title ? true : false,
-              questionCategories: category,
+              // questionCategories: category,
             });
             Promise.resolve(axiosResponse).then((val) => {
               if (val.status == 201) {
@@ -499,13 +506,22 @@ export default function QuestionPost() {
               issueTitle={issueTitle}
               alert={alert}
             />
+          // ) : activePage === 2 ? (
+          //   <BaseComponent
+          //     {...text["page2"]}
+          //     handleValidation={handleValidation}
+          //     pageState={activePage}
+          //     handleChipData={setCategory}
+          //     chipData={category}
+          //     alert={alert}
+          //   />
           ) : activePage === 2 ? (
             <BaseComponent
               {...text["page2"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleChipData={setCategory}
-              chipData={category}
+              handleChipData={setLanguagesAndTools}
+              chipData={languagesAndTools}
               alert={alert}
             />
           ) : activePage === 3 ? (
@@ -513,27 +529,27 @@ export default function QuestionPost() {
               {...text["page3"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleChipData={setLanguagesAndTools}
-              chipData={languagesAndTools}
-              alert={alert}
-            />
-          ) : activePage === 4 ? (
-            <BaseComponent
-              {...text["page4"]}
-              handleValidation={handleValidation}
-              pageState={activePage}
               handleEvaluationCriteria={setEvaluationCriteria}
               evaluationCriteria={evaluationCriteria}
               alert={alert}
             />
 
+          ) : activePage === 4 ? (
+            <BaseComponent
+              {...text["page4"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleTime={setTime}
+              time={time}
+              alert={alert}
+            />
           ) : activePage === 5 ? (
             <BaseComponent
               {...text["page5"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleTime={setTime}
-              time={time}
+              handleIssueUrlOptions={setIssueUrlOptions}
+              issueUrlOptions={issueUrlOptions}
               alert={alert}
             />
           ) : activePage === 6 ? (
@@ -541,23 +557,14 @@ export default function QuestionPost() {
               {...text["page6"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleIssueUrlOptions={setIssueUrlOptions}
-              issueUrlOptions={issueUrlOptions}
-              alert={alert}
-            />
-          ) : activePage === 7 ? (
-            <BaseComponent
-              {...text["page7"]}
-              handleValidation={handleValidation}
-              pageState={activePage}
               handleIssueDescription={setIssueDescription}
               issueUrlOptions={issueUrlOptions}
               issueDescription={issueDescription}
               alert={alert}
             />
-          ) : activePage === 8 ? (
+          ) : activePage === 7 ? (
             <BaseComponent
-              {...text["page8"]}
+              {...text["page7"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleReward={setReward}
@@ -567,25 +574,25 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 9 ? (
+          ) : activePage === 8 ? (
             <BaseComponent
-              {...text["page9"]}
+              {...text["page8"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleCommunityChoice={setCommunityOption}
               communityOption={communityOption}
               alert={alert}
             />
-          ) : activePage === 10 ? (
+          ) : activePage === 9 ? (
             <BaseComponent
-              {...text["page8"]}
+              {...text["page9"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTime={setVoteTime}
               time={voteTime}
               alert={alert}
             />
-          ) : activePage === 11 ? (
+          ) : activePage === 10 ? (
             <BaseComponent
               {...text["page10"]}
               handleValidation={handleValidation}
@@ -597,7 +604,7 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 12 ? (
+          ) : activePage === 11 ? (
             <BaseComponent
               {...text["page11"]}
               handleValidation={handleValidation}

@@ -8,7 +8,7 @@ export default function DaysInputComponent(props) {
       {props.alert.isValid ? (
         <SimpleAlerts severity={"warning"} message={props.alert.errorMessage} />
       ) : null}
-      {props.pageState == 5 ?
+      {props.pageState == 4 ?
         (
           <Grid
             container
@@ -43,7 +43,7 @@ export default function DaysInputComponent(props) {
               <p>Days</p>
             </Grid>
           </Grid>
-        ) : (props.pageState == 10 ? (<Grid
+        ) : (props.pageState == 9 ? (<Grid
           container
           direction="column"
           alignItems="center"

@@ -7,21 +7,21 @@ export default function RightSideText(props) {
   console.log(props);
   //type 0 is + 1 is -
   function getPageChange(type=0) {
-   if (type && props.pageState === 8 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
+   if (type && props.pageState === 7 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
    {
     return props.pageState - 2;
    }
-   if (!type && props.pageState === 6 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
+   if (!type && props.pageState === 5 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
    {
     return props.pageState + 2;
    }
-   if (!type && props.pageState === 9 && props.communityOption === communityText[1].title)
+   if (!type && props.pageState === 8 && props.communityOption === communityText[1].title)
    {
-    return props.pageState + 2;
+    return props.pageState + 3;
    }
-   if (type && props.pageState === 12 && props.communityOption === communityText[1].title)
+   if (type && props.pageState === 11 && props.communityOption === communityText[1].title)
    {
-    return props.pageState - 2;
+    return props.pageState - 3;
    }
    return type?props.pageState - 1:props.pageState + 1;
   }
@@ -45,82 +45,7 @@ export default function RightSideText(props) {
           </p>
         </Grid>
 
-        {/* <Grid item md={12} xs={12} className="button-parent">
-                        <Grid container direction="row" container
-                            justifyContent="space-between"
-                            alignItems="center"> */}
-        {props.pageState > 0 && props.pageState < 12 ? (
-          <>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  //convert into functions
-                  if (props.pageState > 1 && props.pageState < 12) {
-                    console.log("in here")
-                    props.handleValidation(getPageChange(1));
-                  }
-                }}
-              >
-                Previous
-              </Button>
-            </Grid>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (props.pageState > 0 && props.pageState < 12) {
-                   
-                    props.handleValidation(getPageChange());
-                   
-                  
-
-                  }
-                  
-                }}
-              >
-                Next
-              </Button>
-            </Grid>
-          </>
-        ) : (
-          <>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 13) {
-                    props.handleValidation(getPageChange(1));
-                  }
-                }}
-              >
-                Previous
-              </Button>
-            </Grid>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.handleSubmit();
-                }}
-              >
-                Publish
-              </Button>
-            </Grid>
-          </>
-        )}
+       
 
       
       </Grid>

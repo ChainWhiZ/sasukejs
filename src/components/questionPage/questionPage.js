@@ -5,6 +5,7 @@ import QuestionLeftHeading from "./questionHeading/questionLeftHeading";
 import QuestionRightHeading from "./questionHeading/questionRightHeading";
 import QuestionMiddleHeading from "./questionHeading/questionMiddleHeading";
 import QuestionDescription from "./questionDescription";
+import QuestionEvaluationCriteria from "./questionEvaluationCriteria";
 import QuestionApplicants from "./questionApplicants/questionApplicants";
 import CircularIndeterminate from "../loader/loader";
 import "./questionPage.css";
@@ -87,8 +88,13 @@ export default function QuestionPage(props) {
               </Grid>
 
               <Grid item md={12} xs={12}>
+                <QuestionEvaluationCriteria evaluationCriteria={data.evaluation} />
+              </Grid>
+
+              <Grid item md={12} xs={12}>
                 <QuestionDescription {...data} />
               </Grid>
+
               <Grid item md={12} xs={12}>
                 <QuestionApplicants {...data} />
               </Grid>

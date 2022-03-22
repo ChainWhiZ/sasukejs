@@ -11,8 +11,8 @@ export default function ChipInputComponent(props) {
     props.handleChipData(props.chipData.filter((ele) => ele !== chip));
   }
   function handleLabel() {
-    if (props.pageState === 2) return "Enter Category Labels";
-    if (props.pageState === 3) return "Enter languages or tools";
+    // if (props.pageState === 2) return "Enter Category Labels";
+    if (props.pageState === 2) return "Enter languages or tools";
     return '';
   }
   return (
@@ -27,7 +27,7 @@ export default function ChipInputComponent(props) {
         justifyContent={ "center"}
      
       >
-        <Grid item md={12} xs={12} className={"margin-left-35"}>
+        <Grid item md={12} xs={12} className={"margin-left-8"}>
           <p className="left-title ">{handleLabel()}</p>
         </Grid>
         <Grid item md={8} xs={8} className="margin-top-2">

@@ -86,7 +86,7 @@ body{
 }
 
 .days-input-parent {
-  margin-left: 18% !important;
+  margin-left: 0% !important;
 }
 .input-parent {
   margin-left: -2% !important;
@@ -96,13 +96,16 @@ body{
   margin-top: 2% !important;
 }
 
-.margin-left-35 {
-  margin-left: 35% !important;
-}
-.margin-left-30 {
-  margin-left: 30% !important;
+.margin-left-42 {
+  margin-left: 42% !important;
 }
 
+.margin-left-8 {
+  margin-left: 8% !important;
+}
+.margin-top-8 {
+  margin-top: -8% !important;
+}
 .input-field-style,
 .chip-input-field-style .MuiInputBase-root  {
   font-family: Poppins !important;
@@ -125,7 +128,7 @@ body{
 }
 
 .option-page-margins {
-  margin: 0% 0% 0% 10% !important;
+  margin: 0% 0% 0% 5% !important;
 }
 
 .non-selected-card:hover {
@@ -164,9 +167,13 @@ body{
   color: white;
 }
 .cwz{
-  margin-left: 17vw !important;
+  margin-left: 6vw !important;
   margin-top: 2vw !important;
 }
+.cwz p{
+  margin-top: -0vw !important;
+}
+
 
 .category-image{
   width: 24px;
@@ -190,10 +197,13 @@ vertical-align: middle;
 letter-spacing: 0.04em;
 
 }
-.radio-button .MuiRadio-root {
-  color: white;
+.MuiRadio-root {
+  color: white !important;
 }
 
-.radio-button .MuiRadio-colorSecondary .Mui-checked{
-  color: rgba(212, 255, 31, 1) ;
+.Mui-checked{
+  color: rgba(212, 255, 31, 1) !important ;
+}
+.page-change-buttons{
+  margin: 10% 0 0 29% !important;
 }
