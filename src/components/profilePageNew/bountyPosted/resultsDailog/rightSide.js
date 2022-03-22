@@ -74,7 +74,7 @@ export default function RightSide(props) {
         </Grid>
         <Grid container className="results-dialog-right-grid-content">
           <Grid item md={12}>
-            <p className="results-dialog-heading">Github Repo</p>
+            <p className="results-dialog-heading">Submission Link</p>
             <a
               href={props.selectedSolution.githubLink}
               target="_blank"

@@ -27,7 +27,7 @@ export default function QuestionMiddleHeading(props) {
   }
 
   const handleLinkDisable = () =>{
-   if(issueUrl.includes('https://github.com/'))
+   if(props.issueUrl.includes('https://github.com/'))
    
    return true;
    else
