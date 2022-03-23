@@ -10,7 +10,6 @@ export default function QuestionMiddleHeading(props) {
     itemsToShow: 4,
     expanded: false,
   })
-  const issueUrl = "jhhihljk";
   const handleShow = (flag = false) => {
     if (!flag) {
       setShowMore({
