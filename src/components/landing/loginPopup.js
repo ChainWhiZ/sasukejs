@@ -35,7 +35,7 @@ export default function LoginPopup(props) {
             </p>
           </Grid>
           <Grid item md={12}>
-            <Button class="landing-dialog-button" onClick={handleClose}>
+            <Button class="dialog-button" onClick={handleClose}>
               Okay
             </Button>
           </Grid>
