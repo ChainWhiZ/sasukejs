@@ -27,7 +27,7 @@ export default function BountyPosted(props) {
       .then((response) => {
         setLoader(false);
         console.log(response.data);
-        setData(response.data);
+        setData(response.data.reverse());
       })
       .catch((err) => {
         setAlert((prevState) => ({

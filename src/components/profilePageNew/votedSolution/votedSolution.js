@@ -31,7 +31,7 @@ export default function VotedSolution() {
             .then((response) => {
                 setLoader(false);
                 console.log(response.data)
-                setData(response.data);
+                setData(response.data.reverse());
             })
             .catch((err) => {
                 setLoader(false);

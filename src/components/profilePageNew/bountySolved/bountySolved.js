@@ -32,7 +32,7 @@ export default function BountySolved(props) {
       .then((response) => {
         setLoader(false);
         console.log(response);
-        setData(response.data);
+        setData(response.data.reverse());
       })
       .catch((err) => {
         setAlert((prevState) => ({
