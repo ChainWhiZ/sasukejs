@@ -94,11 +94,10 @@ p {
   margin-top: -1.3vw;
 }
 .landing-warning {
-  color: black;
+  color: white;
   padding: 10px;
   display: inline-block;
   border-radius: 5px;
-  background-color: #d4ff1e;
 }
 
 

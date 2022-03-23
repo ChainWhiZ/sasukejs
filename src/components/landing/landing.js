@@ -92,11 +92,11 @@ export default function Landing() {
 
         <Grid item md={12} xs={12} style={{ textAlign: "center", marginTop: "5rem" }}>
           {/* <img src={info} alt="info" /> */}
-          <p className="landing-warning">
+          <i className="landing-warning">
             {" "}
             It’s not you. It’s us. Our contract is not audited. Report bugs at
             hello.chainwhiz@gmail.com.
-          </p>
+          </i>
         </Grid>
       </Grid>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
