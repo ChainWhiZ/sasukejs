@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./landing.css";
+import Button from "@material-ui/core/Button";
 // import WaitlistForm from "../form/waitlistForm";
 import { Link } from "react-router-dom";
 // import { createPopup } from "@typeform/embed";
@@ -32,64 +33,70 @@ export default function Landing() {
         <Grid item md={12} xs={12}>
           <hr className="horizontal-line" style={{ marginTop: "2%" }} />
         </Grid>
-    
-        <Grid item md={12} xs={12}>
-          <p className="landing-heading">Welcome to Chainwhiz</p>
+
+        <Grid item md={12} xs={12} className="landing-heading-grid">
+          <p className="landing-heading">Kickstart Your Journey in Web3</p>
         </Grid>
         {/* <Grid item md={12} xs={12} className="margin-top-4">
           <Button id="waitlist-button" className="landing-waitlist-button" onClick={() => handleClick()}>Join Waitlist</Button>
         </Grid> */}
-        <Grid item md={10} xs={12} class="description-grid">
+        <Grid item md={12} xs={12} class="description-grid">
           <p className="landing-description">
-            Zero platform fees. Near to negligible network fees. Open-source and
-            decentralised. This is the first public release of Chainwhiz. The
-            primary objective behind the release is collecting constructive
-            criticism and improve the future versions of the product.
-          </p>
-
-          <p class="landing-description margin-top-4">
-            {" "}
-            Chainwhiz is built on the Polygon Network and is presently deployed
-            on the Mainnet.{" "}
+            Discover Bounties. Contribute to your favorite DAOs and Protocols. Earn in Crypto.
           </p>
         </Grid>
       </Grid>
-      <Grid container justify="space-evenly">
-        <Link to="/post">
-          <Grid item md={4} xs={12} class="category-box">
-            <p className="category-title">Post a Bounty</p>
-            <p className="category-description">
-              Fill in the basic details like bounty title, time of delivery,
-              bounty amount ,and Github issue URL and your bounty is live.
-            </p>
-          </Grid>
-        </Link>
-        <Link to="solve" className="link">
-          <Grid item md={4} xs={12} class="category-box">
-            <p className="category-title">Solve a Bounty</p>
-            <p className="category-description">
-              Start contributing on open-source projects by buildng out bounties
-              listed on the platform. In exchange earn bounty rewards.
-            </p>
-          </Grid>
-        </Link>
-        <Link to="vote" className="link">
-          <Grid item md={4} xs={12} class="category-box">
-            <p className="category-title">Vote on Solutions</p>
-            <p className="category-description">
-              Stake and vote on solutions submitted by developers on bounties on
-              the platform and earn incentives on the staked amount.
-            </p>
-          </Grid>
-        </Link>
-      
-        <Grid item md={12} xs={12} style={{textAlign:"center", marginTop:"3rem"}}>
-        {/* <img src={info} alt="info" /> */}
-          <p className="landing-warning">
+      <Grid container
+        justifyContent="space-evenly"
+        className="landing-category-grid"
+        md={12}>
+
+        <Grid item md={4} xs={12} >
+          <Link to="/post">
+            <Button
+              size="large"
+              variant="outlined"
+              className="landing-button"
+            >
+              Post a Bounty
+            </Button>
+          </Link>
+        </Grid>
+
+
+        <Grid item md={4} xs={12} >
+          <Link to="/solve" className="link">
+            <Button
+              size="large"
+              variant="contained"
+              className="landing-button landing-button-highlighted"
+            >
+              Start Solving Bounties
+            </Button>
+          </Link>
+        </Grid>
+
+
+        <Grid item md={4} xs={12} >
+          <Link to="/vote" className="link">
+            <Button
+              size="large"
+              variant="outlined"
+              className="landing-button"
+            >
+              Vote on Solutions
+            </Button>
+          </Link>
+        </Grid>
+
+
+        <Grid item md={12} xs={12} style={{ textAlign: "center", marginTop: "5rem" }}>
+          {/* <img src={info} alt="info" /> */}
+          <i className="landing-warning">
             {" "}
             It’s not you. It’s us. Our contract is not audited. Report bugs at
             hello.chainwhiz@gmail.com.
-          </p>
+          </i>
         </Grid>
       </Grid>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />

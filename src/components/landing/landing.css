@@ -11,12 +11,15 @@ p {
   margin-top: 6%;
   text-align: center;
 }
-
+.landing-heading-grid{
+  margin-top: 3rem !important;
+}
 .landing-heading {
   font-style: normal;
   font-weight: bold;
   font-size: 4vw;
   letter-spacing: 0.01em;
+  color: #d4ff1e;
 }
 
 .landing-description {
@@ -26,6 +29,7 @@ p {
   line-height: 5.5vh;
   letter-spacing: 0.05em;
 }
+
 
 .category-title {
   font-style: normal;
@@ -47,13 +51,33 @@ p {
 }
 
 .description-grid {
-  margin-top: -3%;
+  margin-top: -2rem;
   padding-left: 8%;
   padding-right: 8%;
 }
 
 .margin-top-4 {
   margin-top: 4% !important;
+}
+.landing-category-grid{
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.landing-button {
+  color: white !important;
+  border: solid 0.2rem #d4ff1e !important;
+  border-radius: 2.5rem !important;
+  font-family: Poppins !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 1.6rem !important;
+  padding: 0.8rem 6rem !important;
+}
+.landing-button-highlighted{
+  background-color: #d4ff1e !important;
+  color: #000000 !important;
 }
 
 .category-box {
@@ -74,25 +98,8 @@ p {
   padding: 10px;
   display: inline-block;
   border-radius: 5px;
-  animation: blinkingBackground 3s infinite;
 }
-@keyframes blinkingBackground {
-  0% {
-    background-color: #09d36e;
-  }
-  25% {
-    background-color: rgb(255, 131, 30);
-  }
-  50% {
-    background-color: #47d3e6;
-  }
-  75% {
-    background-color: #254878;
-  }
-  100% {
-    background-color: #d50404;
-  }
-}
+
 
 .landing-waitlist-button {
   background: #d4ff1f !important;
@@ -128,7 +135,6 @@ p {
 }
 
 .dialog-button {
-  margin-top: -15%;
   outline: none;
   border: none;
 }
