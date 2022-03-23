@@ -448,7 +448,7 @@ export default function QuestionPost() {
               bountyCurrency: currency,
               timeEnd: timeEnd,
               description: issueDescription,
-              evaluation: evaluationCriteria,
+              evaluationCriteria: evaluationCriteria,
               languagesAndTools: languagesAndTools,
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
