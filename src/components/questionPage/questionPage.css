@@ -348,6 +348,8 @@ input {
   margin-left: 38%;
 }
 
+
+
 .dialog-button {
   width: 6vw;
   height: 4vh;
@@ -360,6 +362,19 @@ input {
   font-family: Poppins ;
   cursor: pointer;
   border-radius: 10px !important;
+}
+.dialog-button:hover,
+.dialog-button:active {
+  background-color: #000000;
+  color: white;
+  border: 2px solid white;
+
+  color: #ffffff;
+}
+
+
+.dialog-button:focus {
+  outline: none;
 }
 .workplan-dialog-button-grid {
   /* margin: 9% 0% 0% 36%; */

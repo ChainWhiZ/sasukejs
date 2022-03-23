@@ -129,19 +129,19 @@ p {
    }
 }
 
-
-.dialog-button:hover,
-.dialog-button:active {
+.landing-dialog-button:hover,
+.landing-dialog-button:active {
   background-color: #000000;
   color: white;
   border: 2px solid white;
   color: #ffffff;
 }
 
-.dialog-button {
+.landing-dialog-button {
+  margin-top: 3%;
   outline: none;
   border: none;
 }
-.dialog-button:focus {
+.landing-dialog-button:focus {
   outline: none;
 }

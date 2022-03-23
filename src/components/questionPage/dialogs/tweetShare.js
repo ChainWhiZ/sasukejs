@@ -10,11 +10,6 @@ import {twitterMessage} from "../../../constants"
 
 export default function TweetShare(props) {
   const [open, setOpen] = useState(props.open);
-  const [alert, setAlert] = useState({
-    open: false,
-    errorMessage: "",
-    severity: "error",
-  });
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
@@ -57,12 +52,6 @@ export default function TweetShare(props) {
             <TwitterIcon size={32} round />
           </TwitterShareButton>
           </Grid>
-          {alert.open ? (
-          <SimpleAlerts
-            severity={alert.severity}
-            message={alert.errorMessage}
-          />
-        ) : null}
         </Grid>
 
        

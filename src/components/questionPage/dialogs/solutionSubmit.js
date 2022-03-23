@@ -48,6 +48,8 @@ export default function SolutionSubmit(props) {
   };
 
   const handleChange = (value, index) => {
+    props.handleDialogClose(false);
+    props.handleTweetDialogClose(true);
     const sols = solutions;
     sols[index] = value;
     setSolution(sols);
@@ -232,6 +234,7 @@ export default function SolutionSubmit(props) {
                 setOpen(false);
                 setDisable(false);
                 props.handleDialogClose(false);
+                props.handleTweetDialogClose(true);
               }
             });
           } catch (error) {
