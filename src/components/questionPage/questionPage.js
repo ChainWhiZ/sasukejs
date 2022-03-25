@@ -88,7 +88,7 @@ export default function QuestionPage(props) {
               </Grid>
 
               <Grid item md={12} xs={12}>
-                <QuestionEvaluationCriteria evaluationCriteria={data.evaluation} />
+                <QuestionEvaluationCriteria evaluationCriteria={data.evaluationCriteria} />
               </Grid>
 
               <Grid item md={12} xs={12}>
