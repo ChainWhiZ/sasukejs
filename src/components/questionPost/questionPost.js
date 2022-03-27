@@ -211,9 +211,12 @@ export default function QuestionPost() {
         rewardAmount
       );
       try {
+        //include title, categories
         const trxObj = contract.methods
           .postIssue(
             username,
+            issueTitle,
+            category,
             issueURL,
             rewardAmount.toString(),
             communityRewardAmount.toString(),
