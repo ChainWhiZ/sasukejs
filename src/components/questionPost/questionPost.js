@@ -211,6 +211,7 @@ export default function QuestionPost() {
         rewardAmount
       );
       try {
+        //include title, categories
         const trxObj = contract.methods
           .postIssue(
             username,
