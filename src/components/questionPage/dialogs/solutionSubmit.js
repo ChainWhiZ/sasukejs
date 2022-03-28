@@ -264,7 +264,7 @@ export default function SolutionSubmit(props) {
             message={alert.errorMessage}
           />
         ) : null}
-        <p className="dialog-title" style={{ marginTop: "8%" }}>
+        <p className="dialog-title" style={{ marginTop: "3%",marginBottom:"6%"}}>
           Submit Solution
         </p>
         <p class="solution-submit-title">
