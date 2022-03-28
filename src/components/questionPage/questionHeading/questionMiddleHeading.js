@@ -26,7 +26,7 @@ export default function QuestionMiddleHeading(props) {
   }
 
   const handleLinkDisable = () =>{
-   if(props.issueUrl.includes('https://github.com/'))
+   if(props.githubIssueUrl.includes('https://github.com/'))
    
    return true;
    else
@@ -82,7 +82,7 @@ export default function QuestionMiddleHeading(props) {
           <img class={!handleLinkDisable()?"bounty-middle-github-disabled":""} src={GithubIcon} alt="git" />
           <a
             class={handleLinkDisableClass(!handleLinkDisable())}
-            href={props.issueUrl}
+            href={props.githubgithubIssueUrl}
             target="_blank"
             rel="noreferrer"
           >
@@ -93,7 +93,7 @@ export default function QuestionMiddleHeading(props) {
           <img class={handleLinkDisable()?"bounty-middle-github-disabled":""} src={LinkIcon} alt="git" />
           <a
             class={handleLinkDisableClass(handleLinkDisable())}
-            href={props.issueUrl}
+            href={props.githubIssueUrl}
             target="_blank"
             rel="noreferrer"
           >

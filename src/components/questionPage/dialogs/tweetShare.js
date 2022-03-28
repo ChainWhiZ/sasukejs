@@ -12,7 +12,7 @@ export default function TweetShare(props) {
   const [open, setOpen] = useState(props.open);
   const handleClose = () => {
     setOpen(false);
-    props.handleDialogClose(false);
+    props.handleDialogClose();
   };
 
   return (

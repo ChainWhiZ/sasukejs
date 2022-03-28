@@ -49,7 +49,7 @@ export default function SolutionSubmit(props) {
 
   const handleChange = (value, index) => {
     props.handleDialogClose(false);
-    props.handleTweetDialogClose(true);
+    props.handleTweetDialogOpen(true);
     const sols = solutions;
     sols[index] = value;
     setSolution(sols);

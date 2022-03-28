@@ -148,7 +148,7 @@ export default function QuestionRightHeading(props) {
           open={openSolveDialog}
           quesDetails={props}
           handleDialogClose={() => setOpenSolveDialog(false)}
-          handleTweetDialogClose={() => setOpenTweetDialog(false)}
+          handleTweetDialogOpen={() => setOpenTweetDialog(true)}
         />
       ) : (
         ""
