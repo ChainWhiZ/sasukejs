@@ -155,6 +155,7 @@ export default function QuestionRightHeading(props) {
       )}
        {openTweetDialog ? (
         <TweetShare
+          open={openTweetDialog}
           handleDialogClose={() => setOpenTweetDialog(false)}
         />
       ) : (
