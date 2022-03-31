@@ -4,6 +4,7 @@ import "../questionPage.css";
 import SolutionSubmit from "../dialogs/solutionSubmit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import TweetShare from "../dialogs/tweetShare";
 import {
   maticusd as maticusdAtom,
   walletAddress as walletAddressAtom,
@@ -18,6 +19,7 @@ export default function QuestionRightHeading(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
   const username = useRecoilValue(usernameAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
+  const [openTweetDialog, setOpenTweetDialog] = useState(false);
   const maticusd = useRecoilValue(maticusdAtom);
   const devusd = useRecoilValue(devusdAtom);
   const up = (v) => {
@@ -146,6 +148,15 @@ export default function QuestionRightHeading(props) {
           open={openSolveDialog}
           quesDetails={props}
           handleDialogClose={() => setOpenSolveDialog(false)}
+          handleTweetDialogOpen={() => setOpenTweetDialog(true)}
+        />
+      ) : (
+        ""
+      )}
+       {openTweetDialog ? (
+        <TweetShare
+          open={openTweetDialog}
+          handleDialogClose={() => setOpenTweetDialog(false)}
         />
       ) : (
         ""

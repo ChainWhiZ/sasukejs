@@ -348,6 +348,8 @@ input {
   margin-left: 38%;
 }
 
+
+
 .dialog-button {
   width: 6vw;
   height: 4vh;
@@ -361,6 +363,7 @@ input {
   cursor: pointer;
   border-radius: 10px !important;
 }
+
 .workplan-dialog-button-grid {
   /* margin: 9% 0% 0% 36%; */
   margin-top: 6%;

@@ -41,6 +41,8 @@ export default function SolutionSubmit(props) {
   promise.then(function (v) {
     setContract(v);
   });
+ 
+  
 
   const handleClose = () => {
     setOpen(false);
@@ -232,6 +234,7 @@ export default function SolutionSubmit(props) {
                 setOpen(false);
                 setDisable(false);
                 props.handleDialogClose(false);
+                props.handleTweetDialogOpen();
               }
             });
           } catch (error) {
