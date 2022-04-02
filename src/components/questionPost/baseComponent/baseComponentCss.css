@@ -119,12 +119,12 @@ body{
   text-align: center ;
 }
  .MuiFormControl-fullWidth {
-  width: 150% !important;
+  /* width: 150% !important; */
 }
 .chip-input-field-style .MuiChip-root {
   color: #131313;
   background-color: #d4ff1f;
-  margin: 0 0.5rem ;
+  /* margin: 0 0.5rem ; */
 }
 
 .option-page-margins {

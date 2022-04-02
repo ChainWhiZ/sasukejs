@@ -13,7 +13,7 @@ export default function QuestionMiddleHeading(props) {
   const handleShow = (flag = false) => {
     if (!flag) {
       setShowMore({
-        itemsToShow: props.questionCategories.length,
+        itemsToShow: props.languagesAndTools.length,
         expanded: true,
       })
     }
@@ -60,16 +60,16 @@ export default function QuestionMiddleHeading(props) {
           <Grid item md={12}>
             <p class="heading color-neon">Languages/Tools</p>
           </Grid>
-          {props.questionCategories &&
-            props.questionCategories.length &&
-            (props.questionCategories.slice(0, showMore.itemsToShow)).map((category) => (
+          {props.languagesAndTools &&
+            props.languagesAndTools.length &&
+            (props.languagesAndTools.slice(0, showMore.itemsToShow)).map((category) => (
               <Grid item md={2}>
                 <p class="heading-text heading-text-category" style={{ marginTop: "1%" }}>
                   {category}
                 </p>
               </Grid>
             ))}
-          {props.questionCategories.length > 4 ?
+          {props.languagesAndTools.length > 4 ?
             < Grid item md={2}>
               <p onClick={() => handleShow(showMore.expanded)} class="heading color-neon heading-show" style={{ marginTop: "1%" }}>{handleShowLabel()}</p>
             </Grid>

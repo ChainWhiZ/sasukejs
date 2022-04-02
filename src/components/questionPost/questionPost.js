@@ -82,7 +82,7 @@ export default function QuestionPost() {
     setLoader(true);
     return axios
       .post(port + "question/validate", {
-        githubIssueUrl: getIssueUrl(),
+        issueUrl: getIssueUrl(),
       })
       .then((response) => {
         if (response.status === 200) {
