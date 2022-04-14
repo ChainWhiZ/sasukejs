@@ -1,6 +1,7 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import { useHistory } from "react-router-dom";
 import logo from "../../assets/new-logo.svg";
 import {
   walletAddress as walletAddressAtom,
@@ -24,20 +25,26 @@ export default function Navbar() {
   const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
   const [contract, setContract] = useRecoilState(contractAtom);
   const [tokenContract, setTokenContract] = useRecoilState(tokenContractAtom);
+  const history = useHistory();
 
   const handleConnectWalletClick = async () => {
-    await initiliaseWeb3();
-    await fetchAccount(async function (result) {
-      if (await checkChain()) setWalletAddress(result[0]);
-    });
-    setContract(async (old) => {
-      let _test = await initiliaseContract();
-      return _test;
-    });
-    setTokenContract(async (old) => {
-      let _test = await initiliaseTokenContract();
-      return _test;
-    });
+    if (!walletAddress) {
+      await initiliaseWeb3();
+      await fetchAccount(async function (result) {
+        if (await checkChain()) setWalletAddress(result[0]);
+      });
+      setContract(async (old) => {
+        let _test = await initiliaseContract();
+        return _test;
+      });
+      setTokenContract(async (old) => {
+        let _test = await initiliaseTokenContract();
+        return _test;
+      });
+    }
+    else {
+      history.push('/profile');
+    }
   };
   return (
     <AppBar>
@@ -74,15 +81,15 @@ export default function Navbar() {
           </Grid>
           <Grid item md={3}>
             <Tooltip title={walletAddress}>
-           
+
               <Button
                 className="btn__connect-wallet"
                 onClick={handleConnectWalletClick}
               >
                 {walletAddress
                   ? walletAddress.substring(0, 4) +
-                    "..." +
-                    walletAddress.substring(38)
+                  "..." +
+                  walletAddress.substring(38)
                   : "Connect Wallet"}
               </Button>
 

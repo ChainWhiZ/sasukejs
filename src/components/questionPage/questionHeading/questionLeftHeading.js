@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import "../questionPage.css";
 import { useRecoilValue } from "recoil";
+import TweetShare from "../dialogs/tweetShare";
 
 export default function QuestionLeftHeading(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
+  const [openTweetDialog, setOpenTweetDialog] = useState(false);
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
@@ -95,10 +97,19 @@ export default function QuestionLeftHeading(props) {
         </Grid>
       </Grid>
       {openSolveDialog ? (
-        <SolutionSubmit
-          open={openSolveDialog}
-          quesDetails={props}
-          handleDialogClose={() => setOpenSolveDialog(false)}
+         <SolutionSubmit
+         open={openSolveDialog}
+         quesDetails={props.questionDetails}
+         handleDialogClose={() => setOpenSolveDialog(false)}
+         handleTweetDialogOpen={() => setOpenTweetDialog(true)}
+       />
+      ) : (
+        ""
+      )}
+      {openTweetDialog ? (
+        <TweetShare
+          open={openTweetDialog}
+          handleDialogClose={() => setOpenTweetDialog(false)}
         />
       ) : (
         ""

@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { port } from "../../../config/config";
-import GithubIcon from "../../../assets/Link.svg";
+import LinkIcon from "../../../assets/Link.svg";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import {
@@ -128,7 +128,7 @@ export default function QuestionStage(props) {
             </p>
           </Tooltip>
         </Grid>
-        <Grid item md={6} className="profile-text-center">
+        <Grid item md={12} style={{ textAlign: "center" }}>
           <p className="profile-text-style profile-text-center">
             Your Solution
           </p>
@@ -139,8 +139,8 @@ export default function QuestionStage(props) {
             className="profile-content-style"
           >
             <img
-              class="icon"
-              src={GithubIcon}
+              class="profile-icon"
+              src={LinkIcon}
               alt="git"
               style={{ marginTop: "-2%" }}
             />
@@ -160,7 +160,7 @@ export default function QuestionStage(props) {
             >
               <img
                 class="icon"
-                src={GithubIcon}
+                src={LinkIcon}
                 alt="git"
                 style={{ marginTop: "-2%" }}
               />

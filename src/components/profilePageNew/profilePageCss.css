@@ -9,6 +9,9 @@
   margin-left: 9%;
 }
 
+.profile-icon{
+  transform:scale(0.5);
+}
 /* .profile-right-grid{
     margin:2% 0% 2% 1% !important;
 } */

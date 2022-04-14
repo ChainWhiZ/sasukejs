@@ -68,7 +68,7 @@ export default function RightSide(props) {
               </Button>
             </>
           ) : (
-            <p>Escrow already initiated for other solution</p>
+            <p className="profile-text-center">Escrow already initiated for other solution</p>
           )
         ) : (
           <>

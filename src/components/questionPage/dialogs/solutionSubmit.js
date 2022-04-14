@@ -3,18 +3,13 @@ import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import axios from "axios";
 import "../questionPage.css";
 import SimpleAlerts from "../../alert/alert";
-import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { port } from "../../../config/config";
-import eventBus from "../../EventBus";
+// import eventBus from "../../EventBus";
 import { useRecoilValue } from "recoil";
 import validator from "validator";
 import {
@@ -41,6 +36,7 @@ export default function SolutionSubmit(props) {
   promise.then(function (v) {
     setContract(v);
   });
+  console.log(props)
 
   const handleClose = () => {
     setOpen(false);
@@ -198,13 +194,13 @@ export default function SolutionSubmit(props) {
             });
             Promise.resolve(axiosResponse).then((val) => {
               if (val.status == 201) {
-                eventBus.dispatch("solutionSubmitted", {
-                  message: "Solution submitted",
-                });
+                // eventBus.dispatch("solutionSubmitted", {
+                //   message: "Solution submitted",
+                // });
                 setOpen(false);
                 setDisable(false);
                 props.handleDialogClose(false);
-                // props.handleTweetDialogOpen();
+                props.handleTweetDialogOpen();
               }
             });
           } catch (error) {

@@ -31,7 +31,7 @@ export default function BountyPosted(props) {
       solutionLink: "frontend-solution2.com",
       publisherAddress: "0xD10A857A9B3D45b36A8CB2354A365839556978a5",
       solverAddress: "0xfFA1aF9E558B68bBC09ad74058331c100C135280",
-      bountyUrl: "frotend-test2.app",
+      bountyUrl: "df.com",
       __v: 0,
       id: "6255cdbbf62bb4a4ac31ead8",
     },

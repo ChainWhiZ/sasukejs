@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import GithubIcon from "../../../assets/Link.svg";
+import LinkIcon from "../../../assets/Link.svg";
 import ResultsDialog from "./resultsDailog/resultsDialog";
 import "../profilePageCss.css";
 import { useRecoilValue } from "recoil";
@@ -39,8 +39,8 @@ export default function QuestionStage(props) {
                 className="profile-content-style"
               >
                 <img
-                  class="icon"
-                  src={GithubIcon}
+                  class="profile-icon"
+                  src={LinkIcon}
                   alt="git"
                   style={{ marginTop: "2%" }}
                 />
