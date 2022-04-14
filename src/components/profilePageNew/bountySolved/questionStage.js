@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { port } from "../../../config/config";
-import GithubIcon from "../../../assets/githubIcon.png";
+import GithubIcon from "../../../assets/Link.svg";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import {
@@ -17,7 +17,6 @@ import { Tooltip } from "@material-ui/core";
 
 export default function QuestionStage(props) {
   console.log(props);
-  let valid = true;
   const [open, setOpen] = useState(false);
   const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
@@ -32,38 +31,13 @@ export default function QuestionStage(props) {
     contract = v;
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
-  useEffect( () => {
-    if (props.escrowId) {
-      // props.handleLoader(true);
-      fetchEscrow();
-    }
-  }, []);
 
-  const fetchEscrow = () => {
-    axios
-      .post(port + "escrow/fetch", {
-        _id: props.escrowId,
-      })
-      .then((response) => {
-        // props.handleLoader(false);
-        setEscrow(response.data);
-        console.log(escrow);
-      })
-      .catch((err) => {
-        // props.handleLoader(false);
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          errorMessage: "Error fetching escrow",
-        }));
-      });
-  };
   const completeCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
         const trxObj = contract.methods
           .transferRewardAmount(
-            props.questionId.publicAddress,
+            props.questionId.address,
             props.questionId.githubIssueUrl
           )
           .send({ from: walletAddress });
@@ -100,39 +74,7 @@ export default function QuestionStage(props) {
   const handleComplete = async () => {
     props.handleLoader(true);
     try {
-      try {
-        const completeResponse = await completeCall();
-      } catch (error) {
-        console.log(error);
-        valid = false;
-      }
-
-      if (valid) {
-        console.log("in escrow complete");
-        try {
-          const axiosResponse = await axios.post(port + "escrow/complete", {
-            _id: props.escrowId,
-          });
-          Promise.resolve(axiosResponse).then((val) => {
-            if (val.status == 201) {
-              window.alert("Successfully claimed");
-              props.handleLoader(false);
-              setOpen(false);
-              fetchEscrow();
-            }
-          });
-        } catch (error) {
-          console.log(error);
-          valid = false;
-          setAlert((prevState) => ({
-            ...prevState,
-            open: true,
-            errorMessage: "Error",
-          }));
-          props.handleLoader(false);
-          setOpen(false);
-        }
-      }
+      await completeCall();
     } catch (error) {
       console.log(error);
       props.handleLoader(false);
@@ -182,7 +124,7 @@ export default function QuestionStage(props) {
               style={{ marginTop: "1%" }}
             >
               {shortenLength(props.questionId.bountyReward)}{" "}
-              {props.questionId.bountyCurrency}
+              {props.questionId.currency}
             </p>
           </Tooltip>
         </Grid>
@@ -205,14 +147,13 @@ export default function QuestionStage(props) {
           </a>
         </Grid>
 
-        <Grid item md={6} className="profile-text-center">
+        {/* <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
             Chosen Solution
           </p>
-          {props.questionId.selectedSolutionId &&
-          props.questionId.selectedSolutionId.solutionId ? (
+          {props.questionId.selectedSolution ? (
             <a
-              href={props.questionId.selectedSolutionId.solutionId}
+              href={props.questionId.selectedSolution}
               target="_blank"
               rel="noreferrer"
               className="profile-content-style"
@@ -229,32 +170,19 @@ export default function QuestionStage(props) {
               NA
             </p>
           )}
-        </Grid>
+        </Grid> */}
 
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {props.publicAddress === walletAddress ? (
-            props.escrowId &&
-            escrow.escrowStatus !== "Completed" &&
-            props._id === props.questionId.selectedSolutionId.solutionId ? (
-              <Button
-                className="profile-button"
-                onClick={() => handleComplete()}
-              >
-                Claim Reward
-              </Button>
-            ) : (
-              <Link to={`/bounty/${props.questionId._id}`}>
-              <Button
-                className="profile-button"
-              >
-                Go to Bounty Page
-              </Button>
-              </Link>
-            )
-          ) : (
-            <Button className="profile-button" disabled>
-              Change wallet address
+          {props.escrowStatus === "initiated" ? (
+            <Button className="profile-button" onClick={() => handleComplete()}>
+              Claim Reward
             </Button>
+          ) : props.escrowStatus === "completed" ? (
+            <Button className="profile-button">Claimed</Button>
+          ) : (
+            <Link to={`/bounty/${props.questionId._id}`}>
+              <Button className="profile-button">Go to Bounty Page</Button>
+            </Link>
           )}
         </Grid>
       </Grid>

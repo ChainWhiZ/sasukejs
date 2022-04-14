@@ -85,9 +85,7 @@
   font-size: 2vw !important;
 }
 
-.PrivateTabIndicator-colorSecondary-7 {
-  background-color: rgba(14, 14, 14, 1) !important;
-}
+
 .profile-pae-github {
   margin-left: -4vw !important;
 }
@@ -101,18 +99,18 @@
 }
 .results-dialog .MuiDialog-paper {
   width: 80vw;
-  height: 80vh;
-  background-color: black;
+  height: 72vh;
+  background-color: black !important;
   /* border: 1px solid #d4ff1e; */
   overflow: hidden;
 }
 
 .results-dialog-left-grid {
   background-color: #131313;
-  margin-top: -12%;
+  margin: -20% -4%;
   padding: 15% 10% 10% 5%;
-  height: 100% !important;
-  max-height: 69vh !important;
+  min-height: 100vh !important;
+  /* max-height: 69vh !important; */
   overflow-y: auto !important;
 }
 
@@ -189,6 +187,7 @@
   font-weight: 600 !important;
   font-size: 1.1vw !important;
   margin-left: 30% !important;
+  text-transform: capitalize !important;
 }
 .results-dialog-right-grid-content-value {
   font-weight: 500;

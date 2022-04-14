@@ -1,18 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import logo from "../../assets/new-logo.svg";
-import accountIcon from "../../assets/account-circle.png";
+import {
+  walletAddress as walletAddressAtom,
+  contract as contractAtom,
+  tokenContract as tokenContractAtom,
+} from "../../recoil/atoms";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
-import Login from "./login";
 import "./navbar.css";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { Tooltip } from "@material-ui/core";
-import { username as usernameAtom} from "../../recoil/atoms";
-import ConnectWallet from "./connectWallet";
+import Button from "@material-ui/core/Button";
+import {
+  initiliaseWeb3,
+  fetchAccount,
+  initiliaseContract,
+  initiliaseTokenContract,
+  checkChain,
+} from "../../web3js/web3";
 export default function Navbar() {
-  const username = useRecoilValue(usernameAtom);
+  const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
+  const [contract, setContract] = useRecoilState(contractAtom);
+  const [tokenContract, setTokenContract] = useRecoilState(tokenContractAtom);
+
+  const handleConnectWalletClick = async () => {
+    await initiliaseWeb3();
+    await fetchAccount(async function (result) {
+      if (await checkChain()) setWalletAddress(result[0]);
+    });
+    setContract(async (old) => {
+      let _test = await initiliaseContract();
+      return _test;
+    });
+    setTokenContract(async (old) => {
+      let _test = await initiliaseTokenContract();
+      return _test;
+    });
+  };
   return (
     <AppBar>
       <Toolbar
@@ -46,22 +72,22 @@ export default function Navbar() {
               <p className="item">Vote on Solutions</p>
             </Link>
           </Grid>
-          <Grid item md={1} xs={12} className="walletIcon">
-            <ConnectWallet/>
+          <Grid item md={3}>
+            <Tooltip title={walletAddress}>
+           
+              <Button
+                className="btn__connect-wallet"
+                onClick={handleConnectWalletClick}
+              >
+                {walletAddress
+                  ? walletAddress.substring(0, 4) +
+                    "..." +
+                    walletAddress.substring(38)
+                  : "Connect Wallet"}
+              </Button>
+
+            </Tooltip>
           </Grid>
-          {username ? (
-            <Grid item md={2} xs={12} className="accountIcon">
-              <Tooltip title={username}>
-              <Link to="/profile" className="link">
-                <img src={accountIcon} alt="accountIcon" />
-              </Link>
-              </Tooltip>
-            </Grid>
-          ) : (
-            <Grid item md={2} xs={12}>
-                <Login />
-            </Grid>
-          )}
         </Grid>
       </Toolbar>
     </AppBar>

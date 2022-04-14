@@ -34,7 +34,7 @@ export default function NewExplore(props) {
       .then((response) => {
         console.log(response);
         response.data = response.data.filter(
-          (question) => question.questionStage === type
+          (question) => question.question.questionStage === type
         );
         setLoader(false);
         setData(response.data);
@@ -56,7 +56,7 @@ export default function NewExplore(props) {
       setData(allQuestions);
     } else {
       const filteredQuestions = allQuestions.filter((question) =>
-        question.questionTitle.includes(key)
+        question.question.title.includes(key)
       );
       console.log(filteredQuestions);
       setData(filteredQuestions);

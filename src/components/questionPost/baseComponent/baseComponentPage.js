@@ -29,13 +29,6 @@ export default function BaseComponent(props) {
                 issueTitle={props.issueTitle}
                 alert={props.alert}
               />
-              // ) : props.pageState === 2 ? (
-              //   <ChipInputComponent
-              //     handleChipData={props.handleChipData}
-              //     pageState={props.pageState}
-              //     chipData={props.chipData}
-              //     alert={props.alert}
-              //   />
             ) : props.pageState === 2 ? (
               <ChipInputComponent
                 handleChipData={props.handleChipData}

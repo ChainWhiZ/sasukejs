@@ -31,7 +31,7 @@ export default function StakingPage(props) {
   const [loader, setLoader] = useState(true);
   const [stakeDetails, setStakeDetails] = useState({
     solutionId: "",
-    solverPublicAddress: "",
+    solveraddress: "",
     stakeAmount: 0,
     solverGithubId: "",
   });
@@ -128,10 +128,10 @@ export default function StakingPage(props) {
         const trxObj = contract.methods
           .stakeVote(
             props.location.state.questionDetails.githubIssueUrl,
-            props.location.state.questionDetails.publicAddress.toString(),
+            props.location.state.questionDetails.address.toString(),
             props.location.state.questionDetails.publisherGithubId,
             stakeDetails.solverGithubId,
-            stakeDetails.solverPublicAddress.toString(),
+            stakeDetails.solveraddress.toString(),
             stakeDetails.solutionId,
             username
           )
@@ -178,7 +178,7 @@ export default function StakingPage(props) {
       if (valid) {
         try {
           const axiosResponse = axios.post(port + "vote/save", {
-            publicAddress: walletAddress,
+            address: walletAddress,
             amountStaked: stakeDetails.stakeAmount,
             timestamp: Date.now() / 1000,
             solutionId: stakeDetails.solutionId,

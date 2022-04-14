@@ -49,7 +49,7 @@ export default function QuestionMiddleHeading(props) {
       <Grid container className="heading-box2">
         <Grid item md={12}>
           <p class="heading color-neon">Title</p>
-          <p class="heading-text">{props.questionTitle}</p>
+          <p class="heading-text">{props.title}</p>
         </Grid>
         <Grid
           container

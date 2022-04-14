@@ -42,7 +42,7 @@ export default function StakeSolution(props) {
   const handleChange = (value) => {
     props.handleSetStakeDetails({
       solutionId: props.solutionId,
-      solverPublicAddress: solution.publicAddress,
+      solveraddress: solution.address,
       stakeAmount: value,
       solverGithubId: solution.userId,
     });

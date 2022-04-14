@@ -43,7 +43,17 @@ a {
   margin-top: 2vh;
 }
 
-.navbar-loader{
+.navbar-loader {
   margin-top: 1.5vh;
   color: rgba(215, 255, 46, 1) !important;
+}
+
+.btn__connect-wallet {
+  background: #d4ff1f !important;
+  margin-top: 10% !important;
+  text-transform: none !important;
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  padding: 0.8rem !important;
 }

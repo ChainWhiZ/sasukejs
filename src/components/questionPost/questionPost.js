@@ -5,9 +5,8 @@ import { useHistory } from "react-router-dom";
 import { port } from "../../config/config";
 import { text } from "../../constants";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../recoil/atoms";
 import { communityText } from "../../constants";
-import validator from 'validator'
+import validator from "validator";
 import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
@@ -20,7 +19,6 @@ export default function QuestionPost() {
   const [issueTitle, setIssueTitle] = useState("");
   const [time, setTime] = useState(0);
   const [voteTime, setVoteTime] = useState(0);
-  // const [category, setCategory] = useState([]);
   const [languagesAndTools, setLanguagesAndTools] = useState([]);
   const [issueDescription, setIssueDescription] = useState("");
   const [evaluationCriteria, setEvaluationCriteria] = useState("");
@@ -30,9 +28,9 @@ export default function QuestionPost() {
   const [loader, setLoader] = useState(false);
   const [currency, setCurrency] = useState("MATIC");
   const [issueUrlOptions, setIssueUrlOptions] = useState({
-    choice: 'githubIssueUrl',
-    url1: '',
-    url2: '',
+    choice: "githubIssueUrl",
+    url1: "",
+    url2: "",
   });
   const [terms, setTerms] = useState({
     undertaking1: false,
@@ -44,19 +42,19 @@ export default function QuestionPost() {
     isValid: false,
     errorMessage: "",
   });
-  console.log(issueTitle)
-  console.log(time)
-  console.log(voteTime)
+  console.log(issueTitle);
+  console.log(time);
+  console.log(voteTime);
   // console.log(category)
-  console.log(issueUrlOptions)
-  console.log(reward)
-  console.log(communityOption)
+  console.log(issueUrlOptions);
+  console.log(reward);
+  console.log(communityOption);
 
   const [success, setSuccess] = useState({
     success: false,
     message: "",
   });
-  const username = useRecoilValue(usernameAtom);
+
   const contractPromise = useRecoilValue(contractAtom);
   console.log(contractPromise);
   let contract;
@@ -64,7 +62,7 @@ export default function QuestionPost() {
   promise.then(function (v) {
     contract = v;
   });
-  console.log(tokenContractAtom);
+
   const tokenContractPromise = useRecoilValue(tokenContractAtom);
   console.log(tokenContractPromise);
   let tokenContract;
@@ -72,11 +70,13 @@ export default function QuestionPost() {
   tokenPromise.then(function (v) {
     console.log(v);
     tokenContract = v;
-    console.log(tokenContract);
+
   });
-  console.log(tokenContract);
+
   function getIssueUrl() {
-    return issueUrlOptions.choice == 'githubIssueUrl' ? issueUrlOptions.url1 : issueUrlOptions.url2;
+    return issueUrlOptions.choice == "githubIssueUrl"
+      ? issueUrlOptions.url1
+      : issueUrlOptions.url2;
   }
   function handleGithubIssueValidation() {
     setLoader(true);
@@ -125,38 +125,35 @@ export default function QuestionPost() {
         handlePageChange(page);
       }
       if (activePage === 5) {
-        if (issueUrlOptions.url === '') {
+        if (issueUrlOptions.url === "") {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
             errorMessage: "What’s all this rush? Enter the issue URL.",
           }));
-        }
-        else if (getIssueUrl().includes('https://github.com/')) {
+        } else if (getIssueUrl().includes("https://github.com/")) {
           if (!(await handleGithubIssueValidation())) {
             setAlert((prevState) => ({
               ...prevState,
               isValid: true,
-              errorMessage: "What’s all this rush? Enter valid github issue URL.",
+              errorMessage:
+                "What’s all this rush? Enter valid github issue URL.",
             }));
-          }
-          else {
+          } else {
             handlePageChange(page);
           }
-        }
-        else if (!validator.isURL(getIssueUrl())) {
+        } else if (!validator.isURL(getIssueUrl())) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
             errorMessage: "What’s all this rush? Enter valid issue URL.",
           }));
-        }
-        else {
+        } else {
           handlePageChange(page);
         }
       }
       if (activePage === 7) {
-        if ((reward <= 5) || (reward >= 40000)) {
+        if (reward <= 5 || reward >= 40000) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -167,23 +164,19 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      // if (activePage === 2) {
-      //   if (!category.length) {
-      //     setAlert((prevState) => ({
-      //       ...prevState,
-      //       isValid: true,
-      //       errorMessage: "How dare you? Enter the right category/ies for me.",
-      //     }));
-      //   } else {
-      //     handlePageChange(page);
-      //   }
-      // }
       if (activePage === 2) {
         if (!languagesAndTools.length) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "How dare you? Enter the right languages/tools for me.",
+            errorMessage:
+              "How dare you? Enter the right languages/tools for me.",
+          }));
+        } else if (languagesAndTools.length > 13) {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Limit exceeded!!",
           }));
         } else {
           handlePageChange(page);
@@ -226,14 +219,16 @@ export default function QuestionPost() {
 
       if (activePage === 10) {
         if (
-          (communityReward <= 5) || (communityReward >= 40000) &&
-          communityOption == communityText[0].title
+          communityReward <= 5 ||
+          (communityReward >= 40000 &&
+            communityOption == communityText[0].title)
         ) {
           console.log(typeof communityReward);
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter valid community reward between 5 to 40000",
+            errorMessage:
+              "Please enter valid community reward between 5 to 40000",
           }));
         } else {
           handlePageChange(page);
@@ -270,7 +265,6 @@ export default function QuestionPost() {
         //include title, categories
         const trxObj = contract.methods
           .postIssue(
-            username,
             getIssueUrl(),
             rewardAmount.toString(),
             communityRewardAmount.toString(),
@@ -280,7 +274,9 @@ export default function QuestionPost() {
             communityOption == communityText[0].title
               ? votingTimeBegin.toString()
               : "0",
-            communityOption == communityText[0].title ? timeEnd.toString() : "0",
+            communityOption == communityText[0].title
+              ? timeEnd.toString()
+              : "0",
             currency
           )
           .send({ from: walletAddress.toString(), value: totalAmount });
@@ -336,7 +332,6 @@ export default function QuestionPost() {
           window.alert("Approving your token, wait for the next transaction");
           const trxObj = contract.methods
             .postIssue(
-              username,
               getIssueUrl(),
               rewardAmount.toString(),
               communityRewardAmount.toString(),
@@ -383,15 +378,6 @@ export default function QuestionPost() {
     });
   }
   async function handleSubmit() {
-    console.log(time);
-    console.log(issueTitle);
-    // console.log(category);
-    console.log(getIssueUrl());
-    console.log(reward);
-    console.log(communityOption);
-    console.log(communityReward);
-    console.log(terms);
-
     if (terms.undertaking1 === false || terms.undertaking2 === false) {
       setAlert((prevState) => ({
         ...prevState,
@@ -404,13 +390,6 @@ export default function QuestionPost() {
         isValid: true,
         errorMessage: "Please connect wallet",
       }));
-    } else if (!username) {
-      setAlert((prevState) => ({
-        ...prevState,
-        isValid: true,
-        errorMessage: "Please login to post bounty",
-      }));
-
     } else {
       setAlert((prevState) => ({
         ...prevState,
@@ -418,9 +397,9 @@ export default function QuestionPost() {
         errorMessage: "",
       }));
       setLoader(true);
-      console.log("hereeeeee");
       const timeBegin = Math.floor(new Date().getTime() / 1000);
-      let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime * 24 * 60 * 60 + 1;
+      let timeEnd =
+        timeBegin + time * 24 * 60 * 60 + voteTime * 24 * 60 * 60 + 1;
       let votingTimeBegin =
         communityOption == communityText[0].title
           ? timeBegin + time * 24 * 60 * 60 + 1
@@ -428,24 +407,23 @@ export default function QuestionPost() {
       let valid = true;
       let axiosResponse;
       try {
-        try {
-          const questionResponse =
-            currency === "MATIC"
-              ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
-              : await questionPostingWithERC20(timeEnd, votingTimeBegin);
-        } catch (error) {
-          console.log(error);
-          valid = false;
-        }
+        // try {
+        //   const questionResponse =
+        //     currency === "MATIC"
+        //       ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
+        //       : await questionPostingWithERC20(timeEnd, votingTimeBegin);
+        // } catch (error) {
+        //   console.log(error);
+        //   valid = false;
+        // }
 
         if (valid) {
           try {
             axiosResponse = await axios.post(port + "question/save", {
-              githubId: username,
-              publicAddress: walletAddress,
-              questionTitle: issueTitle,
+              address: walletAddress,
+              title: issueTitle,
               issueUrl: getIssueUrl(),
-              bountyCurrency: currency,
+              currency: currency,
               timeEnd: timeEnd,
               description: issueDescription,
               evaluationCriteria: evaluationCriteria,
@@ -456,16 +434,24 @@ export default function QuestionPost() {
               communityReward: communityReward,
               isCommunityApprovedSolution:
                 communityOption == communityText[0].title ? true : false,
-              // questionCategories: category,
             });
             Promise.resolve(axiosResponse).then((val) => {
               if (val.status == 201) {
                 window.alert("Successfully posted");
                 setLoader(false);
+                console.log(axiosResponse.data)
                 history.push({
                   pathname: `/bounty/${axiosResponse.data}`,
                   state: { id: axiosResponse.data },
                 });
+              }
+              else {
+                setAlert((prevState) => ({
+                  ...prevState,
+                  isValid: true,
+                  errorMessage: "Something went wrong while posting!",
+                }));
+                valid = false;
               }
             });
           } catch (error) {
@@ -489,8 +475,6 @@ export default function QuestionPost() {
     }
   }
 
-
-
   return (
     <>
       {loader ? (
@@ -506,15 +490,6 @@ export default function QuestionPost() {
               issueTitle={issueTitle}
               alert={alert}
             />
-          // ) : activePage === 2 ? (
-          //   <BaseComponent
-          //     {...text["page2"]}
-          //     handleValidation={handleValidation}
-          //     pageState={activePage}
-          //     handleChipData={setCategory}
-          //     chipData={category}
-          //     alert={alert}
-          //   />
           ) : activePage === 2 ? (
             <BaseComponent
               {...text["page2"]}
@@ -533,7 +508,6 @@ export default function QuestionPost() {
               evaluationCriteria={evaluationCriteria}
               alert={alert}
             />
-
           ) : activePage === 4 ? (
             <BaseComponent
               {...text["page4"]}
@@ -616,7 +590,6 @@ export default function QuestionPost() {
               walletAddress={walletAddress}
               handleSubmit={handleSubmit}
             />
-
           ) : null}
         </>
       )}

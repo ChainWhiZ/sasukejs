@@ -8,16 +8,14 @@ import TweetShare from "../dialogs/tweetShare";
 import {
   maticusd as maticusdAtom,
   walletAddress as walletAddressAtom,
-  username as usernameAtom,
   devusd as devusdAtom,
 } from "../../../recoil/atoms";
 import { useRecoilValue } from "recoil";
 import { Tooltip } from "@material-ui/core";
 import { checkLength, shortenLength } from "../../helper";
 export default function QuestionRightHeading(props) {
-  console.log(props.bountyCurrency);
+  console.log(props.currency);
   const walletAddress = useRecoilValue(walletAddressAtom);
-  const username = useRecoilValue(usernameAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const [openTweetDialog, setOpenTweetDialog] = useState(false);
   const maticusd = useRecoilValue(maticusdAtom);
@@ -37,7 +35,7 @@ export default function QuestionRightHeading(props) {
       >
         <Grid item md={12}>
           <p class="heading color-neon">Bounty Amount</p>
-         
+
           <Tooltip
             title={
               props.questionStage === "vote"
@@ -59,28 +57,27 @@ export default function QuestionRightHeading(props) {
                   ? props.communityReward
                   : props.bountyReward
               )}{" "}
-              {props.bountyCurrency}
+              {props.currency}
             </p>
           </Tooltip>
-  
 
           <Tooltip
             title={
               props.questionStage === "solve"
-                ? props.bountyCurrency === "DEV"
+                ? props.currency === "DEV"
                   ? devusd * props.bountyReward
                   : maticusd * props.bountyReward
-                : props.bountyCurrency === "DEV"
+                : props.currency === "DEV"
                 ? devusd * props.communityReward
                 : maticusd * props.communityReward
             }
             disableHoverListener={
               !checkLength(
                 props.questionStage === "solve"
-                  ? props.bountyCurrency === "DEV"
+                  ? props.currency === "DEV"
                     ? devusd * props.bountyReward
                     : maticusd * props.bountyReward
-                  : props.bountyCurrency === "DEV"
+                  : props.currency === "DEV"
                   ? devusd * props.communityReward
                   : maticusd * props.communityReward
               )
@@ -91,10 +88,10 @@ export default function QuestionRightHeading(props) {
               {" "}
               {shortenLength(
                 props.questionStage === "solve"
-                  ? props.bountyCurrency === "DEV"
+                  ? props.currency === "DEV"
                     ? devusd * props.bountyReward
                     : maticusd * props.bountyReward
-                  : props.bountyCurrency === "DEV"
+                  : props.currency === "DEV"
                   ? devusd * props.communityReward
                   : maticusd * props.communityReward
               )}{" "}
@@ -106,12 +103,9 @@ export default function QuestionRightHeading(props) {
             <Button
               class="bounty-button"
               onClick={() => setOpenSolveDialog(true)}
-              disabled={
-                walletAddress === props.publicAddress ||
-                username === props.publisherGithubId
-              }
+              disabled={walletAddress === props.address}
             >
-              Submit Github link
+              Submit Solution
             </Button>
           ) : props.questionStage === "vote" ? (
             <Link
@@ -122,18 +116,14 @@ export default function QuestionRightHeading(props) {
                 },
               }}
               style={
-                walletAddress === props.publicAddress ||
-                username === props.publisherGithubId
+                walletAddress === props.address
                   ? { pointerEvents: "none" }
                   : null
               }
             >
               <Button
                 class="bounty-button"
-                disabled={
-                  walletAddress === props.publicAddress ||
-                  username === props.publisherGithubId
-                }
+                disabled={walletAddress === props.address}
               >
                 Vote Now
               </Button>
@@ -153,7 +143,7 @@ export default function QuestionRightHeading(props) {
       ) : (
         ""
       )}
-       {openTweetDialog ? (
+      {openTweetDialog ? (
         <TweetShare
           open={openTweetDialog}
           handleDialogClose={() => setOpenTweetDialog(false)}

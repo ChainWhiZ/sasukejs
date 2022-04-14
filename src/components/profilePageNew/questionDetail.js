@@ -24,7 +24,7 @@ export default function QuestionDetail(props) {
       <Grid container className="profile-question-detail-grid">
         <Grid item md={12}>
           <p className="profile-text-style">Title</p>
-          <p className="profile-content-style">{props.questionTitle}</p>
+          <p className="profile-content-style">{props.title}</p>
         </Grid>
         <Grid
           container
@@ -35,9 +35,9 @@ export default function QuestionDetail(props) {
           <Grid item md={12}>
             <p className="profile-text-style">Categories</p>
           </Grid>
-          {props.questionCategories &&
-            props.questionCategories.length &&
-            props.questionCategories.map((category) => (
+          {props.languagesAndTools&&
+            props.languagesAndTools.length &&
+            props.languagesAndTools.slice(0,4).map((category) => (
               <Grid item md={3} >
                 <p
                   className="profile-content-style"
@@ -51,16 +51,6 @@ export default function QuestionDetail(props) {
         <Grid item md={12}>
           <p className="profile-text-style">Resources/Links</p>
         </Grid>
-        {/* <Grid item md={10}>
-          <a
-            href={props.githubIssueUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="profile-content-style profile-pae-github"
-          >
-            Github Repo
-          </a>
-        </Grid> */}
         <Grid item md={4}>
           <img class={!handleLinkDisable()?"bounty-middle-github-disabled":""} src={GithubIcon} alt="git" />
           <a

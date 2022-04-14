@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import "./landing.css";
 import Button from "@material-ui/core/Button";
@@ -6,21 +6,8 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 // import { createPopup } from "@typeform/embed";
 // import "@typeform/embed/build/css/popup.css";
-import LoginPopup from "./loginPopup";
-// import info from "../../assets/info.png"
 
 export default function Landing() {
-  //const [waitlistDialog,setWaitlistDialog] = useState(false);
-  // const handleClick = () => {
-  //   const { toggle } = createPopup("UNzTJS5Q");
-  //   document.getElementById("waitlist-button").onclick = toggle;
-  // };
-  const [loginPopup, setLoginPopup] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoginPopup(true);
-    }, 3000);
-  }, [])
   return (
     <>
       <Grid
@@ -99,15 +86,7 @@ export default function Landing() {
           </i>
         </Grid>
       </Grid>
-      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
-      {/* {waitlistDialog?
-      (<WaitlistForm open={waitlistDialog} handleDialogClose={(flag)=>setWaitlistDialog(flag)}/>):null} */}
-      {loginPopup ? (
-        <LoginPopup
-          handlePopupClose={(flag) => setLoginPopup(flag)}
-          open={loginPopup}
-        />
-      ) : null}
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />     
     </>
   );
 }

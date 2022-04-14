@@ -16,7 +16,7 @@ import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { port } from "../../../config/config";
 import eventBus from "../../EventBus";
 import { useRecoilValue } from "recoil";
-import validator from 'validator'
+import validator from "validator";
 import {
   username as usernameAtom,
   walletAddress as walletAddressAtom,
@@ -27,7 +27,7 @@ export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
   const [scroll] = useState("paper");
   const walletAddress = useRecoilValue(walletAddressAtom);
-  const [solutions, setSolution] = useState([]);
+  const [solution, setSolution] = useState("");
   const [disable, setDisable] = useState(false);
   const username = useRecoilValue(usernameAtom);
   const [contract, setContract] = useState("");
@@ -41,20 +41,15 @@ export default function SolutionSubmit(props) {
   promise.then(function (v) {
     setContract(v);
   });
- 
-  
 
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
   };
 
-  const handleChange = (value, index) => {
-    const sols = solutions;
-    sols[index] = value;
-    setSolution(sols);
+  const handleChange = (value) => {
+    setSolution(value);
   };
-
   const solutionPosting = async (solution) => {
     return await new Promise((resolve, reject) => {
       try {
@@ -63,7 +58,7 @@ export default function SolutionSubmit(props) {
             username,
             solution,
             props.quesDetails.githubIssueUrl,
-            props.quesDetails.publicAddress,
+            props.quesDetails.address,
             props.quesDetails.publisherGithubId
           )
           .send({ from: walletAddress });
@@ -115,94 +110,71 @@ export default function SolutionSubmit(props) {
         }
       })
       .catch((err) => {
-        setSolution([]);
+        setSolution("");
         return false;
       });
   };
 
-  const handleValidation = async (workplan, solution) => {
+  const handleValidation = async (solution) => {
     const reg = /https?:\/\/github\.com\/(?:[^\/\s]+\/)/; //regex for repo check
     const regPr = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/pull\/(\d+)/;
-    if (!solution) {
-      setSolution([]);
+    if (!walletAddress) {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        severity: "error",
+        errorMessage: "Please connect wallet",
+      }));
+    }
+    else if (!solution) {
+      setSolution("");
       setAlert((prevState) => ({
         ...prevState,
         open: true,
         errorMessage: "Solution link field is empty",
       }));
-    }
-    else if (solution.includes('https://github.com/')) {
-      console.log("in hereeee github")
+    } else if (solution.includes("https://github.com/")) {
       if (!(solution.match(reg) || solution.match(regPr))) {
-        setSolution([]);
+        setSolution("");
         setAlert((prevState) => ({
           ...prevState,
           open: true,
           errorMessage:
             "Please enter valid GitHub repository or pull request link",
         }));
-      }
-      else if (!(await handleGithubLinkValidation(solution))) {
-        setSolution([]);
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          errorMessage: "GitHub link is invalid or it already exists",
-        }));
       } else {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: false,
-          errorMessage: "",
-        }));
-        await handleSubmit(workplan, solution);
+        let res = await handleGithubLinkValidation(solution);
+        if (!res) {
+          setSolution("");
+          setAlert((prevState) => ({
+            ...prevState,
+            open: true,
+            errorMessage: "GitHub link is invalid or it already exists",
+          }));
+        } else {
+          await handleSubmit(solution);
+        }
       }
-    }
-    else if (!validator.isURL(solution)) {
-      setSolution([]);
+    } else if (!validator.isURL(solution)) {
+      setSolution("");
       setAlert((prevState) => ({
         ...prevState,
         open: true,
         errorMessage: "Solution Link is not valid",
       }));
-    }
-    else {
+    } else {
       setAlert((prevState) => ({
         ...prevState,
         open: false,
         errorMessage: "",
       }));
-      await handleSubmit(workplan, solution);
+      await handleSubmit(solution);
     }
   };
-  const handleSubmit = async (workplanId, solution) => {
+  const handleSubmit = async (solution) => {
     try {
-   
-      //check if solution poster is publisher or not(better to keep check by github id as well as and by  address)
-      if (
-        walletAddress === props.quesDetails.publicAddress ||
-        username === props.quesDetails.publisherGithubId
-      ) {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          severity: "error",
-          errorMessage: "Sorry publisher cannot post a solution",
-        }));
-      } else if (!walletAddress) {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          severity: "error",
-          errorMessage: "Please connect wallet",
-        }));
-      } else if (!username) {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          errorMessage: "Please login to submit solution",
-        }));
-      } else {
+      
+     
         setDisable(true);
         setAlert((prevState) => ({
           ...prevState,
@@ -210,20 +182,18 @@ export default function SolutionSubmit(props) {
           errorMessage: "",
         }));
         let valid = true;
-        try {
-          const solutionResponse = await solutionPosting(solution);
-        } catch (error) {
-          console.log(error);
-          valid = false;
-        }
+        // try {
+        //   const solutionResponse = await solutionPosting(solution);
+        // } catch (error) {
+        //   console.log(error);
+        //   valid = false;
+        // }
 
         if (valid) {
           try {
             const axiosResponse = await axios.post(port + "solution/save", {
-              githubId: username,
               address: walletAddress,
               githubLink: solution,
-              _id: workplanId,
               questionId: props.quesDetails._id,
             });
             Promise.resolve(axiosResponse).then((val) => {
@@ -234,7 +204,7 @@ export default function SolutionSubmit(props) {
                 setOpen(false);
                 setDisable(false);
                 props.handleDialogClose(false);
-                props.handleTweetDialogOpen();
+                // props.handleTweetDialogOpen();
               }
             });
           } catch (error) {
@@ -242,7 +212,7 @@ export default function SolutionSubmit(props) {
             valid = false;
           }
         }
-      }
+      
     } catch (error) {
       console.log(error);
       setOpen(false);
@@ -255,16 +225,11 @@ export default function SolutionSubmit(props) {
     }
   };
 
-
   return (
     <>
       <Dialog
-        aria-labelledby="simple-dialog-title"
-        maxWidth="lg"
         open={open}
-        scroll={scroll}
         aria-describedby="scroll-dialog-description"
-        className="solution-dialog"
         BackdropProps={{
           classes: {
             root: "dialog-blur",
@@ -272,126 +237,43 @@ export default function SolutionSubmit(props) {
         }}
         onBackdropClick={handleClose}
       >
-        <ClearRoundedIcon
-          style={{
-            marginLeft: "64vw",
-            marginTop: "2vh",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            handleClose();
-          }}
-        />
-
-        {alert.open ? (
-          <SimpleAlerts
-            severity={alert.severity}
-            message={alert.errorMessage}
-          />
-        ) : null}
-        <p className="dialog-title" style={{ marginTop: "3%",marginBottom:"6%"}}>
-          Submit Solution
-        </p>
-        <p class="solution-submit-title">
-          Please paste your solution link directly beneath the work plan on top
-          of which it has been built
-        </p>
-        <DialogContent
-          dividers={scroll === "paper"}
-          style={{ marginTop: "-8%" }}
-        >
-          <DialogContentText id="scroll-dialog-description">
-            {props.quesDetails.workplanIds &&
-              props.quesDetails.workplanIds.length ? (
-              props.quesDetails.workplanIds &&
-              props.quesDetails.workplanIds.length &&
-              props.quesDetails.workplanIds.map((workplanId, index) => (
-                <>
-                  <Card className="solution-dialog-card">
-                    <CardContent>
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                      >
-                        <Grid item md={2}>
-                          <p class="solution-dialog-workplan-title">
-                            Workplan:
-                          </p>
-                        </Grid>
-                        <Grid item md={10} style={{ marginLeft: "-7%" }}>
-                          <a
-                            href={`https://gateway.ipfs.io/ipfs/${workplanId}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            class="solution-dialog-workplan"
-                          >
-                            {workplanId}
-                          </a>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <TextField
-                            fullWidth
-                            variant="outlined"
-                            size="small"
-                            type={"text"}
-                            //label="Paste you GitHub repository link"
-                            className="solution-dialog-textfield"
-                            placeholder="Enter Github Repo or Pull Request URL "
-                            value={solutions[index]}
-                            onChange={(e) =>
-                              handleChange(e.target.value, index)
-                            }
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <p class="solution-dialog-wallet-title">
-                            Your wallet address:
-                          </p>
-                          <TextField
-                            size="small"
-                            type={"text"}
-                            className="solution-dialog-textfield"
-                            fullWidth
-                            variant="outlined"
-                            value={walletAddress}
-                            disabled
-                          />
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        class="dialog-button"
-                        style={{
-                          marginLeft: "2%",
-                          opacity: disable ? "25%" : "100%",
-                        }}
-                        onClick={async () =>
-                          !disable
-                            ? await handleValidation(
-                              workplanId,
-                              solutions[index]
-                            )
-                            : null
-                        }
-                      >
-                        Submit
-                      </Button>
-                    </CardActions>
-                  </Card>
-
-                  <br />
-                </>
-              ))
-            ) : (
-              <p className="dialog-no-sol-sub">
-                No workplans have been submitted yet. You must submit a workplan
-                before submitting a solution
-              </p>
-            )}
+        <DialogContent style={{overflow:"hidden"}} >
+          <DialogContentText>
+            <p class="submitSol-btn">Submit Solution</p>
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              type={"text"}
+              className="solution-dialog-textfield"
+              placeholder="Enter your submission link here "
+              value={solution}
+              onChange={(e) => handleChange(e.target.value)}
+            />
+            {alert.open ? (
+            <SimpleAlerts
+              severity={alert.severity}
+              message={alert.errorMessage}
+            />
+          ) : null}
+            <div style={{ textAlign: "center", margin: "4rem 10rem" }}>
+              <Button
+                class="dialog-button"
+                style={{
+                  margin: "auto",
+                  fontWeight: 700,
+                  fontSize: "1.5rem",
+                  width: "75%",
+                }}
+                onClick={async () =>
+                  !disable ? await handleValidation(solution) : null
+                }
+              >
+                Submit
+              </Button>
+            </div>
           </DialogContentText>
+          
         </DialogContent>
       </Dialog>
     </>

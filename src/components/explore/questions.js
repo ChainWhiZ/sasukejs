@@ -5,6 +5,7 @@ import search from "../../assets/Search.png";
 import QuestionCard from "./questionCard";
 
 export default function Questions(props) {
+  console.log(props)
 const[searchValue,setSearchValue] = useState("");
   return (
     <>

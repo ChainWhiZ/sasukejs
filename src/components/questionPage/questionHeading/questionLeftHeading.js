@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import WorkplanSubmit from "../dialogs/workplanSubmit";
+import SolutionSubmit from "../dialogs/solutionSubmit";
 import { Link } from "react-router-dom";
-import {
-  walletAddress as walletAddressAtom,
-  username as usernameAtom,
-} from "../../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import "../questionPage.css";
 import { useRecoilValue } from "recoil";
 
 export default function QuestionLeftHeading(props) {
-  console.log(props);
   const walletAddress = useRecoilValue(walletAddressAtom);
-  const username = useRecoilValue(usernameAtom);
-  const [openWorkplanDialog, setOpenWorkplanDialog] = useState(false);
+  const [openSolveDialog, setOpenSolveDialog] = useState(false);
   let hoursOrDaysOrMinutes = "days";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
@@ -62,11 +57,7 @@ export default function QuestionLeftHeading(props) {
         )}
         <Grid item md={12}>
           <p class="heading color-neon margin-top-10">Applicants</p>
-          <p class="bounty-time">
-            {props.questionDetails.workplanIds
-              ? props.questionDetails.workplanIds.length
-              : 0}
-          </p>
+          <p class="bounty-time">{props.questionDetails.solutions.length||0}</p>
         </Grid>
         <Grid item md={12} className="margin-top-10">
           {props.questionDetails.questionStage === "vote" ? (
@@ -78,15 +69,14 @@ export default function QuestionLeftHeading(props) {
                 },
               }}
               style={
-                walletAddress === props.publicAddress ||
-                username === props.questionDetails.publisherGithubId
+                walletAddress === props.questionDetails.address
                   ? { pointerEvents: "none" }
                   : null
               }
             >
               <Button
                 class="bounty-button"
-               disabled={walletAddress === props.publicAddress || username === props.publisherGithubId }
+                disabled={walletAddress === props.questionDetails.address}
               >
                 Vote Now
               </Button>
@@ -96,23 +86,19 @@ export default function QuestionLeftHeading(props) {
           ) : (
             <Button
               class="bounty-button"
-              onClick={() =>
-                setOpenWorkplanDialog(true)
-                 
-              }
+              onClick={() => setOpenSolveDialog(true)}
+              disabled={walletAddress === props.questionDetails.address}
             >
-              Submit Workplan
+              Submit Solution
             </Button>
           )}
         </Grid>
       </Grid>
-
-      {openWorkplanDialog ? (
-        <WorkplanSubmit
-          open={openWorkplanDialog}
-          handleDialogClose={() => setOpenWorkplanDialog(false)}
-          questionId={props.questionDetails._id}
-          
+      {openSolveDialog ? (
+        <SolutionSubmit
+          open={openSolveDialog}
+          quesDetails={props}
+          handleDialogClose={() => setOpenSolveDialog(false)}
         />
       ) : (
         ""

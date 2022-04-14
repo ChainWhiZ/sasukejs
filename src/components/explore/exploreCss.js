@@ -21,7 +21,7 @@ export const useStyles = makeStyles((theme) => ({
         backgroundColor:"#D7FF2E",
         color: "black"
     },
-    questionTitle:{
+    title:{
         fontSize: "15px"
     },
     searchCard: {

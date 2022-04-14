@@ -6,12 +6,11 @@ import Heading from "./heading";
 import ProfileTabs from "./tabs";
 import "./profilePageCss.css";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
 
 export default function ProfilePage(props) {
-  const username = useRecoilValue(usernameAtom);
-  console.log(username)
-  if (!username) {
+  const walletAddress = useRecoilValue(walletAddressAtom);
+  if (!walletAddress) {
     return <Redirect to="/" />;
   }
 
@@ -30,7 +29,7 @@ export default function ProfilePage(props) {
           xs={12}
           style={{ marginLeft: "-6%", marginTop: "2%" }}
         >
-            <Heading />
+          <Heading />
 
           <Grid item md={12} xs={12}>
             <ProfileTabs />
@@ -38,7 +37,6 @@ export default function ProfilePage(props) {
         </Grid>
       </Grid>
       <hr className="horizontal-line" style={{ marginTop: "8%" }} />
-
     </>
   );
 }

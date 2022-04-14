@@ -1,15 +1,8 @@
-import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
-import GithubIcon from "../../../../assets/githubIcon.png";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
-import { port } from "../../../../config/config";
 import "../../profilePageCss.css";
 
 export default function LeftSide(props) {
-
-  console.log(props);
-
   return (
     <>
       <div className="results-dialog-left-grid">
@@ -21,7 +14,7 @@ export default function LeftSide(props) {
 
         {props.solutions &&
           props.solutions.length &&
-          props.solutions.map((solution,index) => (
+          props.solutions.map((solution, index) => (
             <Grid
               item
               md={12}
@@ -34,12 +27,9 @@ export default function LeftSide(props) {
               }
             >
               <p>
-                <span>
-                  <a href={solution.githubLink} target="_blank">
-                  <img src={GithubIcon} alt="github" />
-                  </a>
-                </span>
-                {solution.solverGithubId}
+                {solution.address.substring(0, 4) +
+                  "..." +
+                  solution.address.substring(38)}
               </p>
             </Grid>
           ))}

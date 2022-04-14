@@ -7,11 +7,36 @@ import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import CircularIndeterminate from "../../loader/loader";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import "../profilePageCss.css";
+import { new_backend_port } from "../../../config/config";
 import { Link } from "react-router-dom";
 export default function BountyPosted(props) {
-  const username = useRecoilValue(usernameAtom);
+  var questions = [];
+  var escrowContent = [
+    {
+      escrowStatus: "completed",
+      _id: "6250939d594d5c805d7d30d5",
+      solutionLink: "https://github.com/AlbertoCruzLuis/solana-pay-tutorial",
+      publisherAddress: "0xD10A857A9B3D45b36A8CB2354A365839556978a5",
+      solverAddress: "0xfFA1aF9E558B68bBC09ad74058331c100C135280",
+      bountyUrl:
+        "https://github.com/ChainWhiZ/Chainwhiz-landing-testimonial/issues/1",
+      __v: 0,
+      id: "6250939d594d5c805d7d30d5",
+    },
+    {
+      escrowStatus: "initiated",
+      _id: "6255cdbbf62bb4a4ac31ead8",
+      solutionLink: "frontend-solution2.com",
+      publisherAddress: "0xD10A857A9B3D45b36A8CB2354A365839556978a5",
+      solverAddress: "0xfFA1aF9E558B68bBC09ad74058331c100C135280",
+      bountyUrl: "frotend-test2.app",
+      __v: 0,
+      id: "6255cdbbf62bb4a4ac31ead8",
+    },
+  ];
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [alert, setAlert] = useState({
@@ -22,12 +47,34 @@ export default function BountyPosted(props) {
   useEffect(() => {
     axios
       .post(port + "user/questions", {
-        githubId: username,
+        address: walletAddress,
       })
       .then((response) => {
+        questions = response.data;
+      
         setLoader(false);
-        console.log(response.data);
-        setData(response.data);
+
+        // axios
+        //   .post(new_backend_port + "api/escrow/get_escrow_status", {
+        //     query: { publisherAddress: walletAddress },
+        //   })
+        //   .then((response) => {
+        //    escrowContent=response.data
+        //     setLoader(false);
+        //
+        //   })
+        //   .catch((err) => {
+        //     setAlert((prevState) => ({
+        //       ...prevState,
+        //       open: true,
+        //       errorMessage:
+        //         "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+        //     }));
+        //     setLoader(false);
+        //   });
+      })
+      .then(() => {
+        concatObject();
       })
       .catch((err) => {
         setAlert((prevState) => ({
@@ -39,32 +86,48 @@ export default function BountyPosted(props) {
         setLoader(false);
       });
   }, []);
+
+  const concatObject = () => {
+    questions.forEach((question) => {
+      escrowContent.forEach((escrow) => {
+        if (question.issueUrl === escrow.bountyUrl) {
+          question.selectedSolution = escrow.solutionLink;
+          question.escrowStatus = escrow.escrowStatus;
+        }
+      });
+    });
+    setData(questions);
+  };
   return (
     <>
-      {loader ? <CircularIndeterminate /> :
+      {loader ? (
+        <CircularIndeterminate />
+      ) : (
         <Grid container style={{ marginLeft: "-1%" }}>
-          {data.length ?
-            (data.map((question) => (
+          {data.length ? (
+            data.map((question) => (
               <>
                 <Grid item md={7} xs={12}>
                   <Link to={`/bounty/${question._id}`}>
-                  <QuestionDetail {...question} />
+                    <QuestionDetail {...question} />
                   </Link>
                 </Grid>
                 <Grid item md={5} xs={12}>
                   <QuestionStage {...question} />
                 </Grid>
               </>
-            )))
-            :
-            <p style={{ "marginLeft": "3%" }}>Run the day. Don’t let it run you. Start your journey on Chainwhiz.</p>
-          }
+            ))
+          ) : (
+            <p style={{ marginLeft: "3%" }}>
+              Run the day. Don’t let it run you. Start your journey on
+              Chainwhiz.
+            </p>
+          )}
         </Grid>
-      }
+      )}
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-
     </>
   );
 }
