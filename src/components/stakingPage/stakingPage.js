@@ -12,28 +12,23 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
-  username as usernameAtom,
   balance as balanceAtom
 } from "../../recoil/atoms";
 import "./stakingPageCss.css";
 import { fetchBalance } from "../../web3js/web3";
 
 export default function StakingPage(props) {
-  const username = useRecoilValue(usernameAtom);
   const [data, setData] = useState([]);
   const walletAddress = useRecoilValue(walletAddressAtom);
-  const [selectedWorkplan, setSelectedWorkplan] = useState(
-    props.location.state.questionDetails.workplanIds[0]
-  );
+  const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
   const [balance, setBalance] = useRecoilState(balanceAtom);
   const [selectedSolutions, setSelectedSolutions] = useState([]);
   const [voterdetails, setVoterDetails] = useState({});
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
   const [stakeDetails, setStakeDetails] = useState({
     solutionId: "",
     solveraddress: "",
     stakeAmount: 0,
-    solverGithubId: "",
   });
   const [alert, setAlert] = useState({
     open: false,
@@ -48,56 +43,52 @@ export default function StakingPage(props) {
     console.log(contract)
   });
   
-  console.log(props.location.state.questionDetails.workplanIds);
+  console.log(props.location.state.questionDetails);
 
 
   useEffect( () => {
-    axios
-      .post(port + "workplan/fetchall", {
-        _id: props.location.state.questionDetails._id,
-      })
-      .then((response) => {
-        setLoader(false);
-        console.log(response.data)
-        setData(response.data);
-        let i = response.data.findIndex((item) => item._id == selectedWorkplan);
-        setSelectedSolutions(response.data[i].solutionIds);
-      })
-      .catch((err) => {
-        setAlert((prevState) => ({
-          ...prevState,
-          open: true,
-          errorMessage:
-            "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
-        }));
-      });
-    fetchVoterDetails();
+    // axios
+    //   .post(port + "workplan/fetchall", {
+    //     _id: props.location.state.questionDetails._id,
+    //   })
+    //   .then((response) => {
+    //     setLoader(false);
+    //     console.log(response.data)
+    //     setData(response.data);
+    //     let i = response.data.findIndex((item) => item._id == selectedWorkplan);
+    //     setSelectedSolutions(response.data[i].solutionIds);
+    //   })
+    //   .catch((err) => {
+    //     setAlert((prevState) => ({
+    //       ...prevState,
+    //       open: true,
+    //       errorMessage:
+    //         "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
+    //     }));
+    //   });
+    // fetchVoterDetails();
     if (walletAddress) {
       fetchBalance(walletAddress).then(res=> setBalance(Number(res).toFixed(4)));
     }
   }, [walletAddress]);
 
 
-  const fetchVoterDetails = () => {
-    axios
-      .post(port + "user/isvoter", {
-        userId: username,
-        questionId: props.location.state.questionDetails._id,
-      })
-      .then((response) => {
-        setLoader(false);
-        setVoterDetails(response.data);
-      })
-      .catch((err) => { });
-  };
+  // const fetchVoterDetails = () => {
+  //   axios
+  //     .post(port + "user/isvoter", {
+  //       userId: username,
+  //       questionId: props.location.state.questionDetails._id,
+  //     })
+  //     .then((response) => {
+  //       setLoader(false);
+  //       setVoterDetails(response.data);
+  //     })
+  //     .catch((err) => { });
+  // };
 
-  const handleSelect = (workplan) => {
-    let i = data.findIndex((item) => item._id == workplan);
-    console.log(i)
-    setSelectedWorkplan(workplan);
-    setSelectedSolutions(data[i].solutionIds);
+  const handleSelectedSolution = (index) => {
+    setSelectedSolutionIndex(index);
   };
-  console.log(selectedSolutions)
 
   const handleStakeValidation = () => {
     if (stakeDetails.stakeAmount <= 5 || stakeDetails.stakeAmount >= 40) {
@@ -123,101 +114,102 @@ export default function StakingPage(props) {
   };
 
   const stakePosting = async () => {
-    return await new Promise((resolve, reject) => {
-      try {
-        const trxObj = contract.methods
-          .stakeVote(
-            props.location.state.questionDetails.githubIssueUrl,
-            props.location.state.questionDetails.address.toString(),
-            props.location.state.questionDetails.publisherGithubId,
-            stakeDetails.solverGithubId,
-            stakeDetails.solveraddress.toString(),
-            stakeDetails.solutionId,
-            username
-          )
-          .send({
-            from: walletAddress.toString(),
-            value: stakeDetails.stakeAmount * Math.pow(10, 18),
-          });
-        trxObj.on("receipt", function (receipt) {
-          // window.alert("Successfully voted");
-          resolve(receipt);
-        });
+    
+    // return await new Promise((resolve, reject) => {
+    //   try {
+    //     const trxObj = contract.methods
+    //       .stakeVote(
+    //         props.location.state.questionDetails.githubIssueUrl,
+    //         props.location.state.questionDetails.address.toString(),
+    //         props.location.state.questionDetails.publisherGithubId,
+    //         stakeDetails.solverGithubId,
+    //         stakeDetails.solveraddress.toString(),
+    //         stakeDetails.solutionId,
+    //         username
+    //       )
+    //       .send({
+    //         from: walletAddress.toString(),
+    //         value: stakeDetails.stakeAmount * Math.pow(10, 18),
+    //       });
+    //     trxObj.on("receipt", function (receipt) {
+    //       // window.alert("Successfully voted");
+    //       resolve(receipt);
+    //     });
 
-        trxObj.on("error", function (error, receipt) {
-          if (error)
-            window.alert(
-              error.transactionHash
-                ? `Went wrong. in trc hash :${error.transactionHash}`
-                : error.message
-            );
-          setLoader(false);
-          reject(error.message);
-        });
-      } catch (error) {
-        window.alert(
-          error.transactionHash
-            ? `Went wrong in trc hash :${error.transactionHash}`
-            : error.message
-        );
-        setLoader(false);
-        reject(error);
-      }
-    });
+    //     trxObj.on("error", function (error, receipt) {
+    //       if (error)
+    //         window.alert(
+    //           error.transactionHash
+    //             ? `Went wrong. in trc hash :${error.transactionHash}`
+    //             : error.message
+    //         );
+    //       setLoader(false);
+    //       reject(error.message);
+    //     });
+    //   } catch (error) {
+    //     window.alert(
+    //       error.transactionHash
+    //         ? `Went wrong in trc hash :${error.transactionHash}`
+    //         : error.message
+    //     );
+    //     setLoader(false);
+    //     reject(error);
+    //   }
+    // });
   };
   const handleStake = async () => {
     let valid = true;
-    try {
-      setLoader(true);
-      try {
-        const stakeResponse = await stakePosting();
-      } catch (error) {
-        valid = false;
-      }
+    // try {
+    //   setLoader(true);
+    //   try {
+    //     const stakeResponse = await stakePosting();
+    //   } catch (error) {
+    //     valid = false;
+    //   }
 
-      if (valid) {
-        try {
-          const axiosResponse = axios.post(port + "vote/save", {
-            address: walletAddress,
-            amountStaked: stakeDetails.stakeAmount,
-            timestamp: Date.now() / 1000,
-            solutionId: stakeDetails.solutionId,
-            githubId: username,
-          });
-          Promise.resolve(axiosResponse).then((val) => {
-            if (val.status == 201) {
-              setLoader(false);
+    //   if (valid) {
+    //     try {
+    //       const axiosResponse = axios.post(port + "vote/save", {
+    //         address: walletAddress,
+    //         amountStaked: stakeDetails.stakeAmount,
+    //         timestamp: Date.now() / 1000,
+    //         solutionId: stakeDetails.solutionId,
+    //         githubId: username,
+    //       });
+    //       Promise.resolve(axiosResponse).then((val) => {
+    //         if (val.status == 201) {
+    //           setLoader(false);
 
-              window.alert("Successfully voted");
-              fetchVoterDetails();
-              setStakeDetails((prevState) => ({
-                ...prevState,
-                stakeAmount: 0,
-              }));
-            }
-          });
-        } catch (error) {
-          setLoader(false);
-          setAlert((prevState) => ({
-            ...prevState,
-            isValid: true,
-            errorMessage: "Something went wrong while staking!",
-          }));
+    //           window.alert("Successfully voted");
+    //           fetchVoterDetails();
+    //           setStakeDetails((prevState) => ({
+    //             ...prevState,
+    //             stakeAmount: 0,
+    //           }));
+    //         }
+    //       });
+    //     } catch (error) {
+    //       setLoader(false);
+    //       setAlert((prevState) => ({
+    //         ...prevState,
+    //         isValid: true,
+    //         errorMessage: "Something went wrong while staking!",
+    //       }));
 
-          valid = false;
-        }
-      }
-    } catch (error) {
-      setLoader(false);
-      setAlert((prevState) => ({
-        ...prevState,
-        isValid: true,
-        errorMessage: "Something went wrong while staking!",
-      }));
-    }
+    //       valid = false;
+    //     }
+    //   }
+    // } catch (error) {
+    //   setLoader(false);
+    //   setAlert((prevState) => ({
+    //     ...prevState,
+    //     isValid: true,
+    //     errorMessage: "Something went wrong while staking!",
+    //   }));
+    // }
   };
 
-  if (!username) {
+  if (!walletAddress) {
     return <Redirect to="/" />;
   }
   return (
@@ -262,14 +254,16 @@ export default function StakingPage(props) {
             >
               <Grid item md={4} xs={12}>
                 <LeftCard
-                  workplans={data}
-                  handleSelect={(workplan) => handleSelect(workplan)}
-                  selectedWorkplan={selectedWorkplan}
+                  solutions={props.location.state.questionDetails.solutions}
+                  handleSelectedSolution={(index) =>
+                    handleSelectedSolution(index)
+                  }
+                  selectedSolutionIndex={selectedSolutionIndex}
                 />
               </Grid>
               <Grid item md={8} xs={12}>
                 <RightCard
-                  solutions={selectedSolutions}
+                  solution={props.location.state.questionDetails.solutions[selectedSolutionIndex]}
                   handleStakeValidation={handleStakeValidation}
                   handleSetStakeDetails={setStakeDetails}
                   stakeDetails={stakeDetails}

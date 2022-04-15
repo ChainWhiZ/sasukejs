@@ -7,7 +7,7 @@ import "./stakingPageCss.css";
 export default function LeftCard(props) {
   console.log(props)
   const handleSelectedStyle = (value) => {
-    if (props.selectedWorkplan === value) {
+    if (props.solutions[props.selectedSolutionIndex].address === value) {
       return "staking-workplan-card staking-selected-workplan-card";
     } else {
       return "staking-workplan-card";
@@ -20,41 +20,24 @@ export default function LeftCard(props) {
         <p className="staking-workplan-heading">All Workplans Posted</p>
       </Grid>
 
-      {props.workplans &&
-        props.workplans.length &&
-        props.workplans.map((workplan) => (
+      {props.solutions &&
+        props.solutions.length &&
+        props.solutions.map((solution,index) => (
           <Grid
             item
             md={12}
             xs={12}
-            className={handleSelectedStyle(workplan._id)}
-            onClick={() => props.handleSelect(workplan._id)}
+            className={handleSelectedStyle(solution.address)}
+            onClick={() => props.handleSelectedSolution(index)}
           >
             <p
               className={
-                props.selectedWorkplan === workplan._id
+                props.solutions[props.selectedSolutionIndex].address === solution.address
                   ? "staking-workplan active-black"
                   : "staking-workplan"
               }
             >
-              <span>
-                <a
-                  href={`https://gateway.ipfs.io/ipfs/${workplan._id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
-                    className="staking-icon"
-                    src={
-                      props.selectedWorkplan === workplan._id
-                        ? ideaIconBlack
-                        : ideaIcon
-                    }
-                    alt="icon"
-                  />
-                </a>
-              </span>
-              Workplan Submitted by {workplan.userId}
+           {solution.address}
             </p>
           </Grid>
         ))}

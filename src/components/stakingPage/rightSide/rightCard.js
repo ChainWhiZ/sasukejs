@@ -1,15 +1,24 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import StakeSolution from "./stakeSolution";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import { useRecoilValue } from "recoil";
+import githubIcon from "../../../assets/githubIcon.png";
 import { balance as balanceAtom } from "../../../recoil/atoms";
 import "../stakingPageCss.css";
 import { Tooltip } from "@material-ui/core";
-import { shortenLength,checkLength } from "../../helper";
+import { shortenLength, checkLength } from "../../helper";
 
 export default function RightCard(props) {
   console.log(props)
   const balance = useRecoilValue(balanceAtom);
+  const handleChange = (value) => {
+    props.handleSetStakeDetails({
+      solutionId: props.solution._id,
+      solveraddress: props.solution.address,
+      stakeAmount: value,
+    });
+  };
   return (
     <Grid
       container
@@ -35,21 +44,39 @@ export default function RightCard(props) {
           </p>
         </Tooltip>
       </Grid>
+      <Grid item md={2} xs={12}>
+        <a href={props.solution._id} target="_blank" rel="noreferrer">
+          <img className="staking-git-icon" src={githubIcon} alt="github" />
+        </a>
+      </Grid>
+      <Grid item md={8} xs={12} style={{ marginBottom: "1.5%" }}>
+        <TextField
+          id="outlined-basic"
+          type={"number"}
+          variant="outlined"
+          disabled={props.disable}
+          size="small"
+          className="staking-input"
+          InputProps={{ inputProps: { min: 5, max: 40 } }}
+          value={
+            props.solution._id === props.stakeDetails.solutionId
+              ? props.stakeDetails.stakeAmount
+              : 0
+          }
+          onChange={(e) => handleChange(e.target.value)}
+        />
+      </Grid>
+      <Grid item md={2} className="staking-button-grid">
+        <Button
+          variant="contained"
+          className="staking-button"
+          onClick={() => props.handleStakeValidation()}
+          disabled={props.disable}
+        >
+          Stake
+        </Button>
+      </Grid>
 
-      <>
-        {props.solutions && props.solutions.length ?
-          props.solutions &&
-          props.solutions.length &&
-          props.solutions.map((solution) => (
-            <StakeSolution
-              solutionId={solution}
-              handleStakeValidation={props.handleStakeValidation}
-              handleSetStakeDetails={props.handleSetStakeDetails}
-              stakeDetails={props.stakeDetails}
-              disable={props.disable}
-            />
-          )) : <p>No solutions</p>}
-      </>
     </Grid>
   );
 }

@@ -86,13 +86,26 @@ export default function QuestionLeftHeading(props) {
           ) : props.questionDetails.questionStage === "complete" ? (
             <Button class="bounty-button">Completed</Button>
           ) : (
-            <Button
-              class="bounty-button"
-              onClick={() => setOpenSolveDialog(true)}
-              disabled={walletAddress === props.questionDetails.address}
+            <Link
+              to={{
+                pathname: "/stake",
+                state: {
+                  questionDetails: props.questionDetails,
+                },
+              }}
+              style={
+                walletAddress === props.questionDetails.address
+                  ? { pointerEvents: "none" }
+                  : null
+              }
             >
-              Submit Solution
-            </Button>
+              <Button
+                class="bounty-button"
+                disabled={walletAddress === props.questionDetails.address}
+              >
+                Vote Now
+              </Button>
+            </Link>
           )}
         </Grid>
       </Grid>
