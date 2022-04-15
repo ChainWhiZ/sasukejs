@@ -16,7 +16,7 @@ export default function LeftCard(props) {
   return (
     <Grid container className="staking-left-card">
       <Grid item md={12} xs={12}>
-        <p className="staking-workplan-heading">All Workplans Posted</p>
+        <p className="staking-workplan-heading">All Solutions Submitted</p>
       </Grid>
 
       {props.solutions &&

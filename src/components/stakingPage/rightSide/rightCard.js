@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useRecoilValue } from "recoil";
-import githubIcon from "../../../assets/githubIcon.png";
+import LinkIcon from "../../../assets/Link.svg";
 import { balance as balanceAtom } from "../../../recoil/atoms";
 import "../stakingPageCss.css";
 import { Tooltip } from "@material-ui/core";
@@ -23,7 +23,7 @@ export default function RightCard(props) {
     <Grid
       container
       direction="row"
-      justifyContent="space-evenly"
+      justifyContent="space-around"
       alignItems="center"
       className="staking-right-card"
     >
@@ -44,12 +44,12 @@ export default function RightCard(props) {
           </p>
         </Tooltip>
       </Grid>
-      <Grid item md={2} xs={12}>
+      <Grid item md={7} xs={12} style={{ textAlign: "center" }}>
         <a href={props.solution._id} target="_blank" rel="noreferrer">
-          <img className="staking-git-icon" src={githubIcon} alt="github" />
+          <img className="staking-link-icon" src={LinkIcon} alt="github" />
         </a>
       </Grid>
-      <Grid item md={8} xs={12} style={{ marginBottom: "1.5%" }}>
+      <Grid item md={3} xs={12} style={{ marginBottom: "1.5%"}}>
         <TextField
           id="outlined-basic"
           type={"number"}

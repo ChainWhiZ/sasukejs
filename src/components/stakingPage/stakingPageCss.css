@@ -120,8 +120,9 @@ color: #FFFFFF; */
 .staking-icon {
   margin: 0% 5% -2% 0%;
 }
-.staking-git-icon {
+.staking-link-icon {
   margin: 0% 4% -2% -23%;
+  transform: scale(0.4);
 }
 .staking-info-icon {
   margin: 0% 2% -0.5% 0%;
