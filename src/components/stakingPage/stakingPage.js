@@ -47,24 +47,25 @@ export default function StakingPage(props) {
 
 
   useEffect( () => {
+    fetchVoterDetails();
     if (walletAddress) {
       fetchBalance(walletAddress).then(res=> setBalance(Number(res).toFixed(4)));
     }
   }, [walletAddress]);
 
 
-  // const fetchVoterDetails = () => {
-  //   axios
-  //     .post(port + "user/isvoter", {
-  //       userId: username,
-  //       questionId: props.location.state.questionDetails._id,
-  //     })
-  //     .then((response) => {
-  //       setLoader(false);
-  //       setVoterDetails(response.data);
-  //     })
-  //     .catch((err) => { });
-  // };
+  const fetchVoterDetails = () => {
+    axios
+      .post(port + "user/isvoter", {
+        address: walletAddress,
+        questionId: props.location.state.questionDetails._id,
+      })
+      .then((response) => {
+        setLoader(false);
+        setVoterDetails(response.data);
+      })
+      .catch((err) => { });
+  };
 
   const handleSelectedSolution = (index) => {
     setSelectedSolutionIndex(index);
