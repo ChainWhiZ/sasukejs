@@ -5,7 +5,6 @@ import ideaIconBlack from "../../assets/idea_black.png";
 import "./stakingPageCss.css";
 
 export default function LeftCard(props) {
-  console.log(props)
   const handleSelectedStyle = (value) => {
     if (props.solutions[props.selectedSolutionIndex].address === value) {
       return "staking-workplan-card staking-selected-workplan-card";
@@ -22,7 +21,7 @@ export default function LeftCard(props) {
 
       {props.solutions &&
         props.solutions.length &&
-        props.solutions.map((solution,index) => (
+        props.solutions.map((solution, index) => (
           <Grid
             item
             md={12}
@@ -32,12 +31,15 @@ export default function LeftCard(props) {
           >
             <p
               className={
-                props.solutions[props.selectedSolutionIndex].address === solution.address
+                props.solutions[props.selectedSolutionIndex].address ===
+                solution.address
                   ? "staking-workplan active-black"
                   : "staking-workplan"
               }
             >
-           {solution.address}
+              {solution.address.substring(0, 4) +
+                "..." +
+                solution.address.substring(38)}
             </p>
           </Grid>
         ))}
