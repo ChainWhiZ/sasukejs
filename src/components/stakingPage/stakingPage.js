@@ -47,26 +47,6 @@ export default function StakingPage(props) {
 
 
   useEffect( () => {
-    // axios
-    //   .post(port + "workplan/fetchall", {
-    //     _id: props.location.state.questionDetails._id,
-    //   })
-    //   .then((response) => {
-    //     setLoader(false);
-    //     console.log(response.data)
-    //     setData(response.data);
-    //     let i = response.data.findIndex((item) => item._id == selectedWorkplan);
-    //     setSelectedSolutions(response.data[i].solutionIds);
-    //   })
-    //   .catch((err) => {
-    //     setAlert((prevState) => ({
-    //       ...prevState,
-    //       open: true,
-    //       errorMessage:
-    //         "Couldn't fetch solutions! Server-side issue. Sorry for the inconvenience",
-    //     }));
-    //   });
-    // fetchVoterDetails();
     if (walletAddress) {
       fetchBalance(walletAddress).then(res=> setBalance(Number(res).toFixed(4)));
     }
