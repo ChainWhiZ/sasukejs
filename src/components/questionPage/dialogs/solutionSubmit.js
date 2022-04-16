@@ -51,11 +51,9 @@ export default function SolutionSubmit(props) {
       try {
         const trxObj = contract.methods
           .postSolution(
-            username,
             solution,
-            props.quesDetails.githubIssueUrl,
+            props.quesDetails.issueUrl,
             props.quesDetails.address,
-            props.quesDetails.publisherGithubId
           )
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
@@ -178,12 +176,13 @@ export default function SolutionSubmit(props) {
           errorMessage: "",
         }));
         let valid = true;
-        // try {
-        //   const solutionResponse = await solutionPosting(solution);
-        // } catch (error) {
-        //   console.log(error);
-        //   valid = false;
-        // }
+        try {
+          console.log(solution)
+          const solutionResponse = await solutionPosting(solution);
+        } catch (error) {
+          console.log(error);
+          valid = false;
+        }
 
         if (valid) {
           try {

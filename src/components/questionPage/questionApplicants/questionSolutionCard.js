@@ -22,7 +22,7 @@ export default function QuestionSolutionCard(props) {
         </Grid>
 
         <Grid item md={12}>
-          <a href={props.solution._id} target="_blank">
+          <a href={props.solution._id} target="_blank" rel="noreferrer">
             <button class="submission">View Submission</button>
           </a>
         </Grid>

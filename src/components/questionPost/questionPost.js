@@ -129,7 +129,7 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "What’s all this rush? Enter the issue URL.",
+            errorMessage: "What’s all this rush? Enter valid URL.",
           }));
         } else if (getIssueUrl().includes("https://github.com/")) {
           if (!(await handleGithubIssueValidation())) {
@@ -146,14 +146,14 @@ export default function QuestionPost() {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "What’s all this rush? Enter valid issue URL.",
+            errorMessage: "What’s all this rush? Enter valid URL.",
           }));
         } else {
           handlePageChange(page);
         }
       }
       if (activePage === 7) {
-        if (reward <= 5 || reward >= 40000) {
+        if (reward <= 0.000001 || reward >= 40000) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -264,7 +264,9 @@ export default function QuestionPost() {
       try {
         //include title, categories
         const trxObj = contract.methods
-          .postIssue(
+          .postBounty(
+            issueTitle,
+            languagesAndTools,
             getIssueUrl(),
             rewardAmount.toString(),
             communityRewardAmount.toString(),
@@ -407,15 +409,15 @@ export default function QuestionPost() {
       let valid = true;
       let axiosResponse;
       try {
-        // try {
-        //   const questionResponse =
-        //     currency === "MATIC"
-        //       ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
-        //       : await questionPostingWithERC20(timeEnd, votingTimeBegin);
-        // } catch (error) {
-        //   console.log(error);
-        //   valid = false;
-        // }
+        try {
+          const questionResponse =
+            currency === "MATIC"
+              ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
+              : await questionPostingWithERC20(timeEnd, votingTimeBegin);
+        } catch (error) {
+          console.log(error);
+          valid = false;
+        }
 
         if (valid) {
           try {
