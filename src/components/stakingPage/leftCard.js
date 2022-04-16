@@ -7,16 +7,16 @@ import "./stakingPageCss.css";
 export default function LeftCard(props) {
   const handleSelectedStyle = (value) => {
     if (props.solutions[props.selectedSolutionIndex].address === value) {
-      return "staking-workplan-card staking-selected-workplan-card";
+      return "staking-address-card staking-selected-address-card";
     } else {
-      return "staking-workplan-card";
+      return "staking-address-card";
     }
   };
 
   return (
     <Grid container className="staking-left-card">
       <Grid item md={12} xs={12}>
-        <p className="staking-workplan-heading">All Workplans Posted</p>
+        <p className="staking-address-heading">All Solutions Submitted</p>
       </Grid>
 
       {props.solutions &&
@@ -33,8 +33,8 @@ export default function LeftCard(props) {
               className={
                 props.solutions[props.selectedSolutionIndex].address ===
                 solution.address
-                  ? "staking-workplan active-black"
-                  : "staking-workplan"
+                  ? "staking-address active-black"
+                  : "staking-address"
               }
             >
               {solution.address.substring(0, 4) +
