@@ -77,7 +77,7 @@ export default function Heading(props) {
             </Tooltip>
             <p className="profile-details-bounty-heading">Bounties Solved</p>
           </Grid>
-          {/* <Grid item md={3} className="profile-details-bounty-heading-grid">
+          <Grid item md={3} className="profile-details-bounty-heading-grid">
             {data.voterWeightage ? (
               <Tooltip
                 title={data.voterWeightage}
@@ -94,7 +94,7 @@ export default function Heading(props) {
             )}
 
             <p className="profile-details-bounty-heading">Voter Weightage</p>
-          </Grid> */}
+          </Grid>
         </>
         : null
       }

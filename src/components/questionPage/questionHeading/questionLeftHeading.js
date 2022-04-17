@@ -59,7 +59,9 @@ export default function QuestionLeftHeading(props) {
         )}
         <Grid item md={12}>
           <p class="heading color-neon margin-top-10">Applicants</p>
-          <p class="bounty-time">{props.questionDetails.solutions.length||0}</p>
+          <p class="bounty-time">
+            {props.questionDetails.solutions.length || 0}
+          </p>
         </Grid>
         <Grid item md={12} className="margin-top-10">
           {props.questionDetails.questionStage === "vote" ? (
@@ -86,36 +88,23 @@ export default function QuestionLeftHeading(props) {
           ) : props.questionDetails.questionStage === "complete" ? (
             <Button class="bounty-button">Completed</Button>
           ) : (
-            <Link
-              to={{
-                pathname: "/stake",
-                state: {
-                  questionDetails: props.questionDetails,
-                },
-              }}
-              style={
-                walletAddress === props.questionDetails.address
-                  ? { pointerEvents: "none" }
-                  : null
-              }
+            <Button
+              class="bounty-button"
+              onClick={() => setOpenSolveDialog(true)}
+              disabled={walletAddress === props.questionDetails.address}
             >
-              <Button
-                class="bounty-button"
-                disabled={walletAddress === props.questionDetails.address}
-              >
-                Vote Now
-              </Button>
-            </Link>
+              Submit Solution
+            </Button>
           )}
         </Grid>
       </Grid>
       {openSolveDialog ? (
-         <SolutionSubmit
-         open={openSolveDialog}
-         quesDetails={props.questionDetails}
-         handleDialogClose={() => setOpenSolveDialog(false)}
-         handleTweetDialogOpen={() => setOpenTweetDialog(true)}
-       />
+        <SolutionSubmit
+          open={openSolveDialog}
+          quesDetails={props.questionDetails}
+          handleDialogClose={() => setOpenSolveDialog(false)}
+          handleTweetDialogOpen={() => setOpenTweetDialog(true)}
+        />
       ) : (
         ""
       )}

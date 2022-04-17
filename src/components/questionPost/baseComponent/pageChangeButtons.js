@@ -8,12 +8,12 @@ export default function PageChangeButtons(props) {
     console.log(props);
     //type 0 is + 1 is -
     function getPageChange(type = 0) {
-        if (type && props.pageState === 7 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value) {
+        if (type && props.pageState === 7) {
             return props.pageState - 2;
         }
-        if (!type && props.pageState === 5 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value) {
-            return props.pageState + 2;
-        }
+        // if (!type && props.pageState === 5 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value) {
+        //     return props.pageState + 2;
+        // }
         if (!type && props.pageState === 8 && props.communityOption === communityText[1].title) {
             return props.pageState + 3;
         }

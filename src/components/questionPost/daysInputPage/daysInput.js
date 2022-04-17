@@ -26,7 +26,7 @@ export default function DaysInputComponent(props) {
             <br></br>
             <Grid item md={12}>
               <Input
-                placeholder="Days"
+                placeholder="Enter number of days"
                 className="input-field-number input-field-style "
                 type="number"
                 inputProps={{
@@ -39,9 +39,9 @@ export default function DaysInputComponent(props) {
                 }}
               />
             </Grid>
-            <Grid item md={12} className="bounty-post-unit">
+            {/* <Grid item md={12} className="bounty-post-unit">
               <p>Days</p>
-            </Grid>
+            </Grid> */}
           </Grid>
         ) : (props.pageState == 9 ? (<Grid
           container
@@ -72,9 +72,7 @@ export default function DaysInputComponent(props) {
               }}
             />
           </Grid>
-          <Grid item md={12} className="bounty-post-unit">
-            <p>Days</p>
-          </Grid>
+        
         </Grid>) : null)}
 
 

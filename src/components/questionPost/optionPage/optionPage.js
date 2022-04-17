@@ -5,19 +5,16 @@ import CardContent from "@material-ui/core/CardContent";
 import SimpleAlerts from "../../alert/alert";
 import { communityText, categoryText } from "../../../constants";
 
-
-
-
 export default function OptionComponent(props) {
   console.log(props);
   function handleClick(value) {
-    console.log(props.communityOption)
+    console.log(props.communityOption);
     if (props.communityOption === value) {
       props.handleCommunityChoice("");
     } else {
       props.handleCommunityChoice(value);
     }
-
+    console.log(value)
   }
 
   return (
@@ -39,10 +36,10 @@ export default function OptionComponent(props) {
               item
               md={6}
               xs={6}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClick(item.title);
-              }}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              //   handleClick(item.title);
+              // }}
             >
               <Card
                 className={
@@ -74,10 +71,8 @@ export default function OptionComponent(props) {
               </Card>
             </Grid>
           );
-        })
-        }
+        })}
       </Grid>
-
     </>
   );
 }

@@ -24,6 +24,7 @@ export default function QuestionCard(props) {
   } else {
     timeLeft = (props.question.timeEnd - seconds) / (3600 * 24);
   }
+  if(timeLeft>0){
   if (timeLeft < 1) {
     hoursOrDaysOrMinutes = "hour(s)";
     timeLeft = 24 * timeLeft;
@@ -36,9 +37,8 @@ export default function QuestionCard(props) {
   } else {
     timeLeft = Math.floor(timeLeft);
   }
-  const up = (v) => {
-    return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
-  };
+}
+
 
   return (
     <>
@@ -178,7 +178,7 @@ export default function QuestionCard(props) {
 
         <Grid item md={3} className="ques-detail">
           <img src={time} alt="time" className="time" />
-          <p className="time-left">{timeLeft}</p>
+          <p className="time-left">{timeLeft<0?0:timeLeft}</p>
           <p className="time-unit">{hoursOrDaysOrMinutes}</p>
         </Grid>
         <Grid item md={3}>

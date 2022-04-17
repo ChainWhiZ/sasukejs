@@ -51,9 +51,11 @@ export default function BaseComponent(props) {
                 alert={props.alert}
               />
             ) : props.pageState === 5 ? (
-              <RadioInputComponent
+              <InputComponent
                 handleValidation={props.handleValidation}
                 pageState={props.pageState}
+                issueUrl={props.issueUrl}
+                handleIssueUrl={props.handleIssueUrl}
                 handleIssueUrlOptions={props.handleIssueUrlOptions}
                 issueUrlOptions={props.issueUrlOptions}
                 alert={props.alert}

@@ -62,8 +62,8 @@ body{
 }
 
 .input-field-number {
-  font-weight: 600 !important;
-  font-size: 100px !important;
+  /* font-weight: 600 !important;
+  font-size: 100px !important; */
 }
 
 .left-title,
@@ -115,6 +115,15 @@ body{
   line-height: 150px !important;
   letter-spacing: 0.01em !important;
 }
+
+.text-area-input {
+  font-family: Poppins !important;
+  color: white !important;
+  width: 50vw !important;
+  font-style: normal !important;
+  letter-spacing: 0.01em !important;
+  color: #131313;
+}
 .chip-input-field-style .MuiInputBase-input {
   text-align: center ;
 }
@@ -131,17 +140,18 @@ body{
   margin: 0% 0% 0% 5% !important;
 }
 
-.non-selected-card:hover {
+/* .non-selected-card:hover {
   background-color: rgba(212, 255, 31, 1) !important;
   color: black I !important;
-}
+} */
 .non-selected-card {
   width: 23vw !important;
   height: 30vh !important;
   padding: 1% 2% 3% 2% !important;
   margin-bottom: 0;
-  cursor: pointer;
+  /* cursor: pointer; */
   background-color: rgba(19, 19, 19, 1) !important;
+  opacity: 60%;
 }
 
 .selected-card {
@@ -158,8 +168,8 @@ body{
 }
 
 .bounty-post-unit{
-  font-size: 2.5vw !important;
-  font-weight: 600 !important;
+  /* font-size: 2rem !important; */
+  /* font-weight: 600 !important; */
   text-align: center !important;
   color: white !important;
 }

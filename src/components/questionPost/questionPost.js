@@ -23,15 +23,11 @@ export default function QuestionPost() {
   const [issueDescription, setIssueDescription] = useState("");
   const [evaluationCriteria, setEvaluationCriteria] = useState("");
   const [reward, setReward] = useState(0);
-  const [communityOption, setCommunityOption] = useState();
+  const [communityOption, setCommunityOption] = useState("Turn off voting");
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(false);
   const [currency, setCurrency] = useState("MATIC");
-  const [issueUrlOptions, setIssueUrlOptions] = useState({
-    choice: "githubIssueUrl",
-    url1: "",
-    url2: "",
-  });
+  const [issueUrl, setIssueUrl] = useState("");
   const [terms, setTerms] = useState({
     undertaking1: false,
     undertaking2: false,
@@ -45,8 +41,6 @@ export default function QuestionPost() {
   console.log(issueTitle);
   console.log(time);
   console.log(voteTime);
-  // console.log(category)
-  console.log(issueUrlOptions);
   console.log(reward);
   console.log(communityOption);
 
@@ -70,13 +64,10 @@ export default function QuestionPost() {
   tokenPromise.then(function (v) {
     console.log(v);
     tokenContract = v;
-
   });
 
   function getIssueUrl() {
-    return issueUrlOptions.choice == "githubIssueUrl"
-      ? issueUrlOptions.url1
-      : issueUrlOptions.url2;
+    return issueUrl;
   }
   function handleGithubIssueValidation() {
     setLoader(true);
@@ -125,7 +116,7 @@ export default function QuestionPost() {
         handlePageChange(page);
       }
       if (activePage === 5) {
-        if (issueUrlOptions.url === "") {
+        if (issueUrl === "") {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -441,13 +432,12 @@ export default function QuestionPost() {
               if (val.status == 201) {
                 window.alert("Successfully posted");
                 setLoader(false);
-                console.log(axiosResponse.data)
+                console.log(axiosResponse.data);
                 history.push({
                   pathname: `/bounty/${axiosResponse.data}`,
                   state: { id: axiosResponse.data },
                 });
-              }
-              else {
+              } else {
                 setAlert((prevState) => ({
                   ...prevState,
                   isValid: true,
@@ -524,8 +514,8 @@ export default function QuestionPost() {
               {...text["page5"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleIssueUrlOptions={setIssueUrlOptions}
-              issueUrlOptions={issueUrlOptions}
+              handleIssueUrl={setIssueUrl}
+              issueUrl={issueUrl}
               alert={alert}
             />
           ) : activePage === 6 ? (
@@ -534,7 +524,6 @@ export default function QuestionPost() {
               handleValidation={handleValidation}
               pageState={activePage}
               handleIssueDescription={setIssueDescription}
-              issueUrlOptions={issueUrlOptions}
               issueDescription={issueDescription}
               alert={alert}
             />
@@ -545,7 +534,6 @@ export default function QuestionPost() {
               pageState={activePage}
               handleReward={setReward}
               reward={reward}
-              issueUrlOptions={issueUrlOptions}
               handleCurrency={setCurrency}
               currency={currency}
               alert={alert}
