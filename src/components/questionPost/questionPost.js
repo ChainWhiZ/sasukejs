@@ -325,6 +325,8 @@ export default function QuestionPost() {
           window.alert("Approving your token, wait for the next transaction");
           const trxObj = contract.methods
             .postIssue(
+              issueTitle,
+              languagesAndTools,
               getIssueUrl(),
               rewardAmount.toString(),
               communityRewardAmount.toString(),
