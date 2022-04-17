@@ -400,15 +400,15 @@ export default function QuestionPost() {
       let valid = true;
       let axiosResponse;
       try {
-        // try {
-        //   const questionResponse =
-        //     currency === "MATIC"
-        //       ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
-        //       : await questionPostingWithERC20(timeEnd, votingTimeBegin);
-        // } catch (error) {
-        //   console.log(error);
-        //   valid = false;
-        // }
+        try {
+          const questionResponse =
+            currency === "MATIC"
+              ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
+              : await questionPostingWithERC20(timeEnd, votingTimeBegin);
+        } catch (error) {
+          console.log(error);
+          valid = false;
+        }
 
         if (valid) {
           try {
