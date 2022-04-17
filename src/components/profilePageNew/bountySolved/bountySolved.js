@@ -21,29 +21,7 @@ export default function BountySolved(props) {
     severity: "error",
   });
   var solutions = [];
-  var escrowContent = [
-    {
-      escrowStatus: "completed",
-      _id: "6250939d594d5c805d7d30d5",
-      solutionLink: "https://github.com/AlbertoCruzLuis/solana-pay-tutorial",
-      publisherAddress: "0xD10A857A9B3D45b36A8CB2354A365839556978a5",
-      solverAddress: "0xfFA1aF9E558B68bBC09ad74058331c100C135280",
-      bountyUrl:
-        "https://github.com/ChainWhiZ/Chainwhiz-landing-testimonial/issues/1",
-      __v: 0,
-      id: "6250939d594d5c805d7d30d5",
-    },
-    {
-      escrowStatus: "initiated",
-      _id: "6255cdbbf62bb4a4ac31ead8",
-      solutionLink: "frontend-solution2.com",
-      publisherAddress: "0xD10A857A9B3D45b36A8CB2354A365839556978a5",
-      solverAddress: "0xfFA1aF9E558B68bBC09ad74058331c100C135280",
-      bountyUrl: "frotend-test2.app",
-      __v: 0,
-      id: "6255cdbbf62bb4a4ac31ead8",
-    },
-  ];
+  var escrowContent = [];
   useEffect(() => {
     fetchSolutions();
   }, []);
@@ -54,31 +32,28 @@ export default function BountySolved(props) {
         address: walletAddress,
       })
       .then((response) => {
-        setLoader(false); //to be removed later
         solutions = response.data;
-
-        // axios
-        //   .post(new_backend_port + "api/escrow/get_escrow_status", {
-        //     query: { solverAddress: walletAddress },
-        //   })
-        //   .then((response) => {
-        //    escrowContent=response.data
-        //     setLoader(false);
-        //
-        //   })
-        //   .catch((err) => {
-        //     setAlert((prevState) => ({
-        //       ...prevState,
-        //       open: true,
-        //       errorMessage:
-        //         "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
-        //     }));
-        //     setLoader(false);
-        //   });
+        axios
+          .post(new_backend_port + "api/escrow/get_escrow_status", {
+            query: { solverAddress: walletAddress },
+          })
+          .then((response) => {
+           escrowContent=response.data.result
+            
+          }).then(() => {
+            concatObject();
+          })
+          .catch((err) => {
+            setAlert((prevState) => ({
+              ...prevState,
+              open: true,
+              errorMessage:
+                "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+            }));
+            setLoader(false);
+          });
       })
-      .then(() => {
-        concatObject();
-      })
+    
       .catch((err) => {
         setAlert((prevState) => ({
           ...prevState,
@@ -100,6 +75,7 @@ export default function BountySolved(props) {
       });
     });
     setData(solutions);
+    setLoader(false)
   };
 
   return (

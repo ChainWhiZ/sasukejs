@@ -46,13 +46,13 @@ export default function ResultsDialog(props) {
   };
   const handleSelectedSolution = (index) => {
     setSelectedSolutionIndex(index);
-  };
+  }
 
   const escrowInitiationCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
         const trxObj = contract.methods
-          .initiateEscrow()
+          .initiateEscrow(props.question.issueUrl, solutions[selectedSolutionIndex].githubLink)
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");

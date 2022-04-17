@@ -35,10 +35,11 @@ export default function QuestionStage(props) {
   const completeCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
+        console.log(props.questionId)
         const trxObj = contract.methods
-          .transferRewardAmount(
+          .claimRewardAmount(
             props.questionId.address,
-            props.questionId.githubIssueUrl
+            props.questionId.issueUrl
           )
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
