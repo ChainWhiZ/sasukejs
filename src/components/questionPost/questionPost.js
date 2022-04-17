@@ -425,8 +425,8 @@ export default function QuestionPost() {
               languagesAndTools: languagesAndTools,
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
-              bountyReward: parseInt(reward),
-              communityReward: parseInt(reward) || 0,
+              bountyReward: parseFloat(reward),
+              communityReward: parseFloat(reward) || 0,
               isCommunityApprovedSolution:
                 communityOption == communityText[0].title ? true : false,
             });
