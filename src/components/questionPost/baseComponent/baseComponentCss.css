@@ -1,4 +1,4 @@
-body{
+body {
   overflow-x: hidden;
 }
 .right-side-card {
@@ -67,7 +67,7 @@ body{
 }
 
 .left-title,
-.left-title	.MuiFormControlLabel-label {
+.left-title .MuiFormControlLabel-label {
   font-family: Poppins !important;
   font-style: normal !important;
   font-weight: 500 !important;
@@ -107,7 +107,7 @@ body{
   margin-top: -8% !important;
 }
 .input-field-style,
-.chip-input-field-style .MuiInputBase-root  {
+.chip-input-field-style .MuiInputBase-root {
   font-family: Poppins !important;
   color: white !important;
   width: 50vw !important;
@@ -122,12 +122,11 @@ body{
   width: 50vw !important;
   font-style: normal !important;
   letter-spacing: 0.01em !important;
-  color: #131313;
 }
 .chip-input-field-style .MuiInputBase-input {
-  text-align: center ;
+  text-align: center;
 }
- .MuiFormControl-fullWidth {
+.MuiFormControl-fullWidth {
   /* width: 150% !important; */
 }
 .chip-input-field-style .MuiChip-root {
@@ -167,53 +166,50 @@ body{
   color: black !important;
 }
 
-.bounty-post-unit{
+.bounty-post-unit {
   /* font-size: 2rem !important; */
   /* font-weight: 600 !important; */
   text-align: center !important;
   color: white !important;
 }
-.bounty-post-unit .MuiSelect-icon{
+.bounty-post-unit .MuiSelect-icon {
   color: white;
 }
-.cwz{
+.cwz {
   margin-left: 6vw !important;
   margin-top: 2vw !important;
 }
-.cwz p{
+.cwz p {
   margin-top: -0vw !important;
 }
 
-
-.category-image{
+.category-image {
   width: 24px;
-  height: 24px;;
+  height: 24px;
 }
 
 .radio-input {
   width: 20vw !important;
   display: inline !important;
- 
 }
 .radio-input input {
-  margin-left: 1rem ;
+  margin-left: 1rem;
 }
 .radio-button + span {
   font-family: Poppins;
-font-style: normal;
-font-weight: 500;
-font-size: 1.3rem;
-vertical-align: middle;
-letter-spacing: 0.04em;
-
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.3rem;
+  vertical-align: middle;
+  letter-spacing: 0.04em;
 }
 .MuiRadio-root {
   color: white !important;
 }
 
-.Mui-checked{
+.Mui-checked {
   color: rgba(212, 255, 31, 1) !important ;
 }
-.page-change-buttons{
+.page-change-buttons {
   margin: 10% 0 0 29% !important;
 }

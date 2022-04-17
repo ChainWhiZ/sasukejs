@@ -22,7 +22,7 @@ export default function QuestionPost() {
   const [languagesAndTools, setLanguagesAndTools] = useState([]);
   const [issueDescription, setIssueDescription] = useState("");
   const [evaluationCriteria, setEvaluationCriteria] = useState("");
-  const [reward, setReward] = useState(0);
+  const [reward, setReward] = useState("");
   const [communityOption, setCommunityOption] = useState("Turn off voting");
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(false);
@@ -32,7 +32,7 @@ export default function QuestionPost() {
     undertaking1: false,
     undertaking2: false,
   });
-  const [communityReward, setCommunityReward] = useState(0);
+  const [communityReward, setCommunityReward] = useState("");
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [alert, setAlert] = useState({
     isValid: false,
@@ -400,15 +400,15 @@ export default function QuestionPost() {
       let valid = true;
       let axiosResponse;
       try {
-        try {
-          const questionResponse =
-            currency === "MATIC"
-              ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
-              : await questionPostingWithERC20(timeEnd, votingTimeBegin);
-        } catch (error) {
-          console.log(error);
-          valid = false;
-        }
+        // try {
+        //   const questionResponse =
+        //     currency === "MATIC"
+        //       ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
+        //       : await questionPostingWithERC20(timeEnd, votingTimeBegin);
+        // } catch (error) {
+        //   console.log(error);
+        //   valid = false;
+        // }
 
         if (valid) {
           try {
@@ -423,8 +423,8 @@ export default function QuestionPost() {
               languagesAndTools: languagesAndTools,
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
-              bountyReward: reward,
-              communityReward: communityReward,
+              bountyReward: parseInt(reward),
+              communityReward: parseInt(reward) || 0,
               isCommunityApprovedSolution:
                 communityOption == communityText[0].title ? true : false,
             });
