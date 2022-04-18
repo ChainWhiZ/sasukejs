@@ -178,7 +178,7 @@ export default function QuestionStage(props) {
             <Button className="profile-button" onClick={() => handleComplete()}>
               Claim Reward
             </Button>
-          ) : props.escrowStatus === "completed" ? (
+          ) : props.escrowStatus === "completed" || props.questionId.escrowStatus ==="completed"? (
             <Button className="profile-button">Claimed</Button>
           ) : (
             <Link to={`/bounty/${props.questionId._id}`}>
