@@ -317,7 +317,7 @@ export default function QuestionPost() {
       }
     });
   }
-  async function questionPostingWithERC20(timeEnd, votingTimeBegin) {
+  async function questionPostingWithERC20(timeEnd, votingTimeBegin,descriptionHash,evaluationHash) {
     return await new Promise((resolve, reject) => {
       const rewardAmount = reward * Math.pow(10, 18);
       const communityRewardAmount = communityReward * Math.pow(10, 18);
@@ -344,6 +344,8 @@ export default function QuestionPost() {
               languagesAndTools,
               getIssueUrl(),
               rewardAmount.toString(),
+              descriptionHash,
+              evaluationHash,
               communityRewardAmount.toString(),
               communityOption == communityText[0].title
                 ? (votingTimeBegin - 1).toString()
