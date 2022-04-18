@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BaseComponent from "./baseComponent/baseComponentPage";
 import axios from "axios";
+import fleekStorage from "@fleekhq/fleek-storage-js";
 import { useHistory } from "react-router-dom";
 import { port } from "../../config/config";
 import { text } from "../../constants";
@@ -38,6 +39,7 @@ export default function QuestionPost() {
     isValid: false,
     errorMessage: "",
   });
+  const [descriptionBuffer, setDescriptionBufferBuffer] = useState("");
   console.log(issueTitle);
   console.log(time);
   console.log(voteTime);
@@ -65,6 +67,17 @@ export default function QuestionPost() {
     console.log(v);
     tokenContract = v;
   });
+
+  async function uploadToFleek(data){
+    const uploadedFile = await fleekStorage.upload({
+      apiKey: process.env.REACT_APP_API_KEY,
+      apiSecret: process.env.REACT_APP_API_SECRET,
+      key: data,
+      data: data,
+    });
+    console.log(uploadedFile)
+    return uploadedFile.hash
+  }
 
   function getIssueUrl() {
     return issueUrl;
@@ -241,7 +254,7 @@ export default function QuestionPost() {
     }
   }
 
-  async function questionPostingWithMatic(timeEnd, votingTimeBegin) {
+  async function questionPostingWithMatic(timeEnd, votingTimeBegin, descriptionHash, evaluationHash) {
     return await new Promise((resolve, reject) => {
       const rewardAmount = reward * Math.pow(10, 18);
       const communityRewardAmount = communityReward * Math.pow(10, 18);
@@ -259,6 +272,8 @@ export default function QuestionPost() {
             issueTitle,
             languagesAndTools,
             getIssueUrl(),
+            descriptionHash,
+            evaluationHash,
             rewardAmount.toString(),
             communityRewardAmount.toString(),
             communityOption == communityText[0].title
@@ -392,6 +407,9 @@ export default function QuestionPost() {
         errorMessage: "",
       }));
       setLoader(true);
+      const descriptionHash = await uploadToFleek(issueDescription);
+      const evaluationHash = await uploadToFleek(evaluationCriteria);
+      console.log(evaluationHash)
       const timeBegin = Math.floor(new Date().getTime() / 1000);
       let timeEnd =
         timeBegin + time * 24 * 60 * 60 + voteTime * 24 * 60 * 60 + 1;
@@ -401,12 +419,13 @@ export default function QuestionPost() {
           : 0;
       let valid = true;
       let axiosResponse;
+
       try {
         try {
           const questionResponse =
             currency === "MATIC"
-              ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
-              : await questionPostingWithERC20(timeEnd, votingTimeBegin);
+              ? await questionPostingWithMatic(timeEnd, votingTimeBegin, descriptionHash, evaluationHash)
+              : await questionPostingWithERC20(timeEnd, votingTimeBegin,descriptionHash,evaluationHash );
         } catch (error) {
           console.log(error);
           valid = false;
@@ -420,8 +439,8 @@ export default function QuestionPost() {
               issueUrl: getIssueUrl(),
               currency: currency,
               timeEnd: timeEnd,
-              description: issueDescription,
-              evaluationCriteria: evaluationCriteria,
+              description: descriptionHash,
+              evaluationCriteria: evaluationHash,
               languagesAndTools: languagesAndTools,
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
