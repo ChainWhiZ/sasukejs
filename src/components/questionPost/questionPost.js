@@ -447,7 +447,7 @@ export default function QuestionPost() {
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
               bountyReward: parseFloat(reward),
-              communityReward: parseFloat(reward) || 0,
+              communityReward: parseFloat(communityReward) || 0,
               isCommunityApprovedSolution:
                 communityOption == communityText[0].title ? true : false,
             });
