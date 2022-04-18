@@ -191,7 +191,7 @@ export default function QuestionStage(props) {
                 >
                   <p className="profile-content-style profile-text-center">
                     {shortenLength(props.incentive)}{" "}
-                    {props.questionDetails.bountyCurrency}
+                    {props.questionDetails.currency}
                   </p>
                 </Tooltip>
               </>
@@ -242,7 +242,7 @@ export default function QuestionStage(props) {
                   >
                     <p className="profile-content-style profile-text-center">
                       {" "}
-                      {shortenLength(props.incentive)} {props.questionDetails.bountyCurrency}
+                      {shortenLength(props.incentive)} {props.questionDetails.currency}
                     </p>
                   </Tooltip>
                 </>
@@ -273,7 +273,7 @@ export default function QuestionStage(props) {
           )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {props.publicAddress === walletAddress ? (
+          {props.address === walletAddress ? (
             !props.claimed &&
             props.amountToBeReturned &&
             props.questionDetails.questionStage === "complete" ? (

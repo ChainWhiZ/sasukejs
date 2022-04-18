@@ -6,12 +6,13 @@ import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import CircularIndeterminate from "../../loader/loader";
+import { new_backend_port } from "../../../config/config";
 import "../profilePageCss.css";
 import { Link } from "react-router-dom";
 export default function BountySolved(props) {
-  const username = useRecoilValue(usernameAtom);
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [alert, setAlert] = useState({
@@ -19,21 +20,40 @@ export default function BountySolved(props) {
     errorMessage: "",
     severity: "error",
   });
+  var solutions = [];
+  var escrowContent = [];
   useEffect(() => {
     fetchSolutions();
   }, []);
-  console.log(data);
 
   const fetchSolutions = () => {
     axios
       .post(port + "user/solutions", {
-        githubId: username,
+        address: walletAddress,
       })
       .then((response) => {
-        setLoader(false);
-        console.log(response);
-        setData(response.data);
+        solutions = response.data;
+        axios
+          .post(new_backend_port + "api/escrow/get_escrow_status", {
+            query: { solverAddress: walletAddress },
+          })
+          .then((response) => {
+           escrowContent=response.data.result
+            
+          }).then(() => {
+            concatObject();
+          })
+          .catch((err) => {
+            setAlert((prevState) => ({
+              ...prevState,
+              open: true,
+              errorMessage:
+                "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+            }));
+            setLoader(false);
+          });
       })
+    
       .catch((err) => {
         setAlert((prevState) => ({
           ...prevState,
@@ -45,17 +65,31 @@ export default function BountySolved(props) {
       });
   };
 
+  const concatObject = () => {
+    solutions.forEach((solution) => {
+      escrowContent.forEach((escrow) => {
+        //solution.questionId.selectedSolution = escrow.solutionLink;
+        if (solution._id === escrow.solutionLink) {
+          solution.escrowStatus = escrow.escrowStatus;
+        }
+      });
+    });
+    setData(solutions);
+    setLoader(false)
+  };
+
   return (
     <>
-      {loader ? <CircularIndeterminate /> :
+      {loader ? (
+        <CircularIndeterminate />
+      ) : (
         <Grid container style={{ marginLeft: "-1%" }}>
-          {data.length ?
-
-            (data.map((solution) => (
+          {data.length ? (
+            data.map((solution) => (
               <>
                 <Grid item md={7} xs={12}>
-                <Link to={`/bounty/${solution.questionId._id}`}>
-                  <QuestionDetail {...solution.questionId} />
+                  <Link to={`/bounty/${solution.questionId._id}`}>
+                    <QuestionDetail {...solution.questionId} />
                   </Link>
                 </Grid>
                 <Grid item md={5} xs={12}>
@@ -66,14 +100,15 @@ export default function BountySolved(props) {
                   />
                 </Grid>
               </>
-            )))
-            :
-            <p style={{ "marginLeft": "3%" }}>Run the day. Don’t let it run you. Start your journey on Chainwhiz.</p>
-          }
-
+            ))
+          ) : (
+            <p style={{ marginLeft: "3%" }}>
+              Run the day. Don’t let it run you. Start your journey on
+              Chainwhiz.
+            </p>
+          )}
         </Grid>
-
-      }
+      )}
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}

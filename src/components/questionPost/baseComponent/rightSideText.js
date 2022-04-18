@@ -1,9 +1,30 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import {communityText} from "../../../constants";
+import {communityText,options} from "../../../constants";
+
 export default function RightSideText(props) {
   console.log(props);
+  //type 0 is + 1 is -
+  function getPageChange(type=0) {
+   if (type && props.pageState === 7 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
+   {
+    return props.pageState - 2;
+   }
+   if (!type && props.pageState === 5 && props.issueUrlOptions.choice === options.issueUrlOptions[0].value)
+   {
+    return props.pageState + 2;
+   }
+   if (!type && props.pageState === 8 && props.communityOption === communityText[1].title)
+   {
+    return props.pageState + 3;
+   }
+   if (type && props.pageState === 11 && props.communityOption === communityText[1].title)
+   {
+    return props.pageState - 3;
+   }
+   return type?props.pageState - 1:props.pageState + 1;
+  }
   return (
     <>
       <Grid container className="right-side-card">
@@ -24,75 +45,7 @@ export default function RightSideText(props) {
           </p>
         </Grid>
 
-        {/* <Grid item md={12} xs={12} className="button-parent">
-                        <Grid container direction="row" container
-                            justifyContent="space-between"
-                            alignItems="center"> */}
-        {props.pageState > 0 && props.pageState < 9 ? (
-          <>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 10) {
-                    props.handleValidation(props.pageState - 1);
-                  }
-                }}
-              >
-                Previous
-              </Button>
-            </Grid>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (props.pageState > 0 && props.pageState < 10) {
-                    props.handleValidation((props.pageState === 6 && props.communityOption === communityText[1].title )?props.pageState + 3:props.pageState + 1);
-                  }
-                }}
-              >
-                Next
-              </Button>
-            </Grid>
-          </>
-        ) : (
-          <>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (props.pageState > 1 && props.pageState < 10) {
-                    props.handleValidation((props.pageState === 9 && props.communityOption === communityText[1].title)?props.pageState - 3:props.pageState - 1);
-                  }
-                }}
-              >
-                Previous
-              </Button>
-            </Grid>
-            <Grid item md={6} xs={6}>
-              <Button
-                size="small"
-                variant="contained"
-                className="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  props.handleSubmit();
-                }}
-              >
-                Publish
-              </Button>
-            </Grid>
-          </>
-        )}
+       
 
       
       </Grid>

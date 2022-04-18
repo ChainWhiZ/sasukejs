@@ -3,19 +3,25 @@ import "../questionPage.css";
 import Grid from "@material-ui/core/Grid";
 import "../questionPage.css";
 import QuestionSolutionCard from "./questionSolutionCard";
-
 export default function QuestionApplicants(props) {
   return (
     <>
       <Grid container spacing={3} style={{ marginLeft: "-2.3%" }}>
-        {props.workplanIds && props.workplanIds.length !== 0 ? (
+        <Grid item md={12}>
+          <p style={{ fontWeight: 500, fontSize: "2rem" }}>
+            {props.solutions && props.solutions.length
+              ? "Submitted solutions"
+              : "No solutions yet"}
+          </p>
+        </Grid>
+        {props.solutions && props.solutions.length !== 0 ? (
           <>
-            {props.workplanIds &&
-              props.workplanIds.length &&
-              props.workplanIds.map((workplanId, index) => (
+            {props.solutions &&
+              props.solutions.length &&
+              props.solutions.map((solution, index) => (
                 <Grid item md={4}>
                   <QuestionSolutionCard
-                    workplanId={workplanId}
+                    solution={solution}
                     isCommunityApprovedSolution={
                       props.isCommunityApprovedSolution
                     }

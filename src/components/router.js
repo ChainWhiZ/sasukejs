@@ -23,7 +23,7 @@ export default function RouterComponent() {
   const updateMedia = () => {
     setDesktop(window.innerWidth > 1100);
   };
-  console.log = function () { };
+  // console.log = function () {};
   useEffect(() => {
     logEvent(firebaseAnalytics, "dApp")
     axios.all([
