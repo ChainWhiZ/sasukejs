@@ -134,7 +134,11 @@ export default function QuestionStage(props) {
             Your Solution
           </p>
           <a
-            href={props._id}
+              href={
+                props._id.includes("https://")
+                  ? props._id
+                  : `https://${props._id}`
+              }
             target="_blank"
             rel="noreferrer"
             className="profile-content-style"
@@ -147,31 +151,6 @@ export default function QuestionStage(props) {
             />
           </a>
         </Grid>
-
-        {/* <Grid item md={6} className="profile-text-center">
-          <p className="profile-text-style profile-text-center">
-            Chosen Solution
-          </p>
-          {props.questionId.selectedSolution ? (
-            <a
-              href={props.questionId.selectedSolution}
-              target="_blank"
-              rel="noreferrer"
-              className="profile-content-style"
-            >
-              <img
-                class="icon"
-                src={LinkIcon}
-                alt="git"
-                style={{ marginTop: "-2%" }}
-              />
-            </a>
-          ) : (
-            <p className="profile-content-style" style={{ marginTop: "-3%" }}>
-              NA
-            </p>
-          )}
-        </Grid> */}
 
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.escrowStatus === "initiated" ? (

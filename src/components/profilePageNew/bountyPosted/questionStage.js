@@ -33,7 +33,11 @@ export default function QuestionStage(props) {
                 Chosen Solution
               </p>
               <a
-                href={props.selectedSolution}
+                 href={
+                  props.selectedSolution.includes("https://")
+                    ? props.selectedSolution
+                    : `https://${props.selectedSolution}`
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="profile-content-style"

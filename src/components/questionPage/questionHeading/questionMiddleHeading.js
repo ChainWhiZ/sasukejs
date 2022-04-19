@@ -93,7 +93,7 @@ export default function QuestionMiddleHeading(props) {
           <img class={handleLinkDisable()?"bounty-middle-github-disabled":""} src={LinkIcon} alt="git" />
           <a
             class={handleLinkDisableClass(handleLinkDisable())}
-            href={props.issueUrl}
+            href={props.issueUrl.includes("https://")?props.issueUrl:`https://${props.issueUrl}`}
             target="_blank"
             rel="noreferrer"
           >

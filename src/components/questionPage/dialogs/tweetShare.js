@@ -36,7 +36,7 @@ export default function TweetShare(props) {
       >
         <ClearRoundedIcon
           style={{
-            marginLeft: "32vw",
+            marginLeft: "50rem",
             marginTop: "2vh",
             cursor: "pointer",
           }}
