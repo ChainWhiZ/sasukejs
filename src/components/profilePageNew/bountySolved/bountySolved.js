@@ -68,7 +68,7 @@ export default function BountySolved(props) {
   const concatObject = () => {
     solutions.forEach((solution) => {
       escrowContent.forEach((escrow) => {
-        //solution.questionId.selectedSolution = escrow.solutionLink;
+        solution.questionId.selectedSolution = escrow.solutionLink;
         if (solution._id === escrow.solutionLink) {
           solution.escrowStatus = escrow.escrowStatus;
         }

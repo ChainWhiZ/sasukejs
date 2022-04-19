@@ -16,9 +16,6 @@ import { shortenLength, checkLength } from "../../helper";
 import { Tooltip } from "@material-ui/core";
 
 export default function QuestionStage(props) {
-  console.log(props);
-  const [open, setOpen] = useState(false);
-  const [escrow, setEscrow] = useState({});
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -35,7 +32,7 @@ export default function QuestionStage(props) {
   const completeCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
-        console.log(props.questionId)
+        console.log(props.questionId);
         const trxObj = contract.methods
           .claimRewardAmount(
             props.questionId.address,
@@ -129,16 +126,16 @@ export default function QuestionStage(props) {
             </p>
           </Tooltip>
         </Grid>
-        <Grid item md={12} style={{ textAlign: "center" }}>
+        <Grid item md={6} style={{ textAlign: "center" }}>
           <p className="profile-text-style profile-text-center">
             Your Solution
           </p>
           <a
-              href={
-                props._id.includes("https://")
-                  ? props._id
-                  : `https://${props._id}`
-              }
+            href={
+              props._id.includes("https://")
+                ? props._id
+                : `https://${props._id}`
+            }
             target="_blank"
             rel="noreferrer"
             className="profile-content-style"
@@ -152,12 +149,40 @@ export default function QuestionStage(props) {
           </a>
         </Grid>
 
+          <Grid item md={6} className="profile-text-center">
+          <p className="profile-text-style profile-text-center">
+            Chosen Solution
+          </p>
+          {props.questionId.selectedSolution ? (
+            <a
+              href={props.questionId.selectedSolution}
+              target="_blank"
+              rel="noreferrer"
+              className="profile-content-style"
+            >
+              <img
+                class="profile-icon"
+                src={LinkIcon}
+                alt="git"
+                style={{ marginTop: "-2%" }}
+              />
+            </a>
+          ) : (
+            <p className="profile-content-style" style={{ marginTop: "-3%" }}>
+              NA
+            </p>
+          )}
+        </Grid>
+
+
         <Grid item md={12} style={{ textAlign: "center" }}>
           {props.escrowStatus === "initiated" ? (
             <Button className="profile-button" onClick={() => handleComplete()}>
               Claim Reward
             </Button>
-          ) : props.escrowStatus === "completed" || props.questionId.escrowStatus ==="completed"? (
+          ) : props.escrowStatus === "completed" ||
+            (props.questionId.escrowStatus === "completed" &&
+              props.questionId.selectedSolution === props._id) ? (
             <Button className="profile-button">Claimed</Button>
           ) : (
             <Link to={`/bounty/${props.questionId._id}`}>

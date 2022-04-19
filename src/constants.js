@@ -152,4 +152,5 @@ export const sidebarItems = [
   },
 ];
 
-export const twitterMessage = `Hey! Just contributed to a bounty @chainwhiz. Checkout https://app.chainwhiz.app for awesome bounties!!`;
+export const twitterMessage = `Hey Builders! I just contributed to this cool bounty @chainwhiz. Absolutely would recommend everyone to check out app.chainwhiz.app for awesome bounties!!
+#CWGOATS`;
