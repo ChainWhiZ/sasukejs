@@ -118,6 +118,9 @@ export default function BaseComponent(props) {
           <PageChangeButtons {...props} />
         </Grid>
         </Grid>
+        <Grid item md={12} xs={12}>
+        <hr className="horizontal-line"  />  
+        </Grid>
       </Grid>
 
 
