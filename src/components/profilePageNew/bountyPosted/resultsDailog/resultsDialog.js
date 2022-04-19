@@ -14,8 +14,6 @@ import {
   walletAddress as walletAddressAtom,
 } from "../../../../recoil/atoms";
 export default function ResultsDialog(props) {
-  console.log(props);
-  let valid = true;
   const [open, setOpen] = useState(props.open);
   const [alert, setAlert] = useState({
     isValid: false,
@@ -31,19 +29,15 @@ export default function ResultsDialog(props) {
     contract = v;
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
-  const [hasEscrowInitiated, setHasEscrowInitiated] = useState(false);
 
   useEffect(() => {
     axios
       .post(port + "user/view-results", { _id: props._id })
       .then((response) => {
         setSolutions(response.data);
-        if (solutions.some((e) => e.escrowId)) {
-          setHasEscrowInitiated(true);
-        }
         setLoader(false);
       });
-  },[]);
+  }, []);
 
   const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
   const handleClose = () => {
@@ -52,18 +46,13 @@ export default function ResultsDialog(props) {
   };
   const handleSelectedSolution = (index) => {
     setSelectedSolutionIndex(index);
-    console.log(selectedSolutionIndex);
-  };
-  console.log(props.publicAddress);
-  //change selected solver github id
+  }
+
   const escrowInitiationCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
         const trxObj = contract.methods
-          .initiateEscrow(
-            props.questionUrl,
-            solutions[selectedSolutionIndex].solverGithubId
-          )
+          .initiateEscrow(props.question.issueUrl, solutions[selectedSolutionIndex].githubLink)
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
@@ -98,40 +87,7 @@ export default function ResultsDialog(props) {
   const handleEscrowInitiation = async () => {
     setDisable(true);
     try {
-      try {
-        const escrowInitiationResponse = await escrowInitiationCall();
-      } catch (error) {
-        console.log(error);
-        valid = false;
-      }
-
-      if (!valid) {
-        try {
-          const axiosResponse = await axios.post(port + "escrow/init", {
-            _id: solutions[selectedSolutionIndex].githubLink,
-            questionId: props._id,
-            userId: solutions[selectedSolutionIndex].solverGithubId,
-          });
-          Promise.resolve(axiosResponse).then((val) => {
-            if (val.status == 201) {
-              window.alert("Successfully initiated");
-              handleClose(false);
-              props.handleDialogClose(false);
-            }
-          });
-        } catch (error) {
-          console.log(error);
-          valid = false;
-          setAlert((prevState) => ({
-            ...prevState,
-            open: true,
-            errorMessage: "Error",
-          }));
-          handleClose(false);
-          props.handleDialogClose(false);
-        }
-      }
-
+      await escrowInitiationCall();
     } catch (error) {
       console.log(error);
       handleClose(false);
@@ -160,7 +116,7 @@ export default function ResultsDialog(props) {
         <ClearRoundedIcon
           style={{
             color: "white",
-            marginLeft: "64vw",
+            marginLeft: "72vw",
             marginTop: "3vh",
             cursor: "pointer",
           }}
@@ -170,7 +126,7 @@ export default function ResultsDialog(props) {
         />
 
         <Grid container>
-          <Grid item md={4} xs={12}>
+          <Grid item md={4} xs={12} style={{ marginLeft: "-14%" }}>
             {solutions && solutions.length ? (
               <LeftSide
                 solutions={solutions}
@@ -179,20 +135,18 @@ export default function ResultsDialog(props) {
                 }
                 selectedSolutionIndex={selectedSolutionIndex}
               />
+            ) : loader ? (
+              <CircularProgress className="profile-page-loader" />
             ) : (
-              loader ?
-                <CircularProgress className="profile-page-loader" />
-                :
-                <p
-                  style={{
-                    fontWeight: "700",
-                    fontSize: "4vw",
-                    marginLeft: "26vw",
-                  }}
-                >
-                  No solution submitted
-                </p>
-
+              <p
+                style={{
+                  fontWeight: "700",
+                  fontSize: "4vw",
+                  marginLeft: "26vw",
+                }}
+              >
+                No solution submitted
+              </p>
             )}
           </Grid>
           <Grid item md={8} xs={12}>
@@ -200,10 +154,8 @@ export default function ResultsDialog(props) {
               <RightSide
                 selectedSolution={solutions[selectedSolutionIndex]}
                 handleEscrowInitiation={handleEscrowInitiation}
-                isCommunityApprovedSolution={props.isCommunityApprovedSolution}
-                hasEscrowInitiated={hasEscrowInitiated}
-                publicAddress={props.publicAddress}
                 disable={disable}
+                question={props.question}
               />
             ) : null}
           </Grid>

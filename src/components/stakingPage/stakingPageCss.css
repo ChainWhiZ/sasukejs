@@ -43,24 +43,24 @@
 .staking-margin-left-60 {
   margin-left: 60%;
 }
-.staking-workplan-card {
+.staking-address-card {
   cursor: pointer;
   padding-left: 4% !important;
   width: 30vw !important;
   margin-top: 7% !important;
 }
-.staking-workplan-card:hover {
+.staking-address-card:hover {
   background-color: #d4ff1e;
   color: black !important;
   border-radius: 7px;
 }
 
-.staking-selected-workplan-card {
+.staking-selected-address-card {
   background-color: #d4ff1e;
   color: black !important;
   border-radius: 7px;
 }
-.staking-workplan {
+.staking-address {
   font-family: Poppins;
   font-style: normal;
   font-weight: 600;
@@ -72,7 +72,7 @@ color: #FFFFFF; */
 
   opacity: 0.69;
 }
-.staking-workplan:hover {
+.staking-address:hover {
   color: rgba(39, 39, 39, 1);
 }
 .active-black {
@@ -120,8 +120,9 @@ color: #FFFFFF; */
 .staking-icon {
   margin: 0% 5% -2% 0%;
 }
-.staking-git-icon {
+.staking-link-icon {
   margin: 0% 4% -2% -23%;
+  transform: scale(0.4);
 }
 .staking-info-icon {
   margin: 0% 2% -0.5% 0%;
@@ -131,7 +132,7 @@ color: #FFFFFF; */
   margin-top: -2% !important;
 }
 
-.staking-workplan-heading {
+.staking-address-heading {
   font-style: normal;
   font-weight: 500;
   font-size: 1vw;

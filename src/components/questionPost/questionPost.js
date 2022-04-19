@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import BaseComponent from "./baseComponent/baseComponentPage";
 import axios from "axios";
+import fleekStorage from "@fleekhq/fleek-storage-js";
 import { useHistory } from "react-router-dom";
 import { port } from "../../config/config";
 import { text } from "../../constants";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../recoil/atoms";
 import { communityText } from "../../constants";
-import { Redirect } from "react-router-dom";
+import validator from "validator";
 import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
@@ -20,36 +20,37 @@ export default function QuestionPost() {
   const [issueTitle, setIssueTitle] = useState("");
   const [time, setTime] = useState(0);
   const [voteTime, setVoteTime] = useState(0);
-  const [category, setCategory] = useState([]);
-  const [issueURL, setIssueURL] = useState("");
-  const [reward, setReward] = useState(0);
-  const [communityOption, setCommunityOption] = useState();
+  const [languagesAndTools, setLanguagesAndTools] = useState([]);
+  const [issueDescription, setIssueDescription] = useState("");
+  const [evaluationCriteria, setEvaluationCriteria] = useState("");
+  const [reward, setReward] = useState("");
+  const [communityOption, setCommunityOption] = useState("Turn off voting");
   const [activePage, setActivePage] = useState(1);
   const [loader, setLoader] = useState(false);
   const [currency, setCurrency] = useState("MATIC");
+  const [issueUrl, setIssueUrl] = useState("");
   const [terms, setTerms] = useState({
     undertaking1: false,
     undertaking2: false,
   });
-  const [communityReward, setCommunityReward] = useState(0);
+  const [communityReward, setCommunityReward] = useState("");
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [alert, setAlert] = useState({
     isValid: false,
     errorMessage: "",
   });
-  console.log(issueTitle)
-  console.log(time)
-  console.log(voteTime)
-  console.log(category)
-  console.log(issueURL)
-  console.log(reward)
-  console.log(communityOption)
+  const [descriptionBuffer, setDescriptionBufferBuffer] = useState("");
+  console.log(issueTitle);
+  console.log(time);
+  console.log(voteTime);
+  console.log(reward);
+  console.log(communityOption);
 
   const [success, setSuccess] = useState({
     success: false,
     message: "",
   });
-  const username = useRecoilValue(usernameAtom);
+
   const contractPromise = useRecoilValue(contractAtom);
   console.log(contractPromise);
   let contract;
@@ -57,7 +58,7 @@ export default function QuestionPost() {
   promise.then(function (v) {
     contract = v;
   });
-  console.log(tokenContractAtom);
+
   const tokenContractPromise = useRecoilValue(tokenContractAtom);
   console.log(tokenContractPromise);
   let tokenContract;
@@ -65,15 +66,27 @@ export default function QuestionPost() {
   tokenPromise.then(function (v) {
     console.log(v);
     tokenContract = v;
-    console.log(tokenContract);
   });
-  console.log(tokenContract);
+
+  async function uploadToFleek(data){
+    const uploadedFile = await fleekStorage.upload({
+      apiKey: process.env.REACT_APP_API_KEY,
+      apiSecret: process.env.REACT_APP_API_SECRET,
+      key: data,
+      data: data,
+    });
+    console.log(uploadedFile)
+    return uploadedFile.hash
+  }
+
+  function getIssueUrl() {
+    return issueUrl;
+  }
   function handleGithubIssueValidation() {
-    console.log("in here");
     setLoader(true);
     return axios
       .post(port + "question/validate", {
-        githubIssueUrl: issueURL,
+        issueUrl: getIssueUrl(),
       })
       .then((response) => {
         if (response.status === 200) {
@@ -112,19 +125,39 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 4) {
-        if (!(await handleGithubIssueValidation())) {
+      if (activePage === 6) {
+        handlePageChange(page);
+      }
+      if (activePage === 5) {
+        if (issueUrl === "") {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "What’s all this rush? Enter valid issue URL.",
+            errorMessage: "What’s all this rush? Enter valid URL.",
+          }));
+        } else if (getIssueUrl().includes("https://github.com/")) {
+          if (!(await handleGithubIssueValidation())) {
+            setAlert((prevState) => ({
+              ...prevState,
+              isValid: true,
+              errorMessage:
+                "What’s all this rush? Enter valid github issue URL.",
+            }));
+          } else {
+            handlePageChange(page);
+          }
+        } else if (!validator.isURL(getIssueUrl())) {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "What’s all this rush? Enter valid URL.",
           }));
         } else {
           handlePageChange(page);
         }
       }
-      if (activePage === 5) {
-        if ((reward <= 5) && (reward >= 40000)) {
+      if (activePage === 7) {
+        if (reward <= 5 || reward >= 40000) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -136,17 +169,35 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 2) {
-        if (!category.length) {
+        if (!languagesAndTools.length) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "How dare you? Choose the right category/ies for me.",
+            errorMessage:
+              "How dare you? Enter the right languages/tools for me.",
+          }));
+        } else if (languagesAndTools.length > 13) {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Limit exceeded!!",
           }));
         } else {
           handlePageChange(page);
         }
       }
       if (activePage === 3) {
+        if (!evaluationCriteria) {
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Please enter evaluation criteria",
+          }));
+        } else {
+          handlePageChange(page);
+        }
+      }
+      if (activePage === 4) {
         if (time <= 0) {
           setAlert((prevState) => ({
             ...prevState,
@@ -157,7 +208,8 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 8) {
+
+      if (activePage === 9) {
         if (voteTime <= 0) {
           setAlert((prevState) => ({
             ...prevState,
@@ -168,22 +220,25 @@ export default function QuestionPost() {
           handlePageChange(page);
         }
       }
-      if (activePage === 7) {
+
+      if (activePage === 10) {
         if (
-          (communityReward <= 5) && (communityReward >= 40000) &&
-          communityOption == communityText[0].title
+          communityReward <= 5 ||
+          (communityReward >= 40000 &&
+            communityOption == communityText[0].title)
         ) {
           console.log(typeof communityReward);
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
-            errorMessage: "Please enter valid community reward between 5 to 40000",
+            errorMessage:
+              "Please enter valid community reward between 5 to 40000",
           }));
         } else {
           handlePageChange(page);
         }
       }
-      if (activePage === 6) {
+      if (activePage === 8) {
         if (!communityOption) {
           setAlert((prevState) => ({
             ...prevState,
@@ -199,7 +254,7 @@ export default function QuestionPost() {
     }
   }
 
-  async function questionPostingWithMatic(timeEnd, votingTimeBegin) {
+  async function questionPostingWithMatic(timeEnd, votingTimeBegin, descriptionHash, evaluationHash) {
     return await new Promise((resolve, reject) => {
       const rewardAmount = reward * Math.pow(10, 18);
       const communityRewardAmount = communityReward * Math.pow(10, 18);
@@ -213,9 +268,12 @@ export default function QuestionPost() {
       try {
         //include title, categories
         const trxObj = contract.methods
-          .postIssue(
-            username,
-            issueURL,
+          .postBounty(
+            issueTitle,
+            languagesAndTools,
+            getIssueUrl(),
+            descriptionHash,
+            evaluationHash,
             rewardAmount.toString(),
             communityRewardAmount.toString(),
             communityOption == communityText[0].title
@@ -224,7 +282,9 @@ export default function QuestionPost() {
             communityOption == communityText[0].title
               ? votingTimeBegin.toString()
               : "0",
-            communityOption == communityText[0].title ? timeEnd.toString() : "0",
+            communityOption == communityText[0].title
+              ? timeEnd.toString()
+              : "0",
             currency
           )
           .send({ from: walletAddress.toString(), value: totalAmount });
@@ -257,7 +317,7 @@ export default function QuestionPost() {
       }
     });
   }
-  async function questionPostingWithERC20(timeEnd, votingTimeBegin) {
+  async function questionPostingWithERC20(timeEnd, votingTimeBegin,descriptionHash,evaluationHash) {
     return await new Promise((resolve, reject) => {
       const rewardAmount = reward * Math.pow(10, 18);
       const communityRewardAmount = communityReward * Math.pow(10, 18);
@@ -280,9 +340,12 @@ export default function QuestionPost() {
           window.alert("Approving your token, wait for the next transaction");
           const trxObj = contract.methods
             .postIssue(
-              username,
-              issueURL,
+              issueTitle,
+              languagesAndTools,
+              getIssueUrl(),
               rewardAmount.toString(),
+              descriptionHash,
+              evaluationHash,
               communityRewardAmount.toString(),
               communityOption == communityText[0].title
                 ? (votingTimeBegin - 1).toString()
@@ -327,15 +390,6 @@ export default function QuestionPost() {
     });
   }
   async function handleSubmit() {
-    console.log(time);
-    console.log(issueTitle);
-    console.log(category);
-    console.log(issueURL);
-    console.log(reward);
-    console.log(communityOption);
-    console.log(communityReward);
-    console.log(terms);
-
     if (terms.undertaking1 === false || terms.undertaking2 === false) {
       setAlert((prevState) => ({
         ...prevState,
@@ -348,13 +402,6 @@ export default function QuestionPost() {
         isValid: true,
         errorMessage: "Please connect wallet",
       }));
-    }else if (!username) {
-      setAlert((prevState) => ({
-        ...prevState,
-        isValid: true,
-        errorMessage: "Please login to post bounty",
-      }));
-      
     } else {
       setAlert((prevState) => ({
         ...prevState,
@@ -362,21 +409,25 @@ export default function QuestionPost() {
         errorMessage: "",
       }));
       setLoader(true);
-      console.log("hereeeeee");
+      const descriptionHash = await uploadToFleek(issueDescription);
+      const evaluationHash = await uploadToFleek(evaluationCriteria);
+      console.log(evaluationHash)
       const timeBegin = Math.floor(new Date().getTime() / 1000);
-      let timeEnd = timeBegin + time * 24 * 60 * 60 + voteTime* 24 * 60 * 60+1;
+      let timeEnd =
+        timeBegin + time * 24 * 60 * 60 + voteTime * 24 * 60 * 60 + 1;
       let votingTimeBegin =
         communityOption == communityText[0].title
           ? timeBegin + time * 24 * 60 * 60 + 1
           : 0;
       let valid = true;
       let axiosResponse;
+
       try {
         try {
           const questionResponse =
             currency === "MATIC"
-              ? await questionPostingWithMatic(timeEnd, votingTimeBegin)
-              : await questionPostingWithERC20(timeEnd, votingTimeBegin);
+              ? await questionPostingWithMatic(timeEnd, votingTimeBegin, descriptionHash, evaluationHash)
+              : await questionPostingWithERC20(timeEnd, votingTimeBegin,descriptionHash,evaluationHash );
         } catch (error) {
           console.log(error);
           valid = false;
@@ -385,28 +436,37 @@ export default function QuestionPost() {
         if (valid) {
           try {
             axiosResponse = await axios.post(port + "question/save", {
-              githubId: username,
-              publicAddress: walletAddress,
-              questionTitle: issueTitle,
-              githubIssueUrl: issueURL,
-              bountyCurrency: currency,
+              address: walletAddress,
+              title: issueTitle,
+              issueUrl: getIssueUrl(),
+              currency: currency,
               timeEnd: timeEnd,
+              description: descriptionHash,
+              evaluationCriteria: evaluationHash,
+              languagesAndTools: languagesAndTools,
               solvingTimeBegin: timeBegin,
               votingTimeBegin: votingTimeBegin,
-              bountyReward: reward,
-              communityReward: communityReward,
+              bountyReward: parseFloat(reward),
+              communityReward: parseFloat(communityReward) || 0,
               isCommunityApprovedSolution:
                 communityOption == communityText[0].title ? true : false,
-              questionCategories: category,
             });
             Promise.resolve(axiosResponse).then((val) => {
               if (val.status == 201) {
                 window.alert("Successfully posted");
                 setLoader(false);
+                console.log(axiosResponse.data);
                 history.push({
                   pathname: `/bounty/${axiosResponse.data}`,
                   state: { id: axiosResponse.data },
                 });
+              } else {
+                setAlert((prevState) => ({
+                  ...prevState,
+                  isValid: true,
+                  errorMessage: "Something went wrong while posting!",
+                }));
+                valid = false;
               }
             });
           } catch (error) {
@@ -430,8 +490,6 @@ export default function QuestionPost() {
     }
   }
 
-
-
   return (
     <>
       {loader ? (
@@ -452,8 +510,8 @@ export default function QuestionPost() {
               {...text["page2"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleCategory={setCategory}
-              category={category}
+              handleChipData={setLanguagesAndTools}
+              chipData={languagesAndTools}
               alert={alert}
             />
           ) : activePage === 3 ? (
@@ -461,8 +519,8 @@ export default function QuestionPost() {
               {...text["page3"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleTime={setTime}
-              time={time}
+              handleEvaluationCriteria={setEvaluationCriteria}
+              evaluationCriteria={evaluationCriteria}
               alert={alert}
             />
           ) : activePage === 4 ? (
@@ -470,13 +528,31 @@ export default function QuestionPost() {
               {...text["page4"]}
               handleValidation={handleValidation}
               pageState={activePage}
-              handleIssueURL={setIssueURL}
-              issueURL={issueURL}
+              handleTime={setTime}
+              time={time}
               alert={alert}
             />
           ) : activePage === 5 ? (
             <BaseComponent
               {...text["page5"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleIssueUrl={setIssueUrl}
+              issueUrl={issueUrl}
+              alert={alert}
+            />
+          ) : activePage === 6 ? (
+            <BaseComponent
+              {...text["page6"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleIssueDescription={setIssueDescription}
+              issueDescription={issueDescription}
+              alert={alert}
+            />
+          ) : activePage === 7 ? (
+            <BaseComponent
+              {...text["page7"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleReward={setReward}
@@ -485,18 +561,27 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 6 ? (
+          ) : activePage === 8 ? (
             <BaseComponent
-              {...text["page6"]}
+              {...text["page8"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleCommunityChoice={setCommunityOption}
               communityOption={communityOption}
               alert={alert}
             />
-          ) : activePage === 7 ? (
+          ) : activePage === 9 ? (
             <BaseComponent
-              {...text["page7"]}
+              {...text["page9"]}
+              handleValidation={handleValidation}
+              pageState={activePage}
+              handleTime={setVoteTime}
+              time={voteTime}
+              alert={alert}
+            />
+          ) : activePage === 10 ? (
+            <BaseComponent
+              {...text["page10"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleCommunityReward={setCommunityReward}
@@ -506,9 +591,9 @@ export default function QuestionPost() {
               currency={currency}
               alert={alert}
             />
-          ) : activePage === 9 ? (
+          ) : activePage === 11 ? (
             <BaseComponent
-              {...text["page9"]}
+              {...text["page11"]}
               handleValidation={handleValidation}
               pageState={activePage}
               handleTerms={setTerms}
@@ -518,16 +603,7 @@ export default function QuestionPost() {
               walletAddress={walletAddress}
               handleSubmit={handleSubmit}
             />
-          ) : activePage === 8 ? (
-            <BaseComponent
-              {...text["page8"]}
-              handleValidation={handleValidation}
-              pageState={activePage}
-              handleTime={setVoteTime}
-              time={voteTime}
-              alert={alert}
-            />
-          ): null}
+          ) : null}
         </>
       )}
       {success.success ? alert(success.message) : null}

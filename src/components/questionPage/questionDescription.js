@@ -7,13 +7,11 @@ export default function QuestionDescription(props) {
   return (
     <Grid container className="description-box">
       <Grid item md={12}>
-        <p class="heading color-neon">DESCRIPTION</p>
+        <p class="heading color-neon">{props.questionDescription?"DESCRIPTION":"No Description Provided"}</p>
       </Grid>
       <Grid item md={12} style={{paddingRight:"3%"}}>
         <ReactMarkdown className="description">{props.questionDescription}</ReactMarkdown>
       </Grid>
-     
-
     </Grid>
   );
 }

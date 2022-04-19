@@ -129,7 +129,6 @@ p {
    }
 }
 
-
 .dialog-button:hover,
 .dialog-button:active {
   background-color: #000000;
@@ -139,6 +138,7 @@ p {
 }
 
 .dialog-button {
+  margin-top: 3%;
   outline: none;
   border: none;
 }

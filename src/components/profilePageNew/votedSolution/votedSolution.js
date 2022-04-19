@@ -6,12 +6,12 @@ import { port } from "../../../config/config";
 import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import CircularIndeterminate from "../../loader/loader";
 import "../profilePageCss.css";
 import { Link } from "react-router-dom";
 export default function VotedSolution() {
-    const username = useRecoilValue(usernameAtom);
+    const walletAddress = useRecoilValue(walletAddressAtom);
     const [data, setData] = useState([]);
     const [loader, setLoader] = useState(true);
     const [alert, setAlert] = useState({
@@ -26,7 +26,7 @@ export default function VotedSolution() {
     const fetchVotedSolutions = () => {
         axios
             .post(port + "user/votedetails", {
-                githubId: username
+                address: walletAddress
             })
             .then((response) => {
                 setLoader(false);

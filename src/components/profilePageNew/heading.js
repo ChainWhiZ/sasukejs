@@ -5,12 +5,12 @@ import "./profilePageCss.css";
 import axios from "axios";
 import { port } from "../../config/config";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
 import { Tooltip } from "@material-ui/core";
 import { checkLength, shortenLength } from "../helper";
 
 export default function Heading(props) {
-  const username = useRecoilValue(usernameAtom);
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [data, setData] = useState({});
   const [alert, setAlert] = useState({
     open: false,
@@ -21,7 +21,7 @@ export default function Heading(props) {
   useEffect(() => {
     axios
       .post(port + "user/user-details", {
-        githubId: username,
+        address: walletAddress,
       })
       .then((response) => {
         console.log(response.data)
@@ -53,26 +53,26 @@ export default function Heading(props) {
         <>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
           <Tooltip
-              title={data.questionIds.length}
+              title={data.bountyCount}
               disableHoverListener={
-                !(checkLength(data.questionIds.length, 6))
+                !(checkLength(data.bountyCount, 6))
               }
             >
             <p className="profile-details-bounty">
-            {shortenLength(data.questionIds.length, 6)}
+            {data.bountyCount}
             </p>
             </Tooltip>
             <p className="profile-details-bounty-heading">Bounties Posted</p>
           </Grid>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
             <Tooltip
-              title={data.solutionIds.length}
+              title={data.solCount}
               disableHoverListener={
-                !(checkLength(data.solutionIds.length, 6))
+                !(checkLength(data.solCount, 6))
               }
             >
               <p className="profile-details-bounty">
-                {shortenLength(data.solutionIds.length, 6)}
+                {shortenLength(data.solCount, 6)}
               </p>
             </Tooltip>
             <p className="profile-details-bounty-heading">Bounties Solved</p>
@@ -104,7 +104,7 @@ export default function Heading(props) {
         xs={12}
         className="profile-content-style profile-sub-info profile-bounty-username"
       >
-        <p>{username}</p>
+        <p>{walletAddress}</p>
       </Grid>
       <Grid
         item

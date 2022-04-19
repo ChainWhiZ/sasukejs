@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import QuestionDetail from "../questionDetail";
@@ -7,11 +8,14 @@ import QuestionStage from "./questionStage";
 import SimpleAlerts from "../../alert/alert";
 import CircularIndeterminate from "../../loader/loader";
 import { useRecoilValue } from "recoil";
-import { username as usernameAtom } from "../../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../../recoil/atoms";
 import "../profilePageCss.css";
+import { new_backend_port } from "../../../config/config";
 import { Link } from "react-router-dom";
 export default function BountyPosted(props) {
-  const username = useRecoilValue(usernameAtom);
+  var questions = [];
+  var escrowContent = [];
+  const walletAddress = useRecoilValue(walletAddressAtom);
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [alert, setAlert] = useState({
@@ -22,12 +26,28 @@ export default function BountyPosted(props) {
   useEffect(() => {
     axios
       .post(port + "user/questions", {
-        githubId: username,
+        address: walletAddress,
       })
       .then((response) => {
-        setLoader(false);
-        console.log(response.data);
-        setData(response.data.reverse());
+        questions = response.data;
+        axios
+          .post(new_backend_port + "api/escrow/get_escrow_status", {
+            query: { publisherAddress: walletAddress },
+          })
+          .then((response) => {
+            escrowContent = response.data.result;
+          }).then(() => {
+            concatObject();
+          })
+          .catch((err) => {
+            setAlert((prevState) => ({
+              ...prevState,
+              open: true,
+              errorMessage:
+                "Couldn't fetch questions! Server-side issue. Sorry for the inconvenience",
+            }));
+            setLoader(false);
+          });
       })
       .catch((err) => {
         setAlert((prevState) => ({
@@ -39,32 +59,49 @@ export default function BountyPosted(props) {
         setLoader(false);
       });
   }, []);
+
+  const concatObject = () => {
+    questions.forEach((question) => {
+      escrowContent.forEach((escrow) => {
+        if (question.issueUrl === escrow.bountyUrl) {
+          question.selectedSolution = escrow.solutionLink;
+          question.escrowStatus = escrow.escrowStatus;
+        }
+      });
+    });
+    setData(questions);
+    setLoader(false);
+  };
   return (
     <>
-      {loader ? <CircularIndeterminate /> :
+      {loader ? (
+        <CircularIndeterminate />
+      ) : (
         <Grid container style={{ marginLeft: "-1%" }}>
-          {data.length ?
-            (data.map((question) => (
+          {data.length ? (
+            data.map((question) => (
               <>
                 <Grid item md={7} xs={12}>
                   <Link to={`/bounty/${question._id}`}>
-                  <QuestionDetail {...question} />
+                    <QuestionDetail {...question} />
                   </Link>
                 </Grid>
                 <Grid item md={5} xs={12}>
                   <QuestionStage {...question} />
                 </Grid>
               </>
-            )))
-            :
-            <p style={{ "marginLeft": "3%" }}>Run the day. Don’t let it run you. Start your journey on Chainwhiz.</p>
-          }
+            ))
+          ) : (
+            <p style={{ marginLeft: "3%" }}>
+              Run the day. Don’t let it run you. Start your journey on
+              Chainwhiz.
+            </p>
+          )}
         </Grid>
-      }
+      )}
       {alert.open ? (
         <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
       ) : null}
-
     </>
   );
 }
