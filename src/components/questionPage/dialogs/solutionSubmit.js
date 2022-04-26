@@ -159,28 +159,20 @@ export default function SolutionSubmit(props) {
     } else {
       setAlert((prevState) => ({
         ...prevState,
-        open: false,
-        errorMessage: "",
+        open: true,
+        errorMessage: "Don't close or refresh thepage till the transaction is confirmed",
       }));
       await handleSubmit(solution);
     }
   };
   const handleSubmit = async (solution) => {
     try {
-      
-     
         setDisable(true);
-        setAlert((prevState) => ({
-          ...prevState,
-          open: false,
-          errorMessage: "",
-        }));
         let valid = true;
         try {
           console.log(solution)
           const solutionResponse = await solutionPosting(solution);
         } catch (error) {
-          console.log(error);
           valid = false;
         }
 
@@ -203,13 +195,11 @@ export default function SolutionSubmit(props) {
               }
             });
           } catch (error) {
-            console.log(error);
             valid = false;
           }
         }
       
     } catch (error) {
-      console.log(error);
       setOpen(false);
       setDisable(false);
       setAlert((prevState) => ({
