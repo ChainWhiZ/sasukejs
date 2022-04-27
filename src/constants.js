@@ -65,9 +65,8 @@ export const text = {
     content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
   },
   page5: {
-    title: `Enter the link to your Bounty`,
-    content: `Provide the link to your bounty here. This can be a link to a Github issue, a document, a video, a website, etc. 
-    Please note that the link entered here cannot be changed/edited once the bounty is posted.`,
+    title: `Provide the link to a resource for your Bounty`,
+    content: `This helps the contributor understand your bounty better. Use this field to redirect to a Github issue, a document, a video, a website, etc. Please note that the link entered here cannot be changed/edited once the bounty is posted.`,
   },
   page6: {
     title: "Enter the bounty description",
