@@ -126,7 +126,7 @@ export default function QuestionStage(props) {
             </p>
           </Tooltip>
         </Grid>
-        <Grid item md={6} style={{ textAlign: "center" }}>
+        <Grid item md={12} style={{ textAlign: "center" }}>
           <p className="profile-text-style profile-text-center">
             Your Solution
           </p>
@@ -149,7 +149,7 @@ export default function QuestionStage(props) {
           </a>
         </Grid>
 
-        {/* <Grid item md={6} className="profile-text-center">
+          {/* <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
             Chosen Solution
           </p>
@@ -172,8 +172,7 @@ export default function QuestionStage(props) {
               NA
             </p>
           )}
-          </Grid> */}
-
+        </Grid> */}
 
 
         <Grid item md={12} style={{ textAlign: "center" }}>
