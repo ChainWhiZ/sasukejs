@@ -27,19 +27,23 @@ export default function RouterComponent() {
     setDesktop(window.innerWidth > 1100);
   };
   // console.log = function () {};
+  //use this if coinbase goes down
+   // "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
   useEffect(() => {
     logEvent(firebaseAnalytics, "dApp");
     axios
       .all([
         axios.get(
-          "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
+          "https://api.coinbase.com/v2/exchange-rates?currency=DEV"
+        
         ),
         axios.get("https://api.coinbase.com/v2/exchange-rates?currency=MATIC"),
       ])
       .then(
         axios.spread((response1, response2) => {
           setMaticusd(response2.data.data.rates.USD);
-          setDevusd(response1.data.market_data.current_price.usd);
+          setDevusd(response2.data.data.rates.USD);
+         // setDevusd(response1.data.market_data.current_price.usd);
           window.addEventListener("resize", updateMedia);
           return () => window.removeEventListener("resize", updateMedia);
         })
