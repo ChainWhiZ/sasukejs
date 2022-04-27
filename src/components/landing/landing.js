@@ -29,29 +29,26 @@ export default function Landing() {
         </Grid> */}
         <Grid item md={12} xs={12} class="description-grid">
           <p className="landing-description">
-            Discover Bounties. Contribute to your favorite DAOs and Protocols. Earn in Crypto.
+            Discover Bounties. Contribute to your favorite DAOs and Protocols.
+            Earn in Crypto.
           </p>
         </Grid>
       </Grid>
-      <Grid container
+      <Grid
+        container
         justifyContent="space-evenly"
         className="landing-category-grid"
-        md={12}>
-
-        <Grid item md={4} xs={12} >
+        md={12}
+      >
+        <Grid item md={4} xs={12}>
           <Link to="/post">
-            <Button
-              size="large"
-              variant="outlined"
-              className="landing-button"
-            >
+            <Button size="large" variant="outlined" className="landing-button">
               Post a Bounty
             </Button>
           </Link>
         </Grid>
 
-
-        <Grid item md={4} xs={12} >
+        <Grid item md={4} xs={12}>
           <Link to="/solve" className="link">
             <Button
               size="large"
@@ -63,30 +60,39 @@ export default function Landing() {
           </Link>
         </Grid>
 
-
-        <Grid item md={4} xs={12} >
+        <Grid item md={4} xs={12}>
           <Link to="/vote" className="link">
-            <Button
-              size="large"
-              variant="outlined"
-              className="landing-button"
-            >
+            <Button size="large" variant="outlined" className="landing-button">
               Vote on Solutions
             </Button>
           </Link>
         </Grid>
 
-
-        <Grid item md={12} xs={12} style={{ textAlign: "center", marginTop: "5rem" }}>
+        <Grid
+          item
+          md={12}
+          xs={12}
+          style={{ textAlign: "center", marginTop: "5rem" }}
+        >
           {/* <img src={info} alt="info" /> */}
           <i className="landing-warning">
             {" "}
-            It’s not you. It’s us. Our contract is not audited. Report bugs at
-            hello.chainwhiz@gmail.com.
+            The mainnet is still a new product milestone. Report bugs and any improvements in
+            our{" "}
+            <span>
+              <a
+                href="https://discord.com/invite/NjxUxWAfuz"
+                target="_blank"
+                rel="noreferrer"
+                style={{color:"#d4ff1e"}}
+              >
+                Discord
+              </a>
+            </span>
           </i>
         </Grid>
       </Grid>
-      <hr className="horizontal-line" style={{ marginTop: "8%" }} />     
+      <hr className="horizontal-line" style={{ marginTop: "8%" }} />
     </>
   );
 }

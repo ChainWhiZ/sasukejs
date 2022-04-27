@@ -150,6 +150,7 @@ export default function QuestionStage(props) {
         </Grid>
 
           <Grid item md={6} className="profile-text-center">
+          {/* <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
             Chosen Solution
           </p>
@@ -173,6 +174,7 @@ export default function QuestionStage(props) {
             </p>
           )}
         </Grid>
+
 
 
         <Grid item md={12} style={{ textAlign: "center" }}>
