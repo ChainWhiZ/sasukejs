@@ -68,7 +68,7 @@ export default function QuestionPost() {
     tokenContract = v;
   });
 
-  async function uploadToFleek(data){
+  async function uploadToFleek(data) {
     const uploadedFile = await fleekStorage.upload({
       apiKey: process.env.REACT_APP_API_KEY,
       apiSecret: process.env.REACT_APP_API_SECRET,
@@ -157,7 +157,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
-        if (reward <= 0.000001 || reward >= 40000) {
+        if (reward <= 5 || reward >= 40000) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -317,7 +317,7 @@ export default function QuestionPost() {
       }
     });
   }
-  async function questionPostingWithERC20(timeEnd, votingTimeBegin,descriptionHash,evaluationHash) {
+  async function questionPostingWithERC20(timeEnd, votingTimeBegin, descriptionHash, evaluationHash) {
     return await new Promise((resolve, reject) => {
       const rewardAmount = reward * Math.pow(10, 18);
       const communityRewardAmount = communityReward * Math.pow(10, 18);
@@ -333,50 +333,50 @@ export default function QuestionPost() {
         const approvalTrx = tokenContract.methods
           .approve(
             process.env.REACT_APP_CHAINWHIZ_CORE_ADDRESS,
-            (totalAmount * 2).toString()
+            (totalAmount).toString()
           )
           .send({ from: walletAddress.toString() });
-        approvalTrx.on("receipt", function (receipt) {
-          window.alert("Approving your token, wait for the next transaction");
-          const trxObj = contract.methods
-            .postIssue(
-              issueTitle,
-              languagesAndTools,
-              getIssueUrl(),
-              rewardAmount.toString(),
-              descriptionHash,
-              evaluationHash,
-              communityRewardAmount.toString(),
-              communityOption == communityText[0].title
-                ? (votingTimeBegin - 1).toString()
-                : timeEnd.toString(),
-              communityOption == communityText[0].title
-                ? votingTimeBegin.toString()
-                : "0",
-              communityOption == communityText[0].title
-                ? timeEnd.toString()
-                : "0",
-              currency
-            )
-            .send({ from: walletAddress.toString() });
+        window.alert("Approving your token, wait for the next transaction");
+        approvalTrx.on("receipt", async function (receipt) {
+            const trxObj = contract.methods
+              .postBounty(
+                issueTitle,
+                languagesAndTools,
+                getIssueUrl(),
+                descriptionHash,
+                evaluationHash,
+                rewardAmount.toString(),
+                communityRewardAmount.toString(),
+                communityOption == communityText[0].title
+                  ? (votingTimeBegin - 1).toString()
+                  : timeEnd.toString(),
+                communityOption == communityText[0].title
+                  ? votingTimeBegin.toString()
+                  : "0",
+                communityOption == communityText[0].title
+                  ? timeEnd.toString()
+                  : "0",
+                currency
+              )
+              .send({ from: walletAddress.toString() });
 
-          trxObj.on("receipt", function (receipt) {
-            console.log("Successfully done");
-            //  window.alert("Suuccessfulyy posted")
-            resolve(receipt);
-          });
+            trxObj.on("receipt", function (receipt) {
+              console.log("Successfully done");
+              //  window.alert("Suuccessfulyy posted")
+              resolve(receipt);
+            });
 
-          trxObj.on("error", function (error, receipt) {
-            setLoader(false);
-            console.log(error);
-            if (error)
-              window.alert(
-                error.transactionHash
-                  ? `Went wrong in trc hash :${error.transactionHash}`
-                  : error.message
-              );
-            reject(error.message);
-          });
+            trxObj.on("error", function (error, receipt) {
+              setLoader(false);
+              console.log(error);
+              if (error)
+                window.alert(
+                  error.transactionHash
+                    ? `Went wrong in trc hash :${error.transactionHash}`
+                    : error.message
+                );
+              reject(error.message);
+            });
         });
       } catch (error) {
         console.log(error);
@@ -427,7 +427,7 @@ export default function QuestionPost() {
           const questionResponse =
             currency === "MATIC"
               ? await questionPostingWithMatic(timeEnd, votingTimeBegin, descriptionHash, evaluationHash)
-              : await questionPostingWithERC20(timeEnd, votingTimeBegin,descriptionHash,evaluationHash );
+              : await questionPostingWithERC20(timeEnd, votingTimeBegin, descriptionHash, evaluationHash);
         } catch (error) {
           console.log(error);
           valid = false;
