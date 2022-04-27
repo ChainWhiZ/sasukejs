@@ -25,20 +25,18 @@ export const approvalTypes = [
 ];
 
 export const options = {
-  issueUrlOptions:
-
-    [
-      {
-        value: 'githubIssueUrl',
-        label: 'Github Issue Url',
-        placeholder: 'Enter Github issue Link'
-      }, {
-        value: 'otherUrl',
-        label: 'Other Url',
-        placeholder: 'Enter other link'
-      }
-    ],
-
+  issueUrlOptions: [
+    {
+      value: "githubIssueUrl",
+      label: "Github Issue Url",
+      placeholder: "Enter Github issue Link",
+    },
+    {
+      value: "otherUrl",
+      label: "Other Url",
+      placeholder: "Enter other link",
+    },
+  ],
 };
 export const drawerList = [
   "Edit your profile",
@@ -56,7 +54,7 @@ export const text = {
     title: `Which tools/softwares
     are required?`,
     content: `Tag the names of the softwares/tools that needs to be used to solve the bounty. Example- ReactJS, Photoshop, MongoDB, Figma, etc. 
-    Type in the name of the tool/software and press Enter to add it as a tag`,
+    Type in the name of the tool/software and press Enter to add it as a tag.`,
   },
   page3: {
     title: `List the evaluation criterias`,
@@ -67,12 +65,14 @@ export const text = {
     content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
   },
   page5: {
-    title: `Provide the Github issue link`,
-    content: `Provide the link to the issue on your Github for which you’re posting this bounty. Please do not post a spam link or a shortened link. The community checks for spam bounties and can report you for acting as a bad actor.`,
+    title: `Enter the link to your Bounty`,
+    content: `Provide the link to your bounty here. This can be a link to a Github issue, a document, a video, a website, etc. 
+    Please note that the link entered here cannot be changed/edited once the bounty is posted.`,
   },
   page6: {
-    title: 'Enter the bounty description',
-    content: 'Use this area to describe to the builders any details regarding the bounty. Chances of getting a good solution to your bounties increase 10x times if the description has been filled out.'
+    title: "Enter the bounty description",
+    content:
+      "Use this area to describe to the builders any details regarding the bounty. Chances of getting a good solution to your bounties increase 10x times if the description has been filled out.",
   },
   page7: {
     title: `Provide the bounty amount`,
@@ -152,4 +152,5 @@ export const sidebarItems = [
   },
 ];
 
-export const twitterMessage = `Hey! Just contributed to a bounty @chainwhiz. Checkout https://app.chainwhiz.app for awesome bounties!!`
+export const twitterMessage = `Hey Builders! I just contributed to this cool bounty @chainwhiz. Absolutely would recommend everyone to check out app.chainwhiz.app for awesome bounties!!
+#CWGOATS`;
