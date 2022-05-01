@@ -15,7 +15,6 @@ export default function RightCard(props) {
   const handleChange = (value) => {
     props.handleSetStakeDetails({
       solutionId: props.solution._id,
-      solveraddress: props.solution.address,
       stakeAmount: value,
     });
   };

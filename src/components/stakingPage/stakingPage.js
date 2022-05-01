@@ -27,7 +27,6 @@ export default function StakingPage(props) {
   const [loader, setLoader] = useState(false);
   const [stakeDetails, setStakeDetails] = useState({
     solutionId: "",
-    solveraddress: "",
     stakeAmount: 0,
   });
   const [alert, setAlert] = useState({
@@ -56,8 +55,7 @@ export default function StakingPage(props) {
 
   const fetchVoterDetails = () => {
     axios
-      .post(port + "user/isvoter", {
-        address: walletAddress,
+      .post(port + "vote/has-voted", {
         questionId: props.location.state.questionDetails._id,
       })
       .then((response) => {
@@ -140,54 +138,53 @@ export default function StakingPage(props) {
   };
   const handleStake = async () => {
     let valid = true;
-    // try {
-    //   setLoader(true);
-    //   try {
-    //     const stakeResponse = await stakePosting();
-    //   } catch (error) {
-    //     valid = false;
-    //   }
+    try {
+      setLoader(true);
+      try {
+      //  const stakeResponse = await stakePosting();
+      } catch (error) {
+        valid = false;
+      }
 
-    //   if (valid) {
-    //     try {
-    //       const axiosResponse = axios.post(port + "vote/save", {
-    //         address: walletAddress,
-    //         amountStaked: stakeDetails.stakeAmount,
-    //         timestamp: Date.now() / 1000,
-    //         solutionId: stakeDetails.solutionId,
-    //         githubId: username,
-    //       });
-    //       Promise.resolve(axiosResponse).then((val) => {
-    //         if (val.status == 201) {
-    //           setLoader(false);
+      if (valid) {
+        try {
+          const axiosResponse = axios.post(port + "vote/save", {
+            address: walletAddress,
+            amountStaked: stakeDetails.stakeAmount,
+            solutionId: stakeDetails.solutionId,
+            questionId: props.location.state.questionDetails._id,
+          });
+          Promise.resolve(axiosResponse).then((val) => {
+            if (val.status == 201) {
+              setLoader(false);
 
-    //           window.alert("Successfully voted");
-    //           fetchVoterDetails();
-    //           setStakeDetails((prevState) => ({
-    //             ...prevState,
-    //             stakeAmount: 0,
-    //           }));
-    //         }
-    //       });
-    //     } catch (error) {
-    //       setLoader(false);
-    //       setAlert((prevState) => ({
-    //         ...prevState,
-    //         isValid: true,
-    //         errorMessage: "Something went wrong while staking!",
-    //       }));
+              window.alert("Successfully voted");
+              fetchVoterDetails();
+              setStakeDetails((prevState) => ({
+                ...prevState,
+                stakeAmount: 0,
+              }));
+            }
+          });
+        } catch (error) {
+          setLoader(false);
+          setAlert((prevState) => ({
+            ...prevState,
+            isValid: true,
+            errorMessage: "Something went wrong while staking!",
+          }));
 
-    //       valid = false;
-    //     }
-    //   }
-    // } catch (error) {
-    //   setLoader(false);
-    //   setAlert((prevState) => ({
-    //     ...prevState,
-    //     isValid: true,
-    //     errorMessage: "Something went wrong while staking!",
-    //   }));
-    // }
+          valid = false;
+        }
+      }
+    } catch (error) {
+      setLoader(false);
+      setAlert((prevState) => ({
+        ...prevState,
+        isValid: true,
+        errorMessage: "Something went wrong while staking!",
+      }));
+    }
   };
 
   if (!walletAddress) {
