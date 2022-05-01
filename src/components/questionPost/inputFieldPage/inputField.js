@@ -158,7 +158,7 @@ export default function InputComponent(props) {
               <br />
               <br />
             </Grid>
-            <Grid item md={12} xs={12} style={{ marginLeft: "23%" }}>
+            <Grid item md={12} xs={12} style={{ marginLeft: "15%" }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -174,24 +174,6 @@ export default function InputComponent(props) {
               <span className="terms-text">
                 I confirm that the address belongs to me and all transactions
                 will be associated with the same.
-              </span>
-            </Grid>
-            <Grid item md={12} xs={12} style={{ marginLeft: "23%" }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                    checkedIcon={<CheckBoxIcon fontSize="small" />}
-                    name="undertaking2"
-                    checked={props.terms.undertaking2}
-                    onChange={handleUndertakings}
-                    color="secondary"
-                    style={{ color: "white" }}
-                  />
-                }
-              />
-              <span className="terms-text">
-                I have read and understood all terms and conditions.
               </span>
             </Grid>
           </>

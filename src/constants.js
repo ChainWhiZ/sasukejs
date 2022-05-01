@@ -66,7 +66,8 @@ export const text = {
   },
   page5: {
     title: `Provide the link to a resource for your Bounty`,
-    content: `This helps the contributor understand your bounty better. Use this field to redirect to a Github issue, a document, a video, a website, etc. Please note that the link entered here cannot be changed/edited once the bounty is posted.`,
+    content: `Provide the link to your bounty here. This can be a link to a Github issue, a document, a video, a website, etc. 
+    Please note that the link entered here cannot be changed/edited once the bounty is posted.`,
   },
   page6: {
     title: "Enter the bounty description",

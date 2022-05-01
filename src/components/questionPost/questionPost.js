@@ -338,45 +338,45 @@ export default function QuestionPost() {
           .send({ from: walletAddress.toString() });
         window.alert("Approving your token, wait for the next transaction");
         approvalTrx.on("receipt", async function (receipt) {
-            const trxObj = contract.methods
-              .postBounty(
-                issueTitle,
-                languagesAndTools,
-                getIssueUrl(),
-                descriptionHash,
-                evaluationHash,
-                rewardAmount.toString(),
-                communityRewardAmount.toString(),
-                communityOption == communityText[0].title
-                  ? (votingTimeBegin - 1).toString()
-                  : timeEnd.toString(),
-                communityOption == communityText[0].title
-                  ? votingTimeBegin.toString()
-                  : "0",
-                communityOption == communityText[0].title
-                  ? timeEnd.toString()
-                  : "0",
-                currency
-              )
-              .send({ from: walletAddress.toString() });
+          const trxObj = contract.methods
+            .postBounty(
+              issueTitle,
+              languagesAndTools,
+              getIssueUrl(),
+              descriptionHash,
+              evaluationHash,
+              rewardAmount.toString(),
+              communityRewardAmount.toString(),
+              communityOption == communityText[0].title
+                ? (votingTimeBegin - 1).toString()
+                : timeEnd.toString(),
+              communityOption == communityText[0].title
+                ? votingTimeBegin.toString()
+                : "0",
+              communityOption == communityText[0].title
+                ? timeEnd.toString()
+                : "0",
+              currency
+            )
+            .send({ from: walletAddress.toString() });
 
-            trxObj.on("receipt", function (receipt) {
-              console.log("Successfully done");
-              //  window.alert("Suuccessfulyy posted")
-              resolve(receipt);
-            });
+          trxObj.on("receipt", function (receipt) {
+            console.log("Successfully done");
+            //  window.alert("Suuccessfulyy posted")
+            resolve(receipt);
+          });
 
-            trxObj.on("error", function (error, receipt) {
-              setLoader(false);
-              console.log(error);
-              if (error)
-                window.alert(
-                  error.transactionHash
-                    ? `Went wrong in trc hash :${error.transactionHash}`
-                    : error.message
-                );
-              reject(error.message);
-            });
+          trxObj.on("error", function (error, receipt) {
+            setLoader(false);
+            console.log(error);
+            if (error)
+              window.alert(
+                error.transactionHash
+                  ? `Went wrong in trc hash :${error.transactionHash}`
+                  : error.message
+              );
+            reject(error.message);
+          });
         });
       } catch (error) {
         console.log(error);
@@ -604,6 +604,8 @@ export default function QuestionPost() {
               handleSubmit={handleSubmit}
             />
           ) : null}
+          <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+
         </>
       )}
       {success.success ? alert(success.message) : null}
