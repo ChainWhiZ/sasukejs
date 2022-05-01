@@ -3,7 +3,9 @@
   margin-bottom: 15vh;
   margin-top: 5vh;
 }
-
+a > p:hover{
+  color: #d4ff1e;
+}
 .common-text-css {
   font-style: normal;
   font-weight: 600;

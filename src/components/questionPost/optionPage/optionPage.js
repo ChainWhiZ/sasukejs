@@ -36,6 +36,7 @@ export default function OptionComponent(props) {
               item
               md={6}
               xs={6}
+             
               // onClick={(e) => {
               //   e.preventDefault();
               //   handleClick(item.title);

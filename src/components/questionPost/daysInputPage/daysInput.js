@@ -20,7 +20,7 @@ export default function DaysInputComponent(props) {
             <Grid item md={12} xs={12}>
               <p className="left-title" style={{ color: "white" }}>
                 {" "}
-                Expected Time for Solving
+                Expected Time for Solving(Days)
               </p>
             </Grid>
             <br></br>
