@@ -31,7 +31,6 @@ export default function QuestionPost() {
   const [issueUrl, setIssueUrl] = useState("");
   const [terms, setTerms] = useState({
     undertaking1: false,
-    undertaking2: false,
   });
   const [communityReward, setCommunityReward] = useState("");
   const walletAddress = useRecoilValue(walletAddressAtom);
@@ -390,7 +389,7 @@ export default function QuestionPost() {
     });
   }
   async function handleSubmit() {
-    if (terms.undertaking1 === false || terms.undertaking2 === false) {
+    if (terms.undertaking1 === false) {
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
