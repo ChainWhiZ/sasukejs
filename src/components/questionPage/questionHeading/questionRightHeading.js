@@ -23,6 +23,7 @@ export default function QuestionRightHeading(props) {
   const up = (v) => {
     return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
   };
+  console.log(checkLength(props.communityReward));
   return (
     <>
       <Grid

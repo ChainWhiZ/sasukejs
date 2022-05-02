@@ -160,7 +160,7 @@ export default function SolutionSubmit(props) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Don't close or refresh thepage till the transaction is confirmed",
+        errorMessage: "Don't close or refresh the page till the transaction is confirmed",
       }));
       await handleSubmit(solution);
     }
