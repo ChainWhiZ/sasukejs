@@ -70,7 +70,7 @@ export default function StakingPage(props) {
   };
 
   const handleStakeValidation = () => {
-    if (stakeDetails.stakeAmount <= 5 || stakeDetails.stakeAmount >= 40) {
+    if (stakeDetails.stakeAmount >= 5 || stakeDetails.stakeAmount >= 40) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
@@ -94,54 +94,53 @@ export default function StakingPage(props) {
 
   const stakePosting = async () => {
     
-    // return await new Promise((resolve, reject) => {
-    //   try {
-    //     const trxObj = contract.methods
-    //       .stakeVote(
-    //         props.location.state.questionDetails.githubIssueUrl,
-    //         props.location.state.questionDetails.address.toString(),
-    //         props.location.state.questionDetails.publisherGithubId,
-    //         stakeDetails.solverGithubId,
-    //         stakeDetails.solveraddress.toString(),
-    //         stakeDetails.solutionId,
-    //         username
-    //       )
-    //       .send({
-    //         from: walletAddress.toString(),
-    //         value: stakeDetails.stakeAmount * Math.pow(10, 18),
-    //       });
-    //     trxObj.on("receipt", function (receipt) {
-    //       // window.alert("Successfully voted");
-    //       resolve(receipt);
-    //     });
+    return await new Promise((resolve, reject) => {
+      try {
+        console.log( props.location.state.questionDetails.issueUrl,
+          props.location.state.questionDetails.address.toString(),
+          stakeDetails.solutionId)
+        const trxObj = contract.methods
+          .stakeVote(
+            props.location.state.questionDetails.issueUrl,
+            props.location.state.questionDetails.address.toString(),
+            stakeDetails.solutionId,
+          )
+          .send({
+            from: walletAddress.toString(),
+            value: stakeDetails.stakeAmount * Math.pow(10, 18),
+          });
+        trxObj.on("receipt", function (receipt) {
+          // window.alert("Successfully voted");
+          resolve(receipt);
+        });
 
-    //     trxObj.on("error", function (error, receipt) {
-    //       if (error)
-    //         window.alert(
-    //           error.transactionHash
-    //             ? `Went wrong. in trc hash :${error.transactionHash}`
-    //             : error.message
-    //         );
-    //       setLoader(false);
-    //       reject(error.message);
-    //     });
-    //   } catch (error) {
-    //     window.alert(
-    //       error.transactionHash
-    //         ? `Went wrong in trc hash :${error.transactionHash}`
-    //         : error.message
-    //     );
-    //     setLoader(false);
-    //     reject(error);
-    //   }
-    // });
+        trxObj.on("error", function (error, receipt) {
+          if (error)
+            window.alert(
+              error.transactionHash
+                ? `Went wrong. in trc hash :${error.transactionHash}`
+                : error.message
+            );
+          setLoader(false);
+          reject(error.message);
+        });
+      } catch (error) {
+        window.alert(
+          error.transactionHash
+            ? `Went wrong in trc hash :${error.transactionHash}`
+            : error.message
+        );
+        setLoader(false);
+        reject(error);
+      }
+    });
   };
   const handleStake = async () => {
     let valid = true;
     try {
       setLoader(true);
       try {
-      //  const stakeResponse = await stakePosting();
+       const stakeResponse = await stakePosting();
       } catch (error) {
         valid = false;
       }
