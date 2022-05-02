@@ -149,6 +149,9 @@ body {
   background-color: rgba(212, 255, 31, 1) !important;
   color: black I !important;
 } */
+.options-page-grid {
+  margin:0 -9% 0 0 !important;
+}
 .non-selected-card {
   width: 23vw !important;
   height: 30vh !important;
@@ -156,7 +159,6 @@ body {
   margin-bottom: 0;
   /* cursor: pointer; */
   background-color: rgb(68, 65, 65) !important;
-
 }
 
 .selected-card {
@@ -178,9 +180,11 @@ body {
   text-align: center !important;
   color: white !important;
 }
-.bounty-post-unit .MuiSelect-icon {
-  color: white;
+.bounty-post-unit .MuiPaper-root {
+  /* color: white; */
+  /* transform: scale(1.5); */
 }
+
 .cwz {
   margin-left: 6vw !important;
   margin-top: 2vw !important;
@@ -217,5 +221,5 @@ body {
   color: rgba(212, 255, 31, 1) !important ;
 }
 .page-change-buttons {
-  margin: 10% 0 0 29% !important;
+  margin: 0% 0 0 29% !important;
 }
