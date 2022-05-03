@@ -57,6 +57,7 @@ export default function StakingPage(props) {
     axios
       .post(port + "vote/has-voted", {
         questionId: props.location.state.questionDetails._id,
+        address: walletAddress,
       })
       .then((response) => {
         setLoader(false);
