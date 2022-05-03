@@ -104,7 +104,7 @@ export default function QuestionStage(props) {
         try {
           const axiosResponse = await axios
             .post(port + "vote/updatereward", {
-              voterId: props.voterId,
+              address: walletAddress,
               solutionId: props.solutionId._id,
             })
 
