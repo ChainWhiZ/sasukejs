@@ -74,7 +74,7 @@ export default function BountySolved(props) {
         }
       });
     });
-    setData(solutions);
+    setData(solutions.reverse());
     setLoader(false)
   };
 

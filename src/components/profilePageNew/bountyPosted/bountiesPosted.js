@@ -69,7 +69,7 @@ export default function BountyPosted(props) {
         }
       });
     });
-    setData(questions);
+    setData(questions.reverse());
     setLoader(false);
   };
   return (
