@@ -10,19 +10,22 @@ import {
   walletAddress as walletAddressAtom,
   devusd as devusdAtom,
 } from "../../../recoil/atoms";
+import { getReward } from "../../helper";
 import { useRecoilValue } from "recoil";
 import { Tooltip } from "@material-ui/core";
 import { checkLength, shortenLength } from "../../helper";
 export default function QuestionRightHeading(props) {
   console.log(props.currency);
   const walletAddress = useRecoilValue(walletAddressAtom);
+  const devusd = useRecoilValue(devusdAtom);
+  const maticusd = useRecoilValue(maticusdAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const [openTweetDialog, setOpenTweetDialog] = useState(false);
-  const maticusd = useRecoilValue(maticusdAtom);
-  const devusd = useRecoilValue(devusdAtom);
   const up = (v) => {
     return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
   };
+  console.log(devusd);
+  console.log(props.bountyReward * devusd);
   return (
     <>
       <Grid
@@ -63,23 +66,12 @@ export default function QuestionRightHeading(props) {
 
           <Tooltip
             title={
-              props.questionStage === "solve"
-                ? props.currency === "DEV"
-                  ? devusd * props.bountyReward
-                  : maticusd * props.bountyReward
-                : props.currency === "DEV"
-                ? devusd * props.communityReward
-                : maticusd * props.communityReward
+              getReward(props, devusd, maticusd)
             }
             disableHoverListener={
               !checkLength(
-                props.questionStage === "solve"
-                  ? props.currency === "DEV"
-                    ? devusd * props.bountyReward
-                    : maticusd * props.bountyReward
-                  : props.currency === "DEV"
-                  ? devusd * props.communityReward
-                  : maticusd * props.communityReward
+                getReward(props, devusd, maticusd)
+
               )
             }
             className="bounty-time"
@@ -87,13 +79,8 @@ export default function QuestionRightHeading(props) {
             <p class="bounty-time margin-top-20">
               {" "}
               {shortenLength(
-                props.questionStage === "solve"
-                  ? props.currency === "DEV"
-                    ? devusd * props.bountyReward
-                    : maticusd * props.bountyReward
-                  : props.currency === "DEV"
-                  ? devusd * props.communityReward
-                  : maticusd * props.communityReward
+                getReward(props, devusd, maticusd)
+
               )}{" "}
               USD
             </p>

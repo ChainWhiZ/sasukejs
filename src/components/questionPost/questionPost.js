@@ -157,7 +157,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
-        if (reward <= 5 || reward >= 40000) {
+        if (reward <= 0.001 || reward >= 40000) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -223,7 +223,7 @@ export default function QuestionPost() {
 
       if (activePage === 10) {
         if (
-          communityReward <= 5 ||
+          communityReward <= 0.001 ||
           (communityReward >= 40000 &&
             communityOption == communityText[0].title)
         ) {
