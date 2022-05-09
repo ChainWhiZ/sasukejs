@@ -27,7 +27,7 @@ export default function OptionComponent(props) {
         direction="row"
         alignItems="center"
         justifyContent="center"
-        spacing={3}
+        spacing={0}
         className="option-page-margins"
       >
         {communityText.map((item) => {
@@ -36,10 +36,10 @@ export default function OptionComponent(props) {
               item
               md={6}
               xs={6}
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   handleClick(item.title);
-              // }}
+              onClick={(e) => {
+                e.preventDefault();
+                handleClick(item.title);
+              }}
             >
               <Card
                 className={

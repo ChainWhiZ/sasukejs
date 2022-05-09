@@ -51,7 +51,7 @@ export default function Section3() {
           </a>
         </Grid>
         <Grid item md={12} xs={12}>
-          <p style={{ color: "#d7ff2e" }}>hello.chainwhiz@gmail.com</p>
+          <p style={{ color: "#d7ff2e" }}>hello@chainwhiz.app</p>
         </Grid>
       </Grid>
     </>

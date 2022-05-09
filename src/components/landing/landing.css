@@ -75,9 +75,19 @@ p {
   font-size: 1.6rem !important;
   padding: 0.8rem 6rem !important;
 }
+.landing-button:hover {
+  background-color: #d4ff1e !important;
+  color: #000000 !important;
+}
 .landing-button-highlighted{
   background-color: #d4ff1e !important;
   color: #000000 !important;
+}
+
+.landing-button-highlighted:hover{
+  color: white !important;
+  border: solid 0.2rem #d4ff1e !important;
+  background-color: #131313 !important;
 }
 
 .category-box {

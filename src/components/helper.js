@@ -16,3 +16,16 @@ export const shortenLength = (val, n = 4) => {
   // else
   //     return val.toString();
 };
+
+export const getReward = (questionDetails, devusd, maticusd) => {
+  if (questionDetails.questionStage === "vote") {
+    if (questionDetails.currency === "DEV")
+      return devusd * questionDetails.communityReward;
+    else
+      return maticusd * questionDetails.communityReward;
+  }
+  if (questionDetails.currency === "DEV")
+    return devusd * questionDetails.bountyReward;
+  else
+    return maticusd * questionDetails.bountyReward;
+}

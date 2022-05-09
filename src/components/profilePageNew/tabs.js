@@ -67,12 +67,12 @@ export default function ProfileTabs() {
             label="Bounties Solved"
             {...a11yProps(1)}
           />
-          {/* <Tab
+          <Tab
             className="profile-tab-heading"
             style={{ marginLeft: "-3%" }}
             label="Voting"
             {...a11yProps(2)}
-          /> */}
+          />
         </Tabs>
       </Box>
       <hr

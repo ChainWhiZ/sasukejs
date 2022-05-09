@@ -31,7 +31,6 @@ export default function QuestionPost() {
   const [issueUrl, setIssueUrl] = useState("");
   const [terms, setTerms] = useState({
     undertaking1: false,
-    undertaking2: false,
   });
   const [communityReward, setCommunityReward] = useState("");
   const walletAddress = useRecoilValue(walletAddressAtom);
@@ -157,7 +156,7 @@ export default function QuestionPost() {
         }
       }
       if (activePage === 7) {
-        if (reward <= 5 || reward >= 40000) {
+        if (reward <= 0.001 || reward >= 40000) {
           setAlert((prevState) => ({
             ...prevState,
             isValid: true,
@@ -223,7 +222,7 @@ export default function QuestionPost() {
 
       if (activePage === 10) {
         if (
-          communityReward <= 5 ||
+          communityReward <= 0.001 ||
           (communityReward >= 40000 &&
             communityOption == communityText[0].title)
         ) {
@@ -338,45 +337,45 @@ export default function QuestionPost() {
           .send({ from: walletAddress.toString() });
         window.alert("Approving your token, wait for the next transaction");
         approvalTrx.on("receipt", async function (receipt) {
-            const trxObj = contract.methods
-              .postBounty(
-                issueTitle,
-                languagesAndTools,
-                getIssueUrl(),
-                descriptionHash,
-                evaluationHash,
-                rewardAmount.toString(),
-                communityRewardAmount.toString(),
-                communityOption == communityText[0].title
-                  ? (votingTimeBegin - 1).toString()
-                  : timeEnd.toString(),
-                communityOption == communityText[0].title
-                  ? votingTimeBegin.toString()
-                  : "0",
-                communityOption == communityText[0].title
-                  ? timeEnd.toString()
-                  : "0",
-                currency
-              )
-              .send({ from: walletAddress.toString() });
+          const trxObj = contract.methods
+            .postBounty(
+              issueTitle,
+              languagesAndTools,
+              getIssueUrl(),
+              descriptionHash,
+              evaluationHash,
+              rewardAmount.toString(),
+              communityRewardAmount.toString(),
+              communityOption == communityText[0].title
+                ? (votingTimeBegin - 1).toString()
+                : timeEnd.toString(),
+              communityOption == communityText[0].title
+                ? votingTimeBegin.toString()
+                : "0",
+              communityOption == communityText[0].title
+                ? timeEnd.toString()
+                : "0",
+              currency
+            )
+            .send({ from: walletAddress.toString() });
 
-            trxObj.on("receipt", function (receipt) {
-              console.log("Successfully done");
-              //  window.alert("Suuccessfulyy posted")
-              resolve(receipt);
-            });
+          trxObj.on("receipt", function (receipt) {
+            console.log("Successfully done");
+            //  window.alert("Suuccessfulyy posted")
+            resolve(receipt);
+          });
 
-            trxObj.on("error", function (error, receipt) {
-              setLoader(false);
-              console.log(error);
-              if (error)
-                window.alert(
-                  error.transactionHash
-                    ? `Went wrong in trc hash :${error.transactionHash}`
-                    : error.message
-                );
-              reject(error.message);
-            });
+          trxObj.on("error", function (error, receipt) {
+            setLoader(false);
+            console.log(error);
+            if (error)
+              window.alert(
+                error.transactionHash
+                  ? `Went wrong in trc hash :${error.transactionHash}`
+                  : error.message
+              );
+            reject(error.message);
+          });
         });
       } catch (error) {
         console.log(error);
@@ -390,7 +389,7 @@ export default function QuestionPost() {
     });
   }
   async function handleSubmit() {
-    if (terms.undertaking1 === false || terms.undertaking2 === false) {
+    if (terms.undertaking1 === false) {
       setAlert((prevState) => ({
         ...prevState,
         isValid: true,
@@ -604,6 +603,8 @@ export default function QuestionPost() {
               handleSubmit={handleSubmit}
             />
           ) : null}
+          <hr className="horizontal-line" style={{ marginTop: "8%" }} />
+
         </>
       )}
       {success.success ? alert(success.message) : null}
