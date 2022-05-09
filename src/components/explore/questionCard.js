@@ -9,6 +9,7 @@ import {
   maticusd as maticusdAtom,
   devusd as devusdAtom,
 } from "../../recoil/atoms";
+import { getReward } from "../helper";
 import { useRecoilValue } from "recoil";
 import { checkLength, shortenLength } from "../helper";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -24,20 +25,20 @@ export default function QuestionCard(props) {
   } else {
     timeLeft = (props.question.timeEnd - seconds) / (3600 * 24);
   }
-  if(timeLeft>0){
-  if (timeLeft < 1) {
-    hoursOrDaysOrMinutes = "hour(s)";
-    timeLeft = 24 * timeLeft;
+  if (timeLeft > 0) {
     if (timeLeft < 1) {
-      hoursOrDaysOrMinutes = "minute(s)";
-      timeLeft = Math.floor(60 * timeLeft);
+      hoursOrDaysOrMinutes = "hour(s)";
+      timeLeft = 24 * timeLeft;
+      if (timeLeft < 1) {
+        hoursOrDaysOrMinutes = "minute(s)";
+        timeLeft = Math.floor(60 * timeLeft);
+      } else {
+        timeLeft = Math.floor(timeLeft);
+      }
     } else {
       timeLeft = Math.floor(timeLeft);
     }
-  } else {
-    timeLeft = Math.floor(timeLeft);
   }
-}
 
 
   return (
@@ -80,36 +81,21 @@ export default function QuestionCard(props) {
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               <Tooltip
                 title={
-                  props.question.type === "solve"
-                    ? props.question.currency === "DEV"
-                      ? devusd * props.question.bountyReward
-                      : maticusd * props.question.bountyReward
-                    : props.question.currency === "DEV"
-                    ? devusd * props.question.communityReward
-                    : maticusd * props.question.communityReward
+                  getReward(props.question)
+
                 }
                 disableHoverListener={
                   !checkLength(
-                    props.question.type === "solve"
-                      ? props.question.currency === "DEV"
-                        ? devusd * props.question.bountyReward
-                        : maticusd * props.question.bountyReward
-                      : props.question.currency === "DEV"
-                      ? devusd * props.question.communityReward
-                      : maticusd * props.question.communityReward
+                    getReward(props.question)
+
                   )
                 }
               >
                 <p className="reward__value">
                   {" "}
                   {shortenLength(
-                    props.question.type === "solve"
-                      ? props.question.currency === "DEV"
-                        ? devusd * props.question.bountyReward
-                        : maticusd * props.question.bountyReward
-                      : props.question.currency === "DEV"
-                      ? devusd * props.question.communityReward
-                      : maticusd * props.question.communityReward
+                    getReward(props.question)
+
                   )}{" "}
                   USD
                 </p>
@@ -119,7 +105,7 @@ export default function QuestionCard(props) {
         ) : (
           <>
             <Grid item md={2} xs={12} className="reward-grid ">
-            <Tooltip
+              <Tooltip
                 title={
                   props.question.bountyReward
                 }
@@ -136,31 +122,31 @@ export default function QuestionCard(props) {
                   )}{" "}
                   {props.question.currency}
                 </p>
-                </Tooltip>
+              </Tooltip>
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
-            <Tooltip
+              <Tooltip
                 title={
-                     props.question.currency === "DEV"
-                      ? devusd * props.question.bountyReward
-                      : maticusd * props.question.bountyReward
-                    
+                  props.question.currency === "DEV"
+                    ? devusd * props.question.bountyReward
+                    : maticusd * props.question.bountyReward
+
                 }
                 disableHoverListener={
                   !checkLength(
-                     props.question.currency === "DEV"
-                        ? devusd * props.question.bountyReward
-                        : maticusd * props.question.bountyReward
-                    )
+                    props.question.currency === "DEV"
+                      ? devusd * props.question.bountyReward
+                      : maticusd * props.question.bountyReward
+                  )
                 }
               >
                 <p className="reward__value">
                   {" "}
                   {shortenLength(
                     props.question.currency === "DEV"
-                        ? devusd * props.question.bountyReward
-                        : maticusd * props.question.bountyReward
-                    )}{" "}
+                      ? devusd * props.question.bountyReward
+                      : maticusd * props.question.bountyReward
+                  )}{" "}
                   USD
                 </p>
               </Tooltip>
@@ -170,7 +156,7 @@ export default function QuestionCard(props) {
       </Grid>
 
       <Grid container>
-        {props.question.languagesAndTools.slice(0,4).map((category) => (
+        {props.question.languagesAndTools.slice(0, 4).map((category) => (
           <Grid item md>
             <Box className="ques-category-box">{category}</Box>
           </Grid>
@@ -178,7 +164,7 @@ export default function QuestionCard(props) {
 
         <Grid item md={3} className="ques-detail">
           <img src={time} alt="time" className="time" />
-          <p className="time-left">{timeLeft<0?0:timeLeft}</p>
+          <p className="time-left">{timeLeft < 0 ? 0 : timeLeft}</p>
           <p className="time-unit">{hoursOrDaysOrMinutes}</p>
         </Grid>
         <Grid item md={3}>

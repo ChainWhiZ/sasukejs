@@ -26,7 +26,7 @@ export default function RouterComponent() {
   const updateMedia = () => {
     setDesktop(window.innerWidth > 1100);
   };
-  // console.log = function () {};
+   console.log = function () {};
   //use this if coinbase goes down
    // "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function RouterComponent() {
       .then(
         axios.spread((response1, response2) => {
           setMaticusd(response2.data.data.rates.USD);
-          setDevusd(response2.data.data.rates.USD);
+          setDevusd(response1.data.data.rates.USD);
          // setDevusd(response1.data.market_data.current_price.usd);
           window.addEventListener("resize", updateMedia);
           return () => window.removeEventListener("resize", updateMedia);
