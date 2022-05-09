@@ -1,11 +1,17 @@
 .link {
   text-decoration: none;
   color: white;
+  cursor: pointer;
+}
+.link > p:hover{
+  color: #d4ff1f !important;
 }
 a {
   text-decoration: none;
   color: white;
 }
+
+
 .navbar {
   height: 16vh;
 }
