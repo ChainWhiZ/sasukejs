@@ -8,10 +8,10 @@ export default function QuestionApplicants(props) {
     <>
       <Grid container spacing={3} style={{ marginLeft: "-2.3%" }}>
         <Grid item md={12}>
-          <p style={{ fontWeight: 500, fontSize: "2rem" }}>
+          <p style={{ fontWeight: 700, fontSize: "2rem" }}>
             {props.solutions && props.solutions.length
               ? "Submitted solutions"
-              : "No solutions yet"}
+              : "Be the first one to submit a solution"}
           </p>
         </Grid>
         {props.solutions && props.solutions.length !== 0 ? (

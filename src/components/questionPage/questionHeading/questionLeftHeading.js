@@ -12,7 +12,7 @@ export default function QuestionLeftHeading(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const [openTweetDialog, setOpenTweetDialog] = useState(false);
-  let hoursOrDaysOrMinutes = "days";
+  let hoursOrDaysOrMinutes = "day(s)";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
   if (
@@ -58,12 +58,12 @@ export default function QuestionLeftHeading(props) {
           </Grid>
         )}
         <Grid item md={12}>
-          <p class="heading color-neon margin-top-10">Applicants</p>
+          <p class="heading color-neon margin-top-7">Applicants</p>
           <p class="bounty-time">
             {props.questionDetails.solutions.length || 0}
           </p>
         </Grid>
-        <Grid item md={12} className="margin-top-10">
+        <Grid item md={12} className="margin-top-7">
           {props.questionDetails.questionStage === "vote" ? (
             <Link
               to={{

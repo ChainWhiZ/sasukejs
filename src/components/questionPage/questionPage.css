@@ -7,10 +7,11 @@
 }
 .heading {
   font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 1.1rem;
   /* line-height: 60px; */
-  letter-spacing: 0.01em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .link {
@@ -21,7 +22,7 @@
 .heading-text {
   font-style: normal;
   font-weight: 600;
-  font-size: 1vw;
+  font-size: 1.4rem;
   letter-spacing: 0.01em;
 }
 .heading-text-category::first-letter {
@@ -36,8 +37,8 @@
 .margin-top-2 {
   margin-top: -2%;
 }
-.margin-top-10 {
-  margin-top: -10% !important;
+.margin-top-7 {
+  margin-top: -7% !important;
 }
 .center {
   text-align: center;
@@ -46,7 +47,7 @@
 .description {
   font-style: normal;
   font-weight: normal;
-  font-size: 1vw;
+  font-size: 1.4rem;
   letter-spacing: 0.04em;
 }
 .bounty-time {
@@ -64,7 +65,7 @@
   background: #131313;
   border-radius: 11px;
   width: 19vw !important;
-  height: 38vh !important;
+  height: 43vh !important;
   margin: 1% 0% 5% -9%;
   padding: 3% 3% 6% 3%;
 }
@@ -176,11 +177,11 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 800 !important;
-  font-size: 12px;
+  font-size: 1.3rem;
   letter-spacing: 0em;
   text-align: center;
-  height: 38px;
-  width: 180px;
+  height: 6vh;
+  width: 12vw;
   cursor: pointer;
 
   border: 1px solid #000000;

@@ -33,7 +33,7 @@ export default function QuestionDetail(props) {
           alignItems="center"
         >
           <Grid item md={12}>
-            <p className="profile-text-style">Categories</p>
+            <p className="profile-text-style">Languages/Tools</p>
           </Grid>
           {props.languagesAndTools&&
             props.languagesAndTools.length &&
