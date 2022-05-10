@@ -9,7 +9,7 @@ import {
   maticusd as maticusdAtom,
   devusd as devusdAtom,
 } from "../../recoil/atoms";
-import { getReward } from "../helper";
+import { getUSDReward, getReward } from "../helper";
 import { useRecoilValue } from "recoil";
 import { checkLength, shortenLength } from "../helper";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -17,6 +17,7 @@ export default function QuestionCard(props) {
   console.log(props)
   const maticusd = useRecoilValue(maticusdAtom);
   const devusd = useRecoilValue(devusdAtom);
+  console.log(devusd)
   let hoursOrDaysOrMinutes = "day(s)";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
@@ -53,26 +54,23 @@ export default function QuestionCard(props) {
         {props.question.isCommunityApprovedSolution ? (
           <>
             <Grid item md={2} xs={12} className="reward-grid">
+
               <Tooltip
                 title={
-                  props.question.type === "solve"
-                    ? props.question.bountyReward
-                    : props.question.communityReward
+                  getReward(props.question)
                 }
                 disableHoverListener={
                   !checkLength(
-                    props.question.type === "solve"
-                      ? props.question.bountyReward
-                      : props.question.communityReward
+                    getReward(props.question)
+
                   )
                 }
               >
                 <p className="reward__value">
                   {" "}
                   {shortenLength(
-                    props.question.type === "solve"
-                      ? props.question.bountyReward
-                      : props.question.communityReward
+                    getReward(props.question)
+
                   )}{" "}
                   {props.question.currency}
                 </p>
@@ -81,12 +79,12 @@ export default function QuestionCard(props) {
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               <Tooltip
                 title={
-                  getReward(props.question)
+                  getUSDReward(props.question, devusd, maticusd)
 
                 }
                 disableHoverListener={
                   !checkLength(
-                    getReward(props.question)
+                    getUSDReward(props.question, devusd, maticusd)
 
                   )
                 }
@@ -94,7 +92,7 @@ export default function QuestionCard(props) {
                 <p className="reward__value">
                   {" "}
                   {shortenLength(
-                    getReward(props.question)
+                    getUSDReward(props.question, devusd, maticusd)
 
                   )}{" "}
                   USD
@@ -127,25 +125,21 @@ export default function QuestionCard(props) {
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               <Tooltip
                 title={
-                  props.question.currency === "DEV"
-                    ? devusd * props.question.bountyReward
-                    : maticusd * props.question.bountyReward
+                  getUSDReward(props.question, devusd, maticusd)
 
                 }
                 disableHoverListener={
                   !checkLength(
-                    props.question.currency === "DEV"
-                      ? devusd * props.question.bountyReward
-                      : maticusd * props.question.bountyReward
+                    getUSDReward(props.question, devusd, maticusd)
+
                   )
                 }
               >
                 <p className="reward__value">
                   {" "}
                   {shortenLength(
-                    props.question.currency === "DEV"
-                      ? devusd * props.question.bountyReward
-                      : maticusd * props.question.bountyReward
+                    getUSDReward(props.question, devusd, maticusd)
+
                   )}{" "}
                   USD
                 </p>

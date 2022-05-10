@@ -10,7 +10,7 @@ import {
   walletAddress as walletAddressAtom,
   devusd as devusdAtom,
 } from "../../../recoil/atoms";
-import { getReward } from "../../helper";
+import { getReward, getUSDReward } from "../../helper";
 import { useRecoilValue } from "recoil";
 import { Tooltip } from "@material-ui/core";
 import { checkLength, shortenLength } from "../../helper";
@@ -41,24 +41,18 @@ export default function QuestionRightHeading(props) {
 
           <Tooltip
             title={
-              props.questionStage === "vote"
-                ? props.communityReward
-                : props.bountyReward
+             getReward(props)
             }
             disableHoverListener={
               !checkLength(
-                props.questionStage === "vote"
-                  ? props.communityReward
-                  : props.bountyReward
+                getReward(props)
               )
             }
             className="bounty-time"
           >
             <p class="bounty-time">
               {shortenLength(
-                props.questionStage === "vote"
-                  ? props.communityReward
-                  : props.bountyReward
+                getReward(props)
               )}{" "}
               {props.currency}
             </p>
@@ -66,11 +60,11 @@ export default function QuestionRightHeading(props) {
 
           <Tooltip
             title={
-              getReward(props, devusd, maticusd)
+              getUSDReward(props, devusd, maticusd)
             }
             disableHoverListener={
               !checkLength(
-                getReward(props, devusd, maticusd)
+                getUSDReward(props, devusd, maticusd)
 
               )
             }
@@ -79,7 +73,7 @@ export default function QuestionRightHeading(props) {
             <p class="bounty-time margin-top-20">
               {" "}
               {shortenLength(
-                getReward(props, devusd, maticusd)
+                getUSDReward(props, devusd, maticusd)
 
               )}{" "}
               USD
