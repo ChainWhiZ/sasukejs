@@ -17,7 +17,8 @@ export const shortenLength = (val, n = 4) => {
   //     return val.toString();
 };
 
-export const getReward = (questionDetails, devusd, maticusd) => {
+export const getUSDReward = (questionDetails, devusd, maticusd) => {
+  console.log(devusd)
   if (questionDetails.questionStage === "vote") {
     if (questionDetails.currency === "DEV")
       return devusd * questionDetails.communityReward;
@@ -28,4 +29,11 @@ export const getReward = (questionDetails, devusd, maticusd) => {
     return devusd * questionDetails.bountyReward;
   else
     return maticusd * questionDetails.bountyReward;
+}
+
+export const getReward = (questionDetails) => {
+  if (questionDetails.questionStage === "vote") {
+    return questionDetails.communityReward;
+  }
+  return questionDetails.bountyReward;
 }
