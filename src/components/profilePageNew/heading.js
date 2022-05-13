@@ -52,15 +52,15 @@ export default function Heading(props) {
       {data && Object.keys(data).length ?
         <>
           <Grid item md={3} className="profile-details-bounty-heading-grid">
-          <Tooltip
+            <Tooltip
               title={data.bountyCount}
               disableHoverListener={
                 !(checkLength(data.bountyCount, 6))
               }
             >
-            <p className="profile-details-bounty">
-            {data.bountyCount}
-            </p>
+              <p className="profile-details-bounty">
+                {data.bountyCount}
+              </p>
             </Tooltip>
             <p className="profile-details-bounty-heading">Bounties Posted</p>
           </Grid>
@@ -86,7 +86,7 @@ export default function Heading(props) {
                 }
               >
                 <p className="profile-details-bounty">
-                {shortenLength(data.voterWeightage, 6)}
+                  {shortenLength(data.voterWeightage, 6)}
                 </p>
               </Tooltip>
             ) : (
@@ -113,9 +113,7 @@ export default function Heading(props) {
         className="profile-content-style profile-sub-info"
       >
         <p>
-          An open-source and decentralized project-building marketplace on
-          Polygon with zero platform fees. List your polygon projects and
-          connect with developers.
+          Chainwhiz is an open-source bounty marketplace connecting Web3 protocols with contributors and communities. Solve bounties. Earn Crypto.
         </p>
       </Grid>
 

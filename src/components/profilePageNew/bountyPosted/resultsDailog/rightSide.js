@@ -21,7 +21,7 @@ export default function RightSide(props) {
             <img src={BlackInfoIcon} alt="info" />
           </Grid>
           <Grid item md={11}>
-            <p>Make a copy of the repo before completing the escrow</p>
+            <p>Make sure that you initiate the escrow for the right solution. Keep a backup if necessary.</p>
           </Grid>
         </Grid>
         <Grid container className="results-dialog-right-grid-content">
