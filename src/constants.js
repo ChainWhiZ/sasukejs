@@ -48,7 +48,7 @@ export const drawerList = [
 export const text = {
   page1: {
     title: `What should we call your Bounty?`,
-    content: `The title is the first thing that a builder sees when he/she comes across your bounty. It’s best practise to keep the title closely related to the issue. Avoid vague words like Important, amazing, stunning etc.`,
+    content: `The title is the first thing that a builder sees when he/she comes across your bounty. It’s best practise to keep the title closely related to the bounty. Avoid vague words like Important, amazing, stunning etc.`,
   },
   page2: {
     title: `Which tools/softwares
