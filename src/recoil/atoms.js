@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 export const username = atom({
   key: "username",
-  default:"mishramonalisha76",
+  default:"",
 });
 
 export const walletAddress = atom({
