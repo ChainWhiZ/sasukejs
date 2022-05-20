@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./explore.css";
 import { Link } from "react-router-dom";
-import accountCircle from "../../assets/account-circle.png";
 import postBounty from "../../assets/post_bounty.png";
 import postBountyBlack from "../../assets/post-bounty-black.png";
 import solveBounty from "../../assets/solve_bounty.png";
 import voteBounty from "../../assets/vote_bounty.png";
-import whiteProfile from "../../assets/profile.png";
-import blackProfile from "../../assets/black_profile.png";
-import smallBusiness from "../../assets/small-business.png";
 import smallBusinessWhite from "../../assets/small-business-white.png";
 import whiteSolveBounty from "../../assets/white_solve_bounty.png";
 import blackVoteBounty from "../../assets/black_vote_bounty.png";
+import whiteProfile from "../../assets/profile.png";
+import blackProfile from "../../assets/black_profile.png";
+import smallBusiness from "../../assets/small-business.png";
 import { useRecoilValue } from "recoil";
 import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
 import LoginPopup from "../landing/loginPopup";
+import Avatar from "../avatar/avatar";
 
 export default function MenuBar(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
@@ -36,19 +36,61 @@ export default function MenuBar(props) {
   return (
     <>
       <Grid container className="menubar">
-        <Grid item md={12} className="menubar-usergrid">
-          {walletAddress ? (
-            <>
-              <img src={accountCircle} alt="account" />
-              <p className="menubar-username">
-                {walletAddress.substring(0, 4) +
-                  "..." +
-                  walletAddress.substring(38)}
-              </p>
-            </>
-          ) : null}
-        </Grid>
+        {walletAddress ? (
+          <Link to="/profile">
+            <Grid item md={12}
+              className={
+                props.type === "profile" ? "grid-item active" : "grid-item"
+              }>
 
+              <>
+                <Avatar
+                  className="menubar-usergrid-avatar"
+                  seed={walletAddress}
+                  scale={5}
+                  color="#003153"
+                />
+                <p
+                  className={
+                    props.type === "profile"
+                      ? "menubar-items p-active"
+                      : "menubar-items"
+                  }>
+                  {walletAddress.substring(0, 4) +
+                    "..." +
+                    walletAddress.substring(38)}
+                </p>
+              </>
+
+            </Grid>
+          </Link>
+        ) :
+          <div
+            class="profile-div"
+            onMouseEnter={() => toggleHover("profile", blackProfile)}
+            onMouseLeave={() => toggleHover("profile", whiteProfile)}
+            onClick={() => {
+              setLoginPopup(true);
+            }}
+          >
+            <img
+              src={
+                props.type === "profile"
+                  ? blackProfile
+                  : toggleHoverIcons.profile
+              }
+              alt="profile"
+            />
+            <p
+              className={
+                props.type === "profile"
+                  ? "menubar-items p-active"
+                  : "menubar-items"
+              }
+            >
+              Your Profile
+            </p>
+          </div>}
         <Link to="/post">
           <Grid
             item
@@ -91,7 +133,7 @@ export default function MenuBar(props) {
           </Grid>
         </Link>
 
-        <a href="https://bounties-app.chainwhiz.app/" target="_blank">
+        {/* <a href="https://bounties-app.chainwhiz.app/" target="_blank">
           <Grid
             item
             md={12}
@@ -108,7 +150,7 @@ export default function MenuBar(props) {
 
             <p className="menubar-items">Bounty Aggregator</p>
           </Grid>
-        </a>
+        </a> */}
 
         <Link to="/vote">
           <Grid
@@ -137,7 +179,7 @@ export default function MenuBar(props) {
             </p>
           </Grid>
         </Link>
-        {walletAddress ? (
+        {/* {walletAddress ? (
           <Link to="/profile">
             <Grid
               item
@@ -194,7 +236,7 @@ export default function MenuBar(props) {
               Your Profile
             </p>
           </div>
-        )}
+        )} */}
       </Grid>
       {loginPopup ? (
         <LoginPopup

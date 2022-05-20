@@ -4,14 +4,23 @@
   height: 39vh !important;
 }
 
+.profile-heading-grid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
 .profile-account-icon {
   margin-top: -27%;
   margin-left: 9%;
+  border-radius: 50%;
 }
 
-.profile-icon{
-  transform:scale(0.5);
+.profile-icon {
+  transform: scale(0.5);
 }
+
 /* .profile-right-grid{
     margin:2% 0% 2% 1% !important;
 } */
@@ -24,6 +33,7 @@
 
   color: #d4ff1e !important;
 }
+
 .profile-tab-heading {
   font-family: Poppins !important;
   font-style: normal !important;
@@ -34,6 +44,7 @@
   opacity: 0.68;
   margin-right: 3% !important;
 }
+
 .profile-question-detail-grid {
   background: #131313;
   border-radius: 11px;
@@ -42,6 +53,7 @@
   margin: 6% 2% 2% 2%;
   padding: 4% 4% 4% 5%;
 }
+
 .profile-question-stage-grid {
   background: #131313;
   border-radius: 11px;
@@ -51,6 +63,7 @@
   height: 50vh;
   margin-left: 9vw;
 }
+
 .profile-button {
   background: #d4ff1f !important;
   border-radius: 6px !important;
@@ -60,11 +73,13 @@
   text-transform: none !important;
   font-size: 1vw !important;
 }
+
 .profile-button:hover {
   color: rgba(255, 255, 255, 1) !important;
   background-color: rgba(29, 29, 29, 1) !important;
   text-transform: "none" !important;
 }
+
 .profile-button:disabled {
   background-color: #cccccc !important;
   color: #666666 !important;
@@ -81,9 +96,11 @@
   margin-left: 0vw !important;
   line-height: 3.5vh !important;
 }
+
 .profile-text-center {
   text-align: center;
 }
+
 .profile-bounty-reward {
   font-size: 2vw !important;
 }
@@ -100,6 +117,7 @@
 .profile-bounty-username {
   font-size: 1.3vw !important;
 }
+
 .results-dialog .MuiDialog-paper {
   width: 80vw;
   height: 72vh;
@@ -135,6 +153,7 @@
   padding: 0.1% 0.1% 0.1% 8%;
   cursor: pointer;
 }
+
 .results-dialog-left-grid-solution p {
   font-family: Poppins;
   font-style: normal;
@@ -145,6 +164,7 @@
   color: #ffffff;
   opacity: 0.69;
 }
+
 .results-dialog-left-grid-solution img {
   margin: 0% 6% 0% 0%;
 }
@@ -153,9 +173,11 @@
   background-color: #d4ff1e;
   border-radius: 10px;
 }
+
 .results-dialog-left-grid-selected-solution p {
   color: black;
 }
+
 .results-dialog-right-grid-warning {
   background: #d7ff2e;
   border-radius: 8px;
@@ -163,6 +185,7 @@
   padding-left: 6%;
   margin-top: -4%;
 }
+
 .results-dialog-right-grid-content {
   background: #131313;
   border-radius: 8px;
@@ -170,6 +193,7 @@
   padding: 4% 4% 4% 6%;
   width: 36vw !important;
 }
+
 .results-dialog-right-grid-warning p {
   font-family: Poppins;
   font-style: normal;
@@ -180,23 +204,28 @@
 
   color: #0e0e0e;
 }
+
 .results-dialog-right-grid-warning img {
   margin-right: 2%;
 }
+
 .results-dialog-right-grid {
   margin: 10%;
 }
+
 .results-dialog-right-grid-button {
   font-weight: 600 !important;
   font-size: 1.1vw !important;
   margin-left: 30% !important;
   text-transform: capitalize !important;
 }
+
 .results-dialog-right-grid-content-value {
   font-weight: 500;
   font-size: 20px;
   letter-spacing: 0.01em;
 }
+
 .results-dialog-right-grid-content-score {
   font-weight: 600;
   font-size: 55px;
@@ -212,9 +241,11 @@
   margin-top: -9.3vh !important;
   margin-left: 16vw !important;
 }
+
 .results-dialog-right-grid-info {
-  margin-top: 2.3vh !important ;
+  margin-top: 2.3vh !important;
 }
+
 .results-dialog-right-grid-content-value-non-community {
   margin-top: -2.3vh !important;
   margin-left: -1vw !important;
@@ -235,6 +266,7 @@
   letter-spacing: 0.03em;
   text-align: center;
 }
+
 .profile-details-bounty-heading {
   font-style: normal;
   font-weight: normal;
@@ -245,9 +277,11 @@
   letter-spacing: 0.03em;
   text-align: center;
 }
+
 .profile-details-bounty-heading-grid {
-  margin-top: -7vw !important;
+  margin-top: -9vw !important;
 }
+
 .unstake__image {
   border-radius: 50%;
   border: 1px solid #ffffff;
@@ -256,13 +290,13 @@
   height: 30px;
   margin: 0 auto;
 }
-.profile-page-loader
-{
-    color: rgba(215, 255, 46, 1) !important;
-    margin:auto;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    position:fixed;
+
+.profile-page-loader {
+  color: rgba(215, 255, 46, 1) !important;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
 }

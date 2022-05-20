@@ -1,7 +1,7 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { useHistory } from "react-router-dom";
+import { useHistory,useLocation } from "react-router-dom";
 import logo from "../../assets/new-logo.svg";
 import {
   walletAddress as walletAddressAtom,
@@ -26,6 +26,7 @@ export default function Navbar() {
   const [contract, setContract] = useRecoilState(contractAtom);
   const [tokenContract, setTokenContract] = useRecoilState(tokenContractAtom);
   const history = useHistory();
+  const location = useLocation();
 
   const handleConnectWalletClick = async () => {
     if (!walletAddress) {
@@ -46,6 +47,14 @@ export default function Navbar() {
       history.push('/profile');
     }
   };
+
+  const handleActiveLink = (path) => {
+    if(location.pathname === path)
+    {
+      return 'item item-active';
+    }
+    return 'item';
+  }
   return (
     <AppBar>
       <Toolbar
@@ -64,19 +73,19 @@ export default function Navbar() {
           <Grid item md={3}>
             {" "}
             <Link to="/post" className="link">
-              <p className="item">Post a Bounty</p>
+              <p className={handleActiveLink('/post')}>Post a Bounty</p>
             </Link>
           </Grid>
           <Grid item md={3}>
             {" "}
             <Link to="/solve" className="link">
-              <p className="item ">Solve a Bounty</p>
+              <p className={handleActiveLink('/solve')}>Solve a Bounty</p>
             </Link>
           </Grid>
           <Grid item md={3}>
             {" "}
             <Link to="/vote" className="link">
-              <p className="item">Vote on Solutions</p>
+              <p className={handleActiveLink('/vote')}>Vote on Solutions</p>
             </Link>
           </Grid>
           <Grid item md={3}>

@@ -3,7 +3,7 @@
   color: white;
   cursor: pointer;
 }
-.link > p:hover{
+.link > .item:hover{
   color: #d4ff1f !important;
 }
 
@@ -31,7 +31,9 @@ a {
   letter-spacing: 0.03em;
   text-align: left;
 }
-
+.item-active{
+  color: #d4ff1f;
+}
 .accountIcon {
   margin-top: 1.2vh !important;
   margin-left: 0vw !important;
