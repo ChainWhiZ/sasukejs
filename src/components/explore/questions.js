@@ -32,7 +32,7 @@ const[searchValue,setSearchValue] = useState("");
             </>
           ))
         ) : (
-          <p>Looks like our developers are having bounties for breakfast, lunch and dinner. Check back for new bounties</p>
+          <p>Not the end of the world, is it? New bounties will be live soon. Meanwhile, join us on our Discord.</p>
         )}
       </Grid>
     </>

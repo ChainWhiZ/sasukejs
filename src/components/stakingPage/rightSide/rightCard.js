@@ -39,7 +39,7 @@ export default function RightCard(props) {
           }
         >
           <p className="staking-color-neon staking-text-style staking-margin-left-15">
-            {shortenLength(balance, 6) + " MATIC"}
+            Available Balance - {shortenLength(balance, 6) + " MATIC"}
           </p>
         </Tooltip>
       </Grid>
@@ -48,7 +48,7 @@ export default function RightCard(props) {
           <img className="staking-link-icon" src={LinkIcon} alt="github" />
         </a>
       </Grid>
-      <Grid item md={3} xs={12} style={{ marginBottom: "1.5%"}}>
+      <Grid item md={3} xs={12} style={{ marginBottom: "1.5%" }}>
         <TextField
           id="outlined-basic"
           type={"number"}

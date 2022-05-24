@@ -41,14 +41,14 @@ export default function StakingPage(props) {
     contract = v;
     console.log(contract)
   });
-  
+
   console.log(props.location.state.questionDetails);
 
 
-  useEffect( () => {
+  useEffect(() => {
     fetchVoterDetails();
     if (walletAddress) {
-      fetchBalance(walletAddress).then(res=> setBalance(Number(res).toFixed(4)));
+      fetchBalance(walletAddress).then(res => setBalance(Number(res).toFixed(4)));
     }
   }, [walletAddress]);
 
@@ -75,13 +75,13 @@ export default function StakingPage(props) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please enter stake amount between 5 to 40 matic",
+        errorMessage: "The amount needs to be greater than 5 MATIC.",
       }));
     } else if (!walletAddress) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Please connect wallet",
+        errorMessage: "Please connect wallet.",
       }));
     } else {
       setAlert((prevState) => ({
@@ -94,10 +94,10 @@ export default function StakingPage(props) {
   };
 
   const stakePosting = async () => {
-    
+
     return await new Promise((resolve, reject) => {
       try {
-        console.log( props.location.state.questionDetails.issueUrl,
+        console.log(props.location.state.questionDetails.issueUrl,
           props.location.state.questionDetails.address.toString(),
           stakeDetails.solutionId)
         const trxObj = contract.methods
@@ -141,7 +141,7 @@ export default function StakingPage(props) {
     try {
       setLoader(true);
       try {
-       const stakeResponse = await stakePosting();
+        const stakeResponse = await stakePosting();
       } catch (error) {
         valid = false;
       }
@@ -219,8 +219,7 @@ export default function StakingPage(props) {
                     alt="icon"
                   />
                 </span>
-                The minimum amount needed to stake and vote on a solution is 5
-                MATIC. Please connect to Matic Mainnet for staking and voting.
+                Connect your wallet and switch to the Polygon Network. Please make sure that your staking amount is greater than 5 MATIC.
               </p>
             </Grid>
             <Grid
