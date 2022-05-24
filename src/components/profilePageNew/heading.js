@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import accountCircle from "../../assets/profile-account.png";
 import "./profilePageCss.css";
 import axios from "axios";
 import { port } from "../../config/config";
@@ -8,6 +7,10 @@ import { useRecoilValue } from "recoil";
 import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
 import { Tooltip } from "@material-ui/core";
 import { checkLength, shortenLength } from "../helper";
+import Avatar from "../avatar/avatar";
+import Background1 from "../../assets/backgrounds-01.jpg";
+import Background2 from "../../assets/backgrounds-02.jpg";
+import Background3 from "../../assets/backgrounds-03.jpg";
 
 export default function Heading(props) {
   const walletAddress = useRecoilValue(walletAddressAtom);
@@ -17,7 +20,8 @@ export default function Heading(props) {
     errorMessage: "",
     severity: "error",
   });
-
+  const randomBgNum = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
+  const Background = [Background1,Background2,Background3];
   useEffect(() => {
     axios
       .post(port + "user/user-details", {
@@ -37,16 +41,18 @@ export default function Heading(props) {
       });
   }, []);
   return (
-
     <>
 
 
-      <Grid item md={12} xs={12} className="profile-heading-grid"></Grid>
+      <Grid item md={12} xs={12} className="profile-heading-grid">
+        <img src={Background[randomBgNum]} alt="01" className="profile-heading-grid-img"/>
+      </Grid>
       <Grid item md={3}>
-        <img
+        <Avatar
           className="profile-account-icon"
-          src={accountCircle}
-          alt="account"
+          seed={walletAddress}
+          scale={16}
+          color="#003153"
         />
       </Grid>
       {data && Object.keys(data).length ?

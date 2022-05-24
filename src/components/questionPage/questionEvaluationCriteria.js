@@ -9,7 +9,7 @@ export default function QuestionEvaluationCriteria(props) {
         <p class="heading color-neon">EVALUATION CRITERIA</p>
       </Grid>
       <Grid item md={12} style={{paddingRight:"3%"}}>
-        <p className="description">{props.evaluationCriteria}</p>
+        <pre><p className="description">{props.evaluationCriteria}</p></pre>
       </Grid>
     </Grid>
   );

@@ -9,7 +9,7 @@
   background: rgba(19, 19, 19, 1);
   height: 100vh;
   width: 23vw !important;
-  padding: 6%;
+  padding: 20% 6%;
   /* padding: 2%;
   position: fixed; */
 }
@@ -47,7 +47,6 @@
   margin-left: 0.5vw !important;
 }
 .grid-item {
-  margin-top: -6vw !important;
   padding: 7% 0% 2% 4% !important;
 }
 .grid-item:hover {
@@ -57,8 +56,6 @@
   color: #101010;
 }
 .profile-div{
-  margin-top: -7rem;
-  margin-left: 0rem;
   height: 7%;
   width: 100%;
   padding: 7% 0% 2% 4% !important;
@@ -118,7 +115,9 @@ a {
   font-size: 1.5vw;
   line-height: 4vh;
 }
-
+.menubar-usergrid-avatar{
+  border-radius: 50%;
+}
 .reward-box {
   background-color: rgba(255, 255, 255, 1);
   width: 6vw;
