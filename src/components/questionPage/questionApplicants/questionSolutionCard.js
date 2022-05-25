@@ -1,18 +1,20 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
-
+import Avatar from "../../avatar/avatar";
 import "../questionPage.css";
-import CircularIndeterminate from "../../loader/loader";
-
-import account from "../../../assets/account-circle.png";
 export default function QuestionSolutionCard(props) {
   return (
     <>
       <Grid container class="solution-section">
         <Grid item md={12}>
-          <img src={account} alt="account" class="acc" />
+          <Avatar
+            className="acc"
+            seed={props.solution.address}
+            scale={5}
+            color="#003153"
+          />
 
           <span class="address">
             {props.solution.address.substring(0, 4) +
