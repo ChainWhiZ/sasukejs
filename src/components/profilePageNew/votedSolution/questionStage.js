@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { port } from "../../../config/config";
-import GithubIcon from "../../../assets/githubIcon.png";
+import LinkIcon from "../../../assets/Link.svg";
 import SimpleAlerts from "../../alert/alert";
 import { useRecoilValue } from "recoil";
 import {
@@ -161,7 +161,7 @@ export default function QuestionStage(props) {
         <Grid item md={6} style={{ textAlign: "center" }}>
           <p className="profile-text-style profile-text-center">Voted On</p>
           <a href={props.solutionId._id} target="_blank" rel="noreferrer">
-            <img src={GithubIcon} alt="git" style={{ marginTop: "-2%" }} />
+            <img src={LinkIcon} alt="git"  class="profile-icon" style={{ marginTop: "-2%" }} />
           </a>
         </Grid>
         <Grid item md={6}>

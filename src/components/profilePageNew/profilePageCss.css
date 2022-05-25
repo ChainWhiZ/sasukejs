@@ -18,7 +18,8 @@
 }
 
 .profile-icon {
-  transform: scale(0.5);
+  transform: scale(0.4);
+  margin-top: -15% !important;
 }
 
 /* .profile-right-grid{
@@ -91,7 +92,7 @@
   color: #ffffff !important;
   font-style: normal !important;
   font-weight: 600 !important;
-  font-size: 1.4rem !important;
+  font-size: 1.2rem !important;
   letter-spacing: 0.04em !important;
   margin-left: 0vw !important;
   line-height: 3.5vh !important;
