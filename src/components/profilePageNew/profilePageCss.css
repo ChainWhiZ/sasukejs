@@ -28,9 +28,9 @@
   font-family: Poppins;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1.1rem;
   letter-spacing: 0.01em;
-
+  text-transform: uppercase;
   color: #d4ff1e !important;
 }
 
@@ -91,8 +91,8 @@
   color: #ffffff !important;
   font-style: normal !important;
   font-weight: 600 !important;
-  font-size: 1vw !important;
-  letter-spacing: 0.01em !important;
+  font-size: 1.4rem !important;
+  letter-spacing: 0.04em !important;
   margin-left: 0vw !important;
   line-height: 3.5vh !important;
 }

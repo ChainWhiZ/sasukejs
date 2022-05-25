@@ -547,6 +547,7 @@ input {
 .solution-section .acc {
   width: 11%;
   vertical-align: middle;
+  border-radius: 50%;
 }
 .solution-section .submission {
   background: #D4FF1E;
