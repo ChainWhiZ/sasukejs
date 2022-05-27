@@ -116,7 +116,7 @@ export default function ResultsDialog(props) {
         <ClearRoundedIcon
           style={{
             color: "white",
-            marginLeft: "72vw",
+            marginLeft: "61vw",
             marginTop: "3vh",
             cursor: "pointer",
           }}
