@@ -72,7 +72,7 @@ export default function RightSide(props) {
           )
         ) : (
           <>
-            <Grid item md={12} xs={12} style={{ margin: "-4% 0% 2% 12%" }}>
+            <Grid item md={12} xs={12} style={{ margin: "-4% 0% 2% 5%" }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -86,7 +86,7 @@ export default function RightSide(props) {
                 }
               />
               <span className="terms-text">
-                I have already taken a clone of the solution github link.
+              I understand that once the escrow is initiated, it cannot be reverted.
               </span>
             </Grid>
             <Button
