@@ -8,7 +8,7 @@ export default function LeftSide(props) {
       <div className="results-dialog-left-grid">
         <Grid item md={12} xs={12} className="results-dialog-left-grid-heading">
           <p className="results-dialog-heading" style={{ textAlign: "center" }}>
-            All Solution Posted
+            All Solutions
           </p>
         </Grid>
 

@@ -126,7 +126,7 @@ export default function ResultsDialog(props) {
         />
 
         <Grid container>
-          <Grid item md={4} xs={12} style={{ marginLeft: "-14%" }}>
+          <Grid item md={5} xs={12} style={{ marginLeft: "-17%" }}>
             {solutions && solutions.length ? (
               <LeftSide
                 solutions={solutions}
@@ -149,7 +149,7 @@ export default function ResultsDialog(props) {
               </p>
             )}
           </Grid>
-          <Grid item md={8} xs={12}>
+          <Grid item md={7} xs={12}>
             {solutions && solutions.length ? (
               <RightSide
                 selectedSolution={solutions[selectedSolutionIndex]}
