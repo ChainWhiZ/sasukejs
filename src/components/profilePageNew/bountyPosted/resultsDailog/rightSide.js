@@ -13,6 +13,7 @@ import { checkLength, shortenLength } from "../../../helper";
 export default function RightSide(props) {
   const [cloneconfirmation, setCloneconfirmation] = useState(false);
 
+
   return (
     <>
       <Grid container className="results-dialog-right-grid">
@@ -90,7 +91,7 @@ export default function RightSide(props) {
               </span>
             </Grid>
             <Button
-              onClick={props.handleEscrowInitiation}
+              onClick={()=>props.handleEscrowInitiation}
               className="profile-button results-dialog-right-grid-button"
             >
               Initiate Escrow

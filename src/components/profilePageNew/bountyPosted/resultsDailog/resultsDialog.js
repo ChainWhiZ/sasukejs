@@ -114,9 +114,10 @@ export default function ResultsDialog(props) {
         onBackdropClick={handleClose}
       >
         <ClearRoundedIcon
+        className="clear-rounded-icon"
           style={{
             color: "white",
-            marginLeft: "72vw",
+            marginLeft: "80vw",
             marginTop: "3vh",
             cursor: "pointer",
           }}

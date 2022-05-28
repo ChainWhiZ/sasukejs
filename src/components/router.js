@@ -26,7 +26,7 @@ export default function RouterComponent() {
   const updateMedia = () => {
     setDesktop(window.innerWidth > 1100);
   };
-  //  console.log = function () {};
+   console.log = function () {};
   //use this if coinbase goes down
    // "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
   useEffect(() => {
