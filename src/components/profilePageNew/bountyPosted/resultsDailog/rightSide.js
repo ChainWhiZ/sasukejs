@@ -9,13 +9,39 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Tooltip } from "@material-ui/core";
 import { checkLength, shortenLength } from "../../../helper";
+import SimpleAlerts from "../../../alert/alert";
 
 export default function RightSide(props) {
   const [cloneconfirmation, setCloneconfirmation] = useState(false);
-
+  const [alert, setAlert] = useState({
+    open: false,
+    errorMessage: "",
+    severity: "error",
+  });
+  console.log(props)
+  const handleInitiateEscrow = () => {
+    setAlert((prevState) => ({
+      ...prevState,
+      open: false,
+      errorMessage: "",
+    }));
+    if (cloneconfirmation)
+      props.handleEscrowInitiation();
+    else {
+      setAlert((prevState) => ({
+        ...prevState,
+        open: true,
+        errorMessage: "Please tick the box",
+      }));
+      console.log(alert)
+    }
+  }
   return (
     <>
       <Grid container className="results-dialog-right-grid">
+        {alert.open ? (
+          <SimpleAlerts severity={alert.severity} message={alert.errorMessage}/>
+        ) : null}
         <Grid container className="results-dialog-right-grid-warning">
           <Grid item md={1} xs={12} className="results-dialog-right-grid-info">
             <img src={BlackInfoIcon} alt="info" />
@@ -58,7 +84,7 @@ export default function RightSide(props) {
 
         {props.question.escrowStatus ? (
           props.question.selectedSolution ===
-          props.selectedSolution.githubLink ? (
+            props.selectedSolution.githubLink ? (
             <>
               <Button
                 className="profile-button results-dialog-right-grid-button"
@@ -86,11 +112,11 @@ export default function RightSide(props) {
                 }
               />
               <span className="terms-text">
-              I understand that once the escrow is initiated, it cannot be reverted.
+                I understand that once the escrow is initiated, it cannot be reverted.
               </span>
             </Grid>
             <Button
-              onClick={props.handleEscrowInitiation}
+              onClick={() => handleInitiateEscrow()}
               className="profile-button results-dialog-right-grid-button"
             >
               Initiate Escrow
