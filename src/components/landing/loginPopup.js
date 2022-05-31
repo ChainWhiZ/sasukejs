@@ -27,11 +27,11 @@ export default function LoginPopup(props) {
           <Grid item md={12} style={{ padding: "3rem" }}>
             <b style={{ color: "#d7ff2e" }}>Eyes Here!</b>
             <p>
-              Connect your Metamask Wallet by clicking on the wallet icon in the navbar. Change the network to Matic Mainnet.
+              Connect your Metamask Wallet and switch to Matic Mainnet to access your profile.
             </p>
 
             <p>
-              Read the  <a href="./Product_Guidelines.pdf" target="_blank"><span style={{ color: "#d7ff2e" }}> Product Guidelines </span></a> for more details. Reachout to us on our Discord for any queries.
+              Reach out to us on our <a href="https://t.co/FHbXDOkLFR" target="_blank"><span style={{ color: "#d7ff2e" }}> Discord </span></a>for any queries.
             </p>
           </Grid>
           <Grid item md={12}>
