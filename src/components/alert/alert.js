@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleAlerts(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

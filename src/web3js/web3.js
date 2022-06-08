@@ -67,3 +67,21 @@ export const initiliaseTokenContract = async () => {
 
   return contract;
 };
+
+export const generateSignature = async (title, bountyUrl, evalutionCriteria, bountyDescription) => {
+  await fetchAccount(async function (result) {
+    console.log(result)
+    const data = {
+      "walletAddress": result[0],
+      "title": title,
+      "evalution criteria": evalutionCriteria,
+      "bounty url": bountyUrl,
+      "bounty description": bountyDescription
+    }
+    const signature = await web3.eth.personal.sign(web3.utils.sha3(data.toString()), result[0]);
+    const signer = await web3.eth.personal.ecRecover(web3.utils.sha3(data.toString()), signature);
+    console.log(signer)
+  })
+
+
+}
