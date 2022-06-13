@@ -4,13 +4,13 @@ import "./baseComponentCss.css";
 import RightSideText from "./rightSideText";
 import DaysInputComponent from "../daysInputPage/daysInput";
 import OptionComponent from "../optionPage/optionPage";
+import BountyOptionComponent from "../optionPage/bountyOptionPage";
 import InputComponent from "../inputFieldPage/inputField";
 import ChipInputComponent from "../chipInputFieldPage/chipInputFieldPage";
 import RadioInputComponent from "../radioInputFieldPage/radioInputFieldPage";
 import PageChangeButtons from "./pageChangeButtons";
 
 export default function BaseComponent(props) {
-
   return (
     <>
       <Grid container>
@@ -18,10 +18,15 @@ export default function BaseComponent(props) {
           <hr className="horizontal-line" style={{ marginTop: "8%" }} />
         </Grid>
         <Grid item md={4}>
-          <RightSideText {...props} communityOption={props.communityOption} issueUrlOptions={props.issueUrlOptions} className="margin-top-8" />
+          <RightSideText
+            {...props}
+            communityOption={props.communityOption}
+            issueUrlOptions={props.issueUrlOptions}
+            className="margin-top-8"
+          />
         </Grid>
         <Grid container item md={8} style={{ marginTop: "6%" }}>
-          <Grid item md={12} >
+          <Grid item md={12}>
             {props.pageState === 1 ? (
               <InputComponent
                 handleIssueTitle={props.handleIssueTitle}
@@ -44,13 +49,6 @@ export default function BaseComponent(props) {
                 alert={props.alert}
               />
             ) : props.pageState === 4 ? (
-              <DaysInputComponent
-                handleTime={props.handleTime}
-                pageState={props.pageState}
-                time={props.time}
-                alert={props.alert}
-              />
-            ) : props.pageState === 5 ? (
               <InputComponent
                 handleValidation={props.handleValidation}
                 pageState={props.pageState}
@@ -60,7 +58,7 @@ export default function BaseComponent(props) {
                 issueUrlOptions={props.issueUrlOptions}
                 alert={props.alert}
               />
-            ) : props.pageState === 6 ? (
+            ) : props.pageState === 5 ? (
               <InputComponent
                 handleValidation={props.handleValidation}
                 pageState={props.pageState}
@@ -69,7 +67,21 @@ export default function BaseComponent(props) {
                 issueDescription={props.issueDescription}
                 alert={props.alert}
               />
+            ) : props.pageState === 6 ? (
+              <BountyOptionComponent
+                handleBountyOption={props.handleBountyOption}
+                pageState={props.pageState}
+                paidBounty={props.paidBounty}
+                alert={props.alert}
+              />
             ) : props.pageState === 7 ? (
+              <DaysInputComponent
+                handleTime={props.handleTime}
+                pageState={props.pageState}
+                time={props.time}
+                alert={props.alert}
+              />
+            ) : props.pageState === 8 ? (
               <InputComponent
                 handleReward={props.handleReward}
                 pageState={props.pageState}
@@ -78,7 +90,7 @@ export default function BaseComponent(props) {
                 currency={props.currency}
                 alert={props.alert}
               />
-            ) : props.pageState === 8 ? (
+            ) : props.pageState === 9 ? (
               <OptionComponent
                 handleCommunityChoice={props.handleCommunityChoice}
                 pageState={props.pageState}
@@ -96,6 +108,13 @@ export default function BaseComponent(props) {
                 alert={props.alert}
               />
             ) : props.pageState === 11 ? (
+              <DaysInputComponent
+                handleTime={props.handleTime}
+                pageState={props.pageState}
+                time={props.time}
+                alert={props.alert}
+              />
+            ) : props.pageState === 12 ? (
               <InputComponent
                 handleTerms={props.handleTerms}
                 pageState={props.pageState}
@@ -103,24 +122,14 @@ export default function BaseComponent(props) {
                 walletAddress={props.walletAddress}
                 alert={props.alert}
               />
-            ) : props.pageState === 9 ? (
-              <DaysInputComponent
-                handleTime={props.handleTime}
-                pageState={props.pageState}
-                time={props.time}
-                alert={props.alert}
-              />
             ) : null}
           </Grid>
-       
 
-        <Grid item md={8} className="page-change-buttons">
-          <PageChangeButtons {...props} />
-        </Grid>
+          <Grid item md={8} className="page-change-buttons">
+            <PageChangeButtons {...props} />
+          </Grid>
         </Grid>
       </Grid>
-
-
     </>
   );
 }

@@ -9,6 +9,7 @@ import { useRecoilValue } from "recoil";
 import TweetShare from "../dialogs/tweetShare";
 
 export default function QuestionLeftHeading(props) {
+  console.log(props);
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const [openTweetDialog, setOpenTweetDialog] = useState(false);
@@ -51,10 +52,15 @@ export default function QuestionLeftHeading(props) {
             <p class="heading color-neon">Time Remaining</p>
             <p class="bounty-time">{timeLeft + " " + hoursOrDaysOrMinutes}</p>
           </Grid>
-        ) : (
+        ) : props.questionDetails.bountyType == "paid" ? (
           <Grid item md={12}>
             <p class="heading color-neon">Time Remaining</p>
             <p class="bounty-time">0</p>
+          </Grid>
+        ) : (
+          <Grid item md={12}>
+            <p class="heading color-neon">Unpaid Bounty</p>
+            <p class="bounty-time">No Time Contraint</p>
           </Grid>
         )}
         <Grid item md={12}>
