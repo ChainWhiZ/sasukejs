@@ -474,6 +474,7 @@ export default function QuestionPost() {
                 issueUrl: getIssueUrl(),
                 currency: currency,
                 timeEnd: timeEnd,
+                bountyType:"paid",
                 description: issueDescription,
                 evaluationCriteria: evaluationCriteria,
                 languagesAndTools: languagesAndTools,
