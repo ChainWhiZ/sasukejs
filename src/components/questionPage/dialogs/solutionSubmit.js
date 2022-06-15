@@ -194,26 +194,37 @@ export default function SolutionSubmit(props) {
         }
       }
 
-      if (valid) {
-        try {
-          const axiosResponse = await axios.post(port + "solution/save", {
-            address: walletAddress,
-            githubLink: solution,
-            questionId: props.quesDetails._id,
-          });
-          Promise.resolve(axiosResponse).then((val) => {
-            if (val.status == 201) {
-              // eventBus.dispatch("solutionSubmitted", {
-              //   message: "Solution submitted",
-              // });
-              setOpen(false);
-              setDisable(false);
-              props.handleDialogClose(false);
-              props.handleTweetDialogOpen();
-            }
-          });
-        } catch (error) {
-          valid = false;
+        if (valid) {
+          try {
+            const axiosResponse = await axios.post(port + "solution/save", {
+              address: walletAddress,
+              githubLink: solution,
+              questionId: props.quesDetails._id,
+            });
+            Promise.resolve(axiosResponse).then((val) => {
+              if (val.status == 201) {
+                // eventBus.dispatch("solutionSubmitted", {
+                //   message: "Solution submitted",
+                // });
+                setOpen(false);
+                setDisable(false);
+                props.handleDialogClose(false);
+                props.handleTweetDialogOpen();
+              }
+              else if(val.status == 403)
+              {
+                setOpen(false);
+                setDisable(false);
+                setAlert((prevState) => ({
+                  ...prevState,
+                  isValid: true,
+                  errorMessage: "You are not allowed to solve!",
+                }));
+              }
+            });
+          } catch (error) {
+            valid = false;
+          }
         }
       }
     } catch (error) {

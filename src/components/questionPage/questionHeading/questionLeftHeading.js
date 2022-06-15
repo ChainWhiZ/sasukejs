@@ -97,7 +97,12 @@ export default function QuestionLeftHeading(props) {
             <Button
               class="bounty-button"
               onClick={() => setOpenSolveDialog(true)}
-              disabled={walletAddress === props.questionDetails.address}
+              disabled={
+                walletAddress === props.questionDetails.address ||
+                !props.questionDetails.whitelistedSolvers.includes(
+                  walletAddress
+                )
+              }
             >
               Submit Solution
             </Button>
