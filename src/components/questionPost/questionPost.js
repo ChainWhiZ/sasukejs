@@ -33,7 +33,6 @@ export default function QuestionPost() {
   const [terms, setTerms] = useState({
     undertaking1: false,
   });
-  const [signature, setSignature] = useState(null);
   const [communityReward, setCommunityReward] = useState("");
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [alert, setAlert] = useState({
@@ -538,7 +537,7 @@ export default function QuestionPost() {
                   address: walletAddress,
                   title: issueTitle,
                   issueUrl: getIssueUrl(),
-                  currency: "UNPAID",
+                  currency: "",
                   signature: res.signature,
                   timeEnd: 0,
                   bountyType:"unpaid",

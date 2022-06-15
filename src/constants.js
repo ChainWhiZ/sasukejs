@@ -80,8 +80,9 @@ export const text = {
       shall receive after completing the bounty. Note: This amount will be held in an escrow contract and will be transferred to the developer once you confirm that you’ve received the code.`,
   },
   page6: {
-    title: `xyz`,
-    content: `xyz`  },
+    title: `Choose the type of the Bounty`,
+    content: `Introducing new ways to post bounties on Chainwhiz. Now, you can post bounties with or without rewards.`,
+  },
   page9: {
     title: `Solution Voting`,
     content: `Turn it on if you want the solutions to Be reviewed and voted on by the community members. Turn it off if you don’t want the community to vote on your solutions.`,
@@ -140,12 +141,12 @@ export const bountyTypeChoice = [
   {
     title: "Paid Bounty",
     content:
-      "The community stakes and votes on the submitted solutions to your bounty and helps you figure out the best solution.You get to your desired solution 5x faster. The community earns incentives. Win-win.",
+      "Bounties with financial rewards/incentives. These are best if you want to build out serious sh*t or market your protocol with the help of community contributions.",
   },
   {
     title: "Free Bounty",
     content:
-      "If you are willing to spend hours reviewing pieces of code to figure out the best solution to your bounty, this one is  for you. Pros: You are superhuman. Cons: You don’t leverage the power of community. Win-Lose.   ",
+      "Bounties with no financial rewards/incentives. These are a great way to start building out communities for your project. Tasks like designing POAPs for AMAs, conducting surveys, etc. are geat examples.",
   },
 ];
 
