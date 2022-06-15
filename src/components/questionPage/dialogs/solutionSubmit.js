@@ -226,7 +226,7 @@ export default function SolutionSubmit(props) {
             valid = false;
           }
         }
-      }
+      
     } catch (error) {
       setOpen(false);
       setDisable(false);
