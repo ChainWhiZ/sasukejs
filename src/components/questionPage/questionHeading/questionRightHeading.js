@@ -61,14 +61,17 @@ export default function QuestionRightHeading(props) {
               {shortenLength(getUSDReward(props, devusd, maticusd))} USD
             </p>
           </Tooltip>
-
           {props.questionStage === "solve" ? (
             <Button
               class="bounty-button"
               onClick={() => setOpenSolveDialog(true)}
               disabled={
-                walletAddress === props.address ||
-                !props.whitelistedSolvers.includes(walletAddress)
+                walletAddress && 
+                (walletAddress === props.address ||
+                (props.whitelistedSolvers &&
+                  props.whitelistedSolvers.length &&
+                  !props.whitelistedSolvers.includes(walletAddress))
+                )
               }
             >
               Submit Solution

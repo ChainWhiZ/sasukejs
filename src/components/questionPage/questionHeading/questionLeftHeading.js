@@ -9,7 +9,6 @@ import { useRecoilValue } from "recoil";
 import TweetShare from "../dialogs/tweetShare";
 
 export default function QuestionLeftHeading(props) {
-  console.log(props);
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const [openTweetDialog, setOpenTweetDialog] = useState(false);
@@ -98,9 +97,11 @@ export default function QuestionLeftHeading(props) {
               class="bounty-button"
               onClick={() => setOpenSolveDialog(true)}
               disabled={
-                walletAddress === props.questionDetails.address ||
-                !props.questionDetails.whitelistedSolvers.includes(
-                  walletAddress
+                walletAddress && 
+                (walletAddress === props.questionDetails.address ||
+                (props.questionDetails.whitelistedSolvers &&
+                  props.questionDetails.whitelistedSolvers.length &&
+                  !props.questionDetails.whitelistedSolvers.includes(walletAddress))
                 )
               }
             >

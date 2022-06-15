@@ -538,7 +538,7 @@ export default function QuestionPost() {
                   address: walletAddress,
                   title: issueTitle,
                   issueUrl: getIssueUrl(),
-                  currency: "",
+                  currency: " ",
                   signature: res.signature,
                   timeEnd: 0,
                   bountyType:"unpaid",
