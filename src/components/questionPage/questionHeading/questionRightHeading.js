@@ -45,7 +45,10 @@ export default function QuestionRightHeading(props) {
             className="bounty-time"
           >
             <p class="bounty-time">
-              {shortenLength(getReward(props))} {props.currency}
+              {props.bountyType == 'unpaid'
+                ? "-"
+                : shortenLength(getReward(props))}{" "}
+              {props.currency}
             </p>
           </Tooltip>
 
@@ -58,7 +61,9 @@ export default function QuestionRightHeading(props) {
           >
             <p class="bounty-time margin-top-20">
               {" "}
-              {shortenLength(getUSDReward(props, devusd, maticusd))} USD
+              {props.bountyType == 'unpaid'
+                ? "-"
+                : `${shortenLength(getUSDReward(props, devusd, maticusd))} USD`}
             </p>
           </Tooltip>
           {props.questionStage === "solve" ? (
@@ -66,12 +71,11 @@ export default function QuestionRightHeading(props) {
               class="bounty-button"
               onClick={() => setOpenSolveDialog(true)}
               disabled={
-                walletAddress && 
+                walletAddress &&
                 (walletAddress === props.address ||
-                (props.whitelistedSolvers &&
-                  props.whitelistedSolvers.length &&
-                  !props.whitelistedSolvers.includes(walletAddress))
-                )
+                  (props.whitelistedSolvers &&
+                    props.whitelistedSolvers.length &&
+                    !props.whitelistedSolvers.includes(walletAddress)))
               }
             >
               Submit Solution

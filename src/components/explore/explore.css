@@ -185,12 +185,42 @@ a {
   margin-left: -7vw;
 }
 .reward__value {
-  background: white;
-  color: black;
   width: 60%;
   padding: 1rem 0.5rem;
-  border-radius: 3px;
+  border-radius: 6px;
+  border: solid 2px #d7ff2e;
+  /* border-color: green; */
   font-weight: 700;
   font-size: 1.2rem;
   text-align: center;
+}
+
+.question-card-heading{
+  font-style: normal;
+  font-weight: 800;
+  font-size: 0.9rem;
+  /* line-height: 60px; */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  /* border-width: 0; */
+  background-color: rgba(215, 255, 46, 1);
+  box-shadow:
+    0 0 5px 5px #d7ff2e;  /* inner white */
+  color: black;
+  padding: 0.1% 0.2%;
+  vertical-align: top !important;
+
+}
+
+.question-card-heading-show{
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.5rem;
+
+}
+@media only screen and (min-width: 480px) and (max-width: 1800px) {
+  .question-card-heading{
+    font-size:0.6rem;
+
+  }
 }
