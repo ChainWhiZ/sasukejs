@@ -1,6 +1,6 @@
 # ChainWhiZ 
 We are building an Open source and Decentralised Marketplace for Dapp development (blockchain applications).<br/>
-[app.chainwhiz.app](url)
+[https://app.chainwhiz.app/](url)
 ## Web Repo
 It is the front end application of ChainWhiZ built using ReactJS
 
