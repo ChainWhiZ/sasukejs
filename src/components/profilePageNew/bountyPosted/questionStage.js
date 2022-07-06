@@ -33,7 +33,7 @@ export default function QuestionStage(props) {
                 Chosen Solution
               </p>
               <a
-                 href={
+                href={
                   props.selectedSolution.includes("https://")
                     ? props.selectedSolution
                     : `https://${props.selectedSolution}`
@@ -81,7 +81,13 @@ export default function QuestionStage(props) {
           )}
         </Grid>
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {props.isCommunityApprovedSolution ? (
+          {props.bountyType === "unpaid" ? (
+            (<Button className="profile-button">View All Solutions</Button>)(
+              props.questionStage !== "complete" ? (
+                <Button className="profile-button">End Bounty</Button>
+              ) : null
+            )
+          ) : props.isCommunityApprovedSolution ? (
             props.address === walletAddress ? (
               props.questionStage === "complete" ? (
                 <Button
@@ -122,7 +128,6 @@ export default function QuestionStage(props) {
           question={props}
           isCommunityApprovedSolution={props.isCommunityApprovedSolution}
           address={props.address}
-        
         />
       ) : (
         ""

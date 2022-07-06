@@ -149,7 +149,7 @@ export default function QuestionStage(props) {
           </a>
         </Grid>
 
-          {/* <Grid item md={6} className="profile-text-center">
+        {/* <Grid item md={6} className="profile-text-center">
           <p className="profile-text-style profile-text-center">
             Chosen Solution
           </p>
@@ -174,9 +174,16 @@ export default function QuestionStage(props) {
           )}
         </Grid> */}
 
-
         <Grid item md={12} style={{ textAlign: "center" }}>
-          {props.escrowStatus === "initiated" ? (
+          {props.questionId.bountyType === "unpaid" ? (
+            props.signature ? (
+              <Button className="profile-button">Selected</Button>
+            ) : (
+              <Link to={`/bounty/${props.questionId._id}`}>
+                <Button className="profile-button">Go to Bounty Page</Button>
+              </Link>
+            )
+          ) : props.escrowStatus === "initiated" ? (
             <Button className="profile-button" onClick={() => handleComplete()}>
               Claim Reward
             </Button>
