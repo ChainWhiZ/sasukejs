@@ -229,6 +229,7 @@
   font-weight: 500;
   font-size: 20px;
   letter-spacing: 0.01em;
+  word-wrap: break-word;
 }
 
 .results-dialog-right-grid-content-score {
@@ -304,4 +305,19 @@
   top: 0;
   bottom: 0;
   position: fixed;
+}
+
+@media only screen and (min-width: 480px) and (max-width: 1800px) {
+  .results-dialog-left-grid {
+    margin: -24% 0 -20% -19%;
+  }
+
+  .results-dialog-right-grid-content {
+    margin-right: -0% !important;
+    width: 42.5vw !important;
+}
+.clear-rounded-icon{
+  margin-left: 63vw !important;
+  margin-top: 1vh !important;
+}
 }

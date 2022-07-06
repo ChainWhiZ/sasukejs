@@ -157,7 +157,7 @@ body {
   height: 30vh !important;
   padding: 1% 2% 3% 2% !important;
   margin-bottom: 0;
-  /* cursor: pointer; */
+  cursor: pointer;
   background-color: rgb(68, 65, 65) !important;
 }
 

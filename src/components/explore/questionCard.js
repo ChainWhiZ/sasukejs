@@ -50,8 +50,15 @@ export default function QuestionCard(props) {
             <p className="question-title">{props.question.title}</p>
           </Link>
         </Grid>
+{props.bountyType === 'unpaid' ?
+(<Grid item md={4} xs={12} className="reward-grid">
+    <p className="reward__value">
+    Unpaid
+    </p>
+</Grid>)
+:
 
-        {props.question.isCommunityApprovedSolution ? (
+      {props.question.isCommunityApprovedSolution ? (
           <>
             <Grid item md={2} xs={12} className="reward-grid">
 
@@ -147,6 +154,8 @@ export default function QuestionCard(props) {
             </Grid>
           </>
         )}
+
+      }
       </Grid>
 
       <Grid container>

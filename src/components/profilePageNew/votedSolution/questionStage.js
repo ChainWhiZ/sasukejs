@@ -281,7 +281,7 @@ export default function QuestionStage(props) {
                 Unstake Now
               </Button>
             ) : (
-              <Link to={`/bounty/${props._id}`}>
+              <Link to={`/bounty/${props.questionId}`}>
                 <Button className="profile-button">Go to Bounty Page</Button>
               </Link>
             )

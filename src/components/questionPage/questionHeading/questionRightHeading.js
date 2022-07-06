@@ -40,51 +40,39 @@ export default function QuestionRightHeading(props) {
           <p class="heading color-neon">Bounty Amount</p>
 
           <Tooltip
-            title={
-             getReward(props)
-            }
-            disableHoverListener={
-              !checkLength(
-                getReward(props)
-              )
-            }
+            title={getReward(props)}
+            disableHoverListener={!checkLength(getReward(props))}
             className="bounty-time"
           >
             <p class="bounty-time">
-              {shortenLength(
-                getReward(props)
-              )}{" "}
-              {props.currency}
+              {shortenLength(getReward(props))} {props.currency}
             </p>
           </Tooltip>
 
           <Tooltip
-            title={
-              getUSDReward(props, devusd, maticusd)
-            }
+            title={getUSDReward(props, devusd, maticusd)}
             disableHoverListener={
-              !checkLength(
-                getUSDReward(props, devusd, maticusd)
-
-              )
+              !checkLength(getUSDReward(props, devusd, maticusd))
             }
             className="bounty-time"
           >
             <p class="bounty-time margin-top-20">
               {" "}
-              {shortenLength(
-                getUSDReward(props, devusd, maticusd)
-
-              )}{" "}
-              USD
+              {shortenLength(getUSDReward(props, devusd, maticusd))} USD
             </p>
           </Tooltip>
-
           {props.questionStage === "solve" ? (
             <Button
               class="bounty-button"
               onClick={() => setOpenSolveDialog(true)}
-              disabled={walletAddress === props.address}
+              disabled={
+                walletAddress && 
+                (walletAddress === props.address ||
+                (props.whitelistedSolvers &&
+                  props.whitelistedSolvers.length &&
+                  !props.whitelistedSolvers.includes(walletAddress))
+                )
+              }
             >
               Submit Solution
             </Button>

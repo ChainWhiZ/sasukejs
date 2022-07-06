@@ -17,6 +17,7 @@ import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
 } from "../../../recoil/atoms.js";
+import { generateAndVerifySolutionSignature } from "../../../web3js/web3";
 
 export default function SolutionSubmit(props) {
   const [open, setOpen] = useState(props.open);
@@ -36,7 +37,7 @@ export default function SolutionSubmit(props) {
   promise.then(function (v) {
     setContract(v);
   });
-  console.log(props)
+  console.log(props);
 
   const handleClose = () => {
     setOpen(false);
@@ -53,7 +54,7 @@ export default function SolutionSubmit(props) {
           .postSolution(
             solution,
             props.quesDetails.issueUrl,
-            props.quesDetails.address,
+            props.quesDetails.address
           )
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
@@ -119,8 +120,7 @@ export default function SolutionSubmit(props) {
         severity: "error",
         errorMessage: "Please connect wallet",
       }));
-    }
-    else if (!solution) {
+    } else if (!solution) {
       setSolution("");
       setAlert((prevState) => ({
         ...prevState,
@@ -160,21 +160,39 @@ export default function SolutionSubmit(props) {
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Don't close or refresh the page till the transaction is confirmed",
+        errorMessage:
+          "Don't close or refresh the page till the transaction is confirmed",
       }));
       await handleSubmit(solution);
     }
   };
   const handleSubmit = async (solution) => {
     try {
-        setDisable(true);
-        let valid = true;
+      setDisable(true);
+      let valid = true;
+      let solutionResponse;
+      if (props.quesDetails.bountyType == "paid") {
         try {
-          console.log(solution)
-          const solutionResponse = await solutionPosting(solution);
+          console.log(solution);
+          await solutionPosting(solution);
         } catch (error) {
           valid = false;
         }
+      } else {
+        try {
+          console.log(solution);
+           solutionResponse = await generateAndVerifySolutionSignature(
+            props.quesDetails.address,
+            props.quesDetails.issueUrl,
+            solution,
+            walletAddress
+          );
+          if (solutionResponse.status == true) valid = true;
+          else valid = false;
+        } catch (error) {
+          valid = false;
+        }
+      }
 
         if (valid) {
           try {
@@ -192,6 +210,16 @@ export default function SolutionSubmit(props) {
                 setDisable(false);
                 props.handleDialogClose(false);
                 props.handleTweetDialogOpen();
+              }
+              else if(val.status == 403)
+              {
+                setOpen(false);
+                setDisable(false);
+                setAlert((prevState) => ({
+                  ...prevState,
+                  isValid: true,
+                  errorMessage: "You are not allowed to solve!",
+                }));
               }
             });
           } catch (error) {
@@ -222,7 +250,7 @@ export default function SolutionSubmit(props) {
         }}
         onBackdropClick={handleClose}
       >
-        <DialogContent style={{overflow:"hidden"}} >
+        <DialogContent style={{ overflow: "hidden" }}>
           <DialogContentText>
             <p class="submitSol-btn">Submit Solution</p>
             <TextField
@@ -236,11 +264,11 @@ export default function SolutionSubmit(props) {
               onChange={(e) => handleChange(e.target.value)}
             />
             {alert.open ? (
-            <SimpleAlerts
-              severity={alert.severity}
-              message={alert.errorMessage}
-            />
-          ) : null}
+              <SimpleAlerts
+                severity={alert.severity}
+                message={alert.errorMessage}
+              />
+            ) : null}
             <div style={{ textAlign: "center", margin: "4rem 10rem" }}>
               <Button
                 class="dialog-button"
@@ -258,7 +286,6 @@ export default function SolutionSubmit(props) {
               </Button>
             </div>
           </DialogContentText>
-          
         </DialogContent>
       </Dialog>
     </>

@@ -26,7 +26,7 @@ export const initiliaseWeb3 = async () => {
 };
 
 export const checkChain = async () => {
-  if (!(web3.givenProvider.networkVersion == 137)) {
+  if (!(web3.givenProvider.networkVersion == process.env.REACT_APP_CHAIN_ID)) {
     window.alert("Please switch to Polygon Mainnet");
     return false
   }
@@ -67,3 +67,48 @@ export const initiliaseTokenContract = async () => {
 
   return contract;
 };
+
+export const generateAndVerifyBountySignature = async (title, bountyUrl, evalutionCriteria, bountyDescription, walletAddress) => {
+  // await fetchAccount(async function (result) {
+    // console.log(result)
+    const data = {
+      "walletAddress": walletAddress,
+      "title": title,
+      "evalution criteria": evalutionCriteria,
+      "bounty url": bountyUrl,
+      "bounty description": bountyDescription
+    }
+    const signature = await web3.eth.personal.sign(web3.utils.sha3(data.toString()), walletAddress);
+    const signer = await web3.eth.personal.ecRecover(web3.utils.sha3(data.toString()), signature);
+    console.log(signer)
+    console.log(walletAddress)
+    if(signer.toLowerCase() == walletAddress.toLowerCase())
+      return {status:true, signature};
+    else
+      return {status:false, signature};
+  // })
+
+
+}
+
+export const generateAndVerifySolutionSignature = async (publisherAddress, bountyUrl,solutionLink, walletAddress) => {
+  // await fetchAccount(async function (result) {
+    // console.log(result)
+    const data = {
+      "Wallet Address": walletAddress,
+      "Publisher Address": publisherAddress,
+      "Bounty url": bountyUrl,
+      "Solution link": solutionLink
+    }
+    const signature = await web3.eth.personal.sign(web3.utils.sha3(data.toString()), walletAddress);
+    const signer = await web3.eth.personal.ecRecover(web3.utils.sha3(data.toString()), signature);
+    console.log(signer)
+    console.log(walletAddress)
+    if(signer.toLowerCase() == walletAddress.toLowerCase())
+      return {status:true, signature};
+    else
+      return {status:false, signature};
+  // })
+
+
+}

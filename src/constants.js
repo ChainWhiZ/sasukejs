@@ -48,7 +48,7 @@ export const drawerList = [
 export const text = {
   page1: {
     title: `What should we call your Bounty?`,
-    content: `The title is the first thing that a builder sees when he/she comes across your bounty. It’s best practise to keep the title closely related to the issue. Avoid vague words like Important, amazing, stunning etc.`,
+    content: `The title is the first thing that a builder sees when he/she comes across your bounty. It’s best practise to keep the title closely related to the bounty. Avoid vague words like Important, amazing, stunning etc.`,
   },
   page2: {
     title: `Which tools/softwares
@@ -60,26 +60,30 @@ export const text = {
     title: `List the evaluation criterias`,
     content: `The evaluation criteria field is for highlighting the main focus points of your bounty. Minimum code execution time, gradient based UI design, etc. Whatever be the priorities of your bounty, list them down here for the builders to understand.`,
   },
-  page4: {
+  page7: {
     title: `Expected time of the solution`,
     content: `Use this section to highlight the number of days within which you are expecting the bounty to be completed. Remember, shorter the expected time, higher should be the bounty amount. `,
   },
-  page5: {
+  page4: {
     title: `Provide the link to a resource for your Bounty`,
     content: `Provide the link to your bounty here. This can be a link to a Github issue, a document, a video, a website, etc. 
     Please note that the link entered here cannot be changed/edited once the bounty is posted.`,
   },
-  page6: {
+  page5: {
     title: "Enter the bounty description",
     content:
       "Use this area to describe to the builders any details regarding the bounty. Chances of getting a good solution to your bounties increase 10x times if the description has been filled out.",
   },
-  page7: {
+  page8: {
     title: `Provide the bounty amount`,
     content: `Mention the amount that the developer
       shall receive after completing the bounty. Note: This amount will be held in an escrow contract and will be transferred to the developer once you confirm that you’ve received the code.`,
   },
-  page8: {
+  page6: {
+    title: `Choose the type of the Bounty`,
+    content: `Introducing new ways to post bounties on Chainwhiz. Now, you can post bounties with or without rewards.`,
+  },
+  page9: {
     title: `Solution Voting`,
     content: `Turn it on if you want the solutions to Be reviewed and voted on by the community members. Turn it off if you don’t want the community to vote on your solutions.`,
   },
@@ -87,11 +91,11 @@ export const text = {
     title: `Enter Community Reward`,
     content: `Community voting makes your life a lot easier in selecting the best solution to your bounty. They do the voting.You choose the best solution based on the votes. Simple and Fast. The reward goes out to the voters who voted for the highest voted solutions. `,
   },
-  page11: {
+  page12: {
     title: `Confirm your Wallet Address`,
     content: `Provide the wallet address which you will be using for transfering the bounty reward to the escrow. All transactions, regarding the bounty shall be associated with this address. `,
   },
-  page9: {
+  page11: {
     title: `Expected time of the vote`,
     content: `Use this section to highlight the number of days within which you are expecting the voting to be completed. Remember, shorter the expected time, higher should be the community amount.  `,
   },
@@ -130,6 +134,19 @@ export const communityText = [
     title: "Turn off voting",
     content:
       "If you are willing to spend hours reviewing pieces of code to figure out the best solution to your bounty, this one is  for you. Pros: You are superhuman. Cons: You don’t leverage the power of community. Win-Lose.   ",
+  },
+];
+
+export const bountyTypeChoice = [
+  {
+    title: "Paid Bounty",
+    content:
+      "Bounties with financial rewards/incentives. These are best if you want to build out serious sh*t or market your protocol with the help of community contributions.",
+  },
+  {
+    title: "Free Bounty",
+    content:
+      "Bounties with no financial rewards/incentives. These are a great way to start building out communities for your project. Tasks like designing POAPs for AMAs, conducting surveys, etc. are geat examples.",
   },
 ];
 

@@ -51,10 +51,15 @@ export default function QuestionLeftHeading(props) {
             <p class="heading color-neon">Time Remaining</p>
             <p class="bounty-time">{timeLeft + " " + hoursOrDaysOrMinutes}</p>
           </Grid>
-        ) : (
+        ) : props.questionDetails.bountyType == "paid" ? (
           <Grid item md={12}>
             <p class="heading color-neon">Time Remaining</p>
             <p class="bounty-time">0</p>
+          </Grid>
+        ) : (
+          <Grid item md={12}>
+            <p class="heading color-neon">Unpaid Bounty</p>
+            <p class="bounty-time">No Time Contraint</p>
           </Grid>
         )}
         <Grid item md={12}>
@@ -91,7 +96,14 @@ export default function QuestionLeftHeading(props) {
             <Button
               class="bounty-button"
               onClick={() => setOpenSolveDialog(true)}
-              disabled={walletAddress === props.questionDetails.address}
+              disabled={
+                walletAddress && 
+                (walletAddress === props.questionDetails.address ||
+                (props.questionDetails.whitelistedSolvers &&
+                  props.questionDetails.whitelistedSolvers.length &&
+                  !props.questionDetails.whitelistedSolvers.includes(walletAddress))
+                )
+              }
             >
               Submit Solution
             </Button>
