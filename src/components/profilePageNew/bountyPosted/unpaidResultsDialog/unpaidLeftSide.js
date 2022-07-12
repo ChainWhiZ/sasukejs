@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import "../../profilePageCss.css";
 
-export default function LeftSide(props) {
+export default function UnpaidLeftSide(props) {
   return (
     <>
       <div className="results-dialog-left-grid">
@@ -17,6 +17,7 @@ export default function LeftSide(props) {
           props.solutions.map((solution, index) => (
             <Grid
               item
+              key={`solverAddress${index}`}
               md={12}
               xs={12}
               onClick={() => props.handleSelectedSolution(index)}

@@ -13,11 +13,14 @@ import {
   contract as contractAtom,
   walletAddress as walletAddressAtom,
 } from "../../../../recoil/atoms";
+import SimpleAlerts from "../../../alert/alert";
+
 export default function ResultsDialog(props) {
   const [open, setOpen] = useState(props.open);
   const [alert, setAlert] = useState({
-    isValid: false,
+    open: false,
     errorMessage: "",
+    severity: "error",
   });
   const [loader, setLoader] = useState(true);
   const [solutions, setSolutions] = useState([]);
@@ -46,13 +49,16 @@ export default function ResultsDialog(props) {
   };
   const handleSelectedSolution = (index) => {
     setSelectedSolutionIndex(index);
-  }
+  };
 
   const escrowInitiationCall = async () => {
     return await new Promise(async (resolve, reject) => {
       try {
         const trxObj = contract.methods
-          .initiateEscrow(props.question.issueUrl, solutions[selectedSolutionIndex].githubLink)
+          .initiateEscrow(
+            props.question.issueUrl,
+            solutions[selectedSolutionIndex].githubLink
+          )
           .send({ from: walletAddress });
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
@@ -93,8 +99,8 @@ export default function ResultsDialog(props) {
       handleClose(false);
       setAlert((prevState) => ({
         ...prevState,
-        isValid: true,
-        errorMessage: "Something went wrong while acknowledging reward!",
+        open: true,
+        errorMessage: "Something went wrong while initiating escrow!",
       }));
     }
   };
@@ -114,7 +120,7 @@ export default function ResultsDialog(props) {
         onBackdropClick={handleClose}
       >
         <ClearRoundedIcon
-        className="clear-rounded-icon"
+          className="clear-rounded-icon"
           style={{
             color: "white",
             marginLeft: "61vw",
@@ -162,6 +168,9 @@ export default function ResultsDialog(props) {
           </Grid>
         </Grid>
       </Dialog>
+      {alert.open ? (
+        <SimpleAlerts severity={alert.severity} message={alert.errorMessage} />
+      ) : null}
     </>
   );
 }

@@ -217,7 +217,7 @@ export default function SolutionSubmit(props) {
                 setDisable(false);
                 setAlert((prevState) => ({
                   ...prevState,
-                  isValid: true,
+                  open: true,
                   errorMessage: "You are not allowed to solve!",
                 }));
               }
@@ -232,7 +232,7 @@ export default function SolutionSubmit(props) {
       setDisable(false);
       setAlert((prevState) => ({
         ...prevState,
-        isValid: true,
+        open: true,
         errorMessage: "Something went wrong while submitting!",
       }));
     }

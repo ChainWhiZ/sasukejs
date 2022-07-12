@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import "../../profilePageCss.css";
 import SimpleAlerts from "../../../alert/alert";
 
-export default function RightSide(props) {
+export default function UnpaidRightSide(props) {
   const [alert, setAlert] = useState({
     open: false,
     errorMessage: "",
@@ -49,6 +49,7 @@ export default function RightSide(props) {
           <Button
             onClick={() => handleSolutionSelection()}
             className="profile-button results-dialog-right-grid-button"
+            disabled={props.disable}
           >
             Select Solution
           </Button>

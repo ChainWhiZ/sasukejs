@@ -170,7 +170,7 @@ export default function StakingPage(props) {
           setLoader(false);
           setAlert((prevState) => ({
             ...prevState,
-            isValid: true,
+            open: true,
             errorMessage: "Something went wrong while staking!",
           }));
 
@@ -181,7 +181,7 @@ export default function StakingPage(props) {
       setLoader(false);
       setAlert((prevState) => ({
         ...prevState,
-        isValid: true,
+        open: true,
         errorMessage: "Something went wrong while staking!",
       }));
     }
