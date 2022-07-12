@@ -46,11 +46,6 @@ export default function QuestionPost() {
   console.log(reward);
   console.log(communityOption);
 
-  const [success, setSuccess] = useState({
-    success: false,
-    message: "",
-  });
-
   const contractPromise = useRecoilValue(contractAtom);
   console.log(contractPromise);
   let contract;
@@ -715,7 +710,6 @@ export default function QuestionPost() {
           <hr className="horizontal-line" style={{ marginTop: "8%" }} />
         </>
       )}
-      {success.success ? alert(success.message) : null}
     </>
   );
 }

@@ -54,7 +54,7 @@ export const fetchBalance =  async (walletAddress) => {
 export const initiliaseContract = async () => {
   let contract = new web3.eth.Contract(
     chainwhiz,
-    // "0x842Edf7aB0086c3B96Deb9f461F7DD5635841e69" //testnet
+    //"0x842Edf7aB0086c3B96Deb9f461F7DD5635841e69" //testnet
     process.env.REACT_APP_CHAINWHIZ_CORE_ADDRESS//prod mainnet
   );
   return contract;
@@ -112,3 +112,40 @@ export const generateAndVerifySolutionSignature = async (publisherAddress, bount
 
 
 }
+
+export const generateAndVerifyBountyEndSignature = async (bountyUrl, walletAddress) => {
+
+    const data = {
+      "walletAddress": walletAddress,
+      "bounty url": bountyUrl,
+      "message":"end",
+    }
+    const signature = await web3.eth.personal.sign(web3.utils.sha3(data.toString()), walletAddress);
+    const signer = await web3.eth.personal.ecRecover(web3.utils.sha3(data.toString()), signature);
+    console.log(signer)
+    console.log(walletAddress)
+    if(signer.toLowerCase() == walletAddress.toLowerCase())
+      return {status:true, signature};
+    else
+      return {status:false, signature};
+
+}
+
+export const generateAndVerifySolutionSelectionSignature = async (solverAddress, questionId, walletAddress,solutionLink) => {
+    const data = {
+      "Wallet Address": walletAddress,
+      "Question Id": questionId,
+      "Solution Link": solutionLink,
+      "Solver Address": solverAddress,
+    }
+    const signature = await web3.eth.personal.sign(web3.utils.sha3(data.toString()), walletAddress);
+    const signer = await web3.eth.personal.ecRecover(web3.utils.sha3(data.toString()), signature);
+    console.log(signer)
+    console.log(walletAddress)
+    if(signer.toLowerCase() == walletAddress.toLowerCase())
+      return {status:true, signature};
+    else
+      return {status:false, signature};
+
+}
+

@@ -131,7 +131,7 @@ export default function QuestionStage(props) {
       props.handleLoader(false);
       setAlert((prevState) => ({
         ...prevState,
-        isValid: true,
+        open: true,
         errorMessage: "Something went wrong while unstaking reward!",
       }));
     }

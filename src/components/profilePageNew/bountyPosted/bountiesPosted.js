@@ -17,6 +17,7 @@ export default function BountyPosted(props) {
   var escrowContent = [];
   const walletAddress = useRecoilValue(walletAddressAtom);
   const [data, setData] = useState([]);
+  const [disable, setDisable] = useState(false);
   const [loader, setLoader] = useState(true);
   const [alert, setAlert] = useState({
     open: false,
@@ -59,6 +60,7 @@ export default function BountyPosted(props) {
         setLoader(false);
       });
   }, []);
+  
 
   const concatObject = () => {
     questions.forEach((question) => {
@@ -87,7 +89,7 @@ export default function BountyPosted(props) {
                   </Link>
                 </Grid>
                 <Grid item md={5} xs={12}>
-                  <QuestionStage {...question} />
+                  <QuestionStage {...question} disable={disable} handleDisable={()=>setDisable(true)} handleLoader={(flag) => setLoader(flag)} />
                 </Grid>
               </>
             ))

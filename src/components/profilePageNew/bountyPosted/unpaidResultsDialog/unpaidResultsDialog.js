@@ -3,19 +3,17 @@ import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import { port } from "../../../../config/config";
-import LeftSide from "./leftSide";
-import RightSide from "./rightSide";
+import UnpaidLeftSide from "./unpaidLeftSide";
+import UnpaidRightSide from "./unpaidRightSide";
 import "../../profilePageCss.css";
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { useRecoilValue } from "recoil";
 import { CircularProgress } from "@material-ui/core";
-import {
-  contract as contractAtom,
-  walletAddress as walletAddressAtom,
-} from "../../../../recoil/atoms";
+import { walletAddress as walletAddressAtom } from "../../../../recoil/atoms";
+import { generateAndVerifySolutionSelectionSignature } from "../../../../web3js/web3";
 import SimpleAlerts from "../../../alert/alert";
 
-export default function ResultsDialog(props) {
+export default function UnpaidResultsDialog(props) {
   const [open, setOpen] = useState(props.open);
   const [alert, setAlert] = useState({
     open: false,
@@ -25,13 +23,8 @@ export default function ResultsDialog(props) {
   const [loader, setLoader] = useState(true);
   const [solutions, setSolutions] = useState([]);
   const [disable, setDisable] = useState(false);
-  const contractPromise = useRecoilValue(contractAtom);
-  let contract;
-  var promise = Promise.resolve(contractPromise);
-  promise.then(function (v) {
-    contract = v;
-  });
   const walletAddress = useRecoilValue(walletAddressAtom);
+  const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
 
   useEffect(() => {
     axios
@@ -42,7 +35,6 @@ export default function ResultsDialog(props) {
       });
   }, []);
 
-  const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
   const handleClose = () => {
     setOpen(false);
     props.handleDialogClose(false);
@@ -51,60 +43,60 @@ export default function ResultsDialog(props) {
     setSelectedSolutionIndex(index);
   };
 
-  const escrowInitiationCall = async () => {
-    return await new Promise(async (resolve, reject) => {
-      try {
-        const trxObj = contract.methods
-          .initiateEscrow(
-            props.question.issueUrl,
-            solutions[selectedSolutionIndex].githubLink
-          )
-          .send({ from: walletAddress });
-        trxObj.on("receipt", function (receipt) {
-          console.log("Successfully done");
-
-          resolve(receipt);
-        });
-
-        trxObj.on("error", function (error, receipt) {
-          console.log(error);
-          if (error)
-            window.alert(
-              error.transactionHash
-                ? `Went wrong in trc hash :${error.transactionHash}`
-                : error.message
-            );
-          handleClose(false);
-          reject(error.message);
-        });
-      } catch (error) {
-        console.log(error);
-        window.alert(
-          error.transactionHash
-            ? `Went wrong in trc hash :${error.transactionHash}`
-            : error.message
-        );
-        handleClose(false);
-        reject(error);
-      }
-    });
-  };
-
-  const handleEscrowInitiation = async () => {
+  const handleSolutionSelection = async () => {
     setDisable(true);
     try {
-      await escrowInitiationCall();
+      await generateAndVerifySolutionSelectionSignature(
+        solutions[selectedSolutionIndex].address,
+        props._id,
+        walletAddress.toString(),
+        solutions[selectedSolutionIndex].githubLink
+      ).then(async (res) => {
+        console.log(res);
+        if (res.status == true) {
+          let axiosResponse;
+          try {
+            axiosResponse = await axios.post(port + "solution/signature", {
+              solutionId: solutions[selectedSolutionIndex].githubLink,
+              signature: res.signature,
+            });
+            console.log(axiosResponse)
+            Promise.resolve(axiosResponse).then((val) => {
+              if (val.status == 201) {
+                window.alert("Successfully selected");
+                handleClose(false);
+              } else {
+                setAlert((prevState) => ({
+                  ...prevState,
+                  open: true,
+                  errorMessage: "Something went wrong while selection!",
+                }));
+                handleClose(false);
+              }
+            });
+          } catch (error) {
+            console.log(error);
+            handleClose(false);
+            setAlert((prevState) => ({
+              ...prevState,
+              open: true,
+              errorMessage: "Something went wrong while selecting solution!",
+            }));
+          }
+        }
+      });
     } catch (error) {
-      console.log(error);
       handleClose(false);
       setAlert((prevState) => ({
         ...prevState,
         open: true,
-        errorMessage: "Something went wrong while initiating escrow!",
+        errorMessage: "Invalid Signature!",
       }));
     }
   };
 
+  console.log(props)
+  console.log(solutions)
   return (
     <>
       <Dialog
@@ -120,7 +112,6 @@ export default function ResultsDialog(props) {
         onBackdropClick={handleClose}
       >
         <ClearRoundedIcon
-          className="clear-rounded-icon"
           style={{
             color: "white",
             marginLeft: "61vw",
@@ -135,7 +126,7 @@ export default function ResultsDialog(props) {
         <Grid container>
           <Grid item md={5} xs={12} style={{ marginLeft: "-17%" }}>
             {solutions && solutions.length ? (
-              <LeftSide
+              <UnpaidLeftSide
                 solutions={solutions}
                 handleSelectedSolution={(index) =>
                   handleSelectedSolution(index)
@@ -158,9 +149,9 @@ export default function ResultsDialog(props) {
           </Grid>
           <Grid item md={7} xs={12}>
             {solutions && solutions.length ? (
-              <RightSide
+              <UnpaidRightSide
                 selectedSolution={solutions[selectedSolutionIndex]}
-                handleEscrowInitiation={handleEscrowInitiation}
+                handleSolutionSelection={handleSolutionSelection}
                 disable={disable}
                 question={props.question}
               />

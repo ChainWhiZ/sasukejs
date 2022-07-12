@@ -77,7 +77,7 @@ export default function BountySolved(props) {
     setData(solutions.reverse());
     setLoader(false)
   };
-
+console.log(data)
   return (
     <>
       {loader ? (
