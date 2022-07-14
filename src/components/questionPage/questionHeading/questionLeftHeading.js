@@ -58,8 +58,8 @@ export default function QuestionLeftHeading(props) {
           </Grid>
         ) : (
           <Grid item md={12}>
-            <p class="heading color-neon">Unpaid Bounty</p>
-            <p class="bounty-time">No Time Contraint</p>
+            <p class="heading color-neon">Time Remaining</p>
+            <p class="bounty-time">-</p>
           </Grid>
         )}
         <Grid item md={12}>

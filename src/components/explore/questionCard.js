@@ -46,17 +46,31 @@ export default function QuestionCard(props) {
 
   return (
     <>
-      <Grid container>
+      <Grid container >
         <Grid item md={8} xs={12}>
           <Link to={`/bounty/${props.question._id}`}>
-            <p className="question-title">{props.question.title}</p>
+            <p className="question-title">
+              {props.question.title}{" "}
+              {props.question.bountyType && props.question.bountyType == "unpaid" ? (
+                <span
+                  class="question-card-heading question-card-heading-show"
+                  style={{ marginLeft: "1%" }}
+                >
+                  UpSkill
+                </span>
+              ) : props.question.whitelistedSolvers && props.question.whitelistedSolvers.length ? (
+                <span
+                  class="question-card-heading question-card-heading-show"
+                  style={{ marginLeft: "1%" }}
+                >
+                  Permissioned
+                </span>
+              ) : null}
+            </p>
           </Link>
         </Grid>
-        {props.bountyType === "unpaid" ? (
-          <Grid item md={4} xs={12} className="reward-grid">
-            <p className="reward__value">Unpaid</p>
-          </Grid>
-        ) : props.question.isCommunityApprovedSolution ? (
+        {props.question.bountyType == "unpaid" ? null : props.question
+            .isCommunityApprovedSolution ? (
           <>
             <Grid item md={2} xs={12} className="reward-grid">
               <Tooltip
@@ -130,7 +144,7 @@ export default function QuestionCard(props) {
 
         <Grid item md={3} className="ques-detail">
           <img src={time} alt="time" className="time" />
-          <p className="time-left">{timeLeft < 0 ? 0 : timeLeft}</p>
+          <p className="time-left">{timeLeft < 0 ? "-" : timeLeft}</p>
           <p className="time-unit">{hoursOrDaysOrMinutes}</p>
         </Grid>
         <Grid item md={3}>

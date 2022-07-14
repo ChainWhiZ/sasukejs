@@ -139,12 +139,12 @@ export const communityText = [
 
 export const bountyTypeChoice = [
   {
-    title: "Paid Bounty",
+    title: "Paid",
     content:
       "Bounties with financial rewards/incentives. These are best if you want to build out serious sh*t or market your protocol with the help of community contributions.",
   },
   {
-    title: "Free Bounty",
+    title: "Upskill (Unpaid)",
     content:
       "Bounties with no financial rewards/incentives. These are a great way to start building out communities for your project. Tasks like designing POAPs for AMAs, conducting surveys, etc. are geat examples.",
   },
