@@ -1,8 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import "../../profilePageCss.css";
+import { copyTextToClipboard } from "../../../helper";
+import CopyIcon from "../../../../assets/baseline_content_copy_white_24dp.png";
 
 export default function UnpaidLeftSide(props) {
+  const [isCopied, setIsCopied] = useState(false);
+  const handleCopyClick = (walletAddress) => {
+    copyTextToClipboard(walletAddress)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 3000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <div className="results-dialog-left-grid">
@@ -30,7 +45,18 @@ export default function UnpaidLeftSide(props) {
               <p>
                 {solution.address.substring(0, 4) +
                   "..." +
-                  solution.address.substring(38)}
+                  solution.address.substring(38)} {' '}
+                <span style={{ fontSize: "0.8rem" ,verticalAlign: "middle"}}>
+                  {isCopied && props.selectedSolutionIndex === index? (
+                    "Copied!"
+                  ) : (
+                    <img
+                      onClick={()=>handleCopyClick(solution.address)}
+                      src={CopyIcon}
+                      alt="copy"
+                    />
+                  )}
+                </span>
               </p>
             </Grid>
           ))}
