@@ -130,7 +130,7 @@ export default function InputComponent(props) {
                   label="Currency"
                 >
                   <MenuItem value={"MATIC"}>MATIC</MenuItem>
-                  <MenuItem value={"DEV"}>DEV</MenuItem>
+                  <MenuItem value={"BETS"}>BETS</MenuItem>
                 </Select>
               ) : props.pageState === 10 ? (
                 <p className="bounty-post-unit">
