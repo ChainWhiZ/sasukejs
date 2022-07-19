@@ -37,7 +37,7 @@ export default function RouterComponent() {
           "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
         ),
         axios.get("https://api.coinbase.com/v2/exchange-rates?currency=MATIC"),
-        axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BETS&convert=USD&CMC_PRO_API_KEY=5103c856-093f-4662-8fd1-af036ca9c302"),
+       // axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BETS&convert=USD&CMC_PRO_API_KEY=5103c856-093f-4662-8fd1-af036ca9c302"),
       ])
       .then(
         axios.spread((response1, response2, response3) => {
@@ -46,7 +46,7 @@ export default function RouterComponent() {
           // setDevusd(response1.data.data.rates.USD);
           setUsdValues({
             DEV: response1.data.market_data.current_price.usd,
-            BETS: response3.data.data.rates.USD,
+            BETS: 0.000095,
           });
           window.addEventListener("resize", updateMedia);
           return () => window.removeEventListener("resize", updateMedia);
