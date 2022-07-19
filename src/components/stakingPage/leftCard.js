@@ -4,6 +4,7 @@ import ideaIcon from "../../assets/idea.png";
 import ideaIconBlack from "../../assets/idea_black.png";
 import { copyTextToClipboard } from "../helper";
 import CopyIcon from "../../assets/baseline_content_copy_white_24dp.png";
+import BlackCopyIcon from "../../assets/baseline_content_copy_black_18dp.png";
 import "./stakingPageCss.css";
 
 export default function LeftCard(props) {
@@ -63,7 +64,11 @@ export default function LeftCard(props) {
                 ) : (
                   <img
                     onClick={() => handleCopyClick(solution.address)}
-                    src={CopyIcon}
+                    src={
+                      props.selectedSolutionIndex === index
+                        ? BlackCopyIcon
+                        : CopyIcon
+                    }
                     alt="copy"
                   />
                 )}

@@ -3,6 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import "../../profilePageCss.css";
 import { copyTextToClipboard } from "../../../helper";
 import CopyIcon from "../../../../assets/baseline_content_copy_white_24dp.png";
+import BlackCopyIcon from "../../../../assets/baseline_content_copy_black_18dp.png";
+
 
 export default function UnpaidLeftSide(props) {
   const [isCopied, setIsCopied] = useState(false);
@@ -52,7 +54,11 @@ export default function UnpaidLeftSide(props) {
                   ) : (
                     <img
                       onClick={()=>handleCopyClick(solution.address)}
-                      src={CopyIcon}
+                      src={
+                        props.selectedSolutionIndex === index
+                          ? BlackCopyIcon
+                          : CopyIcon
+                      }
                       alt="copy"
                     />
                   )}
