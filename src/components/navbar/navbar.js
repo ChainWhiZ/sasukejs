@@ -6,7 +6,8 @@ import logo from "../../assets/new-logo.svg";
 import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
-  tokenContract as tokenContractAtom,
+  tokenDevContract as tokenDevContractAtom,
+  tokenBetsContract as tokenBetsContractAtom,
 } from "../../recoil/atoms";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
@@ -18,13 +19,15 @@ import {
   initiliaseWeb3,
   fetchAccount,
   initiliaseContract,
-  initiliaseTokenContract,
+  initiliaseDevContract,
+  initiliaseBetsContract,
   checkChain,
 } from "../../web3js/web3";
 export default function Navbar() {
   const [walletAddress, setWalletAddress] = useRecoilState(walletAddressAtom);
   const [contract, setContract] = useRecoilState(contractAtom);
-  const [tokenContract, setTokenContract] = useRecoilState(tokenContractAtom);
+  const [tokenDevContract, setTokenDevContract] = useRecoilState(tokenDevContractAtom);
+  const [tokenBetsContract, setTokenBetsContract] = useRecoilState(tokenBetsContractAtom);
   const history = useHistory();
   const location = useLocation();
 
@@ -38,8 +41,12 @@ export default function Navbar() {
         let _test = await initiliaseContract();
         return _test;
       });
-      setTokenContract(async (old) => {
-        let _test = await initiliaseTokenContract();
+      setTokenDevContract(async (old) => {
+        let _test = await initiliaseDevContract();
+        return _test;
+      });
+      setTokenBetsContract(async (old) => {
+        let _test = await initiliaseBetsContract();
         return _test;
       });
     }

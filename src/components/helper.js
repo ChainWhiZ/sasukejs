@@ -17,16 +17,16 @@ export const shortenLength = (val, n = 4) => {
   //     return val.toString();
 };
 
-export const getUSDReward = (questionDetails, devusd, maticusd) => {
-  console.log(devusd)
+export const getUSDReward = (questionDetails, usdValues, maticusd) => {
+  console.log(usdValues)
   if (questionDetails.questionStage === "vote") {
-    if (questionDetails.currency === "DEV")
-      return devusd * questionDetails.communityReward;
+    if (questionDetails.currency !== "MATIC")
+      return usdValues[questionDetails.currency] * questionDetails.communityReward;
     else
       return maticusd * questionDetails.communityReward;
   }
-  if (questionDetails.currency === "DEV")
-    return devusd * questionDetails.bountyReward;
+  if (questionDetails.currency !== "MATIC")
+    return usdValues[questionDetails.currency] * questionDetails.bountyReward;
   else
     return maticusd * questionDetails.bountyReward;
 }

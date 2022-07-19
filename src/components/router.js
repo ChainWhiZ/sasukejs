@@ -14,7 +14,7 @@ import NewExplore from "./explore/explore";
 import StakingPage from "./stakingPage/stakingPage";
 import {
   maticusd as maticusdAtom,
-  devusd as devusdAtom,
+  usdValues as usdValuesAtom,
 } from "../recoil/atoms";
 import { useRecoilState } from "recoil";
 import MobileView from "./mobileView/mobileView";
@@ -22,29 +22,32 @@ import "../style/style.css";
 export default function RouterComponent() {
   const [isDesktop, setDesktop] = useState(window.innerWidth > 1100);
   const [maticusd, setMaticusd] = useRecoilState(maticusdAtom);
-  const [devusd, setDevusd] = useRecoilState(devusdAtom);
+  const [usdValues, setUsdValues] = useRecoilState(usdValuesAtom);
   const updateMedia = () => {
     setDesktop(window.innerWidth > 1100);
   };
-  console.log = function () {};
+  //console.log = function () {};
   //use this if coinbase goes down
-   // "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
+  // "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
   useEffect(() => {
     logEvent(firebaseAnalytics, "dApp");
     axios
       .all([
         axios.get(
           "https://api.coingecko.com/api/v3/coins/dev-protocol?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false"
-        
         ),
         axios.get("https://api.coinbase.com/v2/exchange-rates?currency=MATIC"),
+        axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BETS&convert=USD&CMC_PRO_API_KEY=5103c856-093f-4662-8fd1-af036ca9c302"),
       ])
       .then(
-        axios.spread((response1, response2) => {
+        axios.spread((response1, response2, response3) => {
           setMaticusd(response2.data.data.rates.USD);
-          console.log(response1)
+          console.log(response3);
           // setDevusd(response1.data.data.rates.USD);
-         setDevusd(response1.data.market_data.current_price.usd);
+          setUsdValues({
+            DEV: response1.data.market_data.current_price.usd,
+            BETS: response3.data.data.rates.USD,
+          });
           window.addEventListener("resize", updateMedia);
           return () => window.removeEventListener("resize", updateMedia);
         })

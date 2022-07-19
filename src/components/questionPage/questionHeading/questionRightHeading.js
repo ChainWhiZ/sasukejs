@@ -8,7 +8,7 @@ import TweetShare from "../dialogs/tweetShare";
 import {
   maticusd as maticusdAtom,
   walletAddress as walletAddressAtom,
-  devusd as devusdAtom,
+  usdValues as usdValuesAtom,
 } from "../../../recoil/atoms";
 import { getReward, getUSDReward } from "../../helper";
 import { useRecoilValue } from "recoil";
@@ -17,15 +17,14 @@ import { checkLength, shortenLength } from "../../helper";
 export default function QuestionRightHeading(props) {
   console.log(props.currency);
   const walletAddress = useRecoilValue(walletAddressAtom);
-  const devusd = useRecoilValue(devusdAtom);
+  const usdValues = useRecoilValue(usdValuesAtom);
   const maticusd = useRecoilValue(maticusdAtom);
   const [openSolveDialog, setOpenSolveDialog] = useState(false);
   const [openTweetDialog, setOpenTweetDialog] = useState(false);
   const up = (v) => {
     return Math.ceil(v * Math.pow(10, 3)) / Math.pow(10, 3);
   };
-  console.log(devusd);
-  console.log(props.bountyReward * devusd);
+  console.log(usdValues);
   return (
     <>
       <Grid
@@ -53,9 +52,9 @@ export default function QuestionRightHeading(props) {
           </Tooltip>
 
           <Tooltip
-            title={getUSDReward(props, devusd, maticusd)}
+            title={getUSDReward(props, usdValues, maticusd)}
             disableHoverListener={
-              !checkLength(getUSDReward(props, devusd, maticusd))
+              !checkLength(getUSDReward(props, usdValues, maticusd))
             }
             className="bounty-time"
           >
@@ -63,7 +62,7 @@ export default function QuestionRightHeading(props) {
               {" "}
               {props.bountyType == 'unpaid'
                 ? "-"
-                : `${shortenLength(getUSDReward(props, devusd, maticusd))} USD`}
+                : `${shortenLength(getUSDReward(props, usdValues, maticusd))} USD`}
             </p>
           </Tooltip>
           {props.questionStage === "solve" ? (

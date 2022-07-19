@@ -11,7 +11,8 @@ import validator from "validator";
 import {
   walletAddress as walletAddressAtom,
   contract as contractAtom,
-  tokenContract as tokenContractAtom,
+  tokenBetsContract as tokenBetsContractAtom,
+  tokenDevContract as tokenDevContractAtom,
 } from "../../recoil/atoms";
 import CircularIndeterminate from "../loader/loader";
 import { generateAndVerifyBountySignature } from "../../web3js/web3";
@@ -48,19 +49,29 @@ export default function QuestionPost() {
 
   const contractPromise = useRecoilValue(contractAtom);
   console.log(contractPromise);
+  let tokenContract;
   let contract;
   var promise = Promise.resolve(contractPromise);
   promise.then(function (v) {
     contract = v;
   });
 
-  const tokenContractPromise = useRecoilValue(tokenContractAtom);
-  console.log(tokenContractPromise);
-  let tokenContract;
-  var tokenPromise = Promise.resolve(tokenContractPromise);
-  tokenPromise.then(function (v) {
+  const tokenDevContractPromise = useRecoilValue(tokenDevContractAtom);
+  console.log(tokenDevContractPromise);
+  let tokenDevContract;
+  var tokenDevPromise = Promise.resolve(tokenDevContractPromise);
+  tokenDevPromise.then(function (v) {
     console.log(v);
-    tokenContract = v;
+    tokenDevContract = v;
+  });
+
+  const tokenBetsContractPromise = useRecoilValue(tokenBetsContractAtom);
+  console.log(tokenBetsContractPromise);
+  let tokenBetsContract;
+  var tokenBetsPromise = Promise.resolve(tokenBetsContractPromise);
+  tokenBetsPromise.then(function (v) {
+    console.log(v);
+    tokenBetsContract = v;
   });
 
   async function uploadToFleek(data) {
@@ -335,6 +346,14 @@ export default function QuestionPost() {
     descriptionHash,
     evaluationHash
   ) {
+    if(currency === 'DEV')
+    {
+       tokenContract = tokenDevContract;
+    }
+    if(currency === 'BETS')
+    {
+      tokenContract = tokenBetsContract;
+    }
     return await new Promise((resolve, reject) => {
       const rewardAmount = reward * Math.pow(10, 18);
       const communityRewardAmount = communityReward * Math.pow(10, 18);

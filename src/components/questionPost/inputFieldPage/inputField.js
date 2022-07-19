@@ -131,6 +131,7 @@ export default function InputComponent(props) {
                 >
                   <MenuItem value={"MATIC"}>MATIC</MenuItem>
                   <MenuItem value={"BETS"}>BETS</MenuItem>
+                  <MenuItem value={"DEV"}>DEV</MenuItem>
                 </Select>
               ) : props.pageState === 10 ? (
                 <p className="bounty-post-unit">

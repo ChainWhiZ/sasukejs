@@ -7,7 +7,7 @@ import time from "../../assets/Time.png";
 import account from "../../assets/Account.png";
 import {
   maticusd as maticusdAtom,
-  devusd as devusdAtom,
+  usdValues as usdValuesAtom,
 } from "../../recoil/atoms";
 import { getUSDReward, getReward } from "../helper";
 import { useRecoilValue } from "recoil";
@@ -16,8 +16,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 export default function QuestionCard(props) {
   console.log(props);
   const maticusd = useRecoilValue(maticusdAtom);
-  const devusd = useRecoilValue(devusdAtom);
-  console.log(devusd);
+  const usdValues = useRecoilValue(usdValuesAtom);
   let hoursOrDaysOrMinutes = "day(s)";
   const seconds = Math.floor(new Date().getTime() / 1000);
   let timeLeft = 0;
@@ -86,15 +85,15 @@ export default function QuestionCard(props) {
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               <Tooltip
-                title={getUSDReward(props.question, devusd, maticusd)}
+                title={getUSDReward(props.question, usdValues, maticusd)}
                 disableHoverListener={
-                  !checkLength(getUSDReward(props.question, devusd, maticusd))
+                  !checkLength(getUSDReward(props.question, usdValues, maticusd))
                 }
               >
                 <p className="reward__value">
                   {" "}
                   {shortenLength(
-                    getUSDReward(props.question, devusd, maticusd)
+                    getUSDReward(props.question, usdValues, maticusd)
                   )}{" "}
                   USD
                 </p>
@@ -117,15 +116,15 @@ export default function QuestionCard(props) {
             </Grid>
             <Grid item md={2} xs={12} className="reward-grid right-reward-box">
               <Tooltip
-                title={getUSDReward(props.question, devusd, maticusd)}
+                title={getUSDReward(props.question, usdValues, maticusd)}
                 disableHoverListener={
-                  !checkLength(getUSDReward(props.question, devusd, maticusd))
+                  !checkLength(getUSDReward(props.question, usdValues, maticusd))
                 }
               >
                 <p className="reward__value">
                   {" "}
                   {shortenLength(
-                    getUSDReward(props.question, devusd, maticusd)
+                    getUSDReward(props.question, usdValues, maticusd)
                   )}{" "}
                   USD
                 </p>

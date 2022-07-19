@@ -24,14 +24,21 @@ export const maticusd = atom({
   key: "maticusd",
   default:0,
 });
-export const devusd = atom({
-  key: "devusd",
-  default:0,
+export const usdValues = atom({
+  key: "usdValues",
+  default:{DEV:0,BETS:0},
 });
 
-export const tokenContract = atom({
-  key: "tokenContract",
+export const tokenDevContract = atom({
+  key: "tokenDevContract",
   default:{},
 });
+
+export const tokenBetsContract = atom({
+  key: "tokenBetsContract",
+  default:{},
+});
+
+
 
 

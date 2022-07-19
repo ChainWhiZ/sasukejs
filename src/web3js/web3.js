@@ -59,10 +59,18 @@ export const initiliaseContract = async () => {
   );
   return contract;
 };
-export const initiliaseTokenContract = async () => {
+export const initiliaseDevContract = async () => {
   let contract = new web3.eth.Contract(
     erc20,
     process.env.REACT_APP_DEV_TOKEN_ADDRESS
+  );
+
+  return contract;
+};
+export const initiliaseBetsContract = async () => {
+  let contract = new web3.eth.Contract(
+    erc20,
+    process.env.REACT_APP_BETS_TOKEN_ADDRESS
   );
 
   return contract;
