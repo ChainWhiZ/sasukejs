@@ -7,7 +7,7 @@ export const username = atom({
 
 export const walletAddress = atom({
   key: "walletAddress",
-  default:"0xcaFb7167635237AfCc0c24fCa9926FF25214656B",
+  default:"",
 });
 
 export const contract = atom({
