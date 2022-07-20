@@ -25,7 +25,7 @@ const[searchValue,setSearchValue] = useState("");
       </Grid>
       <Grid item md={12}>
         {props.data.length ? (
-          props.data.map((question) => (
+          [...props.data].reverse().map((question) => (
             <>
               <QuestionCard {...question} type={props.type} />
               <hr className="question-hr" />
