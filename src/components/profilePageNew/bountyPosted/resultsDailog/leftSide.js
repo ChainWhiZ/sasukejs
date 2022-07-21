@@ -46,7 +46,7 @@ export default function LeftSide(props) {
                 {solution.address.substring(0, 4) +
                   "..." +
                   solution.address.substring(38)}{" "}
-                <span style={{ fontSize: "0.8rem", verticalAlign: "middle" }}>
+                <span style={{ fontSize: "0.8rem", verticalAlign: "middle", cursor:"pointer" }}>
                   {isCopied && props.selectedSolutionIndex === index ? (
                     "Copied!"
                   ) : (

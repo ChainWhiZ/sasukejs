@@ -37,7 +37,7 @@ export default function QuestionSolutionCard(props) {
               "..." +
               props.solution.address.substring(38)}
           </span>
-          <span style={{ fontSize: "0.8rem",verticalAlign: "middle"}}>
+          <span style={{ fontSize: "0.8rem",verticalAlign: "middle", cursor:"pointer"}}>
             {isCopied? (
               "Copied!"
             ) : (

@@ -56,7 +56,7 @@ export default function LeftCard(props) {
               {solution.address.substring(0, 4) +
                 "..." +
                 solution.address.substring(38)}{" "}
-              <span style={{ fontSize: "0.8rem", verticalAlign: "middle" }}>
+              <span style={{ fontSize: "0.8rem", verticalAlign: "middle", cursor:"pointer" }}>
                 {isCopied &&
                 props.solutions[props.selectedSolutionIndex].address ===
                   solution.address ? (

@@ -121,7 +121,7 @@ export default function Heading(props) {
       >
         <p>
           {walletAddress}{" "}
-          <span style={{fontSize:"0.8rem"}}>
+          <span style={{fontSize:"0.8rem", cursor:"pointer"}}>
             {isCopied ? "Copied!" : <img onClick={handleCopyClick} src={CopyIcon} alt="copy" />}
           </span>
         </p>
