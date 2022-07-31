@@ -179,6 +179,35 @@ export default function MenuBar(props) {
             </p>
           </Grid>
         </Link>
+        <Link to="/completed">
+          <Grid
+            item
+            md={12}
+            onMouseEnter={() => toggleHover("solveBounty", solveBounty)}
+            onMouseLeave={() => toggleHover("solveBounty", whiteSolveBounty)}
+            className={
+              props.type === "completed" ? "grid-item active" : "grid-item"
+            }
+          >
+            <img
+              src={
+                props.type === "completed"
+                  ? solveBounty
+                  : toggleHoverIcons.solveBounty
+              }
+              alt="completedBounty"
+            />
+            <p
+              className={
+                props.type === "completed"
+                  ? "menubar-items p-active"
+                  : "menubar-items"
+              }
+            >
+              Completed Bounties
+            </p>
+          </Grid>
+        </Link>
         {/* {walletAddress ? (
           <Link to="/profile">
             <Grid
