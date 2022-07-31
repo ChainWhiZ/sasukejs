@@ -31,7 +31,7 @@ export default function NewExplore(props) {
     setLoader(true);
     axios
       .post(port + "question/fetch-all", {
-        isActive: type === "completed" ? false : true,
+        questionStage: type
       })
       .then((response) => {
         console.log(response);
