@@ -35,11 +35,6 @@ export default function NewExplore(props) {
       })
       .then((response) => {
         console.log(response);
-        if (type !== "completed") {
-          response.data = response.data.filter(
-            (question) => question.question.questionStage === type
-          );
-        }
         setLoader(false);
         setData(response.data);
         setAllQuestions(response.data);
