@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { logEvent } from "firebase/analytics"
+import { logEvent } from "firebase/analytics";
 import firebaseAnalytics from "../firebaseConfig";
 import MenuBar from "./menuBar";
 import Grid from "@material-ui/core/Grid";
@@ -22,7 +22,7 @@ export default function NewExplore(props) {
     severity: "error",
   });
   useEffect(() => {
-    logEvent(firebaseAnalytics, "dApp")
+    logEvent(firebaseAnalytics, "dApp");
     setAlert((prevState) => ({
       ...prevState,
       open: false,
@@ -30,12 +30,11 @@ export default function NewExplore(props) {
     }));
     setLoader(true);
     axios
-      .get(port + "question/fetchall")
+      .post(port + "question/fetch-all", {
+        questionStage: type
+      })
       .then((response) => {
         console.log(response);
-        response.data = response.data.filter(
-          (question) => question.question.questionStage === type
-        );
         setLoader(false);
         setData(response.data);
         setAllQuestions(response.data);
