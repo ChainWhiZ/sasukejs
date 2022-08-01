@@ -11,6 +11,8 @@ import whiteSolveBounty from "../../assets/white_solve_bounty.png";
 import blackVoteBounty from "../../assets/black_vote_bounty.png";
 import whiteProfile from "../../assets/profile.png";
 import blackProfile from "../../assets/black_profile.png";
+import blackCheck from "../../assets/check_circle_black_36dp.svg";
+import whiteCheck from "../../assets/check_circle_white_36dp.svg";
 import smallBusiness from "../../assets/small-business.png";
 import { useRecoilValue } from "recoil";
 import { walletAddress as walletAddressAtom } from "../../recoil/atoms";
@@ -26,6 +28,8 @@ export default function MenuBar(props) {
     voteBounty: voteBounty,
     profile: whiteProfile,
     postBounty: postBounty,
+    completedBounty: blackCheck,
+
   });
   const toggleHover = (key, value) => {
     setToggleHoverIcons((prevState) => ({
@@ -183,8 +187,8 @@ export default function MenuBar(props) {
           <Grid
             item
             md={12}
-            onMouseEnter={() => toggleHover("solveBounty", solveBounty)}
-            onMouseLeave={() => toggleHover("solveBounty", whiteSolveBounty)}
+            onMouseEnter={() => toggleHover("completedBounty", blackCheck)}
+            onMouseLeave={() => toggleHover("completedBounty", whiteCheck)}
             className={
               props.type === "completed" ? "grid-item active" : "grid-item"
             }
@@ -192,8 +196,8 @@ export default function MenuBar(props) {
             <img
               src={
                 props.type === "completed"
-                  ? solveBounty
-                  : toggleHoverIcons.solveBounty
+                  ? blackCheck
+                  : toggleHoverIcons.completedBounty
               }
               alt="completedBounty"
             />
