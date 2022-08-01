@@ -215,9 +215,14 @@ a {
 .question-card-heading-show{
   cursor: pointer;
   font-weight: 500;
-  font-size: 0.5rem;
+  font-size: 0.6rem;
 
 }
+.question-card-heading-completed{
+  box-shadow: none;
+  padding: 0.4%;
+}
+
 @media only screen and (min-width: 480px) and (max-width: 1800px) {
   .question-card-heading{
     font-size:0.6rem;

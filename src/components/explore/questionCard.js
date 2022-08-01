@@ -46,19 +46,29 @@ export default function QuestionCard(props) {
 
   return (
     <>
-      <Grid container >
+      <Grid container>
         <Grid item md={8} xs={12}>
           <Link to={`/bounty/${props.question._id}`}>
             <p className="question-title">
               {props.question.title}{" "}
-              {props.question.bountyType && props.question.bountyType == "unpaid" ? (
+              {props.type == "completed" ? (
+                <span
+                  class="question-card-heading question-card-heading-show question-card-heading-completed"
+                  style={{ marginLeft: "1%" }}
+                >
+                  Completed
+                </span>
+              ) : null}{" "}
+              {props.question.bountyType &&
+              props.question.bountyType == "unpaid" ? (
                 <span
                   class="question-card-heading question-card-heading-show"
                   style={{ marginLeft: "1%" }}
                 >
-                  UpSkill
+                   UpSkill
                 </span>
-              ) : props.question.whitelistedSolvers && props.question.whitelistedSolvers.length ? (
+              ) : props.question.whitelistedSolvers &&
+                props.question.whitelistedSolvers.length ? (
                 <span
                   class="question-card-heading question-card-heading-show"
                   style={{ marginLeft: "1%" }}
@@ -141,12 +151,16 @@ export default function QuestionCard(props) {
             <Box className="ques-category-box">{category}</Box>
           </Grid>
         ))}
-
         <Grid item md={3} className="ques-detail">
-          <img src={time} alt="time" className="time" />
-          <p className="time-left">{timeLeft < 0 ? "-" : timeLeft}</p>
-          <p className="time-unit">{hoursOrDaysOrMinutes}</p>
+          {props.type === "completed" ? null : (
+            <>
+              <img src={time} alt="time" className="time" />
+              <p className="time-left">{timeLeft < 0 ? "-" : timeLeft}</p>
+              <p className="time-unit">{hoursOrDaysOrMinutes}</p>
+            </>
+          )}
         </Grid>
+
         <Grid item md={3}>
           <img src={account} alt="account" className="account" />
           <p className="no-of-solvers">{props.solCount}</p>
