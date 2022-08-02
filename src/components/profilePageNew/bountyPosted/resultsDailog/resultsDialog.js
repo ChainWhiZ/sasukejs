@@ -56,6 +56,7 @@ export default function ResultsDialog(props) {
       try {
         const trxObj = contract.methods
           .initiateEscrow(
+            walletAddress,
             props.question.issueUrl,
             solutions[selectedSolutionIndex].githubLink
           )
