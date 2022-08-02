@@ -83,6 +83,7 @@ export default function RouterComponent() {
               }}
             />
             <Route path="/solve" component={NewExplore} />
+            <Route path="/completed" component={NewExplore} />
             <Route path="/vote" component={NewExplore} />
             <Route path="/stake" component={StakingPage} />
             <Route path="/profile" component={ProfilePage} />
