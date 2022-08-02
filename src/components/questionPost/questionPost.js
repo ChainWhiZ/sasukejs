@@ -372,7 +372,7 @@ export default function QuestionPost() {
             totalAmount.toString()
           )
           .send({ from: walletAddress.toString() });
-        window.alert("Approving your token, wait for the next transaction");
+        window.alert("Your tokens will get approved! Please, wait for the another transaction for posting bounty");
         approvalTrx.on("receipt", async function (receipt) {
           const trxObj = contract.methods
             .postBounty(
