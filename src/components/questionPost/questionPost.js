@@ -355,9 +355,11 @@ export default function QuestionPost() {
       tokenContract = tokenBetsContract;
     }
     return await new Promise((resolve, reject) => {
-      const rewardAmount = reward * Math.pow(10, 18);
-      const communityRewardAmount = communityReward * Math.pow(10, 18);
-      const totalAmount = rewardAmount + communityRewardAmount;
+      /* global BigInt */
+      const rewardAmount = BigInt(reward * Math.pow(10, 18));
+      const communityRewardAmount = BigInt(communityReward * Math.pow(10, 18));
+      const totalAmount = BigInt(rewardAmount + communityRewardAmount);
+      console.log("in here")
       console.log(
         "total %s comm %s sol %s",
         totalAmount,
