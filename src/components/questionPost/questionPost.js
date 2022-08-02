@@ -279,9 +279,10 @@ export default function QuestionPost() {
     evaluationHash
   ) {
     return await new Promise((resolve, reject) => {
-      const rewardAmount = reward * Math.pow(10, 18);
-      const communityRewardAmount = communityReward * Math.pow(10, 18);
-      const totalAmount = rewardAmount + communityRewardAmount;
+      /* global BigInt */
+      const rewardAmount = BigInt(reward * Math.pow(10, 18));
+      const communityRewardAmount = BigInt(communityReward * Math.pow(10, 18));
+      const totalAmount = BigInt(rewardAmount + communityRewardAmount);
       console.log(
         "total %s comm %s sol %s",
         totalAmount,
@@ -310,7 +311,7 @@ export default function QuestionPost() {
               : "0",
             currency
           )
-          .send({ from: walletAddress.toString(), value: totalAmount });
+          .send({ from: walletAddress.toString(), value: totalAmount.toString() });
 
         trxObj.on("receipt", function (receipt) {
           console.log("Successfully done");
