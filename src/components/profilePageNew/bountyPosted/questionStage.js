@@ -23,7 +23,6 @@ export default function QuestionStage(props) {
   });
   const walletAddress = useRecoilValue(walletAddressAtom);
 
- 
   const handleBountyEnd = async () => {
     props.handleLoader(true);
     try {
