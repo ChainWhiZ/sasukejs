@@ -28,7 +28,7 @@ export default function MenuBar(props) {
     voteBounty: voteBounty,
     profile: whiteProfile,
     postBounty: postBounty,
-    completedBounty: blackCheck,
+    completedBounty: whiteCheck,
 
   });
   const toggleHover = (key, value) => {
