@@ -55,7 +55,7 @@ export default function NewExplore(props) {
       setData(allQuestions);
     } else {
       const filteredQuestions = allQuestions.filter((question) =>
-        question.question.title.includes(key)
+        (question.question.title).toLowerCase().includes(key.toLowerCase())
       );
       console.log(filteredQuestions);
       setData(filteredQuestions);
